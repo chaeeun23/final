@@ -1,13 +1,12 @@
 package com.gd.finalproject.vo;
 
 import lombok.Data;
-
+//대관예약
 @Data
 public class Rent {
-	private int rentNo;
-	private String rentPlace;
-	private String userId;
-	private String reservationDate;
-	private String createDate;
-	private String refund;
+	private String rentPlace; //대관장소
+	private String userId; //회원아이디
+	private String reservationDate; //대관하는 날짜
+	private String createDate; //신청날짜
+	private String refund; //환불여부
 }

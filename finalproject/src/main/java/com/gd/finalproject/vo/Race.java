@@ -1,10 +1,10 @@
 package com.gd.finalproject.vo;
 
 import lombok.Data;
-
+//운행
 @Data
 public class Race {
-	private int raceNo;
-	private int busNo;
-	private int routeNo;
+	private int raceNo; //운행번호
+	private int busNo; //버스번호
+	private int routeNo; //노선번호
 }

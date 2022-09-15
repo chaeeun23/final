@@ -1,7 +1,7 @@
 package com.gd.finalproject.vo;
 
 import lombok.Data;
-
+//(공지사항)사진
 @Data
 public class NoticeFile {
 	private int noticeFileNo;
