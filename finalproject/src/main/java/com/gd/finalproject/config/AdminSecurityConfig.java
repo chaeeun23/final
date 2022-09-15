@@ -30,8 +30,8 @@ public class AdminSecurityConfig {
                 // 요청 url 권한관련
                 .antMatcher("/admin/**")
                 .authorizeRequests(auth -> auth
-                               // .antMatchers("/**").permitAll() // 임시로 모든 경로 다 오픈
-                        .antMatchers("/admin/**").hasAuthority("ADMIN")) // 관리자 권한이 있는경우에만
+                                .antMatchers("/**").permitAll() // 임시로 모든 경로 다 오픈
+                        /*.antMatchers("/admin/**").hasAuthority("ADMIN")*/) // 관리자 권한이 있는경우에만
                 // 로그인 관련
                 .formLogin(form -> form
                         .loginPage("/admin/login-form") // 로그인페이지 주소
