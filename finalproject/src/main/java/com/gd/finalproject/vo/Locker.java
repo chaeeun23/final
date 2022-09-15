@@ -7,7 +7,4 @@ public class Locker {
 	private int lockerNo;
 	private int courseNo;
 	private int lockerPrice;
-	private String lockerStart;
-	private String lockerEnd;
-	private String refund;
 }
