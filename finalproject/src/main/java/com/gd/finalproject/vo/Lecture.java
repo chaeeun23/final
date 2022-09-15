@@ -9,8 +9,7 @@ public class Lecture {
 	private int locationNo;
 	private String lectureName;
 	private int lectureLimited;
-	private String lectureStartTime;
-	private String lectureEndTime;
+	private String lectureTime;
 	private int lecturePrice;
 	private String lectureStartDate;
 	private String lectureEndDate;
