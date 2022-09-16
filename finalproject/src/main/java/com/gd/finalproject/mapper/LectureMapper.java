@@ -16,6 +16,6 @@ public interface LectureMapper {
 	int getLectureTotal();
 
 	// lectureListOne
-	List<Lecture> selectLectureOne(@RequestParam(value="lectureNo") String lectureNo); 
+	List<Lecture> selectLectureOne(@RequestParam(value = "lectureNo") String lectureNo); 
 
 }

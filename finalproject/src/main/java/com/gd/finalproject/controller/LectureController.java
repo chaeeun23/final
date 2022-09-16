@@ -37,7 +37,7 @@ public class LectureController {
 		log.debug(TeamColor.MS + "LectureController(lectureOne-lectureNo) : " + lectureNo);
 		List<Lecture> lectureOne = lectureService.getLectureOne(lectureNo);
 		log.debug(TeamColor.MS + "LectureController(lectureOne) : " + lectureOne);
-		model.addAttribute("lectureOne",lectureOne);
+		model.addAttribute("lectureOne", lectureOne);
 		return "/employee/lectureOne";
 	}
 	
