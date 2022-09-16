@@ -24,7 +24,7 @@
             비밀번호 : <input class="form-control" type="password" name="memberPw" id="pw">
         </div>
         <div class="mb-3">
-            비밀번호 재확인: <input class="form-control" type="password" name="memberPw" id="pw2">
+            비밀번호 재확인: <input class="form-control" type="password" id="pw2">
         </div>
 
         <div class="mb-3">
@@ -40,25 +40,17 @@
             <td><input class="form-control" type="tel" name="memberEmail" id="email"></td>
         </div>
         <div class="mb-3">
-            주소 : <input class="form-control" type="text" name="addr" id="addr" readonly="readonly">
+            주소 : <input class="form-control" type="text" name="memberAddr" id="addr" readonly="readonly">
             <button class="btn btn-primary mt-2" type="button" id="addrBtn" onclick="sample2_execDaumPostcode()">
                 주소검색
             </button>
             <br>
-            상세주소 : <input class="form-control" type="text" name="subAddr" id="subAddr">
+            상세주소 : <input class="form-control" type="text" name="memberDetailAddr" id="subAddr">
         </div>
         <div class="mb-3">
             <td>생년월일</td>
             <td><input class="form-control" type="tel" name="memberBirth" id="birth"></td>
         </div>
-     <form>
-         <fieldset>
-             <legend>
-                 성별
-             </legend>
-         </fieldset>
-     </form>
-
         <div class="mt-2">
             <input class="btn btn-primary" id="joinBtn" type="button" value="가입하기">
             <a class="btn btn-primary" href="/">뒤로가기</a>

@@ -1,7 +1,7 @@
 package com.gd.finalproject.service;
 
 
-import com.gd.finalproject.dto.MemberDto;
+import com.gd.finalproject.vo.MemberDto;
 import com.gd.finalproject.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

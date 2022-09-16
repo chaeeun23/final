@@ -1,7 +1,6 @@
 package com.gd.finalproject.controller;
 
 
-import com.gd.finalproject.dto.MemberDto;
 import com.gd.finalproject.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +11,7 @@ import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import com.gd.finalproject.vo.MemberDto;
 
 import java.util.Map;
 
@@ -26,14 +26,6 @@ public class MemberController {
     public String loginForm(@ModelAttribute("error") String error,
                             Authentication authentication) {
         log.info("authentication = {}", authentication);
-        if (authentication != null) {
-            for (GrantedAuthority authority : authentication.getAuthorities()) {
-                if (authority.getAuthority().equals("ADMIN")) {
-                    return "/admin/home";
-                }
-            }
-            return "redirect:/suc/home";
-        }
         return "/member/login-form";
     }
 
@@ -66,6 +58,8 @@ public class MemberController {
 
     @PostMapping("/sign/sign-member")
     public String signMember(MemberDto memberDto) {
+        // 로그 확인하세여 넘어 오는지
+        log.info("memberDto = {}", memberDto);
         memberService.signMember(memberDto);
         return "redirect:/";
     }

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gd.finalproject.commons.TeamColor;
-import com.gd.finalproject.dto.PageNationDto;
+import com.gd.finalproject.vo.PageNationDto;
 import com.gd.finalproject.mapper.LectureMapper;
 import com.gd.finalproject.util.PageNationUtil;
 import com.gd.finalproject.vo.Lecture;
