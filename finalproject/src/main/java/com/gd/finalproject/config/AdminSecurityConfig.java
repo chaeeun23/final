@@ -22,7 +22,6 @@ public class AdminSecurityConfig {
     private final PasswordEncoder passwordEncoder;
 
 
-
     @Bean
     public SecurityFilterChain filterChain2(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
