@@ -26,10 +26,10 @@
 	<div class="container">
 	<br>
 			<div class="d-flex justify-content-end">
-				<a href="" class="btn btn-primary btn-sm">로그인</a>&nbsp;<a href="" class="btn btn-primary btn-sm">회원가입</a>
+				<a href="/login-form" class="btn btn-primary btn-sm">로그인</a>&nbsp;<a href="/sign/sign-form" class="btn btn-primary btn-sm">회원가입</a>
 			</div>
-			
-		<!-- 로고 -->	
+
+		<!-- 로고 -->
 		<div class="d-flex justify-content-center">
 			<img src="/resource/mainImg/logo.png" style="max-width:100%; height:auto;">
 		</div>

@@ -37,7 +37,6 @@ public class MemberService implements UserDetailsService {
     public UserDetails loadUserByUsername(String memberId) throws UsernameNotFoundException {
         //여기서 받은 유저 패스워드와 비교하여 로그인 인증
         MemberDto memberDto = memberMapper.getMember(memberId);
-        System.out.println(memberDto);
         if (memberDto == null) {
             throw new UsernameNotFoundException("User not authorized.");
         }

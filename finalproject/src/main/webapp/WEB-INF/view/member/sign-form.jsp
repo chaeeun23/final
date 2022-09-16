@@ -13,63 +13,153 @@
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-<div class="container px-2 px-lg-2 mt-2">
-    <h1>회원가입</h1>
-    <form method="post" action="/sign/sign-member" id="sign-form">
-        <div class="mb-3">
-            아이디 : <input class="form-control" type="text" name="memberId" id="id">
-            <button id="idCheck" type="button" class="btn btn-primary mt-2">중복확인</button>
+<div class="d-flex justify-content-center container mt-2">
+    <form method="post" action="/sign/sign-member" id="sign-form"
+          class="w-75 border p-3 bg-white shadow rounded align-self-center">
+        <div class="text-center">
+            <h1>회원가입</h1>
         </div>
         <div class="mb-3">
-            비밀번호 : <input class="form-control" type="password" name="memberPw" id="pw">
+            아이디 <span style="color: red">*</span>
+            <input class="form-control" type="text" name="memberId" id="id" aria-describedby="invalid-id">
+            <div class="valid-feedback">
+                중복체크완료!
+            </div>
+            <div id="invalid-id" class="invalid-feedback">
+                중복 확인을 해주세요.
+            </div>
+            <button id="idCheck" type="button" class="btn btn-secondary mt-2 rounded-0">중복확인</button>
         </div>
         <div class="mb-3">
-            비밀번호 재확인: <input class="form-control" type="password" id="pw2">
-        </div>
-
-        <div class="mb-3">
-            <td>이름</td>
-            <td><input class="form-control" type="text" name="memberName" id="name"></td>
-        </div>
-        <div class="mb-3">
-            <td>전화번호</td>
-            <td><input class="form-control" type="tel" name="memberPhone" id="phone"></td>
+            비밀번호 <span style="color: red">*</span>
+            <input class="form-control" type="password" name="memberPw" id="pw" aria-describedby="invalid-pw">
+            <div class="valid-feedback">
+                사용 가능합니다.
+            </div>
+            <div id="invalid-pw" class="invalid-feedback">
+                비밀번호는 10자이상 20자 이하 영문,특수문자,숫자 조합으로 입력해주세요.
+            </div>
         </div>
         <div class="mb-3">
-            <td>이메일</td>
-            <td><input class="form-control" type="tel" name="memberEmail" id="email"></td>
+            비밀번호 재확인 <span style="color: red">*</span>
+            <input class="form-control" type="password" id="checkPw" aria-describedby="invalid-pwCheck">
+            <div class="valid-feedback">
+                비밀번호가 일치합니다.
+            </div>
+            <div id="invalid-pwCheck" class="invalid-feedback">
+                비밀번호가 일치하지 않습니다.
+            </div>
         </div>
         <div class="mb-3">
-            주소 : <input class="form-control" type="text" name="memberAddr" id="addr" readonly="readonly">
-            <button class="btn btn-primary mt-2" type="button" id="addrBtn" onclick="sample2_execDaumPostcode()">
+            <td>이름<span style="color: red">*</span></td>
+            <td>
+                <input class="form-control valid-check" type="text" name="memberName" id="name" aria-describedby="invalid-nameCheck">
+                <div  id="invalid-nameCheck" class="invalid-feedback">
+                 이름을 입력해주세요
+                </div>
+            </td>
+        </div>
+        <div class="mb-3">
+            <td>전화번호<span style="color: red">*</span></td>
+            <td>
+                <input class="form-control valid-check" type="tel" name="memberPhone" id="phone"  aria-describedby="invalid-phoneCheck">
+                <div id="invalid-phoneCheck" class="invalid-feedback">
+                    전화번호를 입력해주세요
+                </div>
+            </td>
+        </div>
+        <div class="mb-3">
+            <td>이메일<span style="color: red">*</span></td>
+            <td>
+                <input class="form-control valid-check" type="tel" name="memberEmail" id="email" aria-describedby="invalid-emailCheck">
+                <div id="invalid-emailCheck" class="invalid-feedback">
+                    이메일을 입력해주세요
+                </div>
+            </td>
+        </div>
+        <div class="mb-3">
+            주소<span style="color: red">*</span>
+            <input class="form-control" type="text" name="memberAddr" id="addr" readonly="readonly" aria-describedby="invalid-addrCheck">
+            <div id="invalid-addrCheck" class="invalid-feedback">
+                주소를 입력해주세요
+            </div>
+            <button class="btn btn-secondary mt-2 rounded-0" type="button" id="addrBtn"
+                    onclick="sample2_execDaumPostcode()">
                 주소검색
             </button>
             <br>
-            상세주소 : <input class="form-control" type="text" name="memberDetailAddr" id="subAddr">
+            상세주소
+            <input class="form-control" type="text" name="memberDetailAddr" id="subAddr">
         </div>
         <div class="mb-3">
             <td>생년월일</td>
             <td><input class="form-control" type="tel" name="memberBirth" id="birth"></td>
         </div>
         <div class="mt-2">
-            <input class="btn btn-primary" id="joinBtn" type="button" value="가입하기">
-            <a class="btn btn-primary" href="/">뒤로가기</a>
+            <input class="btn btn-secondary mt-2 rounded-0" id="joinBtn" type="button" value="가입하기">
+            <a class="btn btn-secondary mt-2 rounded-0" href="/">뒤로가기</a>
         </div>
     </form>
 </div>
+<!-- iOS에서는 position:fixed 버그가 있음, 적용하는 사이트에 맞게 position:absolute 등을 이용하여 top,left값 조정 필요 -->
+<div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
+    <img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer"
+         style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()"
+         alt="닫기 버튼">
+</div>
 <script>
+    function addrChange() {
+        console.log("안녕")
+    }
+
+    document.querySelectorAll(".valid-check").forEach(e => e.addEventListener('keyup', function (ev) {
+        if (this.classList.contains("valid-check")) {
+            if (this.value.trim() != '') {
+                this.classList.remove("is-invalid");
+                this.className += ' is-valid';
+            } else {
+                this.classList.remove("is-valid");
+            }
+        }
+    }))
+
+    document.querySelector("#pw").addEventListener('keyup', function (ev) {
+        let check = /^(?=.*[a-zA-Z])(?=.*[!@#$%^~*+=-])(?=.*[0-9]).{10,19}$/;
+        if (!check.test(this.value)) {
+            this.classList.remove("is-valid");
+            this.className += ' is-invalid';
+        } else {
+            this.classList.remove("is-invalid");
+            this.className += ' is-valid';
+        }
+    })
+
+    document.querySelector("#checkPw").addEventListener('keyup', function (ev) {
+        let pw = document.querySelector("#pw").value;
+        if (pw == this.value) {
+            this.classList.remove("is-invalid");
+            this.className += ' is-valid';
+        } else {
+            this.classList.remove("is-valid");
+            this.className += ' is-invalid';
+        }
+    })
     // 아이디 중복체크
     document.querySelector('#idCheck').addEventListener('click', function (ev) {
-        let id = document.querySelector('#id').value;
+        let id = document.querySelector('#id').value.trim();
+        if (id == '') {
+            alert("아이디를 입력해주세요");
+            return
+        }
         let url = '/sign/id-check?id=' + id;
         fetch(url, {
             method: 'GET'
         }).then(res => res.text())
             .then(data => {
-                console.log(data)
                 if (data == 'ok') {
-                    alert('사용 가능합니다.');
                     document.querySelector('#id').setAttribute('readonly', 'readonly');
+                    document.querySelector('#id').classList.remove('is-invalid');
+                    document.querySelector('#id').className += ' is-valid';
                 } else {
                     alert('이미 존재하는 아이디입니다 다시 시도해주세요')
                 }
@@ -78,46 +168,46 @@
     // 회원가입 버튼 클릭시
     document.querySelector('#joinBtn').addEventListener('click', function (ev) {
         let id_tag = document.querySelector('#id');
-        let pw = document.querySelector('#pw').value;
-        let name = document.querySelector('#name').value.trim();
-        let phone = document.querySelector('#age').value.trim();
-        let email = document.querySelector('#name').value.trim();
-        let addr = document.querySelector('#addr').value.trim();
-        let birth = document.querySelector('#age').value.trim();
-        if (id_tag.value.trim() == '') {
-            alert('아이디는 필수 입니다')
-            return;
-        }
-        if (pw == '') {
-            alert('비밀번호는 필수 입니다')
-            return;
-        }
-        if (name == '') {
-            alert('이름은 필수 입니다')
-            return;
-        }
-        if (phone == '') {
-            alert('나이는 필수 입니다')
-            return;
-        }
-        if (email == '') {
-            alert('이메일은 필수 입니다')
-            return;
-        }
+        let pw = document.querySelector('#pw');
+        let name = document.querySelector('#name');
+        let phone = document.querySelector('#phone');
+        let email = document.querySelector('#email');
+        let addr = document.querySelector('#addr');
+        let birth = document.querySelector('#birth');
+        let checkPw = document.querySelector("#checkPw");
 
-        if (addr == '') {
-            alert('주소는 필수 입니다')
-            return;
-        }
-
-        if (birth == '') {
-            alert('성별은 필수 입니다')
-            return;
-        }
         if (!id_tag.hasAttribute('readonly')) {
-            alert('중복확인 해주세요')
+            id_tag.className += ' is-invalid';
             return;
         }
+
+        if (!pw.classList.contains('is-valid')) {
+            pw.className += ' is-invalid';
+            return;
+        }
+        if (!checkPw.classList.contains('is-valid')) {
+            checkPw.className += ' is-invalid';
+            return;
+        }
+
+        if (!name.classList.contains('is-valid')) {
+            name.className += ' is-invalid';
+            return;
+        }
+        if (!phone.classList.contains('is-valid')) {
+            phone.className += ' is-invalid';
+            return;
+        }
+        if (!email.classList.contains('is-valid')) {
+            email.className += ' is-invalid';
+            return;
+        }
+
+        if (!addr.classList.contains('is-valid')) {
+            addr.className += ' is-invalid';
+            return;
+        }
+
         document.querySelector('#sign-form').submit();
     })
 
@@ -175,7 +265,7 @@
 
                 // $('#addr').val(data.zonecode + ' ' + addr);
                 document.getElementById('addr').value = data.zonecode + ' ' + addr;
-
+                document.getElementById('addr').className += ' is-valid'
 
                 // 커서를 상세주소 필드로 이동한다.
                 // document.getElementById("sample2_detailAddress").focus();

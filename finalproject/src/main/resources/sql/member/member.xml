@@ -33,10 +33,10 @@
     <insert id="signMember" parameterType="com.gd.finalproject.vo.MemberDto">
         INSERT INTO member
         (member_id, member_pw, member_name, member_phone, member_email, member_addr, member_detailAddr, member_birth,
-         member_gender, create_date, update_date)
-        VALUES (#{dto.memberId}, #{dto.memberPw}, #{dto.member_name}, #{dto.memberPhone}, #{dto.member_email},
-                #{dto.member_addr},
-                #{dto.member_detailAddr}, #{dto.member_birth}, #{dto.member_gender}, NOW(), NOW());
+         create_date, update_date)
+        VALUES (#{dto.memberId}, #{dto.memberPw}, #{dto.memberName}, #{dto.memberPhone}, #{dto.memberEmail},
+                #{dto.memberAddr},
+                #{dto.memberDetailAddr}, #{dto.memberBirth}, NOW(), NOW());
     </insert>
 
     <!-- 회원 권한 넣기 -->
@@ -51,6 +51,6 @@
         INSERT INTO auth
             (member_id, member_auth)
         VALUES (#{dto.memberId}, 'USER'),
-               (#{dto.memberId}, 'ADMIN');
+               (#{dto.memberId}, 'EMPLOYEE');
     </insert>
 </mapper>

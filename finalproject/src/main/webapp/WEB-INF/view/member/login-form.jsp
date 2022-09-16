@@ -42,7 +42,6 @@
         </c:if>
         <div class="text-center mt-3">
             <button type="submit" id="boardBtn" class="btn btn-primary rounded-0 me-1">고객 로그인</button>
-            <a href="/sign/sign-form" class="btn btn-primary rounded-0">회원가입</a>
             <a href="/admin/login-form" type="submit" class="btn btn-primary rounded-0 me-1">관리자 로그인</a>
         </div>
         <div class="text-center mt-3">

@@ -42,7 +42,7 @@ public class SecurityConfig {
                         .loginPage("/login-form") // 로그인페이지 주소
                         .loginProcessingUrl("/member/login") // 로그인 검증할 url
                         .defaultSuccessUrl("/home", true) // 성공시 이동할 url
-                        .failureUrl("/?error=fail") // 실패시 이동할 url
+                        .failureUrl("/login-form?error=fail") // 실패시 이동할 url
                         .permitAll())
                 // 카카오 로그인 관련
                 .oauth2Login(oauth -> oauth.loginPage("/login-form")
