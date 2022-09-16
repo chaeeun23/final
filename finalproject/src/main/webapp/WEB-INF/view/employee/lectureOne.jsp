@@ -15,8 +15,6 @@
 		<br>
 		<br>
 	</div>
-	
-	
 	<!-- 총 관리자만 강좌 추가 가능 -->
 	<div class="container">
 	<h1 style="text-align:center;">강좌 추가하기</h1>
@@ -25,15 +23,15 @@
 	<table class="table table-bordered" style="text-align:center;">
 		<tr> 
 			<td>강좌번호</td>
-			<td>${lectureOne.lectureNo} </td>
+			 <td>${lectureOne.lectureNo} </td>
 		</tr>
 		<tr> 
 			<td>강좌명</td>
 			<td><a href="${pageContext.request.contextPath}/employee/">${lectureOne.lectureName}</a></td>
 		</tr>
-		<tr> 
+		<tr>
 			<td>강좌요일</td>
-			<td>${lectureOne.lectureName}</td>
+			<td>${lectureOne.lectureDay}</td>
 		</tr>
 		<tr> 
 			<td>강사이름</td>
@@ -41,31 +39,31 @@
 		</tr>
 		<tr> 
 			<td>성별</td>
-			<td>${lectureOne.lectureName}</td>
+			<td>${lectureOne.memberGender}</td>
 		</tr>
 		<tr> 
 			<td>장소번호</td>
-			<td>${lectureOne.lectureName}</td>
+			<td>${lectureOne.locationNo}</td>
 		</tr>
 		<tr> 
 			<td>수강정원</td>
-			<td>${lectureOne.lectureName}</td>
+			<td>${lectureOne.lectureLimited}</td>
 		</tr>
 		<tr> 
 			<td>수업시간</td>
-			<td></td>
+			<td>${lectureOne.lectureTime}</td>
 		</tr>
 		<tr> 
 			<td>강의금액</td>
-			<td></td>
+			<td>${lectureOne.lecturePrice}</td>
 		</tr>
 		<tr> 
 			<td>개강일</td>
-			<td></td>
+			<td>${lectureOne.lectureStartDate}</td>
 		</tr>
 		<tr> 
 			<td>종강일</td>
-			<td></td>
+			<td>${lectureOne.lectureEndDate}</td>
 		</tr>
 		<tr> 
 			<td>강좌소개</td>

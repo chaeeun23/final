@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.finalproject.commons.TeamColor;
@@ -35,7 +36,7 @@ public class LectureController {
 	@GetMapping("/lectureOne") 
 	public String lectureOne(Model model, @RequestParam(value="lectureNo") String lectureNo) {
 		log.debug(TeamColor.MS + "LectureController(lectureOne-lectureNo) : " + lectureNo);
-		List<Lecture> lectureOne = lectureService.getLectureOne(lectureNo);
+		Map<String,Object> lectureOne = lectureService.getLectureOne(lectureNo);
 		log.debug(TeamColor.MS + "LectureController(lectureOne) : " + lectureOne);
 		model.addAttribute("lectureOne", lectureOne);
 		return "/employee/lectureOne";

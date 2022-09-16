@@ -1,73 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.finalproject.mapper.LectureMapper">
-	<!-- lectureList -->
-	<select id="selectLectureList" resultType="map"> <!-- map : java.util.Map 약식표현, list, string ,int(java.lang.Integer),... -->
-		SELECT
-			l.lecture_no lectureNo,
-			l.instructor_id instructorId,
-			l.location_no locationNo,
-			l.lecture_name lectureName,
-			l.lecture_limited lectureLimited,
-			l.lecture_time lectureTime,
-			l.lecture_price lecturePrice,
-			l.lecture_startDate lectureStartDate,
-			l.lecture_endDate lectureEndDate,
-			m.member_name memberName,
-			GROUP_CONCAT(d.lecture_day 
-			ORDER BY CASE d.lecture_day
-		    WHEN '월' THEN 1
-		    WHEN '화' THEN 2
-		    WHEN '수' THEN 3
-		    WHEN '목' THEN 4
-		    WHEN '금' THEN 5
-		    END ASC
-				) lectureDay
-		FROM lecture l LEFT OUTER JOIN member m 
-		ON m.member_id = l.instructor_id
-		JOIN lectureday d
-		ON l.lecture_no = d.lecture_no
-		GROUP BY l.lecture_no
-		ORDER BY l.lecture_name
-		 LIMIT #{beginRow},#{rowPerPage} 
-		
-	</select>
-	
-	<!-- lectureList 페이지네이션 토탈 -->
-	  <select id="getLectureTotal" resultType="java.lang.Integer">
-        SELECT COUNT(*) FROM lecture 
+    <!-- lectureList -->
+    <select id="selectLectureList"
+            resultType="map"> <!-- map : java.util.Map 약식표현, list, string ,int(java.lang.Integer),... -->
+        SELECT
+        l.lecture_no lectureNo,
+        l.instructor_id instructorId,
+        l.location_no locationNo,
+        l.lecture_name lectureName,
+        l.lecture_limited lectureLimited,
+        l.lecture_time lectureTime,
+        l.lecture_price lecturePrice,
+        l.lecture_startDate lectureStartDate,
+        l.lecture_endDate lectureEndDate,
+        m.member_name memberName,
+        GROUP_CONCAT(d.lecture_day
+        ORDER BY CASE d.lecture_day
+        WHEN '월' THEN 1
+        WHEN '화' THEN 2
+        WHEN '수' THEN 3
+        WHEN '목' THEN 4
+        WHEN '금' THEN 5
+        END ASC
+        ) lectureDay
+        FROM lecture l JOIN member m ON m.member_id = l.instructor_id
+        LEFT JOIN lectureday d ON l.lecture_no = d.lecture_no
+        GROUP BY l.lecture_no
+        LIMIT #{beginRow},#{rowPerPage}
     </select>
-    
+
+    <!-- lectureList 페이지네이션 토탈 -->
+    <select id="getLectureTotal" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM lecture
+    </select>
+
     <!-- lectureOne -->
-    <select id="selectLectureOne" resultType="map"> <!-- map : java.util.Map 약식표현, list, string ,int(java.lang.Integer),... -->
-		SELECT
-			l.lecture_no lectureNo,
-			l.instructor_id instructorId,
-			l.location_no locationNo,
-			l.lecture_name lectureName,
-			l.lecture_limited lectureLimited,
-			l.lecture_time lectureTime,
-			l.lecture_price lecturePrice,
-			l.lecture_startDate lectureStartDate,
-			l.lecture_endDate lectureEndDate,
-			m.member_name memberName,
-			m.member_gender memberGender,
-			GROUP_CONCAT(d.lecture_day 
-			ORDER BY CASE d.lecture_day
-		    WHEN '월' THEN 1
-		    WHEN '화' THEN 2
-		    WHEN '수' THEN 3
-		    WHEN '목' THEN 4
-		    WHEN '금' THEN 5
-		    END ASC
-				) lectureDay
-		FROM lecture l LEFT OUTER JOIN member m 
-		ON m.member_id = l.instructor_id
-		JOIN lectureday d
-		ON l.lecture_no = d.lecture_no
-		GROUP BY l.lecture_no
-		ORDER BY l.lecture_name
-	</select>
-    
-	
+    <select id="selectLectureOne"
+            resultType="map"> <!-- map : java.util.Map 약식표현, list, string ,int(java.lang.Integer),... -->
+        SELECT
+        l.lecture_no lectureNo,
+        l.instructor_id instructorId,
+        l.location_no locationNo,
+        l.lecture_name lectureName,
+        l.lecture_limited lectureLimited,
+        l.lecture_time lectureTime,
+        l.lecture_price lecturePrice,
+        l.lecture_startDate lectureStartDate,
+        l.lecture_endDate lectureEndDate,
+        m.member_name memberName,
+        m.member_gender memberGender,
+        GROUP_CONCAT(d.lecture_day
+        ORDER BY CASE d.lecture_day
+        WHEN '월' THEN 1
+        WHEN '화' THEN 2
+        WHEN '수' THEN 3
+        WHEN '목' THEN 4
+        WHEN '금' THEN 5
+        END ASC
+        ) lectureDay
+        FROM lecture l LEFT OUTER JOIN member m
+        ON m.member_id = l.instructor_id
+        JOIN lectureday d
+        ON l.lecture_no = d.lecture_no
+        WHERE l.lecture_no = #{lectureNo}
+        GROUP BY l.lecture_no
+    </select>
+
+
 </mapper>

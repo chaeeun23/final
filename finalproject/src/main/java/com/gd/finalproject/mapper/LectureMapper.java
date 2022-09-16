@@ -1,6 +1,8 @@
 package com.gd.finalproject.mapper;
 
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +18,6 @@ public interface LectureMapper {
 	int getLectureTotal();
 
 	// lectureListOne
-	List<Lecture> selectLectureOne(@RequestParam(value = "lectureNo") String lectureNo); 
+	Map<String,Object> selectLectureOne(@Param("lectureNo") String lectureNo);
 
 }
