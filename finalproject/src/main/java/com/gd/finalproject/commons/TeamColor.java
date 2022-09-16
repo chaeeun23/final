@@ -2,8 +2,8 @@ package com.gd.finalproject.commons;
 
 public class TeamColor {
 	public static final String JM = "\u001B[31m"; // 빨간색(정미)
-	public static final String YW= "\u001B[34m"; // 파란색(영욱)
-	public static final String MS = "\u001B[32m"; // 초록색(미선)
+	public static final String YW= "\u001B[43m"; // 백그라운드노랑글씨흰색(영욱)
+	public static final String MS = "\u001B[93m"; // 노랑색(미선)
 	public static final String CE = "\u001B[35m"; // 보라색(채은)
 //    public static final String ANSI_RESET = "\u001B[0m";
 //    public static final String ANSI_BLACK = "\u001B[30m";

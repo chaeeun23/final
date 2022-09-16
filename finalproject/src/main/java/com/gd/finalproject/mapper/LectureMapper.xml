@@ -4,16 +4,18 @@
 	<!-- lectureList -->
 	<select id="selectLectureList" resultType="map"> <!-- map : java.util.Map 약식표현, list, string ,int(java.lang.Integer),... -->
 		SELECT
-			lecture_no lectureNo,
-			instructor_id instructorNo,
-			location_no locationNo,
-			lecture_name lectureName,
-			lecture_limited lectureLimited,
-			lecture_time lectureTime,
-			lecture_price lecturePrice,
-			lecture_startDate lectureStartDate,
-			lecture_endDate lectureEndDate
-		FROM lecture 
+			l.lecture_no lectureNo,
+			l.instructor_id instructorId,
+			l.location_no locationNo,
+			l.lecture_name lectureName,
+			l.lecture_limited lectureLimited,
+			l.lecture_time lectureTime,
+			l.lecture_price lecturePrice,
+			l.lecture_startDate lectureStartDate,
+			l.lecture_endDate lectureEndDate,
+			m.member_name memberName			
+		FROM lecture l LEFT OUTER JOIN member m
+		ON m.member_id = l.instructor_id
 		ORDER BY lecture_name
 	</select>
 </mapper>

@@ -18,16 +18,20 @@ import lombok.extern.slf4j.Slf4j;
 public class LectureController {
 	@Autowired LectureService lectureService;
 	
-	// 강좌리스트
-	@GetMapping("/lectureList")
+	// 강좌 리스트
+	@GetMapping("/employeeLectureList")
 	public String lectureList(Model model) {
 		List<Map<String,Object>> lectureList = lectureService.getLectureList();
-		System.out.println(lectureList);
-		log.debug(TeamColor.YW+"Log test");
-		log.debug(TeamColor.CE+"Log test");
-		log.debug(TeamColor.MS+"Log test");
-		log.debug(TeamColor.JM+"Log test");
+		log.debug(TeamColor.MS + lectureList);
 		model.addAttribute("lectureList", lectureList);
-		return "/admin/adminLectureList";
+		return "/employee/lectureList";
 	}
+	
+	/*// 강좌 상세페이지
+	@GetMapping("/lectureOne")
+	public String lectureOne() {
+		
+	}
+	
+*/
 }
