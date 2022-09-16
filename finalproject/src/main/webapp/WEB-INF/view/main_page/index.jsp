@@ -10,8 +10,8 @@
 <style>
 .image-thumbnail {
     width:100%;
-    height:100%;
-    object-fit:cover;
+    height:550px;
+    object-fit:fill;   
 }
 
 img {
