@@ -32,7 +32,8 @@ public class TestService {
     }
 
     public void test2() {
-
+        System.out.println("나 수정 로직3");
+        System.out.println("나 수정 로직3");
         System.out.println("나 수정 로직3");
         System.out.println("나 수정 로직3");
         System.out.println("로직0");
