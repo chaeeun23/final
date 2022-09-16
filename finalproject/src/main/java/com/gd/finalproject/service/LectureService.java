@@ -24,17 +24,23 @@ public class LectureService{
 	
 	// 강좌리스트
 	public Map<String,Object>getLectureList(String current) {
-		 // 보드 총갯수
+		 // 총 갯수
         int total = lectureMapper.getLectureTotal();
+        log.debug(TeamColor.MS + "LectureService(total) : " + total);
+        
         // 만들어논 메서드
         PageNationDto pageNation = PageNationUtil.getPageNation(current, total, "/employee/lectureList", 10);
-        // 보드리스트 가져오기
+        log.debug(TeamColor.MS + "LectureService(pageNation) : " + pageNation);
+        
+        // lectureList 가져오기
         List<Lecture> lectureList = lectureMapper.getLectureList(pageNation.getBeginRow(), pageNation.getRowPerPage());
-        // 담을통
+        log.debug(TeamColor.MS + "LectureService(lectureList) : " + lectureList);
+        
+        // 객체 생성후 넣기
         Map<String, Object> map = new HashMap<>();
         map.put("pageNation", pageNation);
         map.put("lectureList", lectureList);
-
+        
         return map;
 	}
 
