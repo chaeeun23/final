@@ -9,13 +9,16 @@
 <body>
 	<h1>강좌 상세페이지</h1>
 	<table border="1">
-	<%-- <c:forEach var="b" items="${BoardList}"> --%>
 		<tr> 
 			<td>강좌번호</td>
-			<td></td>
+			<td>${lectureNo}</td>
 		</tr>
 		<tr> 
 			<td>강좌명</td>
+			<td></td>
+		</tr>
+		<tr> 
+			<td>강좌요일</td>
 			<td></td>
 		</tr>
 		<tr> 
@@ -54,7 +57,6 @@
 			<td>강좌소개</td>
 			<td><textarea rows="3" cols="100" ></textarea></td>
 		</tr>
-		<%-- </c:forEach> --%>
 	</table>
 </body>
 </html>

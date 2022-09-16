@@ -22,16 +22,20 @@ public class LectureController {
 	@GetMapping("/employeeLectureList")
 	public String lectureList(Model model) {
 		List<Map<String,Object>> lectureList = lectureService.getLectureList();
-		log.debug(TeamColor.MS + lectureList);
+		log.debug(TeamColor.MS + "LectureController(employeeLectureList) : " + lectureList);
 		model.addAttribute("lectureList", lectureList);
 		return "/employee/lectureList";
 	}
 	
-	/*// 강좌 상세페이지
+	// 강좌 상세페이지
 	@GetMapping("/lectureOne")
 	public String lectureOne() {
-		
+		List<Map<String,Object>> lectureOne = lectureService.getLectureList();
+		log.debug(TeamColor.MS + "LectureController(lectureOne) : " + lectureOne);
+		return "/employee/lectureOne";
 	}
 	
-*/
+	
+	
+	
 }

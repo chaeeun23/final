@@ -13,29 +13,30 @@
 	<h1>강좌리스트</h1>
 	<div>
 		<!-- employee 와 총관리자인 권한이면 강좌추가버튼 보이게 -->
-<%-- 	<c:if test="${member eq 'employee'}">
-		<a href="${pageContext.request.contextPath }/addLecture/">강좌 추가</a>
-	</c:if> --%>
+<%-- 	<c:if test="${member eq 'admin'}">
+			<a href="${pageContext.request.contextPath }/addLecture/">강좌 추가</a>
+		</c:if> --%>
 	
 	</div>
 	<table border="1">
 		<tr>
 			<th>강사이름</th>
 			<th>강좌명</th>
+			<th>수강요일</th>
 			<th>수강인원</th>
 			<th>수업시간</th>
 			<th>개강일</th>
 			<th>종강일</th>
 		</tr>
-			<c:forEach var="l" items="${lectureList}">
+		<c:forEach var="l" items="${lectureList}">
 		<tr>
-			<td>${l.instructorId}</td>	<!-- 강사이름 조인 -->
-			<td>${l.lectureName}</td>
+			<td>${l.memberName}</td>	
+			<td><a href="${pageContext.request.contextPath}/lectureOne?lectureName=${l.lectureName}">${l.lectureName}</a></td>
+			<td>${l.lectureDay} </td>
 			<td>${l.lectureLimited}</td>
 			<td>${l.lectureTime}</td>
 			<td>${l.lectureStartDate}</td>
 			<td>${l.lectureEndDate}</td>
-
 		</tr>
 		</c:forEach>
 	</table>

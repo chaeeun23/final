@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.finalproject.mapper.LectureMapper">
-	<!-- lectureList -->
+	<!-- lectureList, lectureOne -->
 	<select id="selectLectureList" resultType="map"> <!-- map : java.util.Map 약식표현, list, string ,int(java.lang.Integer),... -->
 		SELECT
 			l.lecture_no lectureNo,
@@ -13,9 +13,17 @@
 			l.lecture_price lecturePrice,
 			l.lecture_startDate lectureStartDate,
 			l.lecture_endDate lectureEndDate,
-			m.member_name memberName			
-		FROM lecture l LEFT OUTER JOIN member m
+			m.member_name memberName,
+			m.member_gender memberGender,
+			GROUP_CONCAT(d.lecture_day ORDER BY l.lecture_no ASC) lectureDay
+		FROM lecture l LEFT OUTER JOIN member m 
 		ON m.member_id = l.instructor_id
-		ORDER BY lecture_name
+		JOIN lectureday d
+		ON l.lecture_no = d.lecture_no
+		GROUP BY l.lecture_no
+		ORDER BY l.lecture_name
 	</select>
+	
+	
+	
 </mapper>
