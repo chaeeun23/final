@@ -13,8 +13,8 @@
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-<div class="container px-4 px-lg-5 mt-5">
-    <h1>회원가입 폼</h1>
+<div class="container px-2 px-lg-2 mt-2">
+    <h1>회원가입</h1>
     <form method="post" action="/sign/sign-member" id="sign-form">
         <div class="mb-3">
             아이디 : <input class="form-control" type="text" name="memberId" id="id">
