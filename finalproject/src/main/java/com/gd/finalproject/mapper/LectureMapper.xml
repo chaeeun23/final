@@ -60,9 +60,9 @@
         WHEN '금' THEN 5
         END ASC
         ) lectureDay
-        FROM lecture l LEFT OUTER JOIN member m
+        FROM lecture l JOIN member m
         ON m.member_id = l.instructor_id
-        JOIN lectureday d
+        LEFT JOIN lectureday d
         ON l.lecture_no = d.lecture_no
         WHERE l.lecture_no = #{lectureNo}
         GROUP BY l.lecture_no
