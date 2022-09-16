@@ -7,17 +7,15 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-.image-box {
-    width:1295px;
-    height:600px;
-    overflow:hidden;
-    margin:0 auto;
-}
-
 .image-thumbnail {
     width:100%;
     height:100%;
     object-fit:cover;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
 }
 </style>
 </head>
@@ -29,14 +27,14 @@
 
 	<div class="container">
 	
-		<div class="image-box">
-			<img class="image-thumbnail" src="/resource/mainImg/main.jpg" sytle="max-width:100%;">
-		</div>
+			<img class="image-thumbnail" src="/resource/mainImg/main.jpg" style="max-width:100%;">
+
 	</div>
+	<br><br>
 	
 	<!-- footer -->
 	<div>
-		<c:import url="/resource/inc/footerjsp"></c:import>
+		<c:import url="/resource/inc/footer.jsp"></c:import>
 	</div>
 </body>
 </html>

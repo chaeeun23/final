@@ -30,7 +30,7 @@
 			
 		<!-- 로고 -->	
 		<div class="d-flex justify-content-center">
-			<img src="/resource/mainImg/logo.png">
+			<img src="/resource/mainImg/logo.png" style="max-width:100%; height:auto;">
 		</div>
 
 
@@ -59,8 +59,7 @@
 										data-toggle="dropdown">이용안내</a>
 										<div class="dropdown-menu">
 											<a class="dropdown-item" href="#">강좌안내</a> <a
-												class="dropdown-item" href="#">강좌안내</a> <a
-												class="dropdown-item" href="#">사물함안내</a> <a
+												class="dropdown-item" href="#">셔틀안내</a> <a
 												class="dropdown-item" href="#">대관안내</a>
 										</div></li>
 								</div>
