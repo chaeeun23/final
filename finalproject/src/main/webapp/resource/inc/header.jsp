@@ -22,81 +22,87 @@
 	crossorigin="anonymous"></script>
 </head>
 <body>
-	<div class="d-flex justify-content-center">
-		<img src="/resource/mainImg/logo.png">
-	</div>
+	<div class="container">
+	<br>
+			<div class="d-flex justify-content-end">
+				<a href="" class="btn btn-primary btn-sm">로그인</a>&nbsp;<a href="" class="btn btn-primary btn-sm">회원가입</a>
+			</div>
+			
+		<!-- 로고 -->	
+		<div class="d-flex justify-content-center">
+			<img src="/resource/mainImg/logo.png">
+		</div>
 
-	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-		<div class="container-fluid">
-			<div class="collapse navbar-collapse" id="navbarColor01">
-				<div class="container">
-					<div class="row">
 
-
-						<ul class="navbar-nav mr-auto">
-							<!-- <ul class="navbar-nav me-auto"> -->
-							<div class="col-sm-2">
-								<!-- 카테고리 드롭다운 -->
-								<li class="nav-item dropdown"><a
-									class="nav-link dropdown-toggle" href="#" id="navbardrop"
-									data-toggle="dropdown"> Dropdown link </a>
-									<div class="dropdown-menu">
-										<a class="dropdown-item" href="#">Action</a> <a
-											class="dropdown-item" href="#">Another action</a> <a
-											class="dropdown-item" href="#">Something else here</a>
-									</div></li>
-							</div>
-							<div class="col-sm-3">
-								<li class="nav-item dropdown"><a
-									class="nav-link dropdown-toggle" href="#" id="navbardrop"
-									data-toggle="dropdown"> Dropdown link </a>
-									<div class="dropdown-menu">
-										<a class="dropdown-item" href="#">Action</a> <a
-											class="dropdown-item" href="#">Another action</a> <a
-											class="dropdown-item" href="#">Something else here</a>
-									</div></li>
-							</div>
-							<div class="col-sm-3">
-								<li class="nav-item dropdown"><a
-									class="nav-link dropdown-toggle" href="#" id="navbardrop"
-									data-toggle="dropdown"> Dropdown link </a>
-									<div class="dropdown-menu">
-										<a class="dropdown-item" href="#">Action</a> <a
-											class="dropdown-item" href="#">Another action</a> <a
-											class="dropdown-item" href="#">Something else here</a>
-									</div></li>
-							</div>
-							<div class="col-sm-3">
-								<li class="nav-item dropdown"><a
-									class="nav-link dropdown-toggle" href="#" id="navbardrop"
-									data-toggle="dropdown"> Dropdown link </a>
-									<div class="dropdown-menu">
-										<a class="dropdown-item" href="#">Action</a> <a
-											class="dropdown-item" href="#">Another action</a> <a
-											class="dropdown-item" href="#">Something else here</a>
-									</div></li>
-							</div>
-							<div class="col-sm-2">
-								<li class="nav-item dropdown"><a
-									class="nav-link dropdown-toggle" href="#" id="navbardrop"
-									data-toggle="dropdown"> Dropdown link </a>
-									<div class="dropdown-menu">
-										<a class="dropdown-item" href="#">Action</a> <a
-											class="dropdown-item" href="#">Another action</a> <a
-											class="dropdown-item" href="#">Something else here</a>
-									</div></li>
-							</div>
-						</ul>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+			<div class="container">
+				<div class="collapse navbar-collapse " id="navbarColor01">
+					<div class="container">
+						<div class="row">
+							<ul class="navbar-nav mr-auto">
+								<!-- <ul class="navbar-nav me-auto"> -->
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">
+									<!-- 카테고리 드롭다운 -->
+									<li class="nav-item dropdown "><a
+										class="nav-link dropdown-toggle" href="#" id="navbardrop"
+										data-toggle="dropdown">시설소개</a>
+										<div class="dropdown-menu">
+											<a class="dropdown-item" href="#">센터소개</a> <a
+												class="dropdown-item" href="#">강사소개</a> <a
+												class="dropdown-item" href="#">오시는길</a>
+										</div></li>
+								</div>
+								<div class="col-sm-2">
+									<li class="nav-item dropdown"><a
+										class="nav-link dropdown-toggle" href="#" id="navbardrop"
+										data-toggle="dropdown">이용안내</a>
+										<div class="dropdown-menu">
+											<a class="dropdown-item" href="#">강좌안내</a> <a
+												class="dropdown-item" href="#">강좌안내</a> <a
+												class="dropdown-item" href="#">사물함안내</a> <a
+												class="dropdown-item" href="#">대관안내</a>
+										</div></li>
+								</div>
+								<div class="col-sm-2">
+									<li class="nav-item dropdown"><a
+										class="nav-link dropdown-toggle" href="#" id="navbardrop"
+										data-toggle="dropdown">프로그램안내</a>
+										<div class="dropdown-menu">
+											<a class="dropdown-item" href="#">수영</a> <a
+												class="dropdown-item" href="#">에어로빅</a> <a
+												class="dropdown-item" href="#">필라테스</a> <a
+												class="dropdown-item" href="#">테니스</a> <a
+												class="dropdown-item" href="#">탁구</a>
+										</div></li>
+								</div>
+								<div class="col-sm-2">
+									<li class="nav-item dropdown"><a
+										class="nav-link dropdown-toggle" href="#" id="navbardrop"
+										data-toggle="dropdown">이용신청</a>
+										<div class="dropdown-menu">
+											<a class="dropdown-item" href="#">장바구니</a> <a
+												class="dropdown-item" href="#">수강신청</a> <a
+												class="dropdown-item" href="#">대관신청</a>
+										</div></li>
+								</div>
+								<div class="col-sm-2">
+									<li class="nav-item dropdown"><a
+										class="nav-link dropdown-toggle" href="#" id="navbardrop"
+										data-toggle="dropdown">열린마당</a>
+										<div class="dropdown-menu">
+											<a class="dropdown-item" href="#">공지사항</a> <a
+												class="dropdown-item" href="#">Q&A</a> <a
+												class="dropdown-item" href="#">상담예약</a>
+										</div></li>
+								</div>
+								<div class="col-sm-1"></div>
+							</ul>
+						</div>
 					</div>
-
-
 				</div>
 			</div>
-		</div>
-		</div>
-
-
-	</nav>
+		</nav>
+	</div>
 </body>
 </html>
-<!-- -->
