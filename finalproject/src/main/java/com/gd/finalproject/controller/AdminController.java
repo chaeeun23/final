@@ -1,6 +1,6 @@
 package com.gd.finalproject.controller;
 
-import com.gd.finalproject.dto.MemberDto;
+import com.gd.finalproject.vo.MemberDto;
 import com.gd.finalproject.service.AdminService;
 import com.gd.finalproject.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -19,14 +19,7 @@ public class AdminController {
     @GetMapping("/admin/login-form")
     public String adminLoginForm(@ModelAttribute("error") String error,
                                  Authentication authentication) {
-        if (authentication != null) {
-            for (GrantedAuthority authority : authentication.getAuthorities()) {
-                if (authority.getAuthority().equals("ADMIN")) {
-                    return "/admin/home";
-                }
-            }
-            return "redirect:/board/list";
-        }
+
         return "/admin/login-form";
     }
 

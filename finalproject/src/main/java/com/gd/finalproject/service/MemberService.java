@@ -1,7 +1,6 @@
 package com.gd.finalproject.service;
 
 
-import com.gd.finalproject.dto.MemberDto;
 import com.gd.finalproject.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.gd.finalproject.vo.MemberDto;
 
 @Service
 @RequiredArgsConstructor

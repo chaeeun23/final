@@ -1,6 +1,6 @@
 package com.gd.finalproject.util;
 
-import com.gd.finalproject.dto.PageNationDto;
+import com.gd.finalproject.vo.PageNationDto;
 
 public class PageNationUtil {
     /**

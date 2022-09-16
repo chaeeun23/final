@@ -1,9 +1,9 @@
 package com.gd.finalproject.mapper;
 
 
-import com.gd.finalproject.dto.MemberDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import com.gd.finalproject.vo.MemberDto;
 
 @Mapper
 public interface MemberMapper {
