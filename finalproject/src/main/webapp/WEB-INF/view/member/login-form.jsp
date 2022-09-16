@@ -47,7 +47,7 @@
         </div>
         <div class="text-center mt-3">
             <%-- 카카오 버튼 --%>
-            <a href="/oauth2/authorization/kakao"><img src="/resource/img/kakao_btn.png"></a>
+            <a href="/oauth2/authorization/kakao"><img src="/resource/mainImg/kakao_btn.png"></a>
         </div>
     </form>
 </div>

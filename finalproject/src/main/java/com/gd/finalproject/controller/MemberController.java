@@ -22,7 +22,7 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    @GetMapping("/")
+    @GetMapping("/login-from")
     public String loginForm(@ModelAttribute("error") String error,
                             Authentication authentication) {
         log.info("authentication = {}", authentication);

@@ -51,12 +51,13 @@
             <td>생년월일</td>
             <td><input class="form-control" type="tel" name="memberBirth" id="birth"></td>
         </div>
-        <div class="mb-3">
-            <td>성별</td>
-            <input class="form-control" type="radio" name="memberGender" id="man" value="남자" 남자>
-            <input class="form-control" type="radio" name="memberGender" id="woman" value="여자" 여자>
-
-        </div>
+     <form>
+         <fieldset>
+             <legend>
+                 성별
+             </legend>
+         </fieldset>
+     </form>
 
         <div class="mt-2">
             <input class="btn btn-primary" id="joinBtn" type="button" value="가입하기">

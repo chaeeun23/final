@@ -39,26 +39,26 @@ public class SecurityConfig {
                         .anyRequest().authenticated()*/) // 그외 모든 요청 인증 되어야 한다
                 // 로그인 관련
                 .formLogin(form -> form
-                        .loginPage("/") // 로그인페이지 주소
+                        .loginPage("/login-form") // 로그인페이지 주소
                         .loginProcessingUrl("/member/login") // 로그인 검증할 url
                         .defaultSuccessUrl("/home", true) // 성공시 이동할 url
                         .failureUrl("/?error=fail") // 실패시 이동할 url
                         .permitAll())
                 // 카카오 로그인 관련
-                .oauth2Login(oauth -> oauth.loginPage("/")
+                .oauth2Login(oauth -> oauth.loginPage("/login-form")
                         .defaultSuccessUrl("/home", true)
                         .userInfoEndpoint() // 로그인 성공 후 사용자정보를 가져온다
                         .userService(oAuth2Service)) //사용자정보를 처리할 때 사용
                 // 로그아웃 관련 옵션
                 .logout(logout -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                        .logoutSuccessUrl("/")
+                        .logoutSuccessUrl("/login-form")
                         .invalidateHttpSession(true))
                 // 세션 관련 옵션
                 .sessionManagement(session -> session
                         .maximumSessions(100) // 최대 허용 세션 수
                         .maxSessionsPreventsLogin(true) // 동시 로그인 차단기능 false가 차단
-                        .expiredUrl("/") // 세션 끝날경우 이동 할 페이지
+                        .expiredUrl("/login-form") // 세션 끝날경우 이동 할 페이지
                 )
                 .csrf().disable()
                 .build();
