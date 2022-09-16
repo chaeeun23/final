@@ -7,10 +7,10 @@ public class TestService {
 
 
     public void test() {
-        System.out.println("로직1");
-        System.out.println("로직1");
-        System.out.println("로직1");
-        System.out.println("로직1");
+        System.out.println("나 수정 로직1");
+        System.out.println("나 수정 로직1");
+        System.out.println("나 수정 로직1");
+        System.out.println("나 수정 로직1");
         System.out.println("로직4");
         System.out.println("로직4");
         System.out.println("로직4");
@@ -20,9 +20,15 @@ public class TestService {
         System.out.println("로직3");
         System.out.println("로직3");
         System.out.println("로직3");
+
+        System.out.println("나 수정 로직3");
+        System.out.println("나 수정 로직3");
     }
 
     public void test2() {
+
+        System.out.println("나 수정 로직3");
+        System.out.println("나 수정 로직3");
         System.out.println("로직0");
         System.out.println("로직0");
         System.out.println("로직0");
@@ -34,6 +40,8 @@ public class TestService {
         System.out.println("로직3");
         System.out.println("로직3");
         System.out.println("로직2");
+        System.out.println("나 수정 로직3");
+        System.out.println("나 수정 로직3");
         System.out.println("로직2");
         System.out.println("로직3");
     }
