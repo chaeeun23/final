@@ -7,10 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.finalproject.commons.TeamColor;
 import com.gd.finalproject.service.LectureService;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -20,20 +23,22 @@ public class LectureController {
 	
 	// 강좌 리스트
 	@GetMapping("/employeeLectureList")
-	public String lectureList(Model model) {
-		List<Map<String,Object>> lectureList = lectureService.getLectureList();
-		log.debug(TeamColor.MS + "LectureController(employeeLectureList) : " + lectureList);
-		model.addAttribute("lectureList", lectureList);
+	public String lectureList(@RequestParam(required = false, value = "current") String current,
+            @ModelAttribute("check") String check,
+            Model model) {
+	Map<String,Object> map = lectureService.getLectureList(current);
+		log.debug(TeamColor.MS + "LectureController(employeeLectureList) : " + map);
+		map.forEach((key, value) -> model.addAttribute(key, value));
 		return "/employee/lectureList";
 	}
 	
-	// 강좌 상세페이지
-	@GetMapping("/lectureOne")
-	public String lectureOne() {
-		List<Map<String,Object>> lectureOne = lectureService.getLectureList();
-		log.debug(TeamColor.MS + "LectureController(lectureOne) : " + lectureOne);
-		return "/employee/lectureOne";
-	}
+//	// 강좌 상세페이지
+//	@GetMapping("/lectureOne")
+//	public String lectureOne() {
+//		List<Map<String,Object>> lectureOne = lectureService.getLectureList(current);
+//		log.debug(TeamColor.MS + "LectureController(lectureOne) : " + lectureOne);
+//		return "/employee/lectureOne";
+//	}
 	
 	
 	
