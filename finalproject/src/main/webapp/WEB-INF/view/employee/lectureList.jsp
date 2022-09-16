@@ -9,21 +9,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Lecture List</title>
-<!--     <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    Latest compiled and minified CSS
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-    jQuery library
-    <script defer src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
-    Popper JS
-    <script defer src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    Latest compiled JavaScript
-    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script> -->
 </head>
 <body>
 	<!-- header(로고, 네비게이션바) -->
 	<div>
 		<c:import url="/resource/inc/header.jsp"></c:import>
 	</div>
+	
+	<br>
+	<br>
+	<br>
 	
 	<div class="container">
 	<h1 style="text-align:center;">강좌리스트</h1>
@@ -49,8 +44,9 @@
 		<c:forEach var="l" items="${lectureList}">
 			<tr>
 				<td>${l.memberName}</td>
-				<td><a
-					href="${pageContext.request.contextPath}/lectureOne?lectureNo=${l.lectureNo}">${l.lectureName}</a></td>
+				<td>
+				<a href="${pageContext.request.contextPath}/employee/lectureOne?lectureNo=${l.lectureNo}" class="btn btn-primary" style="width:130px;">
+					${l.lectureName}</a></td>
 				<td>${l.lectureDay}</td>
 				<td>${l.lectureLimited}</td>
 				<td>${l.lectureTime}</td>

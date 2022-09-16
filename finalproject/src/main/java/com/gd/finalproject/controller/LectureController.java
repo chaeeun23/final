@@ -1,5 +1,6 @@
 package com.gd.finalproject.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.finalproject.commons.TeamColor;
 import com.gd.finalproject.service.LectureService;
+import com.gd.finalproject.vo.Lecture;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,13 +32,15 @@ public class LectureController {
 	}
 	
 	// 강좌 상세페이지
-	/*
-	 * @GetMapping("/lectureOne") public String lectureOne(Model
-	 * model, @RequestParam(value="lectureName") String lectureName) {
-	 * 
-	 * log.debug(TeamColor.MS + "LectureController(lectureOne) : " + lectureOne);
-	 * return "/employee/lectureOne"; }
-	 */
+	@GetMapping("/lectureOne") 
+	public String lectureOne(Model model, @RequestParam(value="lectureNo") String lectureNo) {
+		log.debug(TeamColor.MS + "LectureController(lectureOne-lectureNo) : " + lectureNo);
+		List<Lecture> lectureOne = lectureService.getLectureOne(lectureNo);
+		log.debug(TeamColor.MS + "LectureController(lectureOne) : " + lectureOne);
+		model.addAttribute("lectureOne",lectureOne);
+		return "/employee/lectureOne";
+	}
+	
 	
 	
 	
