@@ -20,8 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Transactional
 public class LectureService {
-	@Autowired
-	LectureMapper lectureMapper;
+	@Autowired LectureMapper lectureMapper;
 
 	// 강좌 리스트
 	public Map<String, Object> getLectureList(String current) {
@@ -49,7 +48,7 @@ public class LectureService {
 	// 강좌 상세페이지
 	public List<Lecture> getLectureOne(String lectureNo) {
 		  List<Lecture> lectureOne = lectureMapper.selectLectureOne(lectureNo);
-		  log.debug(TeamColor.MS + "LectureService.lectureOne : " + lectureOne); 
+		  log.debug(TeamColor.MS + "LectureService.lectureOne: " + lectureOne); 
 		  return lectureOne; 
 	  }
 

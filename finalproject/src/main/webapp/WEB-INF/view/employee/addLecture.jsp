@@ -16,56 +16,53 @@
 		<br>
 	</div>
 	
-	
-	<!-- 총 관리자만 강좌 추가 가능 -->
-	<div class="container">
-	<h1 style="text-align:center;">강좌 추가하기</h1>
-	<br>
+<!-- 총 관리자만 강좌 추가 가능 -->
 
+	<h1>강좌 추가하기</h1>
 	<table class="table table-bordered" style="text-align:center;">
 		<tr> 
 			<td>강좌번호</td>
-			<td>${lectureOne.lectureNo} </td>
+			<td><input type="text" id="lectureNo" name=""></td>
 		</tr>
 		<tr> 
-			<td>강좌명</td>
-			<td><a href="${pageContext.request.contextPath}/employee/">${lectureOne.lectureName}</a></td>
-		</tr>
-		<tr> 
-			<td>강좌요일</td>
-			<td>${lectureOne.lectureName}</td>
-		</tr>
-		<tr> 
-			<td>강사이름</td>
-			<td>${lectureOne.lectureName}</td>
-		</tr>
-		<tr> 
-			<td>성별</td>
-			<td>${lectureOne.lectureName}</td>
+			<td>강사아이디</td>
+			<td></td>
 		</tr>
 		<tr> 
 			<td>장소번호</td>
-			<td>${lectureOne.lectureName}</td>
+			<td></td>
+		</tr>
+		<tr> 
+			<td>강좌이름</td>
+			<td><input type="text" id="" name=""></td>
+		</tr>
+		<tr> 
+			<td>성별</td>
+			<td><input type="text" id="" name=""></td>
+		</tr>
+		<tr> 
+			<td>장소번호</td>
+			<td><input type="text" id="" name=""></td>
 		</tr>
 		<tr> 
 			<td>수강정원</td>
-			<td>${lectureOne.lectureName}</td>
+			<td><input type="text" id="" name=""></td>
 		</tr>
 		<tr> 
 			<td>수업시간</td>
-			<td></td>
+			<td><input type="text" id="" name=""></td>
 		</tr>
 		<tr> 
 			<td>강의금액</td>
-			<td></td>
+			<td><input type="text" id="" name=""></td>
 		</tr>
 		<tr> 
 			<td>개강일</td>
-			<td></td>
+			<td><input type="text" id="" name=""></td>
 		</tr>
 		<tr> 
 			<td>종강일</td>
-			<td></td>
+			<td><input type="text" id="" name=""></td>
 		</tr>
 		<tr> 
 			<td>강좌소개</td>
@@ -73,7 +70,7 @@
 		</tr>
 	</table>
 	
-	</div>
+	
 	<!-- footer -->
 	<div>
 		<c:import url="/resource/inc/footer.jsp"></c:import>

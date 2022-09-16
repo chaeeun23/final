@@ -1,24 +1,23 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Lecture List</title>
+<title>2유2김</title>
+<link rel="shortcut icon" href="/resource/mainImg/favicon.png">
 </head>
 <body>
 	<!-- header(로고, 네비게이션바) -->
 	<div>
 		<c:import url="/resource/inc/header.jsp"></c:import>
+		<br>
+		<br>
+		<br>
 	</div>
-	
-	<br>
-	<br>
-	<br>
 	
 	<div class="container">
 	<h1 style="text-align:center;">강좌리스트</h1>
@@ -45,8 +44,8 @@
 			<tr>
 				<td>${l.memberName}</td>
 				<td>
-				<a href="${pageContext.request.contextPath}/employee/lectureOne?lectureNo=${l.lectureNo}" class="btn btn-primary" style="width:130px;">
-					${l.lectureName}</a></td>
+				<a href="${pageContext.request.contextPath}/lectureOne?lectureNo=${l.lectureNo}" >
+				${l.lectureName}</a></td>
 				<td>${l.lectureDay}</td>
 				<td>${l.lectureLimited}</td>
 				<td>${l.lectureTime}</td>
@@ -93,5 +92,12 @@
 		</script>
 	</c:if>
 
+
+
+
+	<!-- footer -->
+	<div>
+		<c:import url="/resource/inc/footer.jsp"></c:import>
+	</div>
 </body>
 </html>
