@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gd.finalproject.mapper.NoticeMapper">
+	<!-- noticeList, noticeOne -->
+	<select id="getNoticeList" resultType="map"> <!-- map : java.util.Map 약식표현, list, string ,int(java.lang.Integer),... -->
+		SELECT
+			notice_no noticeNo,
+			employee_id employeeId,
+			notice_title noticeTitle,
+			notice_content noticeContent,
+			DATE_FORMAT(create_date,'%Y-%m-%d') createDate,
+			update_date updateDate
+		FROM notice 
+		ORDER BY notice_no desc
+		<!-- LIMIT #{beginRow},#{rowPerPage} -->
+		
+	</select>
+	
+	  <select id="getNoticeTotal" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM notice 
+    </select>
+</mapper>
