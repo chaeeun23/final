@@ -124,7 +124,7 @@
     }))
 
     document.querySelector("#pw").addEventListener('keyup', function (ev) {
-        let check = /^(?=.*[a-zA-Z])(?=.*[!@#$%^~*+=-])(?=.*[0-9]).{10,19}$/;
+        let check = /^(?=.*[a-zA-Z])(?=.*[.!@#$%^~*+=-])(?=.*[0-9]).{10,19}$/;
         if (!check.test(this.value)) {
             this.classList.remove("is-valid");
             this.className += ' is-invalid';
