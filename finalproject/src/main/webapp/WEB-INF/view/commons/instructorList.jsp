@@ -10,7 +10,7 @@
 <body>
 	<!-- header(로고, 네비게이션바) -->
 	<div>
-		<c:import url="/resource/inc/header.jsp"></c:import>
+		<c:import url="${pageContext.request.contextPath}/resource/inc/header.jsp"></c:import>
 	</div>
 	
 	<div class="container">
@@ -20,19 +20,21 @@
 	<table class="table table-bordered" style="text-align:center;">
 		<tr>
 			<th>강사이름</th>
+			<th>강사아이디</th>
+			<th>강좌이름</th>
 			<th>성별</th>
 			<th>전화번호</th>
 			<th>이메일</th>
-			<th>강좌이름</th>
 		</tr>
-		<c:forEach var="i" items="${instrutorList}">
+		<c:forEach var="i" items="${instructorList}">
 			<tr>
 				<td><a
-					href="${pageContext.request.contextPath}/instrutorOne?memberNo=${i.memberNo}">${i.memberName}</a></td>
+					href="${pageContext.request.contextPath}/instructorOne?memberNo=${i.memberNo}">${i.memberName}</a></td>
+				<td>${i.memberId}</td>
+				<td>${i.lectureNo}</td>
 				<td>${i.memberGender}</td>
 				<td>${i.memberPhone}</td>
 				<td>${i.memberEmail}</td>
-				<td>${i.lectureName}</td>
 			</tr>
 		</c:forEach>
 	</table>
