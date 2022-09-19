@@ -41,7 +41,7 @@
 		<a class="button" href="${pageContext.request.contextPath}/noticeList/" style="float:right">목록</a>
 		<br>
 		<br>
-	</div>
+	</div><!-- 공지사항 상세보기 END -->
 
 
 	<!-- footer -->
