@@ -12,6 +12,7 @@ import com.gd.finalproject.commons.TeamColor;
 import com.gd.finalproject.mapper.LectureMapper;
 import com.gd.finalproject.util.PageNationUtil;
 import com.gd.finalproject.vo.Lecture;
+import com.gd.finalproject.vo.LectureDay;
 import com.gd.finalproject.vo.PageNationDto;
 
 import lombok.extern.slf4j.Slf4j;
@@ -20,10 +21,9 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Transactional
 public class LectureService {
-    @Autowired
-    LectureMapper lectureMapper;
+    @Autowired LectureMapper lectureMapper;
 
-    // 강좌 리스트
+    // 강좌 리스트(lectureList)
     public Map<String, Object> getLectureList(String current) {
         // 페이지네이션 총 갯수
         int total = lectureMapper.getLectureTotal();
@@ -46,11 +46,30 @@ public class LectureService {
         return map;
     }
 
-    // 강좌 상세페이지
+    // 강좌 상세페이지(lectureListOne)
     public Map<String, Object> getLectureOne(String lectureNo) {
         Map<String, Object> lectureOne = lectureMapper.selectLectureOne(lectureNo);
-        log.debug(TeamColor.MS + "LectureService.lectureOne: " + lectureOne);
+        log.debug(TeamColor.MS + "LectureService.lectureOne : " + lectureOne);
         return lectureOne;
     }
+    
+    // 강좌 추가 (addLecture.jsp-Form)
+    public int addLecture(Lecture lecture, LectureDay lectureDay) {
+    	// 강좌 추가 
+    	int insertLecture = lectureMapper.insertLecture(lecture);
+    	log.debug(TeamColor.MS + "LectureService.addLecture : " + insertLecture);
+    	
+    	if(insertLecture != 0) {
+    		// 강좌요일 추가
+    		int insertLectureDay = lectureMapper.insertLectureDay(lectureDay);
+    		log.debug(TeamColor.MS + "LectureService.insertLectureDay : " + insertLectureDay);
+    	}
+
+		return insertLecture;
+    }
+    
+    // 강좌 수정
+    
+    // 강좌 삭제
 
 }

@@ -5,19 +5,32 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.finalproject.vo.Lecture;
+import com.gd.finalproject.vo.LectureDay;
 
 @Mapper
 public interface LectureMapper {
-	// lectureList
+	// 강좌 리스트(lectureList)
 	List<Lecture> selectLectureList(@Param("beginRow") int beginRow, @Param("rowPerPage") int rowPerPage);
 	
-	// lectureList 페이징 Total
+	// 강좌 리스트(lectureList) 페이징-Total
 	int getLectureTotal();
 
-	// lectureListOne
+	// 강좌 상세페이지(lectureListOne), 강좌 수정(updateLecture) - Form
 	Map<String,Object> selectLectureOne(@Param("lectureNo") String lectureNo);
-
+	
+	// 강좌 추가(addLecture)
+	int insertLecture(Lecture lecture);
+	
+	// 강좌 요일 추가(addLectureDay)
+	int insertLectureDay(LectureDay lectureDay);
+	
+	// 강좌 수정(updateLecture) - Action
+	int updateLecture(Lecture lecture);
+	
+	// 강좌 삭제(deleteLecture)
+	int deleteLecture(int lectureNo);
+	
+	
 }
