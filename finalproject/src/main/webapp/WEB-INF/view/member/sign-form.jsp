@@ -53,16 +53,18 @@
         <div class="mb-3">
             <td>이름<span style="color: red">*</span></td>
             <td>
-                <input class="form-control valid-check" type="text" name="memberName" id="name" aria-describedby="invalid-nameCheck">
-                <div  id="invalid-nameCheck" class="invalid-feedback">
-                 이름을 입력해주세요
+                <input class="form-control valid-check" type="text" name="memberName" id="name"
+                       aria-describedby="invalid-nameCheck">
+                <div id="invalid-nameCheck" class="invalid-feedback">
+                    이름을 입력해주세요
                 </div>
             </td>
         </div>
         <div class="mb-3">
             <td>전화번호<span style="color: red">*</span></td>
             <td>
-                <input class="form-control valid-check" type="tel" name="memberPhone" id="phone"  aria-describedby="invalid-phoneCheck">
+                <input class="form-control valid-check" type="tel" name="memberPhone" id="phone"
+                       aria-describedby="invalid-phoneCheck">
                 <div id="invalid-phoneCheck" class="invalid-feedback">
                     전화번호를 입력해주세요
                 </div>
@@ -71,7 +73,8 @@
         <div class="mb-3">
             <td>이메일<span style="color: red">*</span></td>
             <td>
-                <input class="form-control valid-check" type="tel" name="memberEmail" id="email" aria-describedby="invalid-emailCheck">
+                <input class="form-control valid-check" type="tel" name="memberEmail" id="email"
+                       aria-describedby="invalid-emailCheck">
                 <div id="invalid-emailCheck" class="invalid-feedback">
                     이메일을 입력해주세요
                 </div>
@@ -79,7 +82,8 @@
         </div>
         <div class="mb-3">
             주소<span style="color: red">*</span>
-            <input class="form-control" type="text" name="memberAddr" id="addr" readonly="readonly" aria-describedby="invalid-addrCheck">
+            <input class="form-control" type="text" name="memberAddr" id="addr" readonly="readonly"
+                   aria-describedby="invalid-addrCheck">
             <div id="invalid-addrCheck" class="invalid-feedback">
                 주소를 입력해주세요
             </div>
@@ -95,10 +99,27 @@
             <td>생년월일</td>
             <td><input class="form-control" type="tel" name="memberBirth" id="birth"></td>
         </div>
-        <div class="mt-2">
+
+        <div style="margin: 0;">
+            성별체크
+            <br>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" id="sex-1" name="memberGender" value="1" checked>
+                <label class="custom-control-label" for="sex-1">여</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" id="sex-2" name="memberGender" value="2">
+                <label class="custom-control-label" for="sex-2">남</label>
+            </div>
+
+
+            <div class="mt-2">
             <input class="btn btn-secondary mt-2 rounded-0" id="joinBtn" type="button" value="가입하기">
             <a class="btn btn-secondary mt-2 rounded-0" href="${pageContext.request.contextPath}">뒤로가기</a>
         </div>
+
+
+
     </form>
 </div>
 <!-- iOS에서는 position:fixed 버그가 있음, 적용하는 사이트에 맞게 position:absolute 등을 이용하여 top,left값 조정 필요 -->
