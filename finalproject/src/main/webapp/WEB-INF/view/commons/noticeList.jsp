@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>2유2김</title>
-<link rel="shortcut icon" href="/resource/mainImg/favicon.png">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/mainImg/favicon.png">
 <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
@@ -21,7 +21,7 @@
 <body>
 	<!-- header(로고, 네비게이션바) -->
 	<div>
-		<c:import url="/resource/inc/header.jsp"></c:import>
+		<c:import url="/WEB-INF/resource/inc/header.jsp"></c:import>
 		<br>
 		<br>
 		<br>
@@ -102,7 +102,7 @@
 
 	<!-- footer -->
 	<div>
-		<c:import url="/resource/inc/footer.jsp"></c:import>
+		<c:import url="/WEB-INF/resource/inc/footer.jsp"></c:import>
 	</div><!-- footer END -->
 </body>
 </html>
