@@ -30,7 +30,7 @@ public interface LectureMapper {
 	int updateLecture(Lecture lecture);
 	
 	// 강좌 삭제(deleteLecture)
-	int deleteLecture(int lectureNo);
+	int deleteLecture(String lectureNo);
 	
 	
 }

@@ -22,13 +22,19 @@
 	<div class="container">
 	<h1 style="text-align:center;">강좌리스트</h1>
 	<br>
+	
 	<div>
-		<!-- employee 와 총관리자인 권한이면 강좌추가버튼 보이게 -->
-		<%-- 	<c:if test="${member eq 'admin'}">
-			<a href="${pageContext.request.contextPath }/addLecture/">강좌 추가</a>
-		</c:if> --%>
+<%-- 		<!-- employee 와 총관리자인 권한이면 강좌추가버튼 보이게 -->
+		<c:if test="${member eq 'admin'}">
+			
+		</c:if>  --%>
 
+	<a href="${pageContext.request.contextPath }/addLecture" class="btn btn-primary"  style="width:100px; float:right; ">강좌 추가</a>
+	
 	</div>
+	
+	<br>
+	<br>
 	
 	<table class="table table-bordered" style="text-align:center;" >
 		<tr>
