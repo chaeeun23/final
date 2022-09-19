@@ -28,7 +28,7 @@ public class InstructorService {
 		log.debug(TeamColor.CE + "InstructorService(total) : " + total);
 
 		// 만들어논 메서드
-		PageNationDto pageNation = PageNationUtil.getPageNation(current, total, "/commons/instructorList", 10);
+		PageNationDto pageNation = PageNationUtil.getPageNation(current, total, "/finalproject/commons/instructorList", 10);
 		log.debug(TeamColor.CE + "InstructorService(pageNation) : " + pageNation);
 
 		// instructorList 가져오기
