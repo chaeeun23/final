@@ -58,4 +58,18 @@ public class LectureController {
 	
 	
 	
+	
+	
+	
+	
+	// 강좌 삭제(removeLecture)
+	@GetMapping("removeLecture")
+	public String removeLecture(String lectureNo) {
+		int removeLecture = lectureService.removeLecture(lectureNo);
+		log.debug(TeamColor.MS + "LectureController(removeLecture) : " + removeLecture);
+		return "/employee/lectureList";
+		
+	}
+	
+	
 }
