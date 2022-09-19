@@ -42,6 +42,7 @@
         </c:if>
         <div class="text-center mt-3">
             <button type="submit" id="boardBtn" class="btn btn-primary rounded-0 me-1">고객 로그인</button>
+            <a class="btn btn-secondary mt-2 rounded-0" href="${pageContext.request.contextPath}">뒤로가기</a>
             <a href="${pageContext.request.contextPath}/admin/login-form" type="submit"
                class="btn btn-primary rounded-0 me-1">관리자 로그인</a>
         </div>
