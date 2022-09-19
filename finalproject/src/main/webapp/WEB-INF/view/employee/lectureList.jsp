@@ -29,7 +29,7 @@
 			
 		</c:if>  --%>
 
-	<a href="${pageContext.request.contextPath }/addLecture" class="btn btn-primary"  style="width:100px; float:right; ">강좌 추가</a>
+	<a href="${pageContext.request.contextPath }/addLecture" class="btn btn-success"  style="width:100px; float:right; ">강좌 추가</a>
 	
 	</div>
 	
@@ -99,8 +99,6 @@
 			alert('등록성공');
 		</script>
 	</c:if>
-
-
 
 
 	<!-- footer -->

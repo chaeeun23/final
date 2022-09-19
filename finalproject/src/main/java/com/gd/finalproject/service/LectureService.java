@@ -53,14 +53,15 @@ public class LectureService {
         return lectureOne;
     }
     
-    // 강좌 추가 (addLecture.jsp-Form)
+    // 강좌 추가 후 강좌요일 추가(addLecture.jsp-Form)
     public int addLecture(Lecture lecture, LectureDay lectureDay) {
     	// 강좌 추가 
     	int insertLecture = lectureMapper.insertLecture(lecture);
     	log.debug(TeamColor.MS + "LectureService.addLecture : " + insertLecture);
     	
+    	// 강좌 추가가 되어 0이 아니면 강좌 요일 추가
     	if(insertLecture != 0) {
-    		// 강좌요일 추가
+    		// 강좌 요일 추가
     		int insertLectureDay = lectureMapper.insertLectureDay(lectureDay);
     		log.debug(TeamColor.MS + "LectureService.insertLectureDay : " + insertLectureDay);
     	}
@@ -76,10 +77,17 @@ public class LectureService {
     	
     }
     
-    // 강좌 삭제
+    // 강좌 요일, 강좌 삭제
     public int removeLecture(String lectureNo) {
+    	
+    	// 강좌 요일 삭제
+    	int deleteDayLecture = lectureMapper.deleteLectureDay(lectureNo);
+    	log.debug(TeamColor.MS + "LectureService.deleteDayLecture : " + deleteDayLecture);
+    	
+    	// 강좌 삭제
     	int deleteLecture = lectureMapper.deleteLecture(lectureNo);
-    	log.debug(TeamColor.MS + "LectureService.deleteLecture : " + deleteLecture);
+        log.debug(TeamColor.MS + "LectureService.deleteLecture : " + deleteLecture);
+    	
     	return deleteLecture;
     }
 }

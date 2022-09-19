@@ -29,6 +29,9 @@ public interface LectureMapper {
 	// 강좌 수정(updateLecture) - Action
 	int updateLecture(Lecture lecture);
 	
+	// 강좌 요일 삭제(deleteLecture)
+	int deleteLectureDay(String lectureNo);
+	
 	// 강좌 삭제(deleteLecture)
 	int deleteLecture(String lectureNo);
 	
