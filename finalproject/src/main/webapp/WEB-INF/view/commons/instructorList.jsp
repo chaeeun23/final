@@ -21,20 +21,16 @@
 		<table class="table table-bordered" style="text-align: center;">
 			<tr>
 				<th>강사이름</th>
-				<th>강사아이디</th>
 				<th>강좌이름</th>
-				<th>성별</th>
+				<th>강좌번호</th>
 				<th>전화번호</th>
-				<th>이메일</th>
 			</tr>
 			<c:forEach var="i" items="${instructorList}">
 				<tr>
-					<td>${i.memberName}</td>
-					<td>${i.memberId}</td>
+					<td><a href="${pageContext.request.contextPath}/instructorOne?memberId=${m.memberId}" class="btn btn-primary"  style="width:100px;">${i.memberName}</a></td>
+					<td>${i.lectureName}</td>
 					<td>${i.lectureNo}</td>
-					<td>${i.memberGender}</td>
 					<td>${i.memberPhone}</td>
-					<td>${i.memberEmail}</td>
 				</tr>
 			</c:forEach>
 		</table>

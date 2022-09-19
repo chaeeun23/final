@@ -5,14 +5,13 @@
 	<select id="selectInstructorList" resultType="map">
 		SELECT
 		m.member_name memberName,
-		m.member_id memberId,
+		l.lecture_name lectureName,
 		group_concat(l.lecture_no
 		ORDER BY l.lecture_no asc) lectureNo,
-		m.member_gender memberGender,
-		m.member_phone memberPhone,
-		m.member_email memberEmail
+		m.member_phone memberPhone
 		FROM member m join instructor i
-		ON m.member_id = i.member_id
+		ON
+		m.member_id = i.member_id
 		JOIN lecture l ON i.member_id=l.instructor_id
 		GROUP BY m.member_id;
 	</select>
@@ -20,7 +19,8 @@
 	<!-- instructorList 페이지네이션 토탈 -->
 	<select id="getInstructorTotal" resultType="java.lang.Integer">
 		SELECT COUNT(*)
-		FROM instructor
+		FROM
+		instructor
 	</select>
 
 
