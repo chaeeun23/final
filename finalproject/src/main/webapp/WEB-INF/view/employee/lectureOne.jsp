@@ -5,12 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>2유2김</title>
-<link rel="shortcut icon" href="/resource/mainImg/favicon.png">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/mainImg/favicon.png">
 </head>
 <body>
 	<!-- header(로고, 네비게이션바) -->
 	<div>
-		<c:import url="/resource/inc/header.jsp"></c:import>
+		<c:import url="/WEB-INF/resource/inc/header.jsp"></c:import>
 		<br>
 		<br>
 		<br>
@@ -20,6 +20,7 @@
 	<h1 style="text-align:center;">강좌 추가하기</h1>
 	<br>
 
+	<form action="${pageContext.request.contextPath}/" method="post">
 	<table class="table table-bordered" style="text-align:center;">
 		<tr> 
 			<td>강좌번호</td>
@@ -27,7 +28,7 @@
 		</tr>
 		<tr> 
 			<td>강좌명</td>
-			<td><a href="${pageContext.request.contextPath}/employee/">${lectureOne.lectureName}</a></td>
+			<td><a href="${pageContext.request.contextPath}/employee/" class="btn btn-primary"  style="width:100px;">${lectureOne.lectureName}</a></td>
 		</tr>
 		<tr>
 			<td>강좌요일</td>
@@ -65,16 +66,26 @@
 			<td>종강일</td>
 			<td>${lectureOne.lectureEndDate}</td>
 		</tr>
-		<tr> 
-			<td>강좌소개</td>
-			<td><textarea rows="3" cols="100" ></textarea></td>
-		</tr>
 	</table>
-	
+		
+		<button type="submit" name="cart" id="cart" class="btn btn-primary" style="width:100px; float:right;" >장바구니</button>
+		<a href="${pageContext.request.contextPath}/employee/lectureList" class="btn btn-primary" style="width:100px; float:right; margin-right:10px; ">강좌목록</a>
+		
+		<!-- 관리자만 수정,삭제 가능버튼 보임 -->
+		<a href="${pageContext.request.contextPath}/removeLecture?lectureNo=A1" class="btn btn-primary" style="width:100px; float:right; margin-right:10px;">강좌삭제</a>
+		<a href="${pageContext.request.contextPath}/modifyLecture?lectureNo=A1&" 
+			class="btn btn-primary" style="width:100px; float:right; margin-right:10px;">강좌수정</a>
+		
+	</form>
 	</div>
+	
+	<br>
+	<br>
+	<br>
+
 	<!-- footer -->
 	<div>
-		<c:import url="/resource/inc/footer.jsp"></c:import>
+		<c:import url="/WEB-INF/resource/inc/footer.jsp"></c:import>
 	</div>
 </body>
 </html>

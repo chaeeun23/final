@@ -10,13 +10,13 @@
 <body>
 	<!-- header(로고, 네비게이션바) -->
 	<div>
-		<c:import url="/resource/inc/header.jsp"></c:import>
+		<c:import url="${pageContext.request.contextPath}/resource/inc/header.jsp"></c:import>
 		<br><br><br>
 	</div>
 	
 	<!-- footer -->
 	<div>
-		<c:import url="/resource/inc/footer.jsp"></c:import>
+		<c:import url="${pageContext.request.contextPath}/resource/inc/footer.jsp"></c:import>
 	</div>
 </body>
 </html>
