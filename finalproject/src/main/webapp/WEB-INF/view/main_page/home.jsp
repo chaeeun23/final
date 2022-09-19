@@ -8,7 +8,7 @@
 </head>
 <body>
 에러가 있네
-<a href="/logout">로그아웃</a>
+<a href="${pageContext.request.contextPath}/logout">로그아웃</a>
 <img src="${img}"/>
 </body>
 </html>

@@ -48,7 +48,7 @@
         <div class="text-center mt-3">
             <%-- 카카오 버튼 --%>
             <a href="${pageContext.request.contextPath}/oauth2/authorization/kakao"><img
-                    src="${pageContext.request.contextPath}/resource/mainImg/kakao_btn.png"></a>
+                    src="${pageContext.request.contextPath}/mainImg/kakao_btn.png"></a>
         </div>
     </form>
 </div>

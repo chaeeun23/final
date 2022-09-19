@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>2유2김</title>
-<link rel="shortcut icon" href="favicon.png">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/mainImg/favicon.png">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.2.0/flatly/bootstrap.min.css"
 	integrity="sha512-SAOc0O+NBGM2HuPF20h4nse270bwZJi8X90t5k/ApuB9oasBYEyLJ7WtYcWZARWiSlKJpZch1+ip2mmhvlIvzQ=="
@@ -26,13 +26,12 @@
 	<div class="container">
 	<br>
 			<div class="d-flex justify-content-end">
-				<a href="${pageContext.request.contextPath}/login-form" class="btn btn-primary btn-sm">로그인</a>&nbsp;
-				<a href="${pageContext.request.contextPath}/sign/sign-form" class="btn btn-primary btn-sm">회원가입</a>
+				<a href="${pageContext.request.contextPath}/login-form" class="btn btn-primary btn-sm">로그인</a>&nbsp;<a href="${pageContext.request.contextPath}/sign/sign-form" class="btn btn-primary btn-sm">회원가입</a>
 			</div>
 
 		<!-- 로고 -->
 		<div class="d-flex justify-content-center">
-			<img src="/resource/mainImg/logo.png" style="max-width:100%; height:auto;">
+			<img src="${pageContext.request.contextPath}/mainImg/logo.png" style="max-width:100%; height:auto;">
 		</div>
 		<br>
 
