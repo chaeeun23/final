@@ -151,7 +151,7 @@
             alert("아이디를 입력해주세요");
             return
         }
-        let url = '/sign/id-check?id=' + id;
+        let url = '${pageContext.request.contextPath}/sign/id-check?id=' + id;
         fetch(url, {
             method: 'GET'
         }).then(res => res.text())
