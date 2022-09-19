@@ -286,6 +286,7 @@
 
                 // $('#addr').val(data.zonecode + ' ' + addr);
                 document.getElementById('addr').value = data.zonecode + ' ' + addr;
+                document.getElementById('addr').classList.remove('is-invalid');
                 document.getElementById('addr').className += ' is-valid'
 
                 // 커서를 상세주소 필드로 이동한다.
