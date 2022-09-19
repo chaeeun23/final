@@ -14,7 +14,7 @@
 </head>
 <body>
 <div class="d-flex justify-content-center container mt-2">
-    <form method="post" action="/sign/sign-member" id="sign-form"
+    <form method="post" action="${pageContext.request.contextPath}/sign/sign-member" id="sign-form"
           class="w-75 border p-3 bg-white shadow rounded align-self-center">
         <div class="text-center">
             <h1>회원가입</h1>
@@ -97,7 +97,7 @@
         </div>
         <div class="mt-2">
             <input class="btn btn-secondary mt-2 rounded-0" id="joinBtn" type="button" value="가입하기">
-            <a class="btn btn-secondary mt-2 rounded-0" href="/">뒤로가기</a>
+            <a class="btn btn-secondary mt-2 rounded-0" href="${pageContext.request.contextPath}">뒤로가기</a>
         </div>
     </form>
 </div>

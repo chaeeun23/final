@@ -18,7 +18,7 @@
 </head>
 <body>
 <div class="d-flex justify-content-center container" style="height: 450px">
-    <form method="post" action="/member/login"
+    <form method="post" action="${pageContext.request.contextPath}/member/login"
           class="w-75 border p-3 bg-white shadow rounded align-self-center">
         <div class="d-inline-flex">
             <h1 class="ms-2 fw-bold">로그인</h1>
@@ -42,11 +42,13 @@
         </c:if>
         <div class="text-center mt-3">
             <button type="submit" id="boardBtn" class="btn btn-primary rounded-0 me-1">고객 로그인</button>
-            <a href="/admin/login-form" type="submit" class="btn btn-primary rounded-0 me-1">관리자 로그인</a>
+            <a href="${pageContext.request.contextPath}/admin/login-form" type="submit"
+               class="btn btn-primary rounded-0 me-1">관리자 로그인</a>
         </div>
         <div class="text-center mt-3">
             <%-- 카카오 버튼 --%>
-            <a href="/oauth2/authorization/kakao"><img src="/resource/mainImg/kakao_btn.png"></a>
+            <a href="${pageContext.request.contextPath}/oauth2/authorization/kakao"><img
+                    src="${pageContext.request.contextPath}/resource/mainImg/kakao_btn.png"></a>
         </div>
     </form>
 </div>
