@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.finalproject.mapper.NoticeMapper">
-	<!-- noticeList, noticeOne -->
+	<!-- noticeList -->
 	<select id="getNoticeList" resultType="map"> <!-- map : java.util.Map 약식표현, list, string ,int(java.lang.Integer),... -->
 		SELECT
 			notice_no noticeNo,
@@ -12,12 +12,27 @@
 			update_date updateDate
 		FROM notice 
 		ORDER BY notice_no desc
-		<!-- LIMIT #{beginRow},#{rowPerPage} -->
-		
+		<!-- LIMIT #{beginRow},#{rowPerPage} -->	
 	</select>
 	
-	  <select id="getNoticeTotal" resultType="java.lang.Integer">
+	<select id="getNoticeTotal" resultType="java.lang.Integer">
         SELECT COUNT(*)
         FROM notice 
     </select>
+    
+    <!-- noticeOne -->
+	<select id="selectNoticeOne" resultType="map"> <!-- map : java.util.Map 약식표현, list, string ,int(java.lang.Integer),... -->
+		SELECT
+		n.notice_no noticeNo,
+		n.employee_id employeeId,
+		n.notice_title noticeTitle,
+		n.notice_content noticeContent,
+		n.create_date createDate,
+		n.update_date updateDate,
+		nf.noticeFile_no noticeFileNo,
+		nf.file_name fileName
+		FROM notice n JOIN noticefile nf ON n.notice_no = nf.notice_no
+		WHERE
+		n.notice_no=#{noticeNo}
+	</select>
 </mapper>

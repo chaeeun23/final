@@ -23,11 +23,20 @@ public class NoticeController {
 	@GetMapping("/noticeList")		
 	public String noticeList(@RequestParam(required = false, value = "current") String current,
             @ModelAttribute("check") String check, Model model) {
-	Map<String,Object> map = noticeService.getNoticeList(current);
-		log.debug(TeamColor.YW + "NoticeController(employeeNoticeList) : " + map);
-		map.forEach((key, value) -> model.addAttribute(key, value));
+		Map<String,Object> noticeListMap = noticeService.getNoticeList(current);
+		log.debug(TeamColor.YW + "NoticeController(noticeListMap) : " + noticeListMap);
+		noticeListMap.forEach((key, value) -> model.addAttribute(key, value));
+		log.debug(TeamColor.YW + "NoticeController.model(noticeListMap) : " + noticeListMap);
 		return "/commons/noticeList";
-		
-		
+	}
+	
+	// 공지사항 상세보기
+	@GetMapping("/noticeOne")
+	public String noticeOne(@RequestParam(value = "noticeNo") int noticeNo, Model model) {
+		Map<String,Object> noticeOneMap = noticeService.getNoticeOne(noticeNo);
+		log.debug(TeamColor.YW + "NoticeController(noticeOne) : " + noticeOneMap);
+		noticeOneMap.forEach((key, value) -> model.addAttribute(key, value));
+		log.debug(TeamColor.YW + "NoticeController.model(noticeOne) : " + noticeOneMap);
+		return "/commons/noticeOne";
 	}
 }

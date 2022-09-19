@@ -7,15 +7,15 @@
 <meta charset="UTF-8">
 <title>2유2김</title>
 <link rel="shortcut icon" href="/resource/mainImg/favicon.png">
-<!--     <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    Latest compiled and minified CSS
+<script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-    jQuery library
+    <!-- jQuery library -->
     <script defer src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
-    Popper JS
+    <!-- Popper JS -->
     <script defer src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    Latest compiled JavaScript
-    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script> -->
+    <!-- Latest compiled JavaScript -->
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 
 </head>
 <body>
@@ -27,20 +27,22 @@
 		<br>
 	</div><!-- header END -->
 
+
+<!-- 공지사항 리스트 -->
 <div class="container">
-	<h1 style="text-align:center;">강좌리스트</h1>
+	<h1 style="text-align:center;">공지사항</h1>
 	<br>
 	<div>
 		<!-- employee 와 총관리자인 권한이면 공지사항추가버튼 보이게 -->
-		<%-- 	<c:if test="${member eq 'admin'}">
+		<c:if test="${member eq 'admin'}">
 			<a href="${pageContext.request.contextPath }/addNotice/">글쓰기</a>
-		</c:if> --%>
+		</c:if>
 
 	</div>
 	
 	<table class="table table-bordered" style="text-align:center;">
 		<tr>
-			<th>공지사항번호</th>
+			<th>번호</th>
 			<th>제목</th>
 			<th>작성자</th>
 			<th>작성일</th>
@@ -49,13 +51,13 @@
 			<tr>
 				<td style="width: 10%;">${n.noticeNo}</td>
 				<td style="width: 70%; text-align: left;"><a
-					href="${pageContext.request.contextPath}/noticeOne?lectureNo=${n.noticeNo}">${n.noticeTitle}</a></td>
+					href="${pageContext.request.contextPath}/noticeOne?noticeNo=${n.noticeNo}">${n.noticeTitle}</a></td>
 				<td style="width: 10%;">${n.employeeId}</td>
 				<td style="width: 10%;">${n.createDate}</td>
 			</tr>
 		</c:forEach>
 	</table>
-	</div>
+	</div><!-- 공지사항 리스트 END -->
 	
 	
 	<div>
@@ -87,6 +89,11 @@
 		</c:if>
 	</ul>
 	</div>
+	
+	<div>
+	
+	</div>
+	
 	<c:if test="${check eq 'insert'}">
 		<script>
 			alert('등록성공');

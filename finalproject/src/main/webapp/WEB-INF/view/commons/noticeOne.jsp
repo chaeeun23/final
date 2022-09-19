@@ -17,6 +17,33 @@
 		<br>
 	</div>
 
+	<!-- 공지사항 상세보기 -->
+	<div class="container">
+		<table class="table table-bordered" style="text-align: center;">
+			<tr>
+				<td style="width: 10%;">제목</td>
+				<td style="width: 90%;">${noticeOne.noticeTitle }</td>
+			</tr>
+			<tr>
+				<td>작성자</td>
+				<td>${noticeOne.employeeId}</td>
+			</tr>
+			<tr>
+				<td>첨부파일</td>
+				<td>${noticeOne.fileName}</td>
+			</tr>
+			<tr>
+				<td>내용</td>
+				<td>${noticeOne.noticeContent}</td>
+			</tr>
+		</table>
+
+		<a class="button" href="${pageContext.request.contextPath}/noticeList/" style="float:right">목록</a>
+		<br>
+		<br>
+	</div>
+
+
 	<!-- footer -->
 	<div>
 		<c:import url="/resource/inc/footer.jsp"></c:import>

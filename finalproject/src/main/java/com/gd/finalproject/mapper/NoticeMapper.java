@@ -17,6 +17,6 @@ public interface NoticeMapper {
 	int getNoticeTotal();
 
 	// 공지사항 상세페이지
-	List<Map<String, Object>> selectNoticeOne();
+	Map<String, Object> selectNoticeOne(@Param("noticeNo") int noticeNo);
 	
 }
