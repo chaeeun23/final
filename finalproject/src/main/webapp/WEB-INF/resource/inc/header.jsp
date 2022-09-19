@@ -26,8 +26,7 @@
 	<div class="container">
 	<br>
 			<div class="d-flex justify-content-end">
-				<a href="${pageContext.request.contextPath}/login-form" class="btn btn-primary btn-sm">로그인</a>&nbsp;
-				<a href="${pageContext.request.contextPath}/sign/sign-form" class="btn btn-primary btn-sm">회원가입</a>
+				<a href="${pageContext.request.contextPath}/login-form" class="btn btn-primary btn-sm">로그인</a>&nbsp;<a href="${pageContext.request.contextPath}/sign/sign-form" class="btn btn-primary btn-sm">회원가입</a>
 			</div>
 
 		<!-- 로고 -->

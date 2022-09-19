@@ -30,7 +30,7 @@ public class LectureService {
         log.debug(TeamColor.MS + "LectureService(total) : " + total);
 
         // 만들어논 메서드
-        PageNationDto pageNation = PageNationUtil.getPageNation(current, total, "/employee/lectureList", 10);
+        PageNationDto pageNation = PageNationUtil.getPageNation(current, total, "/finalproject/employeeLectureList", 10);
         log.debug(TeamColor.MS + "LectureService(pageNation) : " + pageNation);
 
         // lectureList 가져오기
@@ -69,7 +69,17 @@ public class LectureService {
     }
     
     // 강좌 수정
+    public int modifyLecture(Lecture lectureNo) {
+    	int updateLecture = lectureMapper.updateLecture(lectureNo);
+    	log.debug(TeamColor.MS + "LectureService.updateLecture : " + updateLecture);
+		return updateLecture;
+    	
+    }
     
     // 강좌 삭제
-
+    public int removeLecture(String lectureNo) {
+    	int deleteLecture = lectureMapper.deleteLecture(lectureNo);
+    	log.debug(TeamColor.MS + "LectureService.deleteLecture : " + deleteLecture);
+    	return deleteLecture;
+    }
 }

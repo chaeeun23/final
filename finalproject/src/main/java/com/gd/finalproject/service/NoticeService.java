@@ -29,7 +29,7 @@ public class NoticeService {
 		log.debug(TeamColor.YW + "NoticeService(total) : " + total);
 
 		// 만들어논 메서드
-		PageNationDto pageNation = PageNationUtil.getPageNation(currentPage, total, "/commons/noticeList", 10);
+		PageNationDto pageNation = PageNationUtil.getPageNation(currentPage, total, "/finalproject/noticeList", 10);
 		log.debug(TeamColor.YW + "NoticeService(pageNation) : " + pageNation);
 
 		// NoticeList 가져오기

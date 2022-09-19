@@ -11,6 +11,7 @@
 	<!-- header(로고, 네비게이션바) -->
 	<div>
 		<c:import url="/WEB-INF/resource/inc/header.jsp"></c:import>
+		<br><br><br>
 	</div>
 
 	<div class="container">

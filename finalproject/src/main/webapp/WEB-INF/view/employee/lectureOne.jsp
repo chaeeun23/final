@@ -69,11 +69,11 @@
 	</table>
 		
 		<button type="submit" name="cart" id="cart" class="btn btn-primary" style="width:100px; float:right;" >장바구니</button>
-		<a href="${pageContext.request.contextPath}/employee/lectureList" class="btn btn-primary" style="width:100px; float:right; margin-right:10px; ">강좌목록</a>
+		<a href="${pageContext.request.contextPath}/employeeLectureList" class="btn btn-primary" style="width:100px; float:right; margin-right:10px; ">강좌목록</a>
 		
 		<!-- 관리자만 수정,삭제 가능버튼 보임 -->
-		<a href="${pageContext.request.contextPath}/removeLecture?lectureNo=A1" class="btn btn-primary" style="width:100px; float:right; margin-right:10px;">강좌삭제</a>
-		<a href="${pageContext.request.contextPath}/modifyLecture?lectureNo=A1&" 
+		<a href="${pageContext.request.contextPath}/removeLecture?lectureNo=${lectureOne.lectureNo}" class="btn btn-primary" style="width:100px; float:right; margin-right:10px;">강좌삭제</a>
+		<a href="${pageContext.request.contextPath}/modifyLecture?lectureNo=${lectureOne.lectureNo}" 
 			class="btn btn-primary" style="width:100px; float:right; margin-right:10px;">강좌수정</a>
 		
 	</form>
