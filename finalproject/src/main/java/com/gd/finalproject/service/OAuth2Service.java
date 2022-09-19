@@ -34,11 +34,12 @@ public class OAuth2Service implements OAuth2UserService<OAuth2UserRequest, OAuth
                 .getUserInfoEndpoint().getUserNameAttributeName();
 
         Map<String, Object> attributes = oAuth2User.getAttributes();
-
-
+        System.out.println("------------------" + attributes);
         // 카카오 메일 가져오기
         Map<String, Object> profile = (Map<String, Object>) attributes.get("kakao_account");
+        Map<String, Object> properties = (Map<String, Object>) attributes.get("properties");
         String email = (String) profile.get("email");
+        String name = (String) properties.get("nickname");
         // 카카오를 통해서 가입했는지 확인
         MemberDto member = memberMapper.getMember(email);
         // 없으면 가입시키기
@@ -51,7 +52,10 @@ public class OAuth2Service implements OAuth2UserService<OAuth2UserRequest, OAuth
             auth.add("USER");
             member = MemberDto.builder()
                     .memberId(email)
+                    .memberEmail(email)
                     .memberPw(password)
+                    .memberName(name)
+                    .memberAddr("")
                     .memberAuth(auth)
                     .build();
             memberMapper.signMember(member);
