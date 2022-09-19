@@ -15,7 +15,7 @@
 						<!-- 로고 -->
 						<div class="col-sm-5">
 							<div class="d-flex justify-content-center">
-								<img src="/resource/mainImg/logo.png">
+								<img src="${pageContext.request.contextPath}/mainImg/logo.png">
 							</div>
 						</div>
 						

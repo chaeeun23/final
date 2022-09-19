@@ -8,12 +8,12 @@
 <head>
 <meta charset="UTF-8">
 <title>2유2김</title>
-<link rel="shortcut icon" href="/resource/mainImg/favicon.png">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/mainImg/favicon.png">
 </head>
 <body>
 	<!-- header(로고, 네비게이션바) -->
 	<div>
-		<c:import url="/resource/inc/header.jsp"></c:import>
+		<c:import url="/WEB-INF/resource/inc/header.jsp"></c:import>
 		<br>
 		<br>
 		<br>
@@ -30,8 +30,9 @@
 
 	</div>
 	
-	<table class="table table-bordered" style="text-align:center;">
+	<table class="table table-bordered" style="text-align:center;" >
 		<tr>
+			<th>강좌번호</th>
 			<th>강사이름</th>
 			<th>강좌명</th>
 			<th>수강요일</th>
@@ -42,9 +43,10 @@
 		</tr>
 		<c:forEach var="l" items="${lectureList}">
 			<tr>
+				<td>${l.lectureNo}</td>
 				<td>${l.memberName}</td>
 				<td>
-				<a href="${pageContext.request.contextPath}/lectureOne?lectureNo=${l.lectureNo}" >
+				<a href="${pageContext.request.contextPath}/lectureOne?lectureNo=${l.lectureNo}" class="btn btn-primary"  style="width:100px;">
 				${l.lectureName}</a></td>
 				<td>${l.lectureDay}</td>
 				<td>${l.lectureLimited}</td>
@@ -97,7 +99,7 @@
 
 	<!-- footer -->
 	<div>
-		<c:import url="/resource/inc/footer.jsp"></c:import>
+		<c:import url="/WEB-INF/resource/inc/footer.jsp"></c:import>
 	</div>
 </body>
 </html>
