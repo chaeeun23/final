@@ -1,5 +1,9 @@
 package com.gd.finalproject.vo;
 
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 //공지사항
 @Data
@@ -10,4 +14,5 @@ public class Notice {
 	private String noticeContent; //공지사항내용
 	private String createDate; 
 	private String updateDate;
+	private List<MultipartFile> multiList;
 }
