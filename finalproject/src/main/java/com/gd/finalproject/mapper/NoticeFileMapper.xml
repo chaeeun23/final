@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gd.finalproject.mapper.NoticeFileMapper">
+	<insert id="insertNoticeFile" parameterType="com.gd.finalproject.vo.NoticeFile">
+		INSERT INTO noticefile(
+			notice_no,
+			file_name,
+			originalFile_name,
+			file_type,
+			file_size
+		) VALUES (
+			#{noticeNo},
+			#{fileName},
+			#{originalFile_name},
+			#{fileType},
+			#{fileSize}
+		)
+	</insert>
+</mapper>

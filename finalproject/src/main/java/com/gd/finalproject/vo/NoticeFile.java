@@ -9,5 +9,5 @@ public class NoticeFile {
 	private String fileName;
 	private String originalFileName;
 	private String fileType;
-	private int fileSize;
+	private long fileSize;
 }

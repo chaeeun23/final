@@ -12,7 +12,7 @@
 			update_date updateDate
 		FROM notice 
 		ORDER BY notice_no desc
-		<!-- LIMIT #{beginRow},#{rowPerPage} -->	
+		LIMIT #{beginRow},#{rowPerPage}
 	</select>
 	
 	<select id="getNoticeTotal" resultType="java.lang.Integer">
@@ -35,4 +35,22 @@
 		WHERE
 		n.notice_no=#{noticeNo}
 	</select>
+	
+	<!-- insertNotice -->
+	<insert id="insertNotice" parameterType="com.gd.finalproject.vo.Notice">
+		INSERT INTO notice(
+			employee_id,
+			notice_title,
+			notice_content,
+			create_date,
+			update_date
+			) VALUES(
+				#{employeeId},
+				#{noticeTitle},
+				#{noticeContent},
+				NOW(),
+				NOW()
+				)
+	</insert>
+	
 </mapper>

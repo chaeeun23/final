@@ -35,9 +35,13 @@
 	<div>
 		<!-- employee 와 총관리자인 권한이면 공지사항추가버튼 보이게 -->
 		<c:if test="${member eq 'admin'}">
-			<a href="${pageContext.request.contextPath }/addNotice/">글쓰기</a>
+			<a class="btn btn-primary" href="${pageContext.request.contextPath }/addNotice/">글쓰기</a>
 		</c:if>
-
+		
+		<!-- 추가폼 이동(시큐리티 구현시 삭제 예정) -->
+		<a class="btn btn-primary" href="${pageContext.request.contextPath }/addNotice/">글쓰기</a>
+		<br><br>
+	
 	</div>
 	
 	<table class="table table-bordered" style="text-align:center;">
@@ -94,11 +98,11 @@
 	
 	</div>
 	
-	<c:if test="${check eq 'insert'}">
+	<%-- <c:if test="${check eq 'insert'}">
 		<script>
 			alert('등록성공');
 		</script>
-	</c:if>
+	</c:if> --%>
 
 	<!-- footer -->
 	<div>

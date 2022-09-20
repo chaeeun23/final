@@ -19,4 +19,6 @@ public interface NoticeMapper {
 	// 공지사항 상세페이지
 	Map<String, Object> selectNoticeOne(@Param("noticeNo") int noticeNo);
 	
+	// 공지사항 추가
+	int insertNotice(Notice notice);
 }

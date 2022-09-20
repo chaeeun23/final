@@ -1,17 +1,23 @@
 package com.gd.finalproject.service;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.gd.finalproject.commons.TeamColor;
+import com.gd.finalproject.mapper.NoticeFileMapper;
 import com.gd.finalproject.mapper.NoticeMapper;
 import com.gd.finalproject.util.PageNationUtil;
 import com.gd.finalproject.vo.Notice;
+import com.gd.finalproject.vo.NoticeFile;
+import com.gd.finalproject.vo.NoticeForm;
 import com.gd.finalproject.vo.PageNationDto;
 
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 public class NoticeService {
 	@Autowired NoticeMapper noticeMapper;
+	@Autowired NoticeFileMapper noticeFileMapper;
 
 	// 공지사항 리스트
 	public Map<String, Object> getNoticeList(String currentPage) {
@@ -57,5 +64,40 @@ public class NoticeService {
 
 		return noticeOneMap;
 	}
-	//
+	
+	// 공지사항 추가하기
+	public void addNotice(NoticeForm noticeForm, String path) {
+		log.debug(TeamColor.YW + noticeForm.getNotice().getNoticeNo());
+		int row = noticeMapper.insertNotice(noticeForm.getNotice());
+		log.debug(TeamColor.YW + noticeForm.getNotice().getNoticeNo());
+
+		// noticeFile insert
+		if(row==1 && noticeForm.getMultiList() != null) {
+			for(MultipartFile mf : noticeForm.getMultiList()) {
+				NoticeFile noticefile = new NoticeFile();
+				noticefile.setNoticeNo(noticeForm.getNotice().getNoticeNo());
+				log.debug(TeamColor.YW + "noticefile.noticefile.getNoticeNo() : " +noticefile.getNoticeNo());
+				// 중복되지 않는 랜덤이름 새성 UUID API사용
+				String filename = UUID.randomUUID().toString().replace("-", "");
+				noticefile.setFileName(filename);
+				noticefile.setOriginalFileName(mf.getOriginalFilename());
+				noticefile.setFileType(mf.getContentType());
+				noticefile.setFileSize(mf.getSize());
+				noticeFileMapper.insertNoticeFile(noticefile);
+				
+				// text.txt
+				String ext = mf.getOriginalFilename().substring(mf.getOriginalFilename().lastIndexOf("."));	// 파일 확장자 구하기
+				log.debug(TeamColor.YW + "mf.getOriginalFilename() : " + mf.getOriginalFilename());
+				log.debug(TeamColor.YW + "파일 확장자 : " + ext);
+
+				try {
+					mf.transferTo(new File(path+filename+ext));	// c:/upload/filename.ext 새로운 빈 파일 안에 MultipartFile안에 파일을 하나씩 복사
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					throw new RuntimeException();	// @transaction 처리가 되도록 강제로 Runtime예외(try절을 강요하지 않는) 발생
+				}
+			}
+		}
+	}
 }
