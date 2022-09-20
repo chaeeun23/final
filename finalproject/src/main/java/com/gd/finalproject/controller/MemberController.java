@@ -1,6 +1,7 @@
 package com.gd.finalproject.controller;
 
 
+import com.gd.finalproject.service.MailService;
 import com.gd.finalproject.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.gd.finalproject.vo.MemberDto;
 
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 @Controller
@@ -21,6 +23,7 @@ import java.util.Map;
 public class MemberController {
 
     private final MemberService memberService;
+    private final MailService mailService;
 
     @GetMapping("/login-form")
     public String loginForm(@ModelAttribute("error") String error,
@@ -54,6 +57,13 @@ public class MemberController {
             return "ok";
         }
         return "fail";
+    }
+
+    @ResponseBody
+    @GetMapping("/sign/email-check")
+    public String emailCheck(@RequestParam("email") String email, HttpSession httpSession) throws Exception {
+        String code = mailService.mailCheck(email);
+        return code;
     }
 
     @PostMapping("/sign/sign-member")

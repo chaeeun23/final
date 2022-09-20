@@ -52,7 +52,7 @@ public class SecurityConfig {
                 // 로그아웃 관련 옵션
                 .logout(logout -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                        .logoutSuccessUrl("/login-form")
+                        .logoutSuccessUrl("/")
                         .invalidateHttpSession(true))
                 // 세션 관련 옵션
                 .sessionManagement(session -> session
