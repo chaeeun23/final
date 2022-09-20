@@ -14,7 +14,8 @@
 		ON
 		m.member_id = i.member_id
 		JOIN lecture l ON i.member_id=l.instructor_id
-		GROUP BY m.member_id;
+		GROUP BY m.member_id
+		LIMIT #{beginRow},#{rowPerPage}
 	</select>
 
 	<!-- instructorList 페이지네이션 토탈 -->
@@ -46,7 +47,7 @@
 		ON 
 		m.member_id=mi.member_id
 		WHERE m.member_id = #{memberId}
-		GROUP BY m.member_id;
+		GROUP BY m.member_id
 	</select>
 
 </mapper>
