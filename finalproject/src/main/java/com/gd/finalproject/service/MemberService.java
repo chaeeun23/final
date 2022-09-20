@@ -46,4 +46,8 @@ public class MemberService implements UserDetailsService {
         }
         return memberDto;
     }
+
+    public MemberDto memberDetail(int memberNo) {
+        return memberMapper.memberDetail(memberNo);
+    }
 }

@@ -28,6 +28,24 @@
                  JOIN auth a ON a.member_id = m.member_id
         WHERE m.member_id = #{id}
     </select>
+    <select id="memberDetail" resultMap="member">
+        SELECT m.member_no         memberNo
+             , m.member_id         memberId
+             , m.member_pw         memberPw
+             , m.member_name       memberName
+             , m.member_phone      memberPhone
+             , m.member_email      memberEmail
+             , m.member_addr       memberAddr
+             , m.member_detailAddr memberDetailAddr
+             , m.member_birth      memberBirth
+             , m.member_gender     memberGender
+             , i.file_name         fileName
+        FROM member m
+                 LEFT JOIN memberimg i ON m.member_id = i.member_id
+        WHERE m.member_id = #{memberId}
+
+
+    </select>
 
     <!-- 회원가입 -->
     <insert id="signMember" parameterType="com.gd.finalproject.vo.MemberDto">
