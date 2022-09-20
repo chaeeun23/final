@@ -30,14 +30,14 @@
 		n.create_date createDate,
 		n.update_date updateDate,
 		nf.noticeFile_no noticeFileNo,
-		GROUP_CONCAT(nf.file_name) fileName
+		GROUP_CONCAT(nf.originalFile_name) originalFileName
 		FROM notice n LEFT OUTER JOIN noticefile nf ON n.notice_no = nf.notice_no
 		WHERE
 		n.notice_no=#{noticeNo}
 	</select>
 	
 	<!-- insertNotice -->
-	<insert id="insertNotice" parameterType="com.gd.finalproject.vo.Notice">
+	<insert id="insertNotice" parameterType="com.gd.finalproject.vo.Notice" useGeneratedKeys="true" keyProperty="noticeNo">
 		INSERT INTO notice(
 			employee_id,
 			notice_title,

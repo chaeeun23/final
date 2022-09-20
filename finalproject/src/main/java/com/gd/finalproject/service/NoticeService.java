@@ -17,7 +17,6 @@ import com.gd.finalproject.mapper.NoticeMapper;
 import com.gd.finalproject.util.PageNationUtil;
 import com.gd.finalproject.vo.Notice;
 import com.gd.finalproject.vo.NoticeFile;
-import com.gd.finalproject.vo.NoticeForm;
 import com.gd.finalproject.vo.PageNationDto;
 
 import lombok.extern.slf4j.Slf4j;
@@ -66,19 +65,22 @@ public class NoticeService {
 	}
 	
 	// 공지사항 추가하기
-	public void addNotice(NoticeForm noticeForm, String path) {
-		int row = noticeMapper.insertNotice(noticeForm.getNotice());
-		log.debug(TeamColor.YW + noticeForm.getNotice().getNoticeNo());
+	public void addNotice(Notice notice, String path) {
+		
+		log.debug(TeamColor.YW + notice.getNoticeNo());
+		int row = noticeMapper.insertNotice(notice);
+		log.debug(TeamColor.YW + "notice : " + notice);
 
 		// noticeFile insert
-		if(row==1 && noticeForm.getMultiList() != null) {
-			for(MultipartFile mf : noticeForm.getMultiList()) {
+		if(row==1 && notice.getMultiList() != null) {
+			for(MultipartFile mf : notice.getMultiList()) {
 				NoticeFile noticefile = new NoticeFile();
-				noticefile.setNoticeNo(noticeForm.getNotice().getNoticeNo());
+				noticefile.setNoticeNo(notice.getNoticeNo());
 				log.debug(TeamColor.YW + "noticefile.noticefile.getNoticeNo() : " +noticefile.getNoticeNo());
-				// 중복되지 않는 랜덤이름 새성 UUID API사용
+				// 중복되지 않는 랜덤이름 생성 UUID API사용
 				String filename = UUID.randomUUID().toString().replace("-", "");
 				noticefile.setFileName(filename);
+				log.debug(TeamColor.YW + "filename : " + filename);
 				noticefile.setOriginalFileName(mf.getOriginalFilename());
 				noticefile.setFileType(mf.getContentType());
 				noticefile.setFileSize(mf.getSize());
@@ -90,7 +92,7 @@ public class NoticeService {
 				log.debug(TeamColor.YW + "파일 확장자 : " + ext);
 
 				try {
-					mf.transferTo(new File(path+filename+ext));	// c:/upload/filename.ext 새로운 빈 파일 안에 MultipartFile안에 파일을 하나씩 복사
+					mf.transferTo(new File(path + File.separator + filename+ext));	// c:/upload/filename.ext 새로운 빈 파일 안에 MultipartFile안에 파일을 하나씩 복사
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
