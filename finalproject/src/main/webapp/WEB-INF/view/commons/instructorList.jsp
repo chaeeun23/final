@@ -27,7 +27,7 @@
 			</tr>
 			<c:forEach var="i" items="${instructorList}">
 				<tr>
-					<td><a href="${pageContext.request.contextPath}/instructorOne?memberId=${m.memberId}" class="btn btn-primary"  style="width:100px;">${i.memberName}</a></td>
+					<td><a href="${pageContext.request.contextPath}/instructorOne?memberId=${i.memberId}" class="btn btn-primary"  style="width:100px;">${i.memberName}</a></td>
 					<td>${i.lectureName}</td>
 					<td>${i.lectureNo}</td>
 					<td>${i.memberPhone}</td>

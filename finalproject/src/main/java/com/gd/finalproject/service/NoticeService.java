@@ -67,7 +67,6 @@ public class NoticeService {
 	
 	// 공지사항 추가하기
 	public void addNotice(NoticeForm noticeForm, String path) {
-		log.debug(TeamColor.YW + noticeForm.getNotice().getNoticeNo());
 		int row = noticeMapper.insertNotice(noticeForm.getNotice());
 		log.debug(TeamColor.YW + noticeForm.getNotice().getNoticeNo());
 

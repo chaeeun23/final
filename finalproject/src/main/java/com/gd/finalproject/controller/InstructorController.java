@@ -1,5 +1,6 @@
 package com.gd.finalproject.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,16 @@ public class InstructorController {
 		log.debug(TeamColor.CE + "InstructorController(instructorList) : " + map);
 		map.forEach((key, value) -> model.addAttribute(key, value));
 		return "/commons/instructorList";
+	}
+	
+	//강사 상세페이지
+	@GetMapping("/instructorOne")
+	public String instructorOne(Model model, @RequestParam(value="memberId") String memberId) {
+		log.debug(TeamColor.CE + "InstructorController(instructorOne-memberId) : " + memberId);
+		Map<String,Object> map = instructorService.getInstructorOne(memberId);
+		log.debug(TeamColor.CE + "InstructorController(instructorOne-map) : " + map);
+		model.addAttribute("map",map);
+		return "/commons/instructorOne";
 	}
 
 }
