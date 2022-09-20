@@ -53,11 +53,20 @@
     <insert id="signMember" parameterType="com.gd.finalproject.vo.MemberDto">
         INSERT INTO member
         (member_id, member_pw, member_name, member_phone, member_email, member_addr, member_detailAddr, member_birth,
-         member_gender,
-         create_date, update_date)
-        VALUES (#{dto.memberId}, #{dto.memberPw}, #{dto.memberName}, #{dto.memberPhone}, #{dto.memberEmail},
-                #{dto.memberAddr},
-                #{dto.memberDetailAddr}, #{dto.memberBirth}, #{dto.memberGender}, NOW(), NOW());
+        <if test="dto.memberGender != null">
+        member_gender,
+        </if>
+        create_date, update_date)
+        VALUES (#{dto.memberId}, #{dto.memberPw}, #{dto.memberName},
+        #{dto.memberPhone},
+        #{dto.memberEmail},
+        #{dto.memberAddr},
+        #{dto.memberDetailAddr},
+        #{dto.memberBirth},
+        <if test="dto.memberGender != null">
+            #{dto.memberGender},
+        </if>
+        NOW(), NOW());
     </insert>
 
     <!-- 회원 권한 넣기 -->

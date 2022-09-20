@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,11 +27,16 @@
 <body>
 	<div class="container">
 	<br>
-			<div class="d-flex justify-content-end">
-
-				<a href="${pageContext.request.contextPath}/login-form" class="btn btn-primary btn-sm">로그인</a>&nbsp;<a href="${pageContext.request.contextPath}/sign/sign-form" class="btn btn-primary btn-sm">회원가입</a>
-			</div>
-
+			<sec:authorize access="isAnonymous()">
+				<div class="d-flex justify-content-end">
+					<a href="${pageContext.request.contextPath}/login-form" class="btn btn-primary btn-sm">로그인</a>&nbsp;<a href="${pageContext.request.contextPath}/sign/sign-form" class="btn btn-primary btn-sm">회원가입</a>
+				</div>
+			</sec:authorize>
+            <sec:authorize access="isAuthenticated()">
+				<div class="d-flex justify-content-end">
+				<a href="${pageContext.request.contextPath}/logout" class="btn btn-primary btn-sm">로그아웃</a>
+				</div>
+            </sec:authorize>
 		<!-- 로고 -->
 		<div class="d-flex justify-content-center">
 			<img src="${pageContext.request.contextPath}/mainImg/logo.png" style="max-width:100%; height:auto;">

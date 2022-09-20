@@ -41,12 +41,12 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/login-form") // 로그인페이지 주소
                         .loginProcessingUrl("/member/login") // 로그인 검증할 url
-                        .defaultSuccessUrl("/home", true) // 성공시 이동할 url
+                        .defaultSuccessUrl("/", true) // 성공시 이동할 url
                         .failureUrl("/login-form?error=fail") // 실패시 이동할 url
                         .permitAll())
                 // 카카오 로그인 관련
                 .oauth2Login(oauth -> oauth.loginPage("/login-form")
-                        .defaultSuccessUrl("/home", true)
+                        .defaultSuccessUrl("/", true)
                         .userInfoEndpoint() // 로그인 성공 후 사용자정보를 가져온다
                         .userService(oAuth2Service)) //사용자정보를 처리할 때 사용
                 // 로그아웃 관련 옵션
