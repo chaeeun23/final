@@ -42,4 +42,12 @@ public class InstructorService {
 
 		return map;
 	}
+	
+	// 강사상세페이지
+	public Map<String,Object> getInstructorOne(String memberId){
+		Map<String,Object> map = instructorMapper.selectInstructorOne(memberId);
+		log.debug(TeamColor.CE + "InstructorService.instructorOne : " + map);
+		return map;
+	}
+	
 }
