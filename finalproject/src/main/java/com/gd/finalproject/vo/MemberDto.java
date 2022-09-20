@@ -30,7 +30,12 @@ public class MemberDto implements UserDetails {
     private String memberGender; //성별
     private String creatDate;
     private String updateDate;
-    //커밋해야함
+
+    private List<String> memberImg;
+
+
+
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

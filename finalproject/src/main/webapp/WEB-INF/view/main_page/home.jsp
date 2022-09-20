@@ -9,6 +9,7 @@
 <body>
 에러가 있네
 <a href="${pageContext.request.contextPath}/logout">로그아웃</a>
-<img src="${img}"/>
+<a href="${pageContext.request.contextPath}/member-detail">회원정보</a>
+
 </body>
 </html>
