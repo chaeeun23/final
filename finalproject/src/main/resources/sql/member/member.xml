@@ -28,6 +28,8 @@
                  JOIN auth a ON a.member_id = m.member_id
         WHERE m.member_id = #{id}
     </select>
+
+    <!--회원정보 조회 -->
     <select id="memberDetail" resultMap="member">
         SELECT m.member_no         memberNo
              , m.member_id         memberId

@@ -9,7 +9,9 @@
 <body>
 에러가 있네
 <a href="${pageContext.request.contextPath}/logout">로그아웃</a>
-<a href="${pageContext.request.contextPath}/member-detail">회원정보</a>
+<div class="d-flex justify-content-end">
+    <a href="${pageContext.request.contextPath}/detail" class="btn btn-primary btn-sm">회원정보</a>&nbsp;
+</div>
 
 </body>
 </html>
