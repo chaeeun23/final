@@ -30,7 +30,7 @@
 			</tr>
 			<tr>
 				<td>첨부파일</td>
-				<td>${noticeOne.fileName}</td>
+				<td>${noticeOne.originalFileName}</td>
 			</tr>
 			<tr>
 				<td>내용</td>
@@ -38,7 +38,7 @@
 			</tr>
 		</table>
 
-		<a class="button" href="${pageContext.request.contextPath}/noticeList/" style="float:right">목록</a>
+		<a class="btn btn-primary" href="${pageContext.request.contextPath}/noticeList/" style="float:right">목록</a>
 		<br>
 		<br>
 	</div><!-- 공지사항 상세보기 END -->

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.finalproject.commons.TeamColor;
 import com.gd.finalproject.service.NoticeService;
-import com.gd.finalproject.vo.NoticeForm;
+import com.gd.finalproject.vo.Notice;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -51,13 +51,13 @@ public class NoticeController {
 	}
 	
 	@PostMapping("/addNotice") // 추가 Action
-	public String addNotice(Model model, NoticeForm noticeForm, HttpSession session) {
-		String path = session.getServletContext().getRealPath("/upload");
+	public String addNotice(Model model, Notice notice, HttpSession session) {
+		String path = session.getServletContext().getRealPath("/noticeFileUpload");
 		
 		log.debug(TeamColor.YW + "NoticeController.path : " + path);
 		
-		noticeService.addNotice(noticeForm, path);
-		log.debug(TeamColor.YW + "NoticeController.noticeForm : " + noticeForm);
+		noticeService.addNotice(notice, path);
+		log.debug(TeamColor.YW + "NoticeController.noticeForm : " + notice);
 		
 		return "redirect:/noticeList";
 	}

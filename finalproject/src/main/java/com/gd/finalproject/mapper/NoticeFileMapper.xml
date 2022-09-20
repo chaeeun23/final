@@ -11,7 +11,7 @@
 		) VALUES (
 			#{noticeNo},
 			#{fileName},
-			#{originalFile_name},
+			#{originalFileName},
 			#{fileType},
 			#{fileSize}
 		)
