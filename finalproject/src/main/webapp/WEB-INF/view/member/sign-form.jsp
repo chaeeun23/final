@@ -105,11 +105,11 @@
             <br>
             <div class="custom-control custom-radio custom-control-inline">
                 <input type="radio" class="custom-control-input" id="sex-1" name="memberGender" value="1" checked>
-                <label class="custom-control-label" for="sex-1">여</label>
+                <label class="custom-control-label" for="sex-1">여자</label>
             </div>
             <div class="custom-control custom-radio custom-control-inline">
                 <input type="radio" class="custom-control-input" id="sex-2" name="memberGender" value="2">
-                <label class="custom-control-label" for="sex-2">남</label>
+                <label class="custom-control-label" for="sex-2">남자</label>
             </div>
 
 
@@ -119,7 +119,7 @@
         </div>
 
 
-
+</div>
     </form>
 </div>
 <!-- iOS에서는 position:fixed 버그가 있음, 적용하는 사이트에 맞게 position:absolute 등을 이용하여 top,left값 조정 필요 -->
