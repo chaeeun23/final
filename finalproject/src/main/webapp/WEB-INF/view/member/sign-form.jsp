@@ -7,10 +7,11 @@
     <title>Insert title here</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
 </head>
 <body>
 <div class="d-flex justify-content-center container mt-2">
@@ -28,7 +29,7 @@
             <div id="invalid-id" class="invalid-feedback">
                 중복 확인을 해주세요.
             </div>
-            <button id="idCheck" type="button" class="btn btn-secondary mt-2 rounded-0">중복확인</button>
+            <button id="idCheck" type="button" class="btn btn-sm btn-secondary mt-2 rounded-0">중복확인</button>
         </div>
         <div class="mb-3">
             비밀번호 <span style="color: red">*</span>
@@ -74,12 +75,55 @@
             <td>이메일<span style="color: red">*</span></td>
             <td>
                 <input class="form-control valid-check" type="tel" name="memberEmail" id="email"
-                       aria-describedby="invalid-emailCheck">
+                       aria-describedby="invalid-emailCheck" readonly>
+                <button class="btn btn-sm btn-secondary mt-2 rounded-0" type="button" id="emailCheck"
+                        data-bs-toggle="modal" data-bs-target="#emailPopup">
+                    이메일인증
+                </button>
                 <div id="invalid-emailCheck" class="invalid-feedback">
                     이메일을 입력해주세요
                 </div>
             </td>
         </div>
+        <!-- 팝업 -->
+        <div class="modal fade" id="emailPopup" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">이메일 인증</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-2">
+                            이메일
+                            <input id="emailData" class="form-control" type="text"
+                                   aria-describedby="invalid-emailCheck2">
+                            <button id="emailCheckBtn" type="button" class="mt-2 btn btn-sm btn-secondary rounded-0">인증
+                            </button>
+                            <div class="valid-feedback">
+                                메일이 곧 도착합니다 인증번호를 올바르게 입력해주세요
+                            </div>
+                            <div id="invalid-emailCheck2" class="invalid-feedback">
+                                메일형태가 아니거나 인증에 실패했습니다. 다시 시도해주세요
+                            </div>
+                        </div>
+                        <div>
+                            인증번호
+                            <input id="emailCheckNum" class="form-control" type="text" aria-describedby="invalid-id"
+                                   readonly>
+                        </div>
+                        <input type="hidden" value="test">
+                    </div>
+                    <div class="modal-footer">
+                        <button id='emailCloseBtn' type="button" class="btn btn-sm btn-secondary rounded-0"
+                                data-bs-dismiss="modal">닫기
+                        </button>
+                        <button id="emailCheckSuc" type="button" class="btn btn-sm btn-primary rounded-0">완료</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="mb-3">
             주소<span style="color: red">*</span>
             <input class="form-control" type="text" name="memberAddr" id="addr" readonly="readonly"
@@ -87,7 +131,7 @@
             <div id="invalid-addrCheck" class="invalid-feedback">
                 주소를 입력해주세요
             </div>
-            <button class="btn btn-secondary mt-2 rounded-0" type="button" id="addrBtn"
+            <button class="btn btn-sm btn-secondary mt-2 rounded-0" type="button" id="addrBtn"
                     onclick="sample2_execDaumPostcode()">
                 주소검색
             </button>
@@ -99,7 +143,6 @@
             <td>생년월일</td>
             <td><input class="form-control" type="tel" name="memberBirth" id="birth"></td>
         </div>
-
         <div style="margin: 0;">
             성별체크
             <br>
@@ -111,15 +154,11 @@
                 <input type="radio" class="custom-control-input" id="sex-2" name="memberGender" value="2">
                 <label class="custom-control-label" for="sex-2">남자</label>
             </div>
-
-
             <div class="mt-2">
-            <input class="btn btn-secondary mt-2 rounded-0" id="joinBtn" type="button" value="가입하기">
-            <a class="btn btn-secondary mt-2 rounded-0" href="${pageContext.request.contextPath}">뒤로가기</a>
+                <input class="btn btn-sm btn-secondary mt-2 rounded-0" id="joinBtn" type="button" value="가입하기">
+                <a class="btn btn-sm btn-secondary mt-2 rounded-0" href="${pageContext.request.contextPath}">뒤로가기</a>
+            </div>
         </div>
-
-
-</div>
     </form>
 </div>
 <!-- iOS에서는 position:fixed 버그가 있음, 적용하는 사이트에 맞게 position:absolute 등을 이용하여 top,left값 조정 필요 -->
@@ -129,9 +168,39 @@
          alt="닫기 버튼">
 </div>
 <script>
-    function addrChange() {
-        console.log("안녕")
-    }
+    let code = '';
+    document.querySelector('#emailCheckSuc').addEventListener('click', function (ev) {
+        let emailCheckNum = document.querySelector('#emailCheckNum').value;
+        if (emailCheckNum.trim() == '') {
+            return;
+        }
+        if (emailCheckNum === code) {
+            document.querySelector('#email').value = document.querySelector('#emailData').value;
+            document.querySelector('#emailCloseBtn').click();
+            document.querySelector('#emailCheck').setAttribute('disabled', 'disabled');
+            document.querySelector('#email').className += ' is-valid';
+        }
+    })
+
+    document.querySelector('#emailCheckBtn').addEventListener('click', function (ev) {
+        let email = document.querySelector('#emailData').value;
+        let url = '${pageContext.request.contextPath}/sign/email-check?email=' + email;
+
+        fetch(url, {
+            method: 'GET'
+        }).then(res => res.text())
+            .then(data => {
+                if (data != 'fail') {
+                    code = data;
+                    document.querySelector('#emailData').classList.remove('is-invalid');
+                    document.querySelector('#emailData').className += ' is-valid';
+                    document.querySelector('#emailData').setAttribute('readonly', 'readonly');
+                    document.querySelector('#emailCheckNum').removeAttribute('readonly');
+                } else {
+                    document.querySelector('#emailData').className += ' is-invalid';
+                }
+            })
+    })
 
     document.querySelectorAll(".valid-check").forEach(e => e.addEventListener('keyup', function (ev) {
         if (this.classList.contains("valid-check")) {
