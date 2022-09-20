@@ -30,7 +30,7 @@ public class NoticeController {
 		Map<String,Object> noticeListMap = noticeService.getNoticeList(current);
 		log.debug(TeamColor.YW + "NoticeController(noticeListMap) : " + noticeListMap);
 		noticeListMap.forEach((key, value) -> model.addAttribute(key, value));
-		log.debug(TeamColor.YW + "NoticeController.model(noticeListMap) : " + noticeListMap);
+		log.debug(TeamColor.YW + "NoticeController.model(noticeListMap) : " + model);
 		return "/commons/noticeList";
 	}
 	
@@ -40,7 +40,7 @@ public class NoticeController {
 		Map<String,Object> noticeOneMap = noticeService.getNoticeOne(noticeNo);
 		log.debug(TeamColor.YW + "NoticeController(noticeOne) : " + noticeOneMap);
 		noticeOneMap.forEach((key, value) -> model.addAttribute(key, value));
-		log.debug(TeamColor.YW + "NoticeController.model(noticeOne) : " + noticeOneMap);
+		log.debug(TeamColor.YW + "NoticeController.model(noticeOne) : " + model);
 		return "/commons/noticeOne";
 	}
 	

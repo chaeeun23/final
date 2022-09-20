@@ -30,8 +30,8 @@
 		n.create_date createDate,
 		n.update_date updateDate,
 		nf.noticeFile_no noticeFileNo,
-		nf.file_name fileName
-		FROM notice n JOIN noticefile nf ON n.notice_no = nf.notice_no
+		GROUP_CONCAT(nf.file_name) fileName
+		FROM notice n LEFT OUTER JOIN noticefile nf ON n.notice_no = nf.notice_no
 		WHERE
 		n.notice_no=#{noticeNo}
 	</select>
