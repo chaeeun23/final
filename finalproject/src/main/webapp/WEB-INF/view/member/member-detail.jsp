@@ -16,18 +16,19 @@
 </head>
 <body>
 <div class="container">
+    기본회원정보(필수)
     <input type="hidden" name="member.memberNo" value="${member.memberNo}">
         <div class="mb-3">
             <h2 class="form-label">사진</h2>
             <div class="d-flex">
-                <c:forEach items="${member.memberImg}" var="file">
-                    <div class="imgBox">
-                        <img style="width: 150px; height: 150px" src="${file}"
-                             onerror="this.src = '/mainImg/aa.png'">
-                        회원님을 알릴 수 있는 사진을 등록해주세요.
-                        등록된 사진은 회원님의 게시물이나 댓글들에 사용됩니다.
-                    </div>
-                </c:forEach>
+<%--                <c:forEach items="${member.memberImg}" var="file">--%>
+<%--                    <div class="imgBox">--%>
+<%--                        <img style="width: 150px; height: 150px" src="${file}"--%>
+<%--                             onerror="this.src = '/mainImg/aa.png'">--%>
+<%--                        회원님을 알릴 수 있는 사진을 등록해주세요.--%>
+<%--                        등록된 사진은 회원님의 게시물이나 댓글들에 사용됩니다.--%>
+<%--                    </div>--%>
+<%--                </c:forEach>--%>
             </div>
             <hr/>
         </div>
@@ -64,70 +65,70 @@
 </div>
 <script>
 
-    // document.querySelector("#removeFile").addEventListener('click', function (ev) {
-    //     document.querySelector("#fileSection").innerHTML = "";
-    // })
-    //
-    // document.querySelector("#addFile").addEventListener('click', function (ev) {
-    //     let div = document.createElement("div");
-    //     let input = document.createElement("input");
-    //     input.className = "mt-2 form-control multiList";
-    //     input.name = "multiList";
-    //     input.type = "file"
-    //     div.appendChild(input);
-    //     document.querySelector("#fileSection").appendChild(div);
-    // })
-    //
-    // // 유효성 검사
-    // document.querySelector("#addButton").addEventListener('click', function (ev) {
-    //     let isFileEmpty = false;
-    //     document.querySelectorAll(".multiList").forEach(ev => {
-    //         if (ev.value == '') {
-    //             isFileEmpty = true;
-    //         }
-    //     })
-    //     let boardTitle = document.querySelector("#boardTitle");
-    //     let boardContent = document.querySelector("#boardContent");
-    //     if (boardTitle.value.trim() == '') {
-    //         alert('제목을 입력해주세요')
-    //         return;
-    //     }
-    //     if (boardContent.value.trim() == '') {
-    //         alert('내용을 입력해주세요')
-    //         return;
-    //     }
-    //     if (isFileEmpty) {
-    //         alert("파일을 등록해주세요")
-    //         return;
-    //     }
-    //     document.querySelector("#board-form").submit();
-    // })
-    //
-    // // 삭제 버튼
-    // document.querySelectorAll(".imgBox").forEach((e) => {
-    //     e.addEventListener('click', function (ev) {
-    //         if (ev.target.className === 'btn-sm btn-primary imgDelBtn') {
-    //             let fileName = ev.target.getAttribute("fileName");
-    //             let url = "/board/img-delete";
-    //             fetch(url, {
-    //                 headers: {
-    //                     "Content-Type": "application/json"
-    //                 },
-    //                 method: "POST",
-    //                 body: JSON.stringify({
-    //                     fileName: fileName
-    //                 })
-    //             }).then(resp => resp.text())
-    //                 .then(data => {
-    //                     console.log(data)
-    //                     if (data == 'ok') {
-    //                         alert('삭제성공')
-    //                         ev.target.parentElement.remove();
-    //                     }
-    //                 })
-    //         }
-    //     });
-    // })
+    document.querySelector("#removeFile").addEventListener('click', function (ev) {
+        document.querySelector("#fileSection").innerHTML = "";
+    })
+
+    document.querySelector("#addFile").addEventListener('click', function (ev) {
+        let div = document.createElement("div");
+        let input = document.createElement("input");
+        input.className = "mt-2 form-control multiList";
+        input.name = "multiList";
+        input.type = "file"
+        div.appendChild(input);
+        document.querySelector("#fileSection").appendChild(div);
+    })
+
+    // 유효성 검사
+    document.querySelector("#addButton").addEventListener('click', function (ev) {
+        let isFileEmpty = false;
+        document.querySelectorAll(".multiList").forEach(ev => {
+            if (ev.value == '') {
+                isFileEmpty = true;
+            }
+        })
+        let boardTitle = document.querySelector("#boardTitle");
+        let boardContent = document.querySelector("#boardContent");
+        if (boardTitle.value.trim() == '') {
+            alert('제목을 입력해주세요')
+            return;
+        }
+        if (boardContent.value.trim() == '') {
+            alert('내용을 입력해주세요')
+            return;
+        }
+        if (isFileEmpty) {
+            alert("파일을 등록해주세요")
+            return;
+        }
+        document.querySelector("#board-form").submit();
+    })
+
+    // 삭제 버튼
+    document.querySelectorAll(".imgBox").forEach((e) => {
+        e.addEventListener('click', function (ev) {
+            if (ev.target.className === 'btn-sm btn-primary imgDelBtn') {
+                let fileName = ev.target.getAttribute("fileName");
+                let url = "/board/img-delete";
+                fetch(url, {
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    method: "POST",
+                    body: JSON.stringify({
+                        fileName: fileName
+                    })
+                }).then(resp => resp.text())
+                    .then(data => {
+                        console.log(data)
+                        if (data == 'ok') {
+                            alert('삭제성공')
+                            ev.target.parentElement.remove();
+                        }
+                    })
+            }
+        });
+    })
 </script>
 </body>
 
