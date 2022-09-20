@@ -1,6 +1,9 @@
 package com.gd.finalproject.vo;
 
 import lombok.Data;
+
+import java.util.List;
+
 //공지사항
 @Data
 public class Notice {
