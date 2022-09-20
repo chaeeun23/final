@@ -76,6 +76,9 @@
             <td>
                 <input class="form-control valid-check" type="tel" name="memberEmail" id="email"
                        aria-describedby="invalid-emailCheck" readonly>
+                <div class="valid-feedback">
+                    인증성공
+                </div>
                 <button class="btn btn-sm btn-secondary mt-2 rounded-0" type="button" id="emailCheck"
                         data-bs-toggle="modal" data-bs-target="#emailPopup">
                     이메일인증
@@ -196,6 +199,7 @@
                     document.querySelector('#emailData').className += ' is-valid';
                     document.querySelector('#emailData').setAttribute('readonly', 'readonly');
                     document.querySelector('#emailCheckNum').removeAttribute('readonly');
+                    document.querySelector('#emailCheckBtn').setAttribute('disabled', 'disabled');
                 } else {
                     document.querySelector('#emailData').className += ' is-invalid';
                 }
