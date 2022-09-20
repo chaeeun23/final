@@ -16,19 +16,20 @@
 </head>
 <body>
 <div class="container">
-    기본회원정보(필수)
-    <input type="hidden" name="member.memberNo" value="${member.memberNo}">
+    <form action="/member/update" method="post" enctype="multipart/form-data" id="member-form">
+        기본 회원정보(필수)
+        <input type="hidden" name="member.memberNo" value="${member.memberNo}">
         <div class="mb-3">
             <h2 class="form-label">사진</h2>
             <div class="d-flex">
-<%--                <c:forEach items="${member.memberImg}" var="file">--%>
-<%--                    <div class="imgBox">--%>
-<%--                        <img style="width: 150px; height: 150px" src="${file}"--%>
-<%--                             onerror="this.src = '/mainImg/aa.png'">--%>
-<%--                        회원님을 알릴 수 있는 사진을 등록해주세요.--%>
-<%--                        등록된 사진은 회원님의 게시물이나 댓글들에 사용됩니다.--%>
-<%--                    </div>--%>
-<%--                </c:forEach>--%>
+                <c:forEach items="${member.memberImg}" var="file">
+                    <div class="imgBox">
+                        <img style="width: 150px; height: 150px" src="${file}"
+                             onerror="this.src = '/mainImg/aa.png'">
+                        회원님을 알릴 수 있는 사진을 등록해주세요.
+                        등록된 사진은 회원님의 게시물이나 댓글들에 사용됩니다.
+                    </div>
+                </c:forEach>
             </div>
             <hr/>
         </div>
@@ -60,6 +61,35 @@
             <input class="form-control" type="text" id="memberPhone" name="member.memberPhone"
                    value="${member.memberPhone}">
             <hr/>
+        </div>
+
+        <div class="mb-3">추가 회원정보(선택)
+            <hr style="border: solid 5px black;">
+
+            <div class="mb-3">
+                <h2 class="form-label">생년월일</h2>
+                <input class="form-control" type="text" id="memberBirth" name="member.memberBirth" value="${member.memberBirth}">
+                <hr/>
+            </div>
+            <div class="mb-3">
+                <h2 class="form-label">성별</h2>
+                <input class="form-control" type="text" id="memberGender" name="member.memberGender"
+                       value="${member.memberGender}">
+                <hr/>
+            </div>
+            <div class="mb-3">
+                <h2 class="form-label">주소</h2>
+                <input class="form-control" type="text" id="memberAddr" name="member.memberAddr"
+                       value="${member.memberAddr}">
+                <hr/>
+            </div>
+            <div class="mb-3">
+                <h2 class="form-label">상세주소</h2>
+                <input class="form-control" type="text" id="memberDetailAddr" name="member.memberDetailAddr"
+                       value="${member.memberDetailAddr}">
+                <hr/>
+            </div>
+
         </div>
     </form>
 </div>

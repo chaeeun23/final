@@ -17,9 +17,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-<div class="d-flex justify-content-center container" style="height: 450px">
+<div class="d-flex justify-content-center container " style="height: 800px">
     <form method="post" action="${pageContext.request.contextPath}/member/login"
-          class="w-75 border p-3 bg-white shadow rounded align-self-center">
+          class=" w-75 border p-3 bg-white shadow rounded align-self-center">
         <div class="d-inline-flex">
             <h1 class="ms-2 fw-bold">로그인</h1>
         </div>
@@ -41,11 +41,11 @@
             </div>
         </c:if>
         <div class="text-center mt-3">
-            <button type="submit" id="boardBtn" class="btn btn-primary rounded-0 me-1">고객 로그인</button>
+            <button type="submit" id="boardBtn" class="btn btn-secondary mt-2 rounded-0">고객 로그인</button>
             <a href="${pageContext.request.contextPath}/admin/login-form" type="submit"
-               class="btn btn-primary rounded-0 me-1">관리자 로그인</a>
+               class="btn btn-secondary mt-2 rounded-0">관리자 로그인</a>
 
-            <a href="${pageContext.request.contextPath}" class="btn btn-primary rounded-0 me-1">뒤로가기</a>
+            <a href="${pageContext.request.contextPath}" class="btn btn-secondary mt-2 rounded-0">뒤로가기</a>
         </div>
         <div class="text-center mt-3">
             <%-- 카카오 버튼 --%>
@@ -53,6 +53,7 @@
                     src="${pageContext.request.contextPath}/mainImg/kakao_btn.png"></a>
         </div>
     </form>
+</div>
 </div>
 </body>
 </html>
