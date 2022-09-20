@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
+
+import java.util.List;
+
 //공지사항
 @Data
 public class Notice {
