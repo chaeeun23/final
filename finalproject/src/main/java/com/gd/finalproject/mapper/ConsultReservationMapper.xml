@@ -1,18 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gd.finalproject.mapper.ConsultReservationMapper">
+<mapper
+	namespace="com.gd.finalproject.mapper.ConsultReservationMapper">
 	<!-- consultReservationList 상담예약리스트(달력) -->
 	<select id="selectConsultReservationListByMonth"
 		resultType="com.gd.finalproject.vo.ConsultReservation">
 		SELECT
 		consultReservation_no consultReservationNo,
-		user_id userId,
-		consult_phone consultPhone,
+		user_id
+		userId,
 		consult_date consultDate,
-		DAY(consult_date) consultDateDay
+		DAY(consult_date) consultDateDay,
+		TIME_FORMAT(consult_date, '%H:%i') consultDateTime
 		FROM consultReservation
-		WHERE YEAR(consult_date) = #{year} AND MONTH(consult_date) = #{month}
-		ORDER BY DAY(consult_date) ASC
+		WHERE
+		YEAR(consult_date) = #{year} AND MONTH(consult_date) = #{month}
+		ORDER
+		BY DAY(consult_date) ASC
 	</select>
 
+	<!-- consultReservationOne 상담예약상세보기 -->
+	<select id="selectConsultReservationOne" resultType="map">
+		SELECT
+		cr.user_id userId,
+		cr.consult_date consultDate,
+		m.member_name memberName,
+		c.consult_content consultContent
+		FROM consultReservation cr left JOIN consult c
+		ON
+		cr.consultReservation_no = c.consultReservation_no
+		left JOIN employee e
+		ON
+		e.member_id = c.employee_id
+		left JOIN member m
+		ON
+		e.member_id = m.member_id
+		WHERE cr.consultReservation_no = #{consultReservationNo}
+	</select>
 </mapper>

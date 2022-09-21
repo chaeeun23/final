@@ -92,4 +92,13 @@ public class ConsultReservationService {
 				
 		return returnMap;
 	}
+	
+	//consultReservationOne 상담예약상세보기 
+	public Map<String,Object> getConsultReservationOne(int consultReservationNo){
+		Map<String,Object> map = consultReservationMapper.selectConsultReservationOne(consultReservationNo);
+		log.debug(TeamColor.CE + "[ConsultReservationService.getConsultReservationOne] map : " + map);
+		return map;
+	}
+	
+	
 }

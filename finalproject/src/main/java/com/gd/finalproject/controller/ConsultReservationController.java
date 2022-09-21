@@ -43,4 +43,17 @@ public class ConsultReservationController {
 	
 	}
 	
+	//consultReservationOne 상담예약상세보기 
+	@GetMapping("/consultReservationOne")
+	public String getConsultReservationOne(Model model, @RequestParam(value="consultReservationNo") int consultReservationNo) {
+		log.debug(TeamColor.CE + "[ConsultReservationController.getConsultReservationOne] consultReservationNo : " + consultReservationNo);
+		
+		Map<String,Object> map = consultReservationService.getConsultReservationOne(consultReservationNo);
+		
+		log.debug(TeamColor.CE + "[ConsultReservationController.getConsultReservationOne] map : " + map);
+		model.addAttribute("map", map);
+		
+		return "/employee/consultReservationOne";
+	}
+	
 }
