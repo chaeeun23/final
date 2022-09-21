@@ -35,8 +35,7 @@ public class MemberDto implements UserDetails, OAuth2User {
     private String memberGender; //성별
     private String creatDate;
     private String updateDate;
-
-    private List<String> memberImg;
+    private String memberImg;
 
     /* 여기는 카카오로그인용 */
     @Override
@@ -103,3 +102,4 @@ public class MemberDto implements UserDetails, OAuth2User {
         return this.memberId.hashCode();
     }
 }
+

@@ -15,29 +15,29 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-<sec:authentication property="principal.memberNO" var="memberNo"/>
-<sec:authentication property="principal.memberId" var="memberId"/>
+<sec:authentication property="principal" var="member"/>
 <div class="container">
     <form action="" method="post" enctype="multipart/form-data" id="member-form">
         기본 회원정보(필수)
-        <input type="hidden" name="member.memberNo" value="${memberNo}">
+        <input type="hidden" name="member.memberNo" value="${member.memberNo}">
         <div class="mb-3">
             <h2 class="form-label">사진</h2>
             <div class="d-flex">
-                <c:forEach items="${member.memberImg}" var="file">
-                    <div class="imgBox">
-                        <img style="width: 150px; height: 150px" src="${file}"
-                             onerror="this.src = '/mainImg/aa.png'">
-                        회원님을 알릴 수 있는 사진을 등록해주세요.
-                        등록된 사진은 회원님의 게시물이나 댓글들에 사용됩니다.
-                    </div>
-                </c:forEach>
+                <div class="imgBox">
+                    <img style="width: 150px; height: 150px" src="${member.memberImg}"
+                         onerror="this.src = '${pageContext.request.contextPath}/memberImg/aa.png'">
+                    왜 ㅇ하이ㅣ 400에러가 뜨는거ㅑㅇ너ㅏㅏ'
+                    ㅣㅏㅟㅣㅏㅟㅏㅡ;ㅣㅌ
+
+                    회원님을 알릴 수 있는 사진을 등록해주세요.
+                    등록된 사진은 회원님의 게시물이나 댓글들에 사용됩니다.
+                </div>
             </div>
             <hr/>
         </div>
         <div class="mb-3">
             <h2 class="form-label">아이디</h2>
-            <input class="form-control" type="text" id="memberId" name="member.memberId" value="${memberId}">
+            <input class="form-control" type="text" id="memberId" name="member.memberId" value="${member.memberId}">
             <hr/>
         </div>
         <div class="mb-3">
