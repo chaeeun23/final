@@ -75,10 +75,7 @@ public class MemberController {
 
     //회원정보 조회
     @GetMapping("/detail")
-    public String memberDetail(@RequestParam("memberNo") int memberNo, Model model) {
-        log.info("memberNo = {}", memberNo);
-        MemberDto member = memberService.memberDetail(memberNo);
-        model.addAttribute("member", member);
+    public String memberDetail() {
         return "/member/member-detail";
     }
 
