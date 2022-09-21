@@ -15,84 +15,79 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-<sec:authentication property="principal.memberNO" var="memberNo"/>
-<sec:authentication property="principal.memberId" var="memberId"/>
-<div class="container">
-    <form action="" method="post" enctype="multipart/form-data" id="member-form">
-        기본 회원정보(필수)
-        <input type="hidden" name="member.memberNo" value="${memberNo}">
+<sec:authentication property="principal" var="member"/>
+<div class="d-flex justify-content-center container my-2">
+    <form action="" method="post" enctype="multipart/form-data" id="member-form"
+          class="w-75 border p-3 bg-white shadow rounded align-self-center">
+        <h1>기본 회원정보(필수)</h1>
+        <input type="hidden" name="member.memberNo" value="${member.memberNo}">
         <div class="mb-3">
-            <h2 class="form-label">사진</h2>
+            프로필사진
             <div class="d-flex">
-                <c:forEach items="${member.memberImg}" var="file">
-                    <div class="imgBox">
-                        <img style="width: 150px; height: 150px" src="${file}"
-                             onerror="this.src = '/mainImg/aa.png'">
-                        회원님을 알릴 수 있는 사진을 등록해주세요.
-                        등록된 사진은 회원님의 게시물이나 댓글들에 사용됩니다.
-                    </div>
-                </c:forEach>
+                <div class="imgBox">
+                    <img style="width: 150px; height: 150px" src="${member.memberImg}"
+                         onerror="this.src = '${pageContext.request.contextPath}/memberImg/aa.png'">
+                    회원님을 알릴 수 있는 사진을 등록해주세요.
+                    등록된 사진은 회원님의 게시물이나 댓글들에 사용됩니다.
+                </div>
             </div>
             <hr/>
         </div>
         <div class="mb-3">
-            <h2 class="form-label">아이디</h2>
-            <input class="form-control" type="text" id="memberId" name="member.memberId" value="${memberId}">
+            아이디<input class="form-control" type="text" id="memberId" name="member.memberId" value="${member.memberId}" readonly>
             <hr/>
         </div>
         <div class="mb-3">
-            <h2 class="form-label">비밀번호</h2>
+            비밀번호
             <input class="form-control" type="text" id="memberPw" name="member.memberPw"
                    value="${member.memberPw}">
             <hr/>
         </div>
         <div class="mb-3">
-            <h2 class="form-label">이름</h2>
+            이름
             <input class="form-control" type="text" id="memberName" name="member.memberName"
                    value="${member.memberName}">
             <hr/>
         </div>
         <div class="mb-3">
-            <h2 class="form-label">이메일</h2>
+            이메일
             <input class="form-control" type="text" id="memberEmail" name="member.memberEmail"
                    value="${member.memberEmail}">
             <hr/>
         </div>
         <div class="mb-3">
-            <h2 class="form-label">휴대전화</h2>
+            휴대전화
             <input class="form-control" type="text" id="memberPhone" name="member.memberPhone"
                    value="${member.memberPhone}">
             <hr/>
         </div>
-
         <div class="mb-3">추가 회원정보(선택)
-            <hr style="border: solid 5px black;">
+            <hr style="border: solid 2px black;">
 
             <div class="mb-3">
-                <h2 class="form-label">생년월일</h2>
+                생년월일
                 <input class="form-control" type="text" id="memberBirth" name="member.memberBirth"
                        value="${member.memberBirth}">
                 <hr/>
             </div>
             <div class="mb-3">
-                <h2 class="form-label">성별</h2>
+                성별
                 <input class="form-control" type="text" id="memberGender" name="member.memberGender"
                        value="${member.memberGender}">
                 <hr/>
             </div>
             <div class="mb-3">
-                <h2 class="form-label">주소</h2>
+                주소
                 <input class="form-control" type="text" id="memberAddr" name="member.memberAddr"
                        value="${member.memberAddr}">
                 <hr/>
             </div>
             <div class="mb-3">
-                <h2 class="form-label">상세주소</h2>
+                상세주소
                 <input class="form-control" type="text" id="memberDetailAddr" name="member.memberDetailAddr"
                        value="${member.memberDetailAddr}">
                 <hr/>
             </div>
-
         </div>
     </form>
 </div>
