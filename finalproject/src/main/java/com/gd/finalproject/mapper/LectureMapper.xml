@@ -69,16 +69,30 @@
 	<!-- 강좌 추가(addLecture) -->
 	<insert id="insertLecture" parameterType="com.gd.finalproject.vo.Lecture">
 		INSERT INTO (
-			lecture_no, instrutor_id, locatrion_no, lecture_name, lecture_limited, lecture_time, 
+			lecture_no, instructor_id, locatrion_no, lecture_name, lecture_limited, lecture_time, 
 			lecture_price, lecture_startDate, lecture_endDate
-		) VALUES (#{lectureNo}, #{instrutorId}, #{locationNo}, #{lectureName}, #{lectureLimited}, 
+		) VALUES (#{lectureNo}, #{instructorId}, #{locationNo}, #{lectureName}, #{lectureLimited}, 
 			#{lectureTime}, #{lecturePrice}, #{lectureStartDate}, #{lectureEndDate})
 	</insert>
 	
 	<!-- 강좌요일 추가(addLectureDay) -->
-	<insert id="insertLectureDay" parameterType="com.gd.finalproject.vo.LectureDay">
+	<insert id="insertLectureDay" parameterType="com.gd.finalproject.vo.LectureDay" >
 		INSERT INTO ( lecture_no, lecture_day ) VALUES (#{lecutreNo}, #{lectureDay})
 	</insert>
+
+	<!-- 강사(addLecture-instructor) -->
+	<select id="selectInstructor" resultType="com.gd.finalproject.vo.MemberDto">
+		SELECT 
+			i.member_id memberId, 
+			m.member_name memberName 
+		FROM instructor i JOIN member m 
+		ON i.member_id = m.member_id
+	</select>
+	
+	<!-- 장소(addLecture-location) -->
+	<select id="selectLocation" resultType="com.gd.finalproject.vo.Location">
+		SELECT location_no locationNo, lecture_addr lectureAddr FROM location
+	</select>
 	
 	<!-- 강좌 수정(updateLecture) - Action -->
 	<update id="updateLecture" parameterType="com.gd.finalproject.vo.Lecture">

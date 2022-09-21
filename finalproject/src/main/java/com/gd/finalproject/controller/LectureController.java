@@ -1,5 +1,7 @@
 package com.gd.finalproject.controller;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import com.gd.finalproject.commons.TeamColor;
 import com.gd.finalproject.service.LectureService;
 import com.gd.finalproject.vo.Lecture;
 import com.gd.finalproject.vo.LectureDay;
+import com.gd.finalproject.vo.Location;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,13 +26,13 @@ public class LectureController {
 	@Autowired LectureService lectureService;
 	
 	// 강좌 리스트(lectureList)
-	@GetMapping("/employeeLectureList")		
+	@GetMapping("/lectureList")		
 	public String lectureList(@RequestParam(required = false, value = "current") String current,
             @ModelAttribute("check") String check, Model model) {
-	Map<String,Object> map = lectureService.getLectureList(current);
-		log.debug(TeamColor.MS + "LectureController(employeeLectureList) : " + map);
-		map.forEach((key, value) -> model.addAttribute(key, value));
-		return "/employee/lectureList";		// 경로
+	Map<String,Object> lectureList = lectureService.getLectureList(current);
+		log.debug(TeamColor.MS + "LectureController(employeeLectureList) : " + lectureList);
+		lectureList.forEach((key, value) -> model.addAttribute(key, value));
+		return "/commons/lectureList";		// 경로
 	}
 	
 	// 강좌 상세페이지(lectureListOne)
@@ -39,35 +42,48 @@ public class LectureController {
 		Map<String,Object> lectureOne = lectureService.getLectureOne(lectureNo);
 		log.debug(TeamColor.MS + "LectureController(lectureOne) : " + lectureOne);
 		model.addAttribute("lectureOne", lectureOne);
-		return "/employee/lectureOne";
+		return "/commons/lectureOne";
 	}
 	
 	// 강좌 추가 (addLecture.jsp-Form)
 	@GetMapping("/addLecture")
-	public String addLecture() {
-		return "/employee/addLecture";
+	public String addLecture(Model model, Location locationNo) {
+		// 강사 아이디 추출
+		Map<String,Object> instructor = lectureService.addLecture(locationNo);
+		log.debug(TeamColor.MS + "LectureController(employeeLectureList) : " + instructor);
+		instructor.forEach((key, value) -> model.addAttribute(key, value));
+		
+		// 장소 추출
+		Map<String,Object> location = lectureService.addLecture(locationNo);
+		log.debug(TeamColor.MS + "LectureController(employeeLectureList) : " + location);
+		location.forEach((key, value) -> model.addAttribute(key, value));
+		
+		return "/commons/addLecture";
 	}
+	
 	
 	// 강좌 추가 (addLecture.jsp-Action)
 	@PostMapping("/addLecture")
-	public String addLecture(Lecture lecture, LectureDay lectureDay) {
-		int addLecture = lectureService.addLecture(lecture, lectureDay);
-		log.debug(TeamColor.MS + "LectureController(addLecture) : " + addLecture);
-		return "redirect:/employee/lectureList";
+	public String addLecture(@RequestParam("genreArray[]") List<LectureDay> genreArray, Lecture lecture) throws Exception {
+		// 강좌 추가
+		lectureService.addLecture(lecture, genreArray);
+		log.debug(TeamColor.MS + "LectureController.addLecture(addLecture) : " + lectureService.addLecture(lecture, genreArray));
+		
+		// 강좌 요일 추가
+		Iterator<LectureDay> lectureDay =  genreArray.iterator();
+		log.debug(TeamColor.MS + "LectureController.addLecture(lectureDay) : " + lectureDay);
+				 
+		return "redirect:/commons/lectureList";
 	}
-	
-	
-	
-	
-	
-	
-	
+
+
+	  
 	// 강좌 삭제(removeLecture)
 	@GetMapping("/removeLecture")
 	public String removeLecture(@RequestParam(value="lectureNo") String lectureNo) {
 		int removeLecture = lectureService.removeLecture(lectureNo);
 		log.debug(TeamColor.MS + "LectureController(removeLecture) : " + removeLecture);
-		return "redirect:/employeeLectureList";
+		return "redirect:/lectureList";
 		
 	}
 	

@@ -11,8 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gd.finalproject.commons.TeamColor;
 import com.gd.finalproject.mapper.LectureMapper;
 import com.gd.finalproject.util.PageNationUtil;
+import com.gd.finalproject.vo.Instructor;
 import com.gd.finalproject.vo.Lecture;
 import com.gd.finalproject.vo.LectureDay;
+import com.gd.finalproject.vo.Location;
 import com.gd.finalproject.vo.PageNationDto;
 
 import lombok.extern.slf4j.Slf4j;
@@ -53,21 +55,41 @@ public class LectureService {
         return lectureOne;
     }
     
-    // 강좌 추가 후 강좌요일 추가(addLecture.jsp-Form)
-    public int addLecture(Lecture lecture, LectureDay lectureDay) {
+    // 강좌 form에서 장소 추출(addLecture.jsp-Form)
+    public Map<String, Object> addLecture(Location locationNo) {
+    	
+	    // 장소 
+		List<Location> location = lectureMapper.selectLocation();
+		log.debug(TeamColor.MS + "LectureService.addLectureForm(location) : " + location);
+		
+		// 강사
+		List<Instructor> instructor = lectureMapper.selectInstructor();
+		log.debug(TeamColor.MS + "LectureService.addLectureForm(instructor) : " + instructor);
+		
+		// 객체 생성 후 객체에 값 넣기
+		Map<String, Object> map = new HashMap<>();
+		map.put("location", location);
+		map.put("instructor", instructor);
+		
+		return map; 
+    } 
+	
+    // 강좌 추가 (addLecture.jsp-Action)
+    public int addLecture(Lecture lecture, List<LectureDay> lectureDay) {
+    	
+    	log.debug(TeamColor.MS + "List<LectureDay> lectureDay : " + lectureDay);
+    	
     	// 강좌 추가 
     	int insertLecture = lectureMapper.insertLecture(lecture);
-    	log.debug(TeamColor.MS + "LectureService.addLecture : " + insertLecture);
+    	log.debug(TeamColor.MS + "LectureService.addLecture(insertLecture) : " + insertLecture);
     	
-    	// 강좌 추가가 되어 0이 아니면 강좌 요일 추가
-    	if(insertLecture != 0) {
-    		// 강좌 요일 추가
-    		int insertLectureDay = lectureMapper.insertLectureDay(lectureDay);
-    		log.debug(TeamColor.MS + "LectureService.insertLectureDay : " + insertLectureDay);
-    	}
-
-		return insertLecture;
+    	// 강좌 요일 추가
+    	Map<String,Object> insertLectureDay = lectureMapper.insertLectureDay(lectureDay);
+    	log.debug(TeamColor.MS + "LectureService.addLecture(insertLectureDay) : " + insertLectureDay);
+    	
+    	return insertLecture;
     }
+    
     
     // 강좌 수정
     public int modifyLecture(Lecture lectureNo) {

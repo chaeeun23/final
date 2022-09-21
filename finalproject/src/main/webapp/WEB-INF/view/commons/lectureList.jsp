@@ -36,6 +36,7 @@
 	<br>
 	<br>
 	
+	<div>
 	<table class="table table-bordered" style="text-align:center;" >
 		<tr>
 			<th>강좌번호</th>
@@ -99,7 +100,7 @@
 			alert('등록성공');
 		</script>
 	</c:if>
-
+</div>
 
 	<!-- footer -->
 	<div>
