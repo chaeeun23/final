@@ -4,10 +4,12 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 @Setter
 @Getter
@@ -15,7 +17,10 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MemberDto implements UserDetails {
+public class MemberDto implements UserDetails, OAuth2User {
+
+
+    private Map<String, Object> attributes; // 카카오용
     private int memberNo;
     private String memberId;
     private String memberPw;
@@ -33,10 +38,18 @@ public class MemberDto implements UserDetails {
 
     private List<String> memberImg;
 
+    /* 여기는 카카오로그인용 */
+    @Override
+    public String getName() {
+        return this.attributes.get("id").toString();
+    }
 
+    @Override
+    public Map<String, Object> getAttributes() {
+        return this.attributes;
+    }
 
-
-
+    /* 아래부터는 기본 스프링 시큐리티 */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();

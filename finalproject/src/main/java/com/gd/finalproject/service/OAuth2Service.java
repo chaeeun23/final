@@ -4,6 +4,7 @@ package com.gd.finalproject.service;
 import com.gd.finalproject.mapper.MemberMapper;
 import com.gd.finalproject.vo.MemberDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -21,6 +22,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class OAuth2Service implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
     private final PasswordEncoder passwordEncoder;
     private final MemberMapper memberMapper;
@@ -34,7 +36,6 @@ public class OAuth2Service implements OAuth2UserService<OAuth2UserRequest, OAuth
                 .getUserInfoEndpoint().getUserNameAttributeName();
 
         Map<String, Object> attributes = oAuth2User.getAttributes();
-        System.out.println("------------------" + attributes);
         // 카카오 메일 가져오기
         Map<String, Object> profile = (Map<String, Object>) attributes.get("kakao_account");
         Map<String, Object> properties = (Map<String, Object>) attributes.get("properties");
@@ -42,6 +43,8 @@ public class OAuth2Service implements OAuth2UserService<OAuth2UserRequest, OAuth
         String name = (String) properties.get("nickname");
         // 카카오를 통해서 가입했는지 확인
         MemberDto member = memberMapper.getMember(email);
+        log.info("member = {}", member);
+        member.setAttributes(properties);
         // 없으면 가입시키기
         if (member == null) {
             // 비밀번호 아무렇게나 암호화 시키기
@@ -61,9 +64,6 @@ public class OAuth2Service implements OAuth2UserService<OAuth2UserRequest, OAuth
             memberMapper.signMember(member);
             memberMapper.authInsert(member);
         }
-        return new DefaultOAuth2User(
-                member.getAuthorities()
-                , oAuth2User.getAttributes()
-                , userNameAttributeName);
+        return member;
     }
 }
