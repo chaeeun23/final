@@ -9,5 +9,7 @@ public class ConsultReservation {
 	private String consultPhone; //전화번호
 	private String consultDate; //상담할 날짜
 	private String createDate; //상담을 예약한 날짜
-	private int consultDateDay; //21
+	private String consultDateDay; //21일
+	private String consultDateTime; //18:00
+	
 }
