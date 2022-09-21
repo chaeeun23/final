@@ -1,5 +1,6 @@
 package com.gd.finalproject.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,18 +76,25 @@ public class LectureService {
     } 
 	
     // 강좌 추가 (addLecture.jsp-Action)
-    public int addLecture(Lecture lecture, List<LectureDay> lectureDay) {
+    public int addLecture(Lecture lecture) {
+    	// lecture 값들 넣어졌는지 확인
+    	log.debug(TeamColor.MS + "LectureService.addLecture(lecture) : " + lecture);
     	
-    	log.debug(TeamColor.MS + "List<LectureDay> lectureDay : " + lectureDay);
-    	
+
     	// 강좌 추가 
     	int insertLecture = lectureMapper.insertLecture(lecture);
     	log.debug(TeamColor.MS + "LectureService.addLecture(insertLecture) : " + insertLecture);
     	
     	// 강좌 요일 추가
-    	Map<String,Object> insertLectureDay = lectureMapper.insertLectureDay(lectureDay);
-    	log.debug(TeamColor.MS + "LectureService.addLecture(insertLectureDay) : " + insertLectureDay);
-    	
+    	for(String s:lecture.getLectureDay()) {
+    		LectureDay lectureDay = new LectureDay();
+    		lectureDay.setLectureDay(s);
+    		lectureDay.setLectureNo(lecture.getLectureNo());
+    		
+    		int insertLectureDay = lectureMapper.insertLectureDay(lectureDay);
+    		log.debug(TeamColor.MS + "LectureService.addLecture(insertLectureDay) : " + insertLectureDay);
+    	}
+
     	return insertLecture;
     }
     

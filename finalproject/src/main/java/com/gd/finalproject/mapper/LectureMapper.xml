@@ -68,16 +68,16 @@
 	
 	<!-- 강좌 추가(addLecture) -->
 	<insert id="insertLecture" parameterType="com.gd.finalproject.vo.Lecture">
-		INSERT INTO (
-			lecture_no, instructor_id, locatrion_no, lecture_name, lecture_limited, lecture_time, 
+		INSERT INTO lecture (
+			lecture_no, instructor_id, location_no, lecture_name, lecture_limited, lecture_time, 
 			lecture_price, lecture_startDate, lecture_endDate
 		) VALUES (#{lectureNo}, #{instructorId}, #{locationNo}, #{lectureName}, #{lectureLimited}, 
-			#{lectureTime}, #{lecturePrice}, #{lectureStartDate}, #{lectureEndDate})
+			#{lectureTime}, #{lecturePrice},  #{lectureStartDate}, #{lectureEndDate})
 	</insert>
 	
 	<!-- 강좌요일 추가(addLectureDay) -->
 	<insert id="insertLectureDay" parameterType="com.gd.finalproject.vo.LectureDay" >
-		INSERT INTO ( lecture_no, lecture_day ) VALUES (#{lecutreNo}, #{lectureDay})
+		INSERT INTO lectureday( lecture_no, lecture_day ) VALUES (#{lectureNo}, #{lectureDay})
 	</insert>
 
 	<!-- 강사(addLecture-instructor) -->

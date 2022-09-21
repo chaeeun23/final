@@ -26,7 +26,7 @@ public interface LectureMapper {
 	int insertLecture(Lecture lecture);
 	
 	// 강좌 요일 추가(addLectureDay - lectureDay)
-	Map<String,Object> insertLectureDay(@Param("genreArray[]") List<LectureDay> genreArray);
+	int insertLectureDay(LectureDay lectureDay);
 	
 	// 장소 (addLecture - location)
 	List<Location> selectLocation();

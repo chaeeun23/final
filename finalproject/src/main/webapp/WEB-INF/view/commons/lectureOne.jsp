@@ -20,7 +20,7 @@
 	<h1 style="text-align:center;">강좌 추가하기</h1>
 	<br>
 
-	<form action="${pageContext.request.contextPath}/cart" method="post">
+	<form action="${pageContext.request.contextPath}/cart?lectureNo=${lectureOne.lectureNo}" method="post">
 	<table class="table table-bordered" style="text-align:center;">
 		<tr> 
 			<td>강좌번호</td>

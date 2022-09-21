@@ -1,7 +1,6 @@
 package com.gd.finalproject.controller;
 
-import java.util.Iterator;
-import java.util.List;
+
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.gd.finalproject.commons.TeamColor;
 import com.gd.finalproject.service.LectureService;
 import com.gd.finalproject.vo.Lecture;
-import com.gd.finalproject.vo.LectureDay;
+
 import com.gd.finalproject.vo.Location;
 
 import lombok.extern.slf4j.Slf4j;
@@ -48,6 +47,7 @@ public class LectureController {
 	// 강좌 추가 (addLecture.jsp-Form)
 	@GetMapping("/addLecture")
 	public String addLecture(Model model, Location locationNo) {
+		
 		// 강사 아이디 추출
 		Map<String,Object> instructor = lectureService.addLecture(locationNo);
 		log.debug(TeamColor.MS + "LectureController(employeeLectureList) : " + instructor);
@@ -64,18 +64,15 @@ public class LectureController {
 	
 	// 강좌 추가 (addLecture.jsp-Action)
 	@PostMapping("/addLecture")
-	public String addLecture(@RequestParam("genreArray[]") List<LectureDay> genreArray, Lecture lecture) throws Exception {
-		// 강좌 추가
-		lectureService.addLecture(lecture, genreArray);
-		log.debug(TeamColor.MS + "LectureController.addLecture(addLecture) : " + lectureService.addLecture(lecture, genreArray));
+	public String addLecture(Lecture lecture)  {
+		log.debug(TeamColor.MS + "LectureController.addLecture(lecture) : " + lecture);
 		
-		// 강좌 요일 추가
-		Iterator<LectureDay> lectureDay =  genreArray.iterator();
-		log.debug(TeamColor.MS + "LectureController.addLecture(lectureDay) : " + lectureDay);
-				 
-		return "redirect:/commons/lectureList";
+		// 강좌 추가
+		int addLecture = lectureService.addLecture(lecture);
+		log.debug(TeamColor.MS + "LectureController.addLecture(addLecture) : " + addLecture);
+		
+		return "redirect:/lectureList";
 	}
-
 
 	  
 	// 강좌 삭제(removeLecture)
@@ -84,7 +81,6 @@ public class LectureController {
 		int removeLecture = lectureService.removeLecture(lectureNo);
 		log.debug(TeamColor.MS + "LectureController(removeLecture) : " + removeLecture);
 		return "redirect:/lectureList";
-		
 	}
 	
 	
