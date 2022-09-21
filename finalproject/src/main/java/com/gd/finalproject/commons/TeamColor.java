@@ -4,7 +4,7 @@ public class TeamColor {
 	public static final String JM = "\u001B[31m"; // 빨간색(정미)
 	public static final String YW= "\u001B[43m"; // 백그라운드노랑글씨흰색(영욱)
 	public static final String MS = "\u001B[93m"; // 노랑색(미선)
-	public static final String CE = "\u001B[35m"; // 보라색(채은)
+	public static final String CE = "\033[42m"; // 보라색(채은)
 	
 //	  // Reset
 //    public static final String RESET = "\033[0m";  // Text Reset
