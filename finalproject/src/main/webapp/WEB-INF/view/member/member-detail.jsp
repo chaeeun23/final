@@ -15,11 +15,12 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-<sec:authentication property="memberId"/>
+<sec:authentication property="principal.memberNO" var="memberNo"/>
+<sec:authentication property="principal.memberId" var="memberId"/>
 <div class="container">
     <form action="" method="post" enctype="multipart/form-data" id="member-form">
         기본 회원정보(필수)
-        <input type="hidden" name="member.memberNo" value="${member.memberNo}">
+        <input type="hidden" name="member.memberNo" value="${memberNo}">
         <div class="mb-3">
             <h2 class="form-label">사진</h2>
             <div class="d-flex">
@@ -36,7 +37,7 @@
         </div>
         <div class="mb-3">
             <h2 class="form-label">아이디</h2>
-            <input class="form-control" type="text" id="memberId" name="member.memberId" value="${member.memberId}">
+            <input class="form-control" type="text" id="memberId" name="member.memberId" value="${memberId}">
             <hr/>
         </div>
         <div class="mb-3">
