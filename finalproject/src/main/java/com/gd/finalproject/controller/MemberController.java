@@ -6,7 +6,6 @@ import com.gd.finalproject.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.stereotype.Controller;
@@ -68,7 +67,7 @@ public class MemberController {
 
     @PostMapping("/sign/sign-member")
     public String signMember(MemberDto memberDto) {
-        // 로그 확인하세여 넘어 오는지
+        // 로그 확인
         log.info("memberDto = {}", memberDto);
         memberService.signMember(memberDto);
         return "redirect:/";
@@ -76,9 +75,9 @@ public class MemberController {
 
     //회원정보 조회
     @GetMapping("/detail")
-    public String memberDetail(@RequestParam("memberId") String memberId, Model model) {
-        log.info("memberId = {}", memberId);
-        MemberDto member = memberService.memberDetail(memberId);
+    public String memberDetail(@RequestParam("memberNo") int memberNo, Model model) {
+        log.info("memberNo = {}", memberNo);
+        MemberDto member = memberService.memberDetail(memberNo);
         model.addAttribute("member", member);
         return "/member/member-detail";
     }

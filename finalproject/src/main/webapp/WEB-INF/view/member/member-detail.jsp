@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,8 +15,9 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
+<sec:authentication property="memberId"/>
 <div class="container">
-    <form action="/member/update" method="post" enctype="multipart/form-data" id="member-form">
+    <form action="" method="post" enctype="multipart/form-data" id="member-form">
         기본 회원정보(필수)
         <input type="hidden" name="member.memberNo" value="${member.memberNo}">
         <div class="mb-3">
@@ -67,7 +69,8 @@
 
             <div class="mb-3">
                 <h2 class="form-label">생년월일</h2>
-                <input class="form-control" type="text" id="memberBirth" name="member.memberBirth" value="${member.memberBirth}">
+                <input class="form-control" type="text" id="memberBirth" name="member.memberBirth"
+                       value="${member.memberBirth}">
                 <hr/>
             </div>
             <div class="mb-3">
