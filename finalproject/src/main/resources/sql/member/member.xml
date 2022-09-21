@@ -15,7 +15,6 @@
         <result column="memberAddr" property="memberAddr"/>
         <result column="memberDetailAddr" property="memberDetailAddr"/>
         <result column="memberBirth" property="memberBirth"/>
-        <result column="memberImg" property="memberImg"/>
         <collection property="memberAuth" ofType="java.lang.String" javaType="list">
             <result column="memberAuth"/>
         </collection>
@@ -41,11 +40,9 @@
                m.member_addr       memberAddr,
                m.member_detailAddr memberDetailAddr,
                m.member_birth      memberBirth,
-               a.member_auth       memberAuth,
-               i.file_name         memberImg
+               a.member_auth       memberAuth
         FROM member m
                  JOIN auth a ON a.member_id = m.member_id
-                 JOIN memberimg i ON i.member_id = m.member_id
         WHERE m.member_id = #{id}
     </select>
 
