@@ -8,6 +8,7 @@
 			employee_id employeeId,
 			notice_title noticeTitle,
 			notice_content noticeContent,
+			notice_read noticeRead,
 			DATE_FORMAT(create_date,'%Y-%m-%d') createDate,
 			update_date updateDate
 		FROM notice 
@@ -27,9 +28,10 @@
 		n.employee_id employeeId,
 		n.notice_title noticeTitle,
 		n.notice_content noticeContent,
+		n.notice_read noticeRead,
 		n.create_date createDate,
 		n.update_date updateDate,
-		nf.noticeFile_no noticeFileNo,
+		nf.file_name fileName,
 		GROUP_CONCAT(nf.originalFile_name) originalFileName
 		FROM notice n LEFT OUTER JOIN noticefile nf ON n.notice_no = nf.notice_no
 		WHERE
@@ -52,5 +54,12 @@
 				NOW()
 				)
 	</insert>
+	
+	<!-- 조회수 Count -->
+	  <update id="showUp" parameterType="java.lang.Integer">
+        UPDATE notice
+        SET notice_read = notice_read + 1
+        WHERE notice_no = #{noticeNo}
+    </update>
 	
 </mapper>

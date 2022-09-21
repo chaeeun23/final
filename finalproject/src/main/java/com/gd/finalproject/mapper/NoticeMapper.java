@@ -21,4 +21,7 @@ public interface NoticeMapper {
 	
 	// 공지사항 추가
 	int insertNotice(Notice notice);
+	
+	// 조회수 기능
+	int showUp(@Param("noticeNo") int noticeNo);
 }

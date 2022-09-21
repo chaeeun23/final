@@ -44,22 +44,28 @@
 	
 	</div>
 	
-	<table class="table table-bordered" style="text-align:center;">
-		<tr>
-			<th>번호</th>
-			<th>제목</th>
-			<th>작성자</th>
-			<th>작성일</th>
-		</tr>
+	<table class="table" style="text-align:center;">
+		<thead>
+			<tr>
+				<th>번호</th>
+				<th>제목</th>
+				<th>작성자</th>
+				<th>작성일</th>
+				<th>조회수</th>
+			</tr>
+		</thead>
+		<tbody>
 		<c:forEach var="n" items="${noticeList}">
 			<tr>
 				<td style="width: 10%;">${n.noticeNo}</td>
-				<td style="width: 70%; text-align: left;"><a
+				<td style="width: 60%; text-align: left;"><a
 					href="${pageContext.request.contextPath}/noticeOne?noticeNo=${n.noticeNo}">${n.noticeTitle}</a></td>
 				<td style="width: 10%;">${n.employeeId}</td>
 				<td style="width: 10%;">${n.createDate}</td>
+				<td style="width: 10%;">${n.noticeRead}</td>
 			</tr>
 		</c:forEach>
+		</tbody>
 	</table>
 	</div><!-- 공지사항 리스트 END -->
 	

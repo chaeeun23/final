@@ -21,20 +21,29 @@
 	<div class="container">
 		<table class="table table-bordered" style="text-align: center;">
 			<tr>
-				<td style="width: 10%;">제목</td>
+				<th style="width: 10%;">제목</th>
 				<td style="width: 90%;">${noticeOne.noticeTitle }</td>
 			</tr>
 			<tr>
-				<td>작성자</td>
+				<th>작성자</th>
 				<td>${noticeOne.employeeId}</td>
 			</tr>
 			<tr>
-				<td>첨부파일</td>
-				<td>${noticeOne.originalFileName}</td>
+				<th>조회수</th>
+				<td>${noticeOne.noticeRead}</td>
 			</tr>
 			<tr>
-				<td>내용</td>
-				<td>${noticeOne.noticeContent}</td>
+				<th>첨부파일</th>
+				<td><a
+					href="${pageContext.request.contextPath}/board/download/file?fileName=${noticeOne.fileName}">
+						${noticeOne.fileName}</a></td>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<td>
+				<img class="image-notice" style="width: 50%" src="${pageContext.request.contextPath}/noticeFileUpload/${noticeOne.fileName}">
+				<br>${noticeOne.noticeContent}
+				</td>
 			</tr>
 		</table>
 

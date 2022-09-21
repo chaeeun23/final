@@ -11,38 +11,23 @@
 <script>
 <!-- 파일 등록 JS -->
 $(document).ready(function(){
-	$('#addFile').click(function(){
-		let isFileEmpty = false;
-		
-		let html = '<div><input type="file" name="multiList" class="multiList"></div>'
-		
-		$('.multiList').each(function(index, item){
-			// $(this) --> item
-			if($(item).val() == ''){
-				isFileEmpty = true;
-			}
-		});
-		if(isFileEmpty == false){
-			$('#fileSection').append(html);
+	<!-- 이미지 파일만 업로드 가능 -->
+	var regex = new RegExp("(.*?)\.(jpeg|jpg|png|gif|bmp)$"); // 이미지파일확장자 제한
+	
+	function checkExtension(fileName){ // 정미한테 헬프요청
+		if(regex.test(fileName)){
+			alert("이미지 파일만 업로드 가능합니다.(jpeg, jpg, png, gif, bmp)");
+			return false;
 		}
-	});
+		return
+	}
 	
 	$('#addBtn').click(function(){
-		let isFileEmpty = false;
-		// 유효성 검사 후
-		$('.multiList').each(function(index, item){
-			// $(this) --> item
-			if($(item).val() == ''){
-				isFileEmpty = true;
-			}
-		});
 		
 		if($('#noticeTitle').val() == ''){
 			alert('noticeTitle를 입력하세요');
 		} else if($('#noticeContent').val() == ''){
 			alert('noticeContent를 입력하세요');
-		} else if(isFileEmpty){
-			alert('파일을 추가하세요');
 		} else{
 			addNoticeForm.submit();
 		}
@@ -84,11 +69,7 @@ $(document).ready(function(){
 				<tr>
 					<td>첨부파일</td>
 					<td>
-						<div>
-							<button type="button" id="addFile">파일추가</button>
-							<button type="button" id="removeFile">파일삭제</button>
-						</div>
-						<div id="fileSection"></div>
+						<div id="fileSection"><input type="file" name="multiList" class="multiList"></div>
 					</td>
 				</tr>
 

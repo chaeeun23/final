@@ -1,12 +1,21 @@
 package com.gd.finalproject.service;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -60,6 +69,10 @@ public class NoticeService {
 		// 객체 생성후 넣기
 		Map<String, Object> noticeOneMap = new HashMap<>();
 		noticeOneMap.put("noticeOne", noticeOne);
+		
+		// 조회수 카운트
+        noticeMapper.showUp(noticeNo);
+        log.debug(TeamColor.YW + "조회수 noticeNo : " + noticeNo);
 
 		return noticeOneMap;
 	}
@@ -77,22 +90,28 @@ public class NoticeService {
 				NoticeFile noticefile = new NoticeFile();
 				noticefile.setNoticeNo(notice.getNoticeNo());
 				log.debug(TeamColor.YW + "noticefile.noticefile.getNoticeNo() : " +noticefile.getNoticeNo());
+				
 				// 중복되지 않는 랜덤이름 생성 UUID API사용
 				String filename = UUID.randomUUID().toString().replace("-", "");
-				noticefile.setFileName(filename);
-				log.debug(TeamColor.YW + "filename : " + filename);
+				
+				// noticefile 세팅
+				noticefile.setFileName(filename + mf.getOriginalFilename());
 				noticefile.setOriginalFileName(mf.getOriginalFilename());
 				noticefile.setFileType(mf.getContentType());
 				noticefile.setFileSize(mf.getSize());
+				log.debug(TeamColor.YW + "noticefile : " + noticefile);
+
 				noticeFileMapper.insertNoticeFile(noticefile);
 				
-				// text.txt
-				String ext = mf.getOriginalFilename().substring(mf.getOriginalFilename().lastIndexOf("."));	// 파일 확장자 구하기
+				// 파일 확장자 구하기
+				String ext = mf.getOriginalFilename().substring(mf.getOriginalFilename().lastIndexOf("."));
 				log.debug(TeamColor.YW + "mf.getOriginalFilename() : " + mf.getOriginalFilename());
 				log.debug(TeamColor.YW + "파일 확장자 : " + ext);
-
+				
+				log.debug(TeamColor.YW + "noticefile.getFileName() : " + noticefile.getFileName());
+				
 				try {
-					mf.transferTo(new File(path + File.separator + filename+ext));	// c:/upload/filename.ext 새로운 빈 파일 안에 MultipartFile안에 파일을 하나씩 복사
+					mf.transferTo(new File(path + File.separator + noticefile.getFileName()));	// c:/upload/filename.ext 새로운 빈 파일 안에 MultipartFile안에 파일을 하나씩 복사
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -101,4 +120,42 @@ public class NoticeService {
 			}
 		}
 	}
+	
+	// 첨부파일 다운로드
+	public ResponseEntity<Object> downloadNoticeFile(String fileName, String realPath) {
+		//리턴타입 세팅
+		ResponseEntity<Object> returnVal = null;
+
+		try {
+			
+			//path의 경로 객체 생성
+			Path filePath = Paths.get(realPath);
+			
+			// 파일 resource 얻기
+			Resource resource = new InputStreamResource(Files.newInputStream(filePath)); 
+			
+			//파일 객체 생성
+			File file = new File(realPath);
+			
+			//헤더 객체 생성
+			HttpHeaders headers = new HttpHeaders();
+			
+			// 다운로드 되거나 로컬에 저장되는 용도로 쓰이는지를 알려주는 헤더			
+			headers.setContentDisposition(ContentDisposition.builder("attachment").filename(file.getName()).build());  
+			
+			//결과 확인 디버깅
+			log.debug(TeamColor.YW + "결과 확인 / 파일 다운로드 성공");
+			
+			//리턴
+			return new ResponseEntity<Object>(resource, headers, HttpStatus.OK);
+		} catch(Exception e) {
+			//결과확인 디버깅
+			log.debug(TeamColor.YW + "결과 확인 / 파일 다운로드 실패");
+			
+			//리턴
+			return new ResponseEntity<Object>(null, HttpStatus.CONFLICT);
+		}
+		
+	}
+	
 }

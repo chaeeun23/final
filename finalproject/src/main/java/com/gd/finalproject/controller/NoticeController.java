@@ -1,10 +1,13 @@
 package com.gd.finalproject.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -60,5 +63,29 @@ public class NoticeController {
 		log.debug(TeamColor.YW + "NoticeController.noticeForm : " + notice);
 		
 		return "redirect:/noticeList";
+		
 	}
+	
+	// 첨부파일 다운로드
+	@GetMapping("board/download/file")
+	public ResponseEntity<Object> downloadFile(String fileName, HttpServletRequest request) throws UnsupportedEncodingException {
+		
+		//파일 경로 설정
+		String realPath = request.getSession().getServletContext().getRealPath("/noticeFileUpload") +"/"+ fileName;
+
+		//값 확인 디버깅
+		log.debug(TeamColor.YW + "값 확인 / realPath: "+realPath);
+		
+		//리턴값 세팅
+		ResponseEntity<Object> returnVal = noticeService.downloadNoticeFile(fileName, realPath);
+		
+		//값 확인 디버깅
+		log.debug(TeamColor.YW + "값 확인 / returnVal: "+returnVal);
+		
+		//리턴
+		return returnVal;
+				
+	}
+	
+	
 }

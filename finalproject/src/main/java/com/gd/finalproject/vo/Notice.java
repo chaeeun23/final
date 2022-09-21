@@ -15,6 +15,7 @@ public class Notice {
 	private String employeeId; //직원아이디
 	private String noticeTitle; //공지사항제목
 	private String noticeContent; //공지사항내용
+	private String noticeRead; // 조회수카운트
 	private String createDate; 
 	private String updateDate;
 	private List<MultipartFile> multiList;
