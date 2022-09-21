@@ -32,10 +32,10 @@
 		<tr> 
 			<td>강사아이디</td>
 			<td>
-			<select name="instructorId">
-				<option value="">******* 강사 선택 *******</option>
-			<c:forEach var="l" items="${instructor}">
-				<option value="${l.memberId}">${l.memberId} ) ${l.memberName}</option>
+			<select name="instructorId" id="instructor">
+				<option value="default">******* 강사 선택 *******</option>
+			<c:forEach var="i" items="${instructor}">
+				<option value="${i.memberId}">${i.memberId} ) ${i.memberName}</option>
 			</c:forEach>
 		</select>
 			</td>
@@ -43,8 +43,8 @@
 		<tr> 
 			<td>장소</td>
 			<td>	
-			<select name="locationNo">
-				<option value="">******* 장소 선택 *******</option>
+			<select name="locationNo" id="location">
+				<option value="default">******* 장소 선택 *******</option>
 			<c:forEach var="l" items="${location}">
 				<option value="${l.locationNo}">${l.locationNo} ) ${l.lectureAddr}</option>
 			</c:forEach>
@@ -57,8 +57,7 @@
 		<tr> 
 			<td>수강요일</td>
 			<td>
-				<div class="form-group" style="text-right-padding:50px">
-					<input type="hidden" id="lecture" value="lecture">
+				<div >
 					<input type="checkbox" name="lectureDay" value="월" id="월">
 					<label for="월">월</label>&nbsp;&nbsp;&nbsp;
 					<input type="checkbox" name="lectureDay" value="화" id="화">
@@ -79,7 +78,7 @@
 		<tr> 
 			<td>수업시간</td>
 			<td>
-				<div class="form-group" >
+				<div>
 					<input type="radio" name="lectureTime" id="9시타임" value="9시타임" >&nbsp;
 					<label for="9시타임" >9-10</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<input type="radio" name="lectureTime" id="10시타임" value="10시타임" >&nbsp;
@@ -135,13 +134,11 @@
 				alert("빈칸입니다. 강좌번호를 입력해주세요");	
 						$("#lectureNo").focus();	
 								return false; 
-		   } else if( $("#instructorId option:selected").val() == "default")	 { 
-				alert("강사를 선택해 주세요!");	  
-						$("#instructorId").focus();	
+		   } else if( $("#instructor option:selected").val() == "default")	 { 
+				alert("강사옵션을 선택해 주세요!");	  
 								return false; 
-		   } else if( $("#locationNo option:selected").val() == "default")	{
-				alert("장소를 선택해 주세요!");	  
-						$("#locationNo").focus();	
+		   } else if( $("#location option:selected").val() == "default")	{
+				alert("장소옵션을 선택해 주세요!");	  
 								return false; 
 			} else if( $("#lectureName").val() == "")	 { 
 				alert("빈칸입니다. 강좌명을 입력해주세요!");	  
@@ -170,25 +167,42 @@
 				alert("빈칸입니다. 종강일을 선택해주세요!");	
 						return false; 
 			} else {
-			
 				addLectureForm.submit();
 			}
 		});
 
 
-		// 체크박스 값 넣기
-		function checkForm() {
-			// 객체에 생성
-		    var genreArray = new Array();
-			// 체크박스 체크된 값 넣기
-		    $('input:checkbox[name=lectureDay]:checked').each(function() {
-		        genreArray.push(this.value);
-		    });
-			
-			// 값이 들어갔는지 확인
-		    console.log(genreArray);
-		} 
+	/* 	// 체크박스 값 넣기
+		$('#addLectureBtn').click(function() {
+			/* // 객체에 생성
+		    var genreArray = new Array(); 
 		
+		    // name이 같은 체크박스의 값들을 배열에 담는다.    
+		    var checkboxValues = [];    
+		    $("input[name='lectureDay']:checked").each(function(i) {        
+		    	checkboxValues.push($(this).val());    });         
+		    	// 사용자 ID(문자열)와 체크박스 값들(배열)을 name/value 형태로 담는다.    
+		    	var allData = { "checkArray": checkboxValues };         
+		    	$.ajax({        
+		    		url:'/finalproject/addLecture',        
+		    		type:'POST',        
+		    		data: allData,        
+		    		success:function(data){            
+		    			alert("완료!");            
+		    			window.opener.location.reload();            
+		    			self.close();        
+		    			},        
+		    			error:function(jqXHR, textStatus, errorThrown){            
+		    				alert("실패!" + textStatus + " : " + errorThrown);            
+		    				self.close();        
+		    				}    
+		    		   });
+		    	
+				// 값이 들어갔는지 확인
+			    console.log(genreArray);
+				
+		    	}
+		 */ 
 	</script>
 	
 	<!-- 시작날짜가 종료날짜 보다 작으면 경고창을 띄움 -->
