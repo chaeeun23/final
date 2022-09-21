@@ -1,4 +1,3 @@
-<
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
@@ -16,91 +15,84 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-<sec:authentication property="principal" var="member"/>
-<div class="d-flex justify-content-center container my-2">
-    <form action="" method="post" enctype="multipart/form-data" id="member-form"
-          class="w-75 border p-3 bg-white shadow rounded align-self-center">
-        <h4>기본 회원정보 <span style="color: darkgrey">필수</span></h4>
-        <hr style="border: solid 2px black;">
-
-        <input type="hidden" name="member.memberNo" value="${member.memberNo}">
-        <div class="mb-3"  >
-         <div class="d-flex">
-                <div class=" imgBox ">
-                    <img style="width: 100px; height: 100px" src="${member.memberImg}"
-                         onerror="this.src = '${pageContext.request.contextPath}/memberImg/aa.png'">
-                    <div style="font-size: 13px" >
+<sec:authentication property="principal.memberNO" var="memberNo"/>
+<sec:authentication property="principal.memberId" var="memberId"/>
+<div class="container">
+    <form action="" method="post" enctype="multipart/form-data" id="member-form">
+        기본 회원정보(필수)
+        <input type="hidden" name="member.memberNo" value="${memberNo}">
+        <div class="mb-3">
+            <h2 class="form-label">사진</h2>
+            <div class="d-flex">
+                <c:forEach items="${member.memberImg}" var="file">
+                    <div class="imgBox">
+                        <img style="width: 150px; height: 150px" src="${file}"
+                             onerror="this.src = '/mainImg/aa.png'">
                         회원님을 알릴 수 있는 사진을 등록해주세요.
-                        <br>
                         등록된 사진은 회원님의 게시물이나 댓글들에 사용됩니다.
                     </div>
-                </div>
-         </div>
-
+                </c:forEach>
+            </div>
             <hr/>
         </div>
         <div class="mb-3">
-            아이디<input class="form-control" type="text" id="memberId" name="member.memberId" value="${member.memberId}"
-                      readonly>
+            <h2 class="form-label">아이디</h2>
+            <input class="form-control" type="text" id="memberId" name="member.memberId" value="${memberId}">
             <hr/>
         </div>
         <div class="mb-3">
-            비밀번호
+            <h2 class="form-label">비밀번호</h2>
             <input class="form-control" type="text" id="memberPw" name="member.memberPw"
                    value="${member.memberPw}">
             <hr/>
         </div>
         <div class="mb-3">
-            이름
+            <h2 class="form-label">이름</h2>
             <input class="form-control" type="text" id="memberName" name="member.memberName"
                    value="${member.memberName}">
             <hr/>
         </div>
         <div class="mb-3">
-            이메일
+            <h2 class="form-label">이메일</h2>
             <input class="form-control" type="text" id="memberEmail" name="member.memberEmail"
                    value="${member.memberEmail}">
             <hr/>
+        </div>
+        <div class="mb-3">
+            <h2 class="form-label">휴대전화</h2>
+            <input class="form-control" type="text" id="memberPhone" name="member.memberPhone"
+                   value="${member.memberPhone}">
+            <hr/>
+        </div>
+
+        <div class="mb-3">추가 회원정보(선택)
+            <hr style="border: solid 5px black;">
+
             <div class="mb-3">
-                휴대전화
-                <input class="form-control" type="text" id="memberPhone" name="member.memberPhone"
-                       value="${member.memberPhone}">
+                <h2 class="form-label">생년월일</h2>
+                <input class="form-control" type="text" id="memberBirth" name="member.memberBirth"
+                       value="${member.memberBirth}">
+                <hr/>
+            </div>
+            <div class="mb-3">
+                <h2 class="form-label">성별</h2>
+                <input class="form-control" type="text" id="memberGender" name="member.memberGender"
+                       value="${member.memberGender}">
+                <hr/>
+            </div>
+            <div class="mb-3">
+                <h2 class="form-label">주소</h2>
+                <input class="form-control" type="text" id="memberAddr" name="member.memberAddr"
+                       value="${member.memberAddr}">
+                <hr/>
+            </div>
+            <div class="mb-3">
+                <h2 class="form-label">상세주소</h2>
+                <input class="form-control" type="text" id="memberDetailAddr" name="member.memberDetailAddr"
+                       value="${member.memberDetailAddr}">
+                <hr/>
             </div>
 
-
-            <div class="mb-3">
-                <h4>추가 회원정보<span style="color: darkgrey"> 선택</span></h4>
-                <hr style="border: solid 2px black;">
-
-
-                <div class="mb-3">
-                    생년월일
-                    <input class="form-control" type="text" id="memberBirth" name="member.memberBirth"
-                           value="${member.memberBirth}">
-                    <hr/>
-                </div>
-                <div class="mb-3">
-                    성별
-                    <input class="form-control" type="text" id="memberGender" name="member.memberGender"
-                           value="${member.memberGender}">
-                    <hr/>
-                </div>
-                <div class="mb-3">
-                    주소
-                    <input class="form-control" type="text" id="memberAddr" name="member.memberAddr"
-                           value="${member.memberAddr}">
-                    <hr/>
-                </div>
-                <div class="mb-3">
-                    상세주소
-                    <input class="form-control" type="text" id="memberDetailAddr" name="member.memberDetailAddr"
-                           value="${member.memberDetailAddr}">
-                </div>
-                <div class="mt-2">
-                    <button id="addButton" type="button" class="btn btn-sm btn-secondary mt-2 rounded-0">수정</button>
-                    <a class="btn btn-sm btn-secondary mt-2 rounded-0" href="${pageContext.request.contextPath}">뒤로가기</a>
-                </div>
-            </div>
         </div>
     </form>
 </div>
