@@ -107,10 +107,6 @@ public class NoticeService {
 
 				noticeFileMapper.insertNoticeFile(noticefile);
 				
-				// 파일 확장자 구하기
-				String ext = mf.getOriginalFilename().substring(mf.getOriginalFilename().lastIndexOf("."));
-				log.debug(TeamColor.YW + "mf.getOriginalFilename() : " + mf.getOriginalFilename());
-				log.debug(TeamColor.YW + "파일 확장자 : " + ext);
 				
 				log.debug(TeamColor.YW + "noticefile.getFileName() : " + noticefile.getFileName());
 				
@@ -193,11 +189,22 @@ public class NoticeService {
     	int deleteNoticeFile = noticeFileMapper.deleteNoticeFile(noticeNo);
     	log.debug(TeamColor.YW + "NoticeService.deleteNoticeFile : " + deleteNoticeFile);
     	
-    	// 강좌 삭제
+    	// 공지사항 삭제
     	int deleteNotice= noticeMapper.deleteNotice(noticeNo);
         log.debug(TeamColor.YW + "NoticeService.deleteNotice: " + deleteNotice);
     	
     	return deleteNotice;
     }
 	
+    // 공지사항 수정 - 공지사항 삭제 후 추가 / 파일 삭제 후 추가
+    public int modifyNotice(Notice notice) {
+    	// 파라미터 확인
+//    	log.debug(TeamColor.YW + "noticeNo : " + noticeNo);
+    	
+    	// 실행
+    	int updateNotice = noticeMapper.updateNotice(notice);
+    	// 공지사항 수정
+    	return updateNotice;
+    }
+    
 }

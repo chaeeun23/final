@@ -1,7 +1,6 @@
 package com.gd.finalproject.controller;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -48,13 +47,14 @@ public class NoticeController {
 		return "/commons/noticeOne";
 	}
 	
-	// 공지사항 추가하기
-	@GetMapping("/addNotice") // 추가 Form
+	// 공지사항 추가 - Form
+	@GetMapping("/addNotice")
 	public String addNotice(Model model) {
 		return "/commons/addNotice";
 	}
 	
-	@PostMapping("/addNotice") // 추가 Action
+	// 공지사항 추가 - Action
+	@PostMapping("/addNotice")
 	public String addNotice(Model model, Notice notice, HttpSession session) {
 		String path = session.getServletContext().getRealPath("/noticeFileUpload");
 		
@@ -68,7 +68,7 @@ public class NoticeController {
 	}
 	
 	// 첨부파일 다운로드
-	@GetMapping("board/download/file")
+	@GetMapping("notice/download/file")
 	public ResponseEntity<Object> downloadFile(String fileName, HttpServletRequest request) throws UnsupportedEncodingException {
 		
 		//파일 경로 설정
@@ -97,6 +97,34 @@ public class NoticeController {
 		
 		
 		return "redirect:/noticeList";
+	}
+	
+	// 공지사항 수정 - Form
+	@GetMapping("/modifyNotice")
+	public String modifyNotice(Model model, @RequestParam(value="noticeNo") int noticeNo, String fileName, HttpServletRequest request) throws UnsupportedEncodingException {
+		// 파라미터 확인
+		log.debug(TeamColor.YW + "noticeNo : " + noticeNo);
+		log.debug(TeamColor.YW + "fileName : " + fileName);
+			
+		// 강좌 상세페이지에서 값 받아오기
+		Map<String,Object> noticeOneMap = noticeService.getNoticeOne(noticeNo);
+		log.debug(TeamColor.YW + "NoticeController(noticeOne) : " + noticeOneMap);
+		noticeOneMap.forEach((key, value) -> model.addAttribute(key, value));
+		log.debug(TeamColor.YW + "NoticeController.model(noticeOne) : " + model);
+		return "/commons/modifyNotice";
+	}
+	
+	// 공지사항 수정 - Action
+	@PostMapping("/modifyNotice")
+	public String modifyNotice(Notice notice, String fileName, HttpServletRequest request) throws UnsupportedEncodingException {
+		// 파라미터 확인
+		log.debug(TeamColor.YW + "notice.getNoticeNo() : " + notice.getNoticeNo());
+		log.debug(TeamColor.YW + "fileName : " + fileName);
+		
+		// 공지사항 수정하기
+		int updateNotice = noticeService.modifyNotice(notice);
+		log.debug(TeamColor.YW + "NoticeController.modifyNotice(updateNotice) : " + updateNotice);
+		return "redirect:/noticeOne?noticeNo=" + notice.getNoticeNo();/* + "&fileName=" + fileName */
 	}
 	
 }

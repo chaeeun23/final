@@ -23,8 +23,4 @@
 		DELETE FROM noticefile WHERE notice_no=#{noticeNo}
 	</delete>
 	
-	<!-- updateNoticeFile -->
-	<update id="updateNoticeFile" parameterType="java.lang.Integer">
-	
-	</update>
 </mapper>

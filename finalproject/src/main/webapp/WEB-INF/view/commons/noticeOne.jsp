@@ -35,7 +35,7 @@
 			<tr>
 				<th>첨부파일</th>
 				<td><a
-					href="${pageContext.request.contextPath}/board/download/file?fileName=${noticeOne.fileName}">
+					href="${pageContext.request.contextPath}/notice/download/file?fileName=${noticeOne.fileName}">
 						${noticeOne.fileName}</a></td>
 			</tr>
 			<tr>
@@ -49,7 +49,7 @@
 		<a class="btn btn-primary" href="${pageContext.request.contextPath}/noticeList/" style="float:right; margin-left:10px">목록</a>
 		<!-- 관리자만 수정,삭제 가능버튼 보임 -->
 		<a class="btn btn-primary" href="${pageContext.request.contextPath}/removeNotice?noticeNo=${noticeOne.noticeNo}&fileName=${noticeOne.fileName}" style="float:right; margin-left:10px">삭제하기</a>
-		<a class="btn btn-primary" href="${pageContext.request.contextPath}/modifyNotice?noticeNo=${noticeOne.noticeNo}" style="float:right; margin-left:10px" >수정하기</a>
+		<a class="btn btn-primary" href="${pageContext.request.contextPath}/modifyNotice?noticeNo=${noticeOne.noticeNo}&fileName=${noticeOne.fileName}" style="float:right; margin-left:10px" >수정하기</a>
 		
 		<br>
 		<br>

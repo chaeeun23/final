@@ -25,12 +25,9 @@ public interface NoticeMapper {
 	// 조회수 기능
 	int showUp(@Param("noticeNo") int noticeNo);
 	
-	// 공지사항파일 삭제
-	int deleteNoticeFile(@Param("noticeNo") int noticeNo);
-	
 	// 공지사항 삭제
 	int deleteNotice(@Param("noticeNo") int noticeNo);
 	
 	// 공지사항 수정
-	int updateNotice(@Param("noticeNo") int noticeNo);
+	int updateNotice(Notice notice);
 }

@@ -33,9 +33,9 @@
 			$('#addBtn').click(function(){
 
 				if($('#noticeTitle').val() == ''){
-					alert('제목을 입력하세요');
+					alert('제목을 입력하세요.');
 				} else if($('#noticeContent').val() == ''){
-					alert('내용을 입력하세요');
+					alert('내용을 입력하세요.');
 				} else{
 					addNoticeForm.submit();
 				}
@@ -59,31 +59,32 @@
 
 <!-- 공지사항 등록폼 -->
 <div class="container">
-	<form enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath }/addNotice" id="addNoticeForm">
-		<h1>공지사항 등록</h1>
+	<form enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath }/modifyNotice?noticeNo=${noticeOne.noticeNo}" id="addNoticeForm">
+		<h1>공지사항 수정</h1>
 		<table class="table table-bordered">
 			<tr>
 				<td style="width: 10%;">제목</td>
-				<td style="width: 90%;"><input type="text" id="noticeTitle" name="noticeTitle"></td>
+				<td style="width: 90%;"><input type="text" id="noticeTitle" name="noticeTitle" value="${noticeOne.noticeTitle}"></td>
 			</tr>
 			<tr>
 				<td>작성자</td>
-				<td><input type="text" id="employeeId" name="employeeId" <%-- value="${notice.employeeId}"  readonly --%> ></td>
+				<td>${noticeOne.employeeId}</td>
 			</tr>
 
 			<tr>
 				<td>첨부파일</td>
 				<td>
-					<div id="fileSection"><input id="fileData" type="file" name="multiList" class="multiList"></div>
+					<div id="fileSection"><input id="fileData" type="file" name="multiList" class="multiList" value="${noticeOne.fileName}"></div>
 				</td>
 			</tr>
 
+
 			<tr>
 				<td>내용</td>
-				<td><textarea rows="3" cols="100" id="noticeContent" name="noticeContent"></textarea></td>
+				<td><textarea rows="3" cols="100" id="noticeContent" name="noticeContent">${noticeOne.noticeContent}</textarea></td>
 			</tr>
 		</table>
-		<button class="btn btn-primary" type="button" id="addBtn">등록하기</button>
+		<button class="btn btn-primary" type="button" id="addBtn">수정하기</button>
 	</form>
 </div>
 <!-- 공지사항 추가폼 END -->

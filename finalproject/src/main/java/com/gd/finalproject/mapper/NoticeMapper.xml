@@ -68,7 +68,12 @@
 	</delete>
 	
 	<!-- updateNotice -->
-	<update id="updateNotice" parameterType="java.lang.Integer">
-	
+	<update id="updateNotice" parameterType="com.gd.finalproject.vo.Notice">
+		UPDATE notice
+		SET 
+			notice_title = #{noticeTitle},
+			notice_content = #{noticeContent},
+			update_date = NOW()
+			WHERE notice_no = #{noticeNo}
 	</update>
 </mapper>
