@@ -62,14 +62,10 @@
         WHERE notice_no = #{noticeNo}
     </update>
 	
-	
-	
 	<!-- deleteNotice -->
 	<delete id="deleteNotice" parameterType="java.lang.Integer">
 		DELETE FROM notice WHERE notice_no=#{noticeNo}
 	</delete>
-	
-	
 	
 	<!-- updateNotice -->
 	<update id="updateNotice" parameterType="java.lang.Integer">

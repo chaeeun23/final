@@ -1,6 +1,8 @@
 package com.gd.finalproject.service;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -8,6 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -157,8 +161,34 @@ public class NoticeService {
 	}
 	
 	// 공지사항 삭제 + 파일삭제
-    public int removeNotice(int noticeNo) {
+    public int removeNotice(int noticeNo, String fileName, HttpServletRequest request) {
     	
+    	// 파라미터 값 확인
+    	log.debug(TeamColor.YW + "removeNotice.noticeNo : " + noticeNo);
+    	log.debug(TeamColor.YW + "removeNotice.fileName : " + fileName);
+    	
+    	// 업로드된 파일 삭제
+    	String srcFileName = null;
+    	
+    	// 파일 경로 설정
+    	String uploadPath = request.getSession().getServletContext().getRealPath("/noticeFileUpload");
+
+        try{
+            srcFileName = URLDecoder.decode(fileName,"UTF-8");
+            //UUID가 포함된 파일이름을 디코딩해줍니다.
+            
+            File file = new File(uploadPath +File.separator + srcFileName);
+            boolean result = file.delete();
+            log.debug(TeamColor.YW + "삭제할 파일명 : " + srcFileName);
+            File thumbnail = new File(file.getParent(),"s_"+file.getName());
+            //getParent() - 현재 File 객체가 나태내는 파일의 디렉토리의 부모 디렉토리의 이름 을 String으로 리턴해준다.
+            result = thumbnail.delete();
+            new ResponseEntity<>(result,HttpStatus.OK);
+        }catch (UnsupportedEncodingException e){
+            e.printStackTrace();
+            new ResponseEntity<>(false,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        
     	// 파일 삭제
     	int deleteNoticeFile = noticeFileMapper.deleteNoticeFile(noticeNo);
     	log.debug(TeamColor.YW + "NoticeService.deleteNoticeFile : " + deleteNoticeFile);

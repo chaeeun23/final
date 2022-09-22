@@ -1,6 +1,7 @@
 package com.gd.finalproject.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +30,7 @@ public class NoticeController {
 	// 공지사항 리스트
 	@GetMapping("/noticeList")		
 	public String noticeList(@RequestParam(required = false, value = "current") String current,
-            @ModelAttribute("check") String check, Model model) {
+			@ModelAttribute("check") String check, Model model) {
 		Map<String,Object> noticeListMap = noticeService.getNoticeList(current);
 		log.debug(TeamColor.YW + "NoticeController(noticeListMap) : " + noticeListMap);
 		noticeListMap.forEach((key, value) -> model.addAttribute(key, value));
@@ -88,11 +89,14 @@ public class NoticeController {
 	}
 	
 	// 공지사항 삭제
-		@GetMapping("/removeNotice")
-		public String removeNotice(@RequestParam(value="noticeNo") int noticeNo) {
-			int removeNotice = noticeService.removeNotice(noticeNo);
-			log.debug(TeamColor.YW + "noticeController(removeNotice) : " + removeNotice);
-			return "redirect:/noticeList";
-		}
+	@GetMapping("/removeNotice")
+	public String removeNotice(@RequestParam(value="noticeNo") int noticeNo, String fileName, HttpServletRequest request) throws UnsupportedEncodingException {
+		
+		int removeNotice = noticeService.removeNotice(noticeNo, fileName, request);
+		log.debug(TeamColor.YW + "noticeController(removeNotice) : " + removeNotice);
+		
+		
+		return "redirect:/noticeList";
+	}
 	
 }

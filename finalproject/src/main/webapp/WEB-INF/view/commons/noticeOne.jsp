@@ -48,7 +48,7 @@
 		</table>
 		<a class="btn btn-primary" href="${pageContext.request.contextPath}/noticeList/" style="float:right; margin-left:10px">목록</a>
 		<!-- 관리자만 수정,삭제 가능버튼 보임 -->
-		<a class="btn btn-primary" href="${pageContext.request.contextPath}/removeNotice?noticeNo=${noticeOne.noticeNo}" style="float:right; margin-left:10px">삭제하기</a>
+		<a class="btn btn-primary" href="${pageContext.request.contextPath}/removeNotice?noticeNo=${noticeOne.noticeNo}&fileName=${noticeOne.fileName}" style="float:right; margin-left:10px">삭제하기</a>
 		<a class="btn btn-primary" href="${pageContext.request.contextPath}/modifyNotice?noticeNo=${noticeOne.noticeNo}" style="float:right; margin-left:10px" >수정하기</a>
 		
 		<br>
