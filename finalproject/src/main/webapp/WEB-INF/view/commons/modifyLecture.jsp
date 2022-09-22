@@ -19,21 +19,21 @@
 	</div>
 	
 	<!-- 총 관리자만 강좌 추가 가능 -->
-	<div class="container">
-	<h1 style="text-align:center;">강좌 추가하기</h1>
+	<div class="container" style="text-align:center;">
+	<h1 style="text-align:center;">강좌 수정하기</h1>
 	<br>
 	
-	<form method="post" action="${pageContext.request.contextPath}/addLecture" id="addLectureForm">
-	<table class="table table-bordered" style="text-align:center;" >
+	<form method="post" action="${pageContext.request.contextPath}/modifyLecture" id="modifyLectureForm" >
+	<table class="table table-bordered" style="text-align:center;">
 		<tr> 
 			<td>강좌번호</td>
-			<td><input type="text" id="lectureNo" name="lectureNo"></td>
+			<td><input type="text" id="lectureNo" name="lectureNo" value="${lectureOne.lectureNo}" readonly="readonly"></td>
 		</tr>
 		<tr> 
 			<td>강사아이디</td>
 			<td>
 			<select name="instructorId" id="instructor" style="text-align:center;">
-				<option value="default" >******* 강사 선택 *******</option>
+				<option value="default">******* 강사 선택 *******</option>
 			<c:forEach var="i" items="${instructor}">
 				<option value="${i.memberId}">${i.memberId} ) ${i.memberName}</option>
 			</c:forEach>
@@ -52,7 +52,7 @@
 		</tr> 
 		<tr> 
 			<td>강좌명</td>
-			<td><input type="text" id="lectureName" name="lectureName"></td>
+			<td><input type="text" id="lectureName" name="lectureName" value="${lectureOne.lectureName}"></td>
 		</tr>
 		<tr> 
 			<td>수강요일</td>
@@ -73,7 +73,7 @@
 		</tr>
 		<tr> 
 			<td>수강인원</td>
-			<td><input type="text" id="lectureLimited" name="lectureLimited"></td>
+			<td><input type="text" id="lectureLimited" name="lectureLimited" value="${lectureOne.lectureLimited}"></td>
 		</tr>
 		<tr> 
 			<td>수업시간</td>
@@ -100,7 +100,7 @@
 		</tr>
 		<tr> 
 			<td>강좌금액</td>
-			<td><input type="text" id="lecturePrice" name="lecturePrice"></td>
+			<td><input type="text" id="lecturePrice" name="lecturePrice"  value="${lectureOne.lecturePrice}"></td>
 		</tr>
 		<tr> 
 			<td>개강일</td>
@@ -113,7 +113,7 @@
 		
 		</table>
 			<a href="${pageContext.request.contextPath}/lectureList" class="btn btn-primary" style="width:100px; float:right; margin-right:10px; ">강좌목록</a>
-			<button type="button" class="btn btn-primary" id="addLectureBtn" style="width:100px; float:right; margin-right:10px;">강좌추가</button>
+			<button type="button" class="btn btn-primary" id="modifyLectureBtn" style="width:100px; float:right; margin-right:10px;">강좌수정</button>
 	</form>
 </div>
 
@@ -129,7 +129,7 @@
 	
 	<script>
 
-		$("#addLectureBtn").click(function(){
+		$("#modifyLectureBtn").click(function(){
 			if( $("#lectureNo").val() == "")	 { 
 				alert("빈칸입니다. 강좌번호를 입력해주세요");	
 						$("#lectureNo").focus();	
@@ -153,7 +153,7 @@
 						$("#lectureLimited").focus();	
 								return false; 
 			} else if( $(":radio[name='lectureTime']:checked").length==0)	 { 
-				alert("수업시간을 선택해주세요!");	  
+				alert("수업시간를 선택해주세요!");	  
 						$("#lectureTime").focus();	
 								return false; 
 			} else if( $("#lecturePrice").val() == "")	 { 
@@ -167,7 +167,7 @@
 				alert("빈칸입니다. 종강일을 선택해주세요!");	
 						return false; 
 			} else {
-				addLectureForm.submit();
+				modifyLectureForm.submit();
 			}
 		});
 

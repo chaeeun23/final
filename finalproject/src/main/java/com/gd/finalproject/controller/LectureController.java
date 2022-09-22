@@ -37,6 +37,7 @@ public class LectureController {
 	// 강좌 상세페이지(lectureListOne)
 	@GetMapping("/lectureOne") 
 	public String lectureOne(Model model, @RequestParam(value="lectureNo") String lectureNo) {
+		// 값 넘겨 받기
 		log.debug(TeamColor.MS + "LectureController(lectureOne-lectureNo) : " + lectureNo);
 		Map<String,Object> lectureOne = lectureService.getLectureOne(lectureNo);
 		log.debug(TeamColor.MS + "LectureController(lectureOne) : " + lectureOne);
@@ -65,6 +66,7 @@ public class LectureController {
 	// 강좌 추가 (addLecture.jsp-Action)
 	@PostMapping("/addLecture")
 	public String addLecture(Lecture lecture)  {
+		// lecture에 값들 들어와 있는지 확인
 		log.debug(TeamColor.MS + "LectureController.addLecture(lecture) : " + lecture);
 		
 		// 강좌 추가
@@ -74,6 +76,40 @@ public class LectureController {
 		return "redirect:/lectureList";
 	}
 
+	
+	// 강좌 수정 (modifyLecture.jsp - Form)
+	@GetMapping("/modifyLecture")
+	public String modifyLecture(Model model, @RequestParam(value="lectureNo") String lectureNo, Location locationNo) {
+		// 강좌번호 값 넘어 왔는지 확인
+		log.debug(TeamColor.MS + "LectureController.modifyLecture(lectureNo) : " + lectureNo);
+		
+		// 강사 아이디 추출
+		Map<String,Object> instructor = lectureService.addLecture(locationNo);
+		log.debug(TeamColor.MS + "LectureController(employeeLectureList) : " + instructor);
+		instructor.forEach((key, value) -> model.addAttribute(key, value));
+				
+		// 장소 추출
+		Map<String,Object> location = lectureService.addLecture(locationNo);
+		log.debug(TeamColor.MS + "LectureController(employeeLectureList) : " + location);
+		location.forEach((key, value) -> model.addAttribute(key, value));
+				
+		// 강좌 상세페이지에서 값 받아오기
+		Map<String,Object> lectureOne = lectureService.getLectureOne(lectureNo);
+		model.addAttribute("lectureOne", lectureOne);
+		return "/commons/modifyLecture";
+	}
+	
+	// 강좌 수정 (modifyLecture.jsp - Action)
+	@PostMapping("/modifyLecture")
+	public String modifyLecture(Lecture lecture) {
+		// 값 넘겨받기
+		log.debug(TeamColor.MS + "LectureController.modifyLecture(lecture) : " + lecture);
+		
+		// 강좌 수정하기
+		int updateLecture = lectureService.modifyLecture(lecture, lecture.getLectureNo());
+		log.debug(TeamColor.MS + "LectureController.modifyLecture(updateLecture) : " + updateLecture);
+		return "redirect:/lectureList";
+	}
 	  
 	// 강좌 삭제(removeLecture)
 	@GetMapping("/removeLecture")

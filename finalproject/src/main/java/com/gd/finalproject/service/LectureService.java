@@ -1,6 +1,6 @@
 package com.gd.finalproject.service;
 
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -86,7 +86,7 @@ public class LectureService {
     	log.debug(TeamColor.MS + "LectureService.addLecture(insertLecture) : " + insertLecture);
     	
     	// 강좌 요일 추가
-    	for(String s:lecture.getLectureDay()) {
+    	for(String s : lecture.getLectureDay()) {
     		LectureDay lectureDay = new LectureDay();
     		lectureDay.setLectureDay(s);
     		lectureDay.setLectureNo(lecture.getLectureNo());
@@ -99,24 +99,39 @@ public class LectureService {
     }
     
     
-    // 강좌 수정
-    public int modifyLecture(Lecture lectureNo) {
-    	int updateLecture = lectureMapper.updateLecture(lectureNo);
-    	log.debug(TeamColor.MS + "LectureService.updateLecture : " + updateLecture);
-		return updateLecture;
+    // 강좌 수정 (modifyLecture) - 강좌 요일 삭제 후 추가, 강좌 수정
+    public int modifyLecture(Lecture lecture, String lectureNo) {
     	
+    	// 강좌 수정
+    	int updateLecture = lectureMapper.updateLecture(lecture);
+    	log.debug(TeamColor.MS + "LectureService.modifyLecture(updateLecture) : " + updateLecture);
+    	
+    	// 강좌 요일 삭제
+    	int deleteLectureDay = lectureMapper.deleteLectureDay(lectureNo);
+    	log.debug(TeamColor.MS + "LectureService.modifyLecture(deleteLectureDay) : " + deleteLectureDay);
+    	
+    	// 강좌 요일 추가
+    	for(String s : lecture.getLectureDay()) {
+    		LectureDay lectureDay = new LectureDay();
+    		lectureDay.setLectureDay(s);
+    		lectureDay.setLectureNo(lectureNo);
+    		
+    		int insertLectureDay = lectureMapper.insertLectureDay(lectureDay);
+    		log.debug(TeamColor.MS + "LectureService.modifyLecture(insertLectureDay) : " + insertLectureDay);
+    	}
+		return updateLecture;
     }
     
-    // 강좌 요일, 강좌 삭제
+    // 강좌 요일, 강좌 삭제 (removeLecture)
     public int removeLecture(String lectureNo) {
     	
     	// 강좌 요일 삭제
     	int deleteDayLecture = lectureMapper.deleteLectureDay(lectureNo);
-    	log.debug(TeamColor.MS + "LectureService.deleteDayLecture : " + deleteDayLecture);
+    	log.debug(TeamColor.MS + "LectureService.removeLecture(deleteDayLecture) : " + deleteDayLecture);
     	
     	// 강좌 삭제
     	int deleteLecture = lectureMapper.deleteLecture(lectureNo);
-        log.debug(TeamColor.MS + "LectureService.deleteLecture : " + deleteLecture);
+        log.debug(TeamColor.MS + "LectureService.removeLecture(deleteLecture) : " + deleteLecture);
     	
     	return deleteLecture;
     }
