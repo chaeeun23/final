@@ -6,6 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>2유2김</title>
+<style type="text/css">
+th {
+	vertical-align:middle;
+}
+</style>
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/mainImg/favicon.png">
 </head>
 <body>
@@ -40,9 +45,11 @@
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td>
-				<img class="image-notice" style="width: 50%" src="${pageContext.request.contextPath}/noticeFileUpload/${noticeOne.fileName}">
-				<br>${noticeOne.noticeContent}
+				<td><c:if test="${not empty noticeOne.fileName}">
+						<img class="image-notice" style="width: 50%"
+							src="${pageContext.request.contextPath}/noticeFileUpload/${noticeOne.fileName}">
+					</c:if> 
+					<br>${noticeOne.noticeContent}<br>
 				</td>
 			</tr>
 		</table>

@@ -59,7 +59,7 @@
 
 <!-- 공지사항 등록폼 -->
 <div class="container">
-	<form enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath }/modifyNotice?noticeNo=${noticeOne.noticeNo}" id="addNoticeForm">
+	<form enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath }/modifyNotice?noticeNo=${noticeOne.noticeNo}&fileName=${noticeOne.fileName}" id="addNoticeForm">
 		<h1>공지사항 수정</h1>
 		<table class="table table-bordered">
 			<tr>

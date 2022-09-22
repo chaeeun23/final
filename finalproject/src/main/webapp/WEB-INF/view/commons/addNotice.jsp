@@ -83,7 +83,8 @@
 				<td><textarea rows="3" cols="100" id="noticeContent" name="noticeContent"></textarea></td>
 			</tr>
 		</table>
-		<button class="btn btn-primary" type="button" id="addBtn">등록하기</button>
+		<a class="btn btn-primary" href="${pageContext.request.contextPath}/noticeList/" style="float:right; margin-left:10px">돌아가기</a>
+		<button class="btn btn-primary" type="button" id="addBtn" style="float:right;">등록하기</button>
 	</form>
 </div>
 <!-- 공지사항 추가폼 END -->

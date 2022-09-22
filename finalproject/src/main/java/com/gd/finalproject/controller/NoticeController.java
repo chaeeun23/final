@@ -101,7 +101,7 @@ public class NoticeController {
 	
 	// 공지사항 수정 - Form
 	@GetMapping("/modifyNotice")
-	public String modifyNotice(Model model, @RequestParam(value="noticeNo") int noticeNo, String fileName, HttpServletRequest request) throws UnsupportedEncodingException {
+	public String modifyNotice(Model model, int noticeNo, String fileName, HttpServletRequest request) throws UnsupportedEncodingException {
 		// 파라미터 확인
 		log.debug(TeamColor.YW + "noticeNo : " + noticeNo);
 		log.debug(TeamColor.YW + "fileName : " + fileName);
@@ -118,11 +118,14 @@ public class NoticeController {
 	@PostMapping("/modifyNotice")
 	public String modifyNotice(Notice notice, String fileName, HttpServletRequest request) throws UnsupportedEncodingException {
 		// 파라미터 확인
-		log.debug(TeamColor.YW + "notice.getNoticeNo() : " + notice.getNoticeNo());
-		log.debug(TeamColor.YW + "fileName : " + fileName);
+		log.debug(TeamColor.YW + "modifyNotice.notice.getNoticeNo() : " + notice.getNoticeNo());
+		log.debug(TeamColor.YW + "modifyNotice.fileName : " + fileName);
+		
+		String path = request.getSession().getServletContext().getRealPath("/noticeFileUpload");
+		log.debug(TeamColor.YW + "modifyNotice.path : " + path);
 		
 		// 공지사항 수정하기
-		int updateNotice = noticeService.modifyNotice(notice);
+		int updateNotice = noticeService.modifyNotice(notice, path, fileName, request);
 		log.debug(TeamColor.YW + "NoticeController.modifyNotice(updateNotice) : " + updateNotice);
 		return "redirect:/noticeOne?noticeNo=" + notice.getNoticeNo();/* + "&fileName=" + fileName */
 	}
