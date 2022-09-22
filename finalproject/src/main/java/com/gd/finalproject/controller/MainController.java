@@ -25,4 +25,33 @@ public class MainController {
 		return "/main_page/centerRoute";
 	}
 	
+	//프로그램안내 - 수영
+	@GetMapping("/swimming")
+	public String swimming() {
+		return "/main_page/swimming";
+	}
+	
+	//프로그램안내 - 에어로빅
+	@GetMapping("/aerobics")
+	public String aerobics() {
+		return "/main_page/aerobics";
+	}
+	
+	//프로그램안내 - 필라테스
+	@GetMapping("/pilates")
+	public String pilates() {
+		return "/main_page/pilates";
+	}
+	
+	//프로그램안내 - 테니스
+	@GetMapping("/tennis")
+	public String tennis() {
+		return "/main_page/tennis";
+	}
+	
+	//프로그램안내 - 탁구
+	@GetMapping("/pingpong")
+	public String pingpong() {
+		return "/main_page/pingpong";
+	}
 }
