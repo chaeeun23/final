@@ -11,8 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.gd.finalproject.commons.TeamColor;
 import com.gd.finalproject.mapper.ConsultReservationMapper;
+import com.gd.finalproject.vo.Consult;
 import com.gd.finalproject.vo.ConsultReservation;
-import com.gd.finalproject.vo.Employee;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -107,13 +107,25 @@ public class ConsultReservationService {
 		List<Map<String,Object>> employee = consultReservationMapper.selectEmployee();
 		log.debug(TeamColor.CE + "[ConsultReservationService.addConsult] employee : " + employee);
 		
-		/*
-		 * Map<String, Object> map = new HashMap<>(); map.put("employee", employee);
-		 * log.debug(TeamColor.CE + "[ConsultReservationService.addConsult] map : " +
-		 * map);
-		 */
 		return employee;
+	}
+	
+	//addConsult 상담예약한 회원의 상담내역 추가 - action
+	public int addConsult(Consult consult){
+		log.debug(TeamColor.CE + "[ConsultReservationService.addConsult] consult : " + consult);
 		
+		int insertConsult = consultReservationMapper.insertConsult(consult);
+		
+		return insertConsult;
+	}
+	
+	//modifyConsult 상담예약하고 상담한 내역 수정 
+	public int modifyConsult(Consult consult){
+		log.debug(TeamColor.CE + "[ConsultReservationService.modifyConsult] consult : " + consult);
+		
+		int updateConsult = consultReservationMapper.updateConsult(consult);
+		
+		return updateConsult;
 	}
 	
 	

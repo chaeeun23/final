@@ -19,7 +19,7 @@
 	</div>
 
 	<div class="container">
-		<h1 style="text-align: center;">상담예약정보</h1>
+		<h1 style="text-align: center;">상담예약정보/상담내역</h1>
 		<br>
 		<table class="table table-bordered" style="text-align: center;">
 			<tr>
@@ -51,7 +51,7 @@
 			</c:when>
 			<c:otherwise>
 				<a
-					href="${pageContext.request.contextPath}/modifyConsultReservation?consultReservationNo=${map.consultReservationNo}"
+					href="${pageContext.request.contextPath}/modifyConsult?consultReservationNo=${map.consultReservationNo}"
 					class="btn btn-primary" style="float: right; margin-right: 10px;">상담내역
 					수정</a>
 			</c:otherwise>

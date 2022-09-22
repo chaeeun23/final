@@ -14,7 +14,8 @@
 		TIME_FORMAT(consult_date, '%H:%i') consultDateTime
 		FROM consultReservation
 		WHERE
-		YEAR(consult_date) = #{year} AND MONTH(consult_date) = #{month}
+		YEAR(consult_date) = #{year} AND
+		MONTH(consult_date) = #{month}
 		ORDER
 		BY DAY(consult_date) ASC
 	</select>
@@ -25,29 +26,50 @@
 		cr.consultReservation_no consultReservationNo,
 		cr.user_id userId,
 		DATE_FORMAT(cr.consult_date, '%Y-%m-%d') consultDate,
-		m.member_name memberName,
+		m.member_name
+		memberName,
 		c.consult_content consultContent,
 		TIME_FORMAT(cr.consult_date, '%H:%i') consultDateTime
-		FROM consultReservation cr left JOIN consult c
+		FROM
+		consultReservation cr left JOIN consult c
 		ON
-		cr.consultReservation_no = c.consultReservation_no
+		cr.consultReservation_no =
+		c.consultReservation_no
 		left JOIN employee e
 		ON
-		e.member_id = c.employee_id
+		e.member_id =
+		c.employee_id
 		left JOIN member m
 		ON
 		e.member_id = m.member_id
-		WHERE cr.consultReservation_no = #{consultReservationNo}
+		WHERE
+		cr.consultReservation_no = #{consultReservationNo}
 	</select>
-	
+
 	<!-- addConsult 상담예약한 회원의 상담내역 추가 - form -->
 	<!-- 직원이름 -->
-	<select id="selectEmployee" resultType="com.gd.finalproject.vo.MemberDto">
-	SELECT 
+	<select id="selectEmployee"
+		resultType="com.gd.finalproject.vo.MemberDto">
+		SELECT
 		e.member_id memberId,
 		m.member_name memberName
 		FROM member m JOIN employee e
-		ON 
+		ON
 		m.member_id = e.member_id
-	</select> 
+	</select>
+
+	<insert id="insertConsult"
+		parameterType="com.gd.finalproject.vo.Consult">
+		INSERT INTO 
+		consult(consultReservation_no, employee_id, consult_content, create_date)
+		VALUE(#{consultReservationNo}, #{employeeId}, #{consultContent}, NOW());
+	</insert>
+	
+	<!-- modifyConsult 상담예약하고 상담한 내역 수정  -->
+	<update id="updateConsult" parameterType="com.gd.finalproject.vo.Consult">
+	UPDATE consult 
+	SET consult_content=#{consultContent}, 
+		create_date = NOW()
+	WHERE consultReservation_no=#{consultReservationNo}
+	</update>
 </mapper>
