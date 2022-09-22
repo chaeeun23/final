@@ -7,12 +7,17 @@
 		resultType="com.gd.finalproject.vo.ConsultReservation">
 		SELECT
 		consultReservation_no consultReservationNo,
-		user_id
-		userId,
+		user_id userId,
+		member_name memberName,
 		consult_date consultDate,
 		DAY(consult_date) consultDateDay,
 		TIME_FORMAT(consult_date, '%H:%i') consultDateTime
-		FROM consultReservation
+		FROM consultReservation cr JOIN user u
+		ON 
+		cr.user_id = u.member_id 
+		JOIN member m 
+		on
+		m.member_id = u.member_id
 		WHERE
 		YEAR(consult_date) = #{year} AND
 		MONTH(consult_date) = #{month}
@@ -25,6 +30,7 @@
 		SELECT
 		cr.consultReservation_no consultReservationNo,
 		cr.user_id userId,
+		m2.member_name userName,
 		DATE_FORMAT(cr.consult_date, '%Y-%m-%d') consultDate,
 		m.member_name
 		memberName,
@@ -42,6 +48,8 @@
 		left JOIN member m
 		ON
 		e.member_id = m.member_id
+		JOIN member m2
+		ON cr.user_id = m2.member_id
 		WHERE
 		cr.consultReservation_no = #{consultReservationNo}
 	</select>

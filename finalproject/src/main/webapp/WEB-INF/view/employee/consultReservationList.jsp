@@ -53,7 +53,7 @@
 												<c:if test="${(l.consultDateDay) ==  (i - startBlank)}">
 													<div>
 														<a
-															href="${pageContext.request.contextPath}/consultReservationOne?consultReservationNo=${l.consultReservationNo}" class="btn btn-dark btn-sm" style="margin-top:10px;">${l.userId}/${l.consultDateTime}</a>
+															href="${pageContext.request.contextPath}/consultReservationOne?consultReservationNo=${l.consultReservationNo}" class="btn btn-dark btn-sm" style="margin-top:10px;">${l.memberName}/${l.consultDateTime}</a>
 													
 													</div>
 												</c:if>

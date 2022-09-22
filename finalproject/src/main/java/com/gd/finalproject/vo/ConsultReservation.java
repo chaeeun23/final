@@ -11,5 +11,6 @@ public class ConsultReservation {
 	private String createDate; //상담을 예약한 날짜
 	private String consultDateDay; //21일
 	private String consultDateTime; //18:00
+	private String memberName;
 	
 }

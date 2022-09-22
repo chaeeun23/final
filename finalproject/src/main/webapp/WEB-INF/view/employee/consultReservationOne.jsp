@@ -23,6 +23,10 @@
 		<br>
 		<table class="table table-bordered" style="text-align: center;">
 			<tr>
+				<td>회원이름</td>
+				<td>${map.userName}</td>
+			</tr>
+			<tr>
 				<td>회원아이디</td>
 				<td>${map.userId}</td>
 			</tr>
