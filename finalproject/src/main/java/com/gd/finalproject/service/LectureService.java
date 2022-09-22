@@ -33,7 +33,7 @@ public class LectureService {
         log.debug(TeamColor.MS + "LectureService(total) : " + total);
 
         // 만들어논 메서드
-        PageNationDto pageNation = PageNationUtil.getPageNation(current, total, "/finalproject/lectureList", 10);
+        PageNationDto pageNation = PageNationUtil.getPageNation(current, total, "/finalproject/employeeLectureList", 10);
         log.debug(TeamColor.MS + "LectureService(pageNation) : " + pageNation);
 
         // lectureList 가져오기
@@ -114,7 +114,7 @@ public class LectureService {
     	for(String s : lecture.getLectureDay()) {
     		LectureDay lectureDay = new LectureDay();
     		lectureDay.setLectureDay(s);
-    		lectureDay.setLectureNo(lectureNo);
+    		lectureDay.setLectureNo(lecture.getLectureNo());
     		
     		int insertLectureDay = lectureMapper.insertLectureDay(lectureDay);
     		log.debug(TeamColor.MS + "LectureService.modifyLecture(insertLectureDay) : " + insertLectureDay);

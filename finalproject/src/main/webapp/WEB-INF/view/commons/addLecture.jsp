@@ -52,7 +52,15 @@
 		</tr> 
 		<tr> 
 			<td>강좌명</td>
-			<td><input type="text" id="lectureName" name="lectureName"></td>
+			<td>
+				<select id="lectureName" name="lectureName">
+					<option value="default">******* 강좌 선택 *******</option>
+					<option value="수영">수영</option>
+					<option value="에어로빅">에어로빅</option>
+					<option value="필라테스">필라테스</option>
+					<option value="테니스">테니스</option>
+					<option value="탁구">탁구</option>
+				</select></td>
 		</tr>
 		<tr> 
 			<td>수강요일</td>
@@ -140,9 +148,8 @@
 		   } else if( $("#location option:selected").val() == "default")	{
 				alert("장소옵션을 선택해 주세요!");	  
 								return false; 
-			} else if( $("#lectureName").val() == "")	 { 
-				alert("빈칸입니다. 강좌명을 입력해주세요!");	  
-						$("#lectureName").focus();	
+			} else if( $("#lectureName option:selected").val() == "default")	 { 
+				alert("강좌명을 선택해 주세요!");	  
 								return false; 
 			} else if( $(":checkbox[name='lectureDay']:checked").length == 0){
 				alert("수강요일 1개 이상은 반드시 체크해야합니다!");	 

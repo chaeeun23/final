@@ -5,7 +5,16 @@
 <head>
 <meta charset="UTF-8">
 <title>2유2김</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+<!-- jQuery library -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+<!-- Popper JS -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/mainImg/favicon.png">
+<script type="text/javascript" src="/resource/js/cm.js"></script>
 </head>
 <body>
 	<!-- header(로고, 네비게이션바) -->
@@ -17,7 +26,7 @@
 	</div>
 	<!-- 총 관리자만 강좌 추가 가능 -->
 	<div class="container">
-	<h1 style="text-align:center;">강좌 추가하기</h1>
+	<h1 style="text-align:center;">강좌 상세보기</h1>
 	<br>
 
 	<form action="${pageContext.request.contextPath}/cart?lectureNo=${lectureOne.lectureNo}" method="post">
@@ -36,7 +45,7 @@
 		</tr>
 		<tr> 
 			<td>강사이름</td>
-			<td>${lectureOne.lectureName}</td>
+			<td>${lectureOne.memberName}</td>
 		</tr>
 		<tr> 
 			<td>성별</td>
@@ -83,31 +92,78 @@
 	<br>
 	<br>
 
-	<!-- 리뷰 리스트 -->
-	<!-- 리뷰 자신이 작성한 것만 수정,삭제 가능(수강:아이디와 로그인한 아이디가 일치하면 수정, 삭제 가능)/ 관리자는 모든 리뷰 삭제 가능  -->
-	<div class = "container">
-	<table class="table table-bordered" style="text-align:center;" >
-		<tr>
-			<th>수강번호</th>
-			<th>리뷰제목</th>
-			<th>리뷰내용</th>
-			<th>리뷰작성일</th>
-			<th>리뷰수정일</th>
-		</tr>
-		<c:forEach var="r" items="${reviewList}">
-			<tr>
-				<td>${r.courseNo}</td>
-				<td>${r.reviewTitle}</td>
-				<td>${r.reviewContent}</td>
-				<td>${r.createDate}</td>
-				<td>${r.updateDate}</td>
-			</tr>
-		</c:forEach>
-		<tr>
-	</table>
+
+	<!-- 리뷰 -->
+	<!-- 리뷰 자신이 작성한 것만 수정, 삭제 가능(수강:아이디와 로그인한 아이디가 일치하면 수정, 삭제 가능) / 관리자는 모든 리뷰 삭제 가능  -->
+
+    <div class="pt-4 border-bottom border-dark">
+        <h4 class="fw-bold">댓글</h4>
+    </div>
+    
+    
+    <!-- 댓글 입력 폼 -->
+    <div class="d-flex align-items-center mt-2">
+        <div class="form-floating flex-grow-1 px-2">
+            <c:if test="${sessionScope.loginMember ne null}">
+            <textarea class="form-control" placeholder="댓글을 입력해주세요" name="commentContent" id="commentContent"
+                      style="height: 100px; resize: none;"></textarea>
+            </c:if>
+            <div class="invalid-feedback">
+                1자 이상 입력해주세요
+            </div>
+            <c:if test="${sessionScope.loginMember eq null}">
+                <label for="commentContent">댓글을 작성하려면, 로그인 해주세요</label>
+            </c:if>
+        </div>
+        <c:if test="${sessionScope.loginMember ne null}">
+            <a boardNo="${board.boardNo}" memberId="${sessionScope.loginMember.memberId}" id="cmInsertBtn"
+               class="btn btn-primary btn-sm">등록</a>
+        </c:if>
+    </div>
+    
+    
+    <!-- 댓글 리스트 -->
+    <div id="commentLists" class="container px-5 my-4">
+        <c:forEach items="${commentList}" var="dto">
+            <!-- 댓글 내용 -->
+            <div class="listForm">
+                <h4 class="fw-bold fs-4">${dto.memberId}</h4>
+                <div class="lh-sm">${dto.commentContent}</div>
+                <div class="d-flex justify-content-end">
+                    <div>
+                        <c:if test="${sessionScope.loginMember.memberId eq dto.memberId}">
+                            <a class='cmUpdateBtnForm btn btn-primary btn-sm'>수정</a>
+                            <a boardNo="${board.boardNo}" commentNo="${dto.commentNo}"
+                               class='cmDelBtn btn btn-primary btn-sm'>삭제</a>
+                        </c:if>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end">작성일 : ${dto.commentDate}</div>
+                <hr/>
+            </div>
+            <!-- 수정하기 -->
+            <div class="updateForm" style="display: none">
+                <div class="form-floating flex-grow-1 px-2">
+                    <textarea class="cmUpdateContent form-control"
+                              style="height: 100px; resize: none;">${dto.commentContent}</textarea>
+                    <div class="invalid-feedback">
+                        1자 이상 입력해주세요
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end mt-2">
+                    <a boardNo="${board.boardNo}" commentNo="${dto.commentNo}"
+                       class='cmUpdateBtn btn btn-primary btn-sm mx-1'>등록</a>
+                    <a class='cmUpdateCancel btn btn-primary btn-sm ms-1'>취소</a>
+                </div>
+                <hr/>
+            </div>
+        </c:forEach>
+    </div>
 	
-	<div>
+	
+	
 	<%-- 리뷰 페이지네이션 --%>
+	<div>
 	<ul class="pagination justify-content-center my-2 mb-2" >
 		<%-- 이전 --%>
 		<c:if test="${pageNation.startPage ne 1}">
@@ -142,34 +198,6 @@
 	</c:if>
 	
 	
-</div>
-
-	
-	
-	<!-- 리뷰입력 -->
-	<!-- 리뷰입력은 이 강좌를 수강한 사람만 입력 할 수 있게 -->
-	<div class = "container">
-			<table class="table table-bordered" style="text-align:center;" >
-				<tr>
-					<td>수강번호</td>
-					<td>${r.courseNo}</td>
-				</tr>
-				<tr>
-					<td>리뷰제목</td>
-					<td><input type="text" name="reviewTitle" id="reviewTitle"></td>
-				</tr>
-				<tr>
-					<td>리뷰내용</td>
-					<td><textarea  name="reviewContent" id="reviewContent" rows="3" cols="100" ></textarea></td>
-				</tr>
-				
-			</table>
-				<button type="button" id="reviewBtn" class="btn btn-primary" style="width:100px; float:right;" >리뷰입력</button>
-	</div>
-	
-	<br>
-	<br>
-
 
 
 	<!-- footer -->

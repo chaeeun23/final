@@ -85,12 +85,12 @@ public class LectureController {
 		
 		// 강사 아이디 추출
 		Map<String,Object> instructor = lectureService.addLecture(locationNo);
-		log.debug(TeamColor.MS + "LectureController(employeeLectureList) : " + instructor);
+		log.debug(TeamColor.MS + "LectureController.modifyLecture(instructor) : " + instructor);
 		instructor.forEach((key, value) -> model.addAttribute(key, value));
 				
 		// 장소 추출
 		Map<String,Object> location = lectureService.addLecture(locationNo);
-		log.debug(TeamColor.MS + "LectureController(employeeLectureList) : " + location);
+		log.debug(TeamColor.MS + "LectureController.modifyLecture(location) : " + location);
 		location.forEach((key, value) -> model.addAttribute(key, value));
 				
 		// 강좌 상세페이지에서 값 받아오기

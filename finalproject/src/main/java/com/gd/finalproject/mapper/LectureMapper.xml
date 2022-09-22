@@ -97,7 +97,7 @@
 	<!-- 강좌 수정(updateLecture) - Action -->
 	<update id="updateLecture" parameterType="com.gd.finalproject.vo.Lecture">
 		UPDATE lecture SET instructor_id=#{instructorId}, location_no=#{locationNo}, 
-		lecture_name=#{lectureName}, lecture_limited=#{lectureLimited}, lecture_time=#{lectureTime}, 
+			lecture_name=#{lectureName}, lecture_limited=#{lectureLimited}, lecture_time=#{lectureTime}, 
 			lecture_price=#{lecturePrice}, lecture_startDate=#{lectureStartDate}, lecture_endDate=#{lectureEndDate} 
 		WHERE lecture_no=#{lectureNo}
 	</update>
