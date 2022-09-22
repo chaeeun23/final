@@ -23,9 +23,10 @@
 	<select id="selectConsultReservationOne" resultType="map">
 		SELECT
 		cr.user_id userId,
-		cr.consult_date consultDate,
+		DATE_FORMAT(cr.consult_date, '%Y-%m-%d') consultDate,
 		m.member_name memberName,
-		c.consult_content consultContent
+		c.consult_content consultContent,
+		TIME_FORMAT(cr.consult_date, '%H:%i') consultDateTime
 		FROM consultReservation cr left JOIN consult c
 		ON
 		cr.consultReservation_no = c.consultReservation_no

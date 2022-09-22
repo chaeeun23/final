@@ -24,7 +24,7 @@
 			</tr>
 			<tr>
 				<td>상담날짜</td>
-				<td>${map.consultDate}</td>
+				<td>${map.consultDate} ${map.consultDateTime}</td>
 			</tr>
 			<tr>
 				<td>담당직원이름</td>
