@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gd.finalproject.commons.TeamColor;
 import com.gd.finalproject.mapper.ConsultReservationMapper;
 import com.gd.finalproject.vo.ConsultReservation;
+import com.gd.finalproject.vo.Employee;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -98,6 +99,21 @@ public class ConsultReservationService {
 		Map<String,Object> map = consultReservationMapper.selectConsultReservationOne(consultReservationNo);
 		log.debug(TeamColor.CE + "[ConsultReservationService.getConsultReservationOne] map : " + map);
 		return map;
+	}
+	
+	//addConsult 상담예약한 회원의 상담내역 추가 - form
+	public List<Map<String,Object>> addConsult(){
+		//직원이름
+		List<Map<String,Object>> employee = consultReservationMapper.selectEmployee();
+		log.debug(TeamColor.CE + "[ConsultReservationService.addConsult] employee : " + employee);
+		
+		/*
+		 * Map<String, Object> map = new HashMap<>(); map.put("employee", employee);
+		 * log.debug(TeamColor.CE + "[ConsultReservationService.addConsult] map : " +
+		 * map);
+		 */
+		return employee;
+		
 	}
 	
 	

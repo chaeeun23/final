@@ -22,6 +22,7 @@
 	<!-- consultReservationOne 상담예약상세보기 -->
 	<select id="selectConsultReservationOne" resultType="map">
 		SELECT
+		cr.consultReservation_no consultReservationNo,
 		cr.user_id userId,
 		DATE_FORMAT(cr.consult_date, '%Y-%m-%d') consultDate,
 		m.member_name memberName,
@@ -38,4 +39,15 @@
 		e.member_id = m.member_id
 		WHERE cr.consultReservation_no = #{consultReservationNo}
 	</select>
+	
+	<!-- addConsult 상담예약한 회원의 상담내역 추가 - form -->
+	<!-- 직원이름 -->
+	<select id="selectEmployee" resultType="com.gd.finalproject.vo.MemberDto">
+	SELECT 
+		e.member_id memberId,
+		m.member_name memberName
+		FROM member m JOIN employee e
+		ON 
+		m.member_id = e.member_id
+	</select> 
 </mapper>
