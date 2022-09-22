@@ -1,5 +1,6 @@
 package com.gd.finalproject.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,4 +57,33 @@ public class ConsultReservationController {
 		return "/employee/consultReservationOne";
 	}
 	
+	//addConsult 상담예약한 회원의 상담내역 추가 - form
+	@GetMapping("/addConsult")
+	public String addConsult(Model model, @RequestParam(value="consultReservationNo") int consultReservationNo) {
+		//직원이름
+		List<Map<String, Object>> employee = consultReservationService.addConsult();
+		log.debug(TeamColor.CE + "[ConsultReservationController.addConsult] employee : " + employee);
+		
+		model.addAttribute("employee", employee);
+		
+		Map<String,Object> consultReservationOne = consultReservationService.getConsultReservationOne(consultReservationNo);
+		log.debug(TeamColor.CE + "[ConsultReservationController.addConsult] consultReservationOne : " + consultReservationOne);
+		
+		model.addAttribute("consultReservationOne", consultReservationOne);
+		
+		return "/employee/addConsult";
+	}
+	
+	//addConsult 상담예약한 회원의 상담내역 추가 - post
+	
+	
+	
+	
+	
+	  
+	  
+	  
+	  
+	  
+	 
 }

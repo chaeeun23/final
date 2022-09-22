@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.gd.finalproject.vo.ConsultReservation;
+import com.gd.finalproject.vo.Employee;
 
 @Mapper
 public interface ConsultReservationMapper {
@@ -15,4 +16,10 @@ public interface ConsultReservationMapper {
 
 	//consultReservationOne 상담예약상세보기
 	Map<String,Object> selectConsultReservationOne(@Param("consultReservationNo") int consultReservationNo);
+
+	//addConsult 상담예약한 회원의 상담내역 추가 - form
+	//직원이름
+	List<Map<String,Object>> selectEmployee();
+	
+	
 }
