@@ -19,4 +19,8 @@ public interface MemberMapper {
     int adminInsert(@Param("dto") MemberDto memberDto);
 
     MemberDto memberDetail(@Param("memberNo") int memberNo);
+
+    int memberUpdate(@Param("memberDto") MemberDto memberDto);
+
+    int updateMmember(@Param("memberDto")MemberDto memberDto);
 }

@@ -29,15 +29,5 @@ public class AdminController {
     }
 
 
-    @GetMapping("/sign/admin-form")
-    public String signForm() {
-        return "/admin/sign-form";
-    }
-
-    @PostMapping("/sign/sign-admin")
-    public String signAdmin(MemberDto memberDto) {
-        adminService.signAdmin(memberDto);
-        return "redirect:/";
-    }
 
 }

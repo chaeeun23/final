@@ -20,6 +20,18 @@
             <result column="memberAuth"/>
         </collection>
     </resultMap>
+    <update id="memberUpdate">
+        UPDATE member
+        SET member_name       = #{memberDto.memberName}
+          , member_email      = #{memberDto.memberEmail}
+          , member_phone      = #{memberDto.memberPhone}
+          , member_birth      = #{memberDto.memberPhone}
+          , member_gender     = #{memberDto.memberGender}
+          , member_addr       = #{memberDto.memberAddr}
+          , member_detailAddr = #{memberDto.memberDetailAddr}
+        WHERE member_no = #{memberDto.memberNo}
+
+    </update>
     <!-- 아이디 중복체크 -->
     <select id="idCheck" resultType="string">
         SELECT member_id

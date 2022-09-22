@@ -152,8 +152,6 @@
             <div class="custom-control custom-radio custom-control-inline">
                 <input type="radio" class="custom-control-input" id="sex-1" name="memberGender" value="1" checked>
                 <label class="custom-control-label" for="sex-1">여자</label>
-            </div>
-            <div class="custom-control custom-radio custom-control-inline">
                 <input type="radio" class="custom-control-input" id="sex-2" name="memberGender" value="2">
                 <label class="custom-control-label" for="sex-2">남자</label>
             </div>
@@ -184,6 +182,7 @@
             document.querySelector('#email').className += ' is-valid';
         }
     })
+
 
     document.querySelector('#emailCheckBtn').addEventListener('click', function (ev) {
         let email = document.querySelector('#emailData').value;
@@ -267,7 +266,6 @@
         let phone = document.querySelector('#phone');
         let email = document.querySelector('#email');
         let addr = document.querySelector('#addr');
-        let birth = document.querySelector('#birth');
         let checkPw = document.querySelector("#checkPw");
 
         if (!id_tag.hasAttribute('readonly')) {

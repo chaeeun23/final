@@ -36,7 +36,7 @@ public class MailService {
             message.addRecipients(Message.RecipientType.TO, email);
             message.setSubject("사회체육센터 프로젝트 인증 번호입니다.");
             message.setText("이메일 인증코드: " + code, "utf-8");
-            message.setFrom(new InternetAddress("dbwjdal53@naver.com"));
+            message.setFrom(new InternetAddress(username));
             javaMailSender.send(message);
             return code;
         }

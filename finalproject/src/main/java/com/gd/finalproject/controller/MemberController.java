@@ -3,6 +3,7 @@ package com.gd.finalproject.controller;
 
 import com.gd.finalproject.service.MailService;
 import com.gd.finalproject.service.MemberService;
+import com.gd.finalproject.vo.MemberForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -79,4 +80,16 @@ public class MemberController {
         return "/member/member-detail";
     }
 
+
+    //수정
+    @PostMapping("/update")
+    public String memberUpdate(MemberForm memberForm) {
+        memberService.updateMember(memberForm);
+        return "member/member-detail";
+    }
+
 }
+
+
+
+
