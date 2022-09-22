@@ -20,7 +20,7 @@
             <result column="memberAuth"/>
         </collection>
     </resultMap>
-    <update id="memberUpdate">
+    <update id="updateMmember">
         UPDATE member
         SET member_name       = #{memberDto.memberName}
           , member_email      = #{memberDto.memberEmail}
