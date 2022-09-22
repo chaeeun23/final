@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.finalproject.mapper.NoticeFileMapper">
+	<!-- insertNoticeFile -->
 	<insert id="insertNoticeFile" parameterType="com.gd.finalproject.vo.NoticeFile">
 		INSERT INTO noticefile(
 			notice_no,
@@ -16,4 +17,14 @@
 			#{fileSize}
 		)
 	</insert>
+	
+	<!-- deleteNoticeFile -->
+	<delete id="deleteNoticeFile" parameterType="java.lang.Integer">
+		DELETE FROM noticefile WHERE notice_no=#{noticeNo}
+	</delete>
+	
+	<!-- updateNoticeFile -->
+	<update id="updateNoticeFile" parameterType="java.lang.Integer">
+	
+	</update>
 </mapper>

@@ -87,5 +87,12 @@ public class NoticeController {
 				
 	}
 	
+	// 공지사항 삭제
+		@GetMapping("/removeNotice")
+		public String removeNotice(@RequestParam(value="noticeNo") int noticeNo) {
+			int removeNotice = noticeService.removeNotice(noticeNo);
+			log.debug(TeamColor.YW + "noticeController(removeNotice) : " + removeNotice);
+			return "redirect:/noticeList";
+		}
 	
 }

@@ -123,8 +123,6 @@ public class NoticeService {
 	
 	// 첨부파일 다운로드
 	public ResponseEntity<Object> downloadNoticeFile(String fileName, String realPath) {
-		//리턴타입 세팅
-		ResponseEntity<Object> returnVal = null;
 
 		try {
 			
@@ -157,5 +155,19 @@ public class NoticeService {
 		}
 		
 	}
+	
+	// 공지사항 삭제 + 파일삭제
+    public int removeNotice(int noticeNo) {
+    	
+    	// 파일 삭제
+    	int deleteNoticeFile = noticeFileMapper.deleteNoticeFile(noticeNo);
+    	log.debug(TeamColor.YW + "NoticeService.deleteNoticeFile : " + deleteNoticeFile);
+    	
+    	// 강좌 삭제
+    	int deleteNotice= noticeMapper.deleteNotice(noticeNo);
+        log.debug(TeamColor.YW + "NoticeService.deleteNotice: " + deleteNotice);
+    	
+    	return deleteNotice;
+    }
 	
 }
