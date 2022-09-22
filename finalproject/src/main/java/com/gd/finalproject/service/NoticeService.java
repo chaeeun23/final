@@ -84,38 +84,42 @@ public class NoticeService {
 	// 공지사항 추가하기
 	public void addNotice(Notice notice, String path) {
 		
-		log.debug(TeamColor.YW + notice.getNoticeNo());
+		// 파라미터 확인
+		log.debug(TeamColor.YW + "NoticeService.addNotice.notice : " + notice);
+		log.debug(TeamColor.YW + "NoticeService.addNotice.path : " + path);
+
 		int row = noticeMapper.insertNotice(notice);
-		log.debug(TeamColor.YW + "notice : " + notice);
-
+		
 		// noticeFile insert
-		if(row==1 && notice.getMultiList() != null) {
-			for(MultipartFile mf : notice.getMultiList()) {
-				NoticeFile noticefile = new NoticeFile();
-				noticefile.setNoticeNo(notice.getNoticeNo());
-				log.debug(TeamColor.YW + "noticefile.noticefile.getNoticeNo() : " +noticefile.getNoticeNo());
-				
-				// 중복되지 않는 랜덤이름 생성 UUID API사용
-				String filename = UUID.randomUUID().toString().replace("-", "");
-				
-				// noticefile 세팅
-				noticefile.setFileName(filename + mf.getOriginalFilename());
-				noticefile.setOriginalFileName(mf.getOriginalFilename());
-				noticefile.setFileType(mf.getContentType());
-				noticefile.setFileSize(mf.getSize());
-				log.debug(TeamColor.YW + "noticefile : " + noticefile);
+		if (row == 1 && notice.getMultiList() != null) {
+			for (MultipartFile mf : notice.getMultiList()) {
+				if (mf.isEmpty()==false) {
+					NoticeFile noticefile = new NoticeFile();
+					noticefile.setNoticeNo(notice.getNoticeNo());
+					log.debug(TeamColor.YW + "noticefile.noticefile.getNoticeNo() : " + noticefile.getNoticeNo());
 
-				noticeFileMapper.insertNoticeFile(noticefile);
-				
-				
-				log.debug(TeamColor.YW + "noticefile.getFileName() : " + noticefile.getFileName());
-				
-				try {
-					mf.transferTo(new File(path + File.separator + noticefile.getFileName()));	// c:/upload/filename.ext 새로운 빈 파일 안에 MultipartFile안에 파일을 하나씩 복사
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					throw new RuntimeException();	// @transaction 처리가 되도록 강제로 Runtime예외(try절을 강요하지 않는) 발생
+					// 중복되지 않는 랜덤이름 생성 UUID API사용
+					String filename = UUID.randomUUID().toString().replace("-", "");
+
+					// noticefile 세팅
+					noticefile.setFileName(filename + mf.getOriginalFilename());
+					noticefile.setOriginalFileName(mf.getOriginalFilename());
+					noticefile.setFileType(mf.getContentType());
+					noticefile.setFileSize(mf.getSize());
+					log.debug(TeamColor.YW + "noticefile : " + noticefile);
+
+					noticeFileMapper.insertNoticeFile(noticefile);
+
+					log.debug(TeamColor.YW + "noticefile.getFileName() : " + noticefile.getFileName());
+
+					try {
+						mf.transferTo(new File(path + File.separator + noticefile.getFileName())); // c:/upload/filename.ext
+																									// 파일을 하나씩 복사
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						throw new RuntimeException(); // @transaction 처리가 되도록 강제로 Runtime예외(try절을 강요하지 않는) 발생
+					}
 				}
 			}
 		}
@@ -196,10 +200,74 @@ public class NoticeService {
     	return deleteNotice;
     }
 	
-    // 공지사항 수정 - 공지사항 삭제 후 추가 / 파일 삭제 후 추가
-    public int modifyNotice(Notice notice) {
+    // 공지사항 수정 / 파일 삭제 후 추가
+    public int modifyNotice(Notice notice, String path, String fileName, HttpServletRequest request) {
     	// 파라미터 확인
-//    	log.debug(TeamColor.YW + "noticeNo : " + noticeNo);
+    	log.debug(TeamColor.YW + "modifyNotice.notice.getNoticeNo : " + notice.getNoticeNo());
+    	log.debug(TeamColor.YW + "modifyNotice.path : " + path);
+    	
+    	// 업로드된 파일 삭제
+    	String srcFileName = null;
+    	
+    	// 파일 경로 설정
+    	String uploadPath = request.getSession().getServletContext().getRealPath("/noticeFileUpload");
+    	
+    	try{
+            srcFileName = URLDecoder.decode(fileName,"UTF-8");
+            //UUID가 포함된 파일이름을 디코딩해줍니다.
+            
+            File file = new File(uploadPath +File.separator + srcFileName);
+            boolean result = file.delete();
+            log.debug(TeamColor.YW + "삭제할 파일명 : " + srcFileName);
+            File thumbnail = new File(file.getParent(),"s_"+file.getName());
+            //getParent() - 현재 File 객체가 나태내는 파일의 디렉토리의 부모 디렉토리의 이름 을 String으로 리턴해준다.
+            result = thumbnail.delete();
+            new ResponseEntity<>(result,HttpStatus.OK);
+        }catch (UnsupportedEncodingException e){
+            e.printStackTrace();
+            new ResponseEntity<>(false,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    	
+    	// 파일 삭제
+    	int deleteNoticeFile = noticeFileMapper.deleteNoticeFile(notice.getNoticeNo());
+    	
+    	// 파일 추가
+		if (deleteNoticeFile == 1 && notice.getMultiList() != null) {
+			for (MultipartFile mf : notice.getMultiList()) {
+				if (mf.isEmpty() == false) {
+					NoticeFile noticefile = new NoticeFile();
+					noticefile.setNoticeNo(notice.getNoticeNo());
+					log.debug(TeamColor.YW + "noticefile.noticefile.getNoticeNo() : " + noticefile.getNoticeNo());
+
+					// 중복되지 않는 랜덤이름 생성 UUID API사용
+					String filename = UUID.randomUUID().toString().replace("-", "");
+
+					// noticefile 세팅
+					noticefile.setFileName(filename + mf.getOriginalFilename());
+					noticefile.setOriginalFileName(mf.getOriginalFilename());
+					noticefile.setFileType(mf.getContentType());
+					noticefile.setFileSize(mf.getSize());
+					log.debug(TeamColor.YW + "noticefile : " + noticefile);
+
+					noticeFileMapper.insertNoticeFile(noticefile);
+
+					log.debug(TeamColor.YW + "noticefile.getFileName() : " + noticefile.getFileName());
+
+					try {
+						mf.transferTo(new File(path + File.separator + noticefile.getFileName())); // c:/upload/filename.ext
+																									// 새로운 빈 파일 안에
+																									// MultipartFile안에
+																									// 파일을 하나씩 복사
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						throw new RuntimeException(); // @transaction 처리가 되도록 강제로 Runtime예외(try절을 강요하지 않는) 발생
+					}
+				}
+			}
+		}
+    			
+    	log.debug(TeamColor.YW + "NoticeService.deleteNoticeFile : " + deleteNoticeFile);
     	
     	// 실행
     	int updateNotice = noticeMapper.updateNotice(notice);
