@@ -27,7 +27,7 @@
 	<table class="table table-bordered" style="text-align:center;">
 		<tr> 
 			<td>강좌번호</td>
-			<td><input type="text" id="lectureNo" name="lectureNo" value="${lectureOne.lectureNo}" readonly="readonly"></td>
+			<td>${lectureOne.lectureNo}</td>
 		</tr>
 		<tr> 
 			<td>강사아이디</td>

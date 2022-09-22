@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gd.finalproject.mapper.ReviewMapper">
+	<!-- 리뷰 리스트(reviewList) -->
+	<select id="selectReviewList" resultType="map">
+		SELECT 
+			r.course_no courseNo, 
+			r.review_title reviewTitle, 
+			r.review_content reviewContent, 
+			r.create_date createDate, 
+			r.update_date updateDate,
+			p.user_id userId 
+		FROM review r JOIN payment p
+		ON r.course_no = p.course_no
+	</select>
+	
+	<!-- 리뷰 리스트(reviewList) - 페이징 -->
+	<select id="getReviewTotal" resultType="com.gd.finalproject.vo.Review">   
+		SELECT COUNT(*)
+        FROM review
+    </select>
+	
+	<!-- 리뷰 추가(addReview) -->
+	<insert id="insertReview" parameterType="com.gd.finalproject.vo.Review">
+		INSERT INTO review (course_no, review_title, review_content, create_date, update_date)
+		VALUES (#{courseNo}, #{reviewTitle}, #{reviewContent}, NOW(), NOW())	
+	</insert>
+</mapper>
