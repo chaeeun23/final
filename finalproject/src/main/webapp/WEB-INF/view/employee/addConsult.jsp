@@ -28,6 +28,7 @@
 					<td>회원아이디</td>
 					<td><input type="text" id="userId" name="userId"
 						value="${consultReservationOne.userId}" readonly="readonly"></td>
+				<input type="hidden" name="consultReservationNo" value="${consultReservationOne.consultReservationNo}">
 				</tr>
 				<tr>
 					<td>상담날짜</td>
@@ -37,7 +38,7 @@
 				</tr>
 				<tr>
                <td>담당직원이름</td>
-               <td><select name="memberName" id="memberName"
+               <td><select name="employeeId" id="memberName"
                   style="text-align: center;">
                      <option value="default">******* 직원 선택 *******</option>
                      <c:forEach var="e" items="${employee}">
@@ -72,7 +73,7 @@
 
 	<script>
 		$("#addConsultBtn").click(function() {
-			if ($("#memberName option:selected").val() == "default") {
+			if ($("#employeeId option:selected").val() == "default") {
 				alert("직원을 선택해 주세요.");
 				return false;
 			} else if ($("#consultContent").val() == "") {
