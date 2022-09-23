@@ -29,7 +29,7 @@ public class LectureController {
 	public String lectureList(@RequestParam(required = false, value = "current") String current,
             @ModelAttribute("check") String check, Model model) {
 	Map<String,Object> lectureList = lectureService.getLectureList(current);
-		log.debug(TeamColor.MS + "LectureController(employeeLectureList) : " + lectureList);
+		log.debug(TeamColor.MS + "LectureController.lectureList : " + lectureList);
 		lectureList.forEach((key, value) -> model.addAttribute(key, value));
 		return "/commons/lectureList";		// 경로
 	}
@@ -38,7 +38,7 @@ public class LectureController {
 	@GetMapping("/lectureOne") 
 	public String lectureOne(Model model, @RequestParam(value="lectureNo") String lectureNo) {
 		// 값 넘겨 받기
-		log.debug(TeamColor.MS + "LectureController(lectureOne-lectureNo) : " + lectureNo);
+		log.debug(TeamColor.MS + "LectureController.lectureOne(lectureNo) : " + lectureNo);
 		Map<String,Object> lectureOne = lectureService.getLectureOne(lectureNo);
 		log.debug(TeamColor.MS + "LectureController(lectureOne) : " + lectureOne);
 		model.addAttribute("lectureOne", lectureOne);
@@ -47,16 +47,16 @@ public class LectureController {
 	
 	// 강좌 추가 (addLecture.jsp-Form)
 	@GetMapping("/addLecture")
-	public String addLecture(Model model, Location locationNo) {
+	public String addLecture(Model model) {
 		
 		// 강사 아이디 추출
-		Map<String,Object> instructor = lectureService.addLecture(locationNo);
-		log.debug(TeamColor.MS + "LectureController(employeeLectureList) : " + instructor);
+		Map<String,Object> instructor = lectureService.addLecture();
+		log.debug(TeamColor.MS + "LectureController.addLecture(instructor) : " + instructor);
 		instructor.forEach((key, value) -> model.addAttribute(key, value));
 		
 		// 장소 추출
-		Map<String,Object> location = lectureService.addLecture(locationNo);
-		log.debug(TeamColor.MS + "LectureController(employeeLectureList) : " + location);
+		Map<String,Object> location = lectureService.addLecture();
+		log.debug(TeamColor.MS + "LectureController.addLecture(location) : " + location);
 		location.forEach((key, value) -> model.addAttribute(key, value));
 		
 		return "/commons/addLecture";
@@ -79,17 +79,17 @@ public class LectureController {
 	
 	// 강좌 수정 (modifyLecture.jsp - Form)
 	@GetMapping("/modifyLecture")
-	public String modifyLecture(Model model, @RequestParam(value="lectureNo") String lectureNo, Location locationNo) {
+	public String modifyLecture(Model model, @RequestParam(value="lectureNo") String lectureNo) {
 		// 강좌번호 값 넘어 왔는지 확인
 		log.debug(TeamColor.MS + "LectureController.modifyLecture(lectureNo) : " + lectureNo);
 		
 		// 강사 아이디 추출
-		Map<String,Object> instructor = lectureService.addLecture(locationNo);
+		Map<String,Object> instructor = lectureService.addLecture();
 		log.debug(TeamColor.MS + "LectureController.modifyLecture(instructor) : " + instructor);
 		instructor.forEach((key, value) -> model.addAttribute(key, value));
 				
 		// 장소 추출
-		Map<String,Object> location = lectureService.addLecture(locationNo);
+		Map<String,Object> location = lectureService.addLecture();
 		log.debug(TeamColor.MS + "LectureController.modifyLecture(location) : " + location);
 		location.forEach((key, value) -> model.addAttribute(key, value));
 				

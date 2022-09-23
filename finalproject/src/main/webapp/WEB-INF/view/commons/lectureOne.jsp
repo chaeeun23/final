@@ -5,16 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>2유2김</title>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-<!-- jQuery library -->
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
-<!-- Popper JS -->
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<!-- Latest compiled JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/mainImg/favicon.png">
-<script type="text/javascript" src="/resource/js/cm.js"></script>
+<script type="text/javascript" src="/WEB-INF/resource/inc/cm.js"></script>
 </head>
 <body>
 	<!-- header(로고, 네비게이션바) -->
@@ -95,32 +87,35 @@
 
 	<!-- 리뷰 -->
 	<!-- 리뷰 자신이 작성한 것만 수정, 삭제 가능(수강:아이디와 로그인한 아이디가 일치하면 수정, 삭제 가능) / 관리자는 모든 리뷰 삭제 가능  -->
-
-    <div class="pt-4 border-bottom border-dark">
-        <h4 class="fw-bold">댓글</h4>
+	
+	<div class="container">
+    <div>
+        <h4 class="fw-bold">리뷰</h4>
     </div>
     
     
     <!-- 댓글 입력 폼 -->
-    <div class="d-flex align-items-center mt-2">
-        <div class="form-floating flex-grow-1 px-2">
-            <c:if test="${sessionScope.loginMember ne null}">
-            <textarea class="form-control" placeholder="댓글을 입력해주세요" name="commentContent" id="commentContent"
+    <div>
+        <div >
+           <%--  <c:if test="${sessionScope.loginMember ne null}"> --%>
+            <textarea class="form-control" placeholder="댓글을 입력해주세요" name="reviewContent" id="reviewContent"
                       style="height: 100px; resize: none;"></textarea>
-            </c:if>
+           <%--  </c:if> --%>
             <div class="invalid-feedback">
                 1자 이상 입력해주세요
             </div>
-            <c:if test="${sessionScope.loginMember eq null}">
-                <label for="commentContent">댓글을 작성하려면, 로그인 해주세요</label>
-            </c:if>
+            <%-- <c:if test="${sessionScope.loginMember eq null}"> --%>
+               <!--  <label for="commentContent">댓글을 작성하려면, 로그인 해주세요</label> -->
+            <%-- </c:if> --%>
         </div>
-        <c:if test="${sessionScope.loginMember ne null}">
-            <a boardNo="${board.boardNo}" memberId="${sessionScope.loginMember.memberId}" id="cmInsertBtn"
+       <%--  <c:if test="${sessionScope.loginMember ne null}"> --%>
+            <a boardNo="${board.boardNo}" memberId="${sessionScope.loginMember.memberId}" id="reviewInsertBtn"
                class="btn btn-primary btn-sm">등록</a>
-        </c:if>
+      <%--   </c:if> --%>
     </div>
     
+    <br>
+    <br>
     
     <!-- 댓글 리스트 -->
     <div id="commentLists" class="container px-5 my-4">
@@ -141,15 +136,19 @@
                 <div class="d-flex justify-content-end">작성일 : ${dto.commentDate}</div>
                 <hr/>
             </div>
-            <!-- 수정하기 -->
-            <div class="updateForm" style="display: none">
+            
+            <!-- 리뷰 수정하기 -->
+            <div class="reviewUpdateForm" style="display: none">
                 <div class="form-floating flex-grow-1 px-2">
-                    <textarea class="cmUpdateContent form-control"
-                              style="height: 100px; resize: none;">${dto.commentContent}</textarea>
+                    <textarea class="cmUpdateContent form-control" style="height: 100px; resize: none;">${dto.commentContent}</textarea>
                     <div class="invalid-feedback">
                         1자 이상 입력해주세요
                     </div>
                 </div>
+                
+                <br>
+                <br>
+                
                 <div class="d-flex justify-content-end mt-2">
                     <a boardNo="${board.boardNo}" commentNo="${dto.commentNo}"
                        class='cmUpdateBtn btn btn-primary btn-sm mx-1'>등록</a>
@@ -159,8 +158,13 @@
             </div>
         </c:forEach>
     </div>
+</div>
 	
-	
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 	
 	<%-- 리뷰 페이지네이션 --%>
 	<div>

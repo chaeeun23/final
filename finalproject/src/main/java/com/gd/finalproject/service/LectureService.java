@@ -56,8 +56,8 @@ public class LectureService {
         return lectureOne;
     }
     
-    // 강좌 form에서 장소 추출(addLecture.jsp-Form)
-    public Map<String, Object> addLecture(Location locationNo) {
+    // 강좌 Form에서 장소, 강사 추출(addLecture.jsp-Form)
+    public Map<String, Object> addLecture() {
     	
 	    // 장소 
 		List<Location> location = lectureMapper.selectLocation();
