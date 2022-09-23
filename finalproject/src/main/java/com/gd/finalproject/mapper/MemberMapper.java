@@ -22,5 +22,4 @@ public interface MemberMapper {
 
     int memberUpdate(@Param("memberDto") MemberDto memberDto);
 
-    int updateMmember(@Param("memberDto")MemberDto memberDto);
 }

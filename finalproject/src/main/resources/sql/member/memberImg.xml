@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.finalproject.mapper.MemberImgMapper">
+
     <update id="updateMemberImg" parameterType="com.gd.finalproject.vo.MemberImg">
-        UPDATE memberImg
-        SET member_id         = #{memberImg.memberId}
-          , file_name         = #{memberImg.fileName}
-          , originalFile_name = #{memberImg.originalFileName}
-          , file_type         = #{memberImg.fileType}
-          , file_size         = #{memberImg.fileSizer}
-        WHERE member_Id = #{memberImg.memberId}
-
+        INSERT INTO memberImg
+        SET member_id   = #{memberImg.memberId}
+                , file_name = #{memberImg.fileName}
+                , originalFile_name = #{memberImg.originalFileName}
+                , file_type = #{memberImg.fileType}
+                , file_size = #{memberImg.fileSize}
+        ON DUPLICATE KEY
+        UPDATE
+            file_name = #{memberImg.fileName}
+            , originalFile_name = #{memberImg.originalFileName}
+            , file_type = #{memberImg.fileType}
+            , file_size = #{memberImg.fileSize}
     </update>
-
 </mapper>

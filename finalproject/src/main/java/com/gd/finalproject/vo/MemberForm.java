@@ -12,5 +12,5 @@ import java.util.List;
 @ToString
 public class MemberForm {
     private MemberDto memberDto;
-    private List<MultipartFile> multiList;
+    private MultipartFile file;
 }

@@ -25,7 +25,7 @@
         SET member_name       = #{memberDto.memberName}
           , member_email      = #{memberDto.memberEmail}
           , member_phone      = #{memberDto.memberPhone}
-          , member_birth      = #{memberDto.memberPhone}
+          , member_birth      = #{memberDto.memberBirth}
           , member_gender     = #{memberDto.memberGender}
           , member_addr       = #{memberDto.memberAddr}
           , member_detailAddr = #{memberDto.memberDetailAddr}
@@ -57,7 +57,7 @@
                i.file_name         memberImg
         FROM member m
                  JOIN auth a ON a.member_id = m.member_id
-                 LEFT JOIN memberimg i ON i.member_id = m.member_id
+                 LEFT JOIN memberImg i ON i.member_id = m.member_id
         WHERE m.member_id = #{id}
     </select>
 
@@ -75,7 +75,7 @@
              , m.member_gender     memberGender
              , i.file_name         fileName
         FROM member m
-                 LEFT JOIN memberimg i ON m.member_id = i.member_id
+                 LEFT JOIN memberImg i ON m.member_id = i.member_id
         WHERE m.member_id = #{memberId}
 
 

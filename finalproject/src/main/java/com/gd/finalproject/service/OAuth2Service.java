@@ -1,8 +1,10 @@
 package com.gd.finalproject.service;
 
 
+import com.gd.finalproject.mapper.MemberImgMapper;
 import com.gd.finalproject.mapper.MemberMapper;
 import com.gd.finalproject.vo.MemberDto;
+import com.gd.finalproject.vo.MemberImg;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,6 +28,7 @@ import java.util.UUID;
 public class OAuth2Service implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
     private final PasswordEncoder passwordEncoder;
     private final MemberMapper memberMapper;
+    private final MemberImgMapper memberImgMapper;
 
     @Override
     @Transactional
@@ -41,10 +44,10 @@ public class OAuth2Service implements OAuth2UserService<OAuth2UserRequest, OAuth
         Map<String, Object> properties = (Map<String, Object>) attributes.get("properties");
         String email = (String) profile.get("email");
         String name = (String) properties.get("nickname");
+        String fileName = (String) properties.get("profile_image");
         // 카카오를 통해서 가입했는지 확인
         MemberDto member = memberMapper.getMember(email);
         log.info("member = {}", member);
-        member.setAttributes(properties);
         // 없으면 가입시키기
         if (member == null) {
             // 비밀번호 아무렇게나 암호화 시키기
@@ -60,9 +63,17 @@ public class OAuth2Service implements OAuth2UserService<OAuth2UserRequest, OAuth
                     .memberName(name)
                     .memberAddr("")
                     .memberAuth(auth)
+                    .attributes(properties)
                     .build();
             memberMapper.signMember(member);
             memberMapper.authInsert(member);
+            MemberImg memberImg = MemberImg.builder()
+                    .memberId(email)
+                    .fileName(fileName)
+                    .fileType("image/jpg")
+                    .build();
+            member.setMemberImg(fileName);
+            memberImgMapper.updateMemberImg(memberImg);
         }
         return member;
     }

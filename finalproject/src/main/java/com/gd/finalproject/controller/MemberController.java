@@ -1,18 +1,25 @@
 package com.gd.finalproject.controller;
 
 
+import com.gd.finalproject.mapper.MemberMapper;
 import com.gd.finalproject.service.MailService;
 import com.gd.finalproject.service.MemberService;
 import com.gd.finalproject.vo.MemberForm;
+import com.gd.finalproject.vo.user;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.gd.finalproject.vo.MemberDto;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.util.Map;
@@ -24,6 +31,8 @@ public class MemberController {
 
     private final MemberService memberService;
     private final MailService mailService;
+    private final AuthenticationManager authenticationManager;
+    private final MemberMapper memberMapper;
 
     @GetMapping("/login-form")
     public String loginForm(@ModelAttribute("error") String error,
@@ -83,10 +92,14 @@ public class MemberController {
 
     //수정
     @PostMapping("/update")
-    public String memberUpdate(MemberForm memberForm) {
-        memberService.updateMember(memberForm);
-        return "member/member-detail";
+    public String memberUpdate(MemberForm memberForm, Authentication authentication) {
+        log.info("memberForm = {}", memberForm);
+        memberService.updateMember(memberForm, authentication);
+        return "/member/member-detail";
     }
+
+
+
 
 }
 

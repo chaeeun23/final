@@ -37,3 +37,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Etc ###
+!**/src/main/webapp/memberUpload/
