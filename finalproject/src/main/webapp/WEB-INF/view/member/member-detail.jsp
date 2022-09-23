@@ -16,7 +16,6 @@
 </head>
 <body>
 <sec:authentication property="principal" var="member" scope="session"/>
-${member}
 <div class="d-flex justify-content-center container my-2">
     <form action="${pageContext.request.contextPath}/update" method="post" enctype="multipart/form-data"
           id="member-form"

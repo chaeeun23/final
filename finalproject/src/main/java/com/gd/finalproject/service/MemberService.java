@@ -8,6 +8,7 @@ import com.gd.finalproject.vo.MemberForm;
 import com.gd.finalproject.vo.MemberImg;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,8 +25,10 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletContext;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
@@ -38,6 +41,7 @@ public class MemberService implements UserDetailsService {
     private final PasswordEncoder bCryptPasswordEncoder;
     private final ResourceLoader resourceLoader;
     private final MemberImgMapper memberImgMapper;
+    private final ServletContext servletContext;
 
 
     public String idCheck(String id) {
@@ -91,13 +95,18 @@ public class MemberService implements UserDetailsService {
             String fileName = UUID.randomUUID().toString().replace("-", "") + ext;
 
             // 리소스는 현재 프로젝트 경로 가져와주기
+
             Path path = null;
             try {
-                Resource resource = resourceLoader.getResource("/memberUpload");
-                path = Paths.get(resource.getURI());
+                String realPath = servletContext.getRealPath("/memberUpload");
+                path = Paths.get(realPath);
+                if (!Files.exists(path)) {
+                    Files.createDirectories(path);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
             // 컨텍스트 path 가져오기
             ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
             String contextPath = attr.getRequest().getContextPath();
