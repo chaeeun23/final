@@ -46,7 +46,8 @@
     </sec:authorize>
     <!-- 로고 -->
     <div class="d-flex justify-content-center">
-        <img src="${pageContext.request.contextPath}/mainImg/logo.png" style="max-width:100%; height:auto;">
+        <a href="${pageContext.request.contextPath}/index">
+        <img src="${pageContext.request.contextPath}/mainImg/logo.png" style="max-width:100%; height:auto;"></a>
     </div>
     <br>
 
@@ -64,9 +65,9 @@
                                         class="nav-link dropdown-toggle" href="#" id="navbardrop"
                                         data-toggle="dropdown">시설소개</a>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">센터소개</a> <a
-                                            class="dropdown-item" href="#">강사소개</a> <a
-                                            class="dropdown-item" href="#">오시는길</a>
+                                        <a class="dropdown-item" href="${pageContext.request.contextPath}/centerIntroduce">센터소개</a> <a
+                                            class="dropdown-item" href="${pageContext.request.contextPath}/instructorList">강사소개</a> <a
+                                            class="dropdown-item" href="${pageContext.request.contextPath}/centerRoute">오시는길</a>
                                     </div>
                                 </li>
                             </div>
@@ -75,7 +76,7 @@
                                         class="nav-link dropdown-toggle" href="#" id="navbardrop"
                                         data-toggle="dropdown">이용안내</a>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">강좌안내</a> <a
+                                        <a class="dropdown-item" href="${pageContext.request.contextPath}/lectureList">강좌안내</a> <a
                                             class="dropdown-item" href="#">셔틀안내</a> <a
                                             class="dropdown-item" href="#">대관안내</a>
                                     </div>
@@ -86,11 +87,11 @@
                                         class="nav-link dropdown-toggle" href="#" id="navbardrop"
                                         data-toggle="dropdown">프로그램안내</a>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">수영</a> <a
-                                            class="dropdown-item" href="#">에어로빅</a> <a
-                                            class="dropdown-item" href="#">필라테스</a> <a
-                                            class="dropdown-item" href="#">테니스</a> <a
-                                            class="dropdown-item" href="#">탁구</a>
+                                        <a class="dropdown-item" href="${pageContext.request.contextPath}/swimming">수영</a> <a
+                                            class="dropdown-item" href="${pageContext.request.contextPath}/aerobics">에어로빅</a> <a
+                                            class="dropdown-item" href="${pageContext.request.contextPath}/pilates">필라테스</a> <a
+                                            class="dropdown-item" href="${pageContext.request.contextPath}/tennis">테니스</a> <a
+                                            class="dropdown-item" href="${pageContext.request.contextPath}/pingpong">탁구</a>
                                     </div>
                                 </li>
                             </div>
@@ -110,9 +111,9 @@
                                         class="nav-link dropdown-toggle" href="#" id="navbardrop"
                                         data-toggle="dropdown">열린마당</a>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">공지사항</a> <a
+                                        <a class="dropdown-item" href="${pageContext.request.contextPath}/noticeList">공지사항</a> <a
                                             class="dropdown-item" href="#">Q&A</a> <a
-                                            class="dropdown-item" href="#">상담예약</a>
+                                            class="dropdown-item" href="${pageContext.request.contextPath}/consultReservationList">상담예약</a>
                                     </div>
                                 </li>
                             </div>
