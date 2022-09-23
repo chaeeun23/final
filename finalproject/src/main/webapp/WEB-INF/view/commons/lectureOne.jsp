@@ -21,7 +21,7 @@
 	<h1 style="text-align:center;">강좌 상세보기</h1>
 	<br>
 
-	<form action="${pageContext.request.contextPath}/cart?lectureNo=${lectureOne.lectureNo}" method="post">
+	<form action="${pageContext.request.contextPath}/cartList?lectureNo=${lectureOne.lectureNo}&memberId=yoomisun" method="get">
 	<table class="table table-bordered" style="text-align:center; vertical-align:middle;">
 		<tr> 
 			<td>강좌번호</td>
@@ -29,7 +29,25 @@
 		</tr>
 		<tr> 
 			<td>강좌명</td>
-			<td><a href="${pageContext.request.contextPath}/commons/lectureIntroduce" class="btn btn-primary"  style="width:100px;">${lectureOne.lectureName}</a></td>
+			<td>
+				<c:choose >
+					<c:when test="${lectureOne.lectureName eq '필라테스'}">
+						<a href="${pageContext.request.contextPath}/pilates" class="btn btn-primary" style="width:100px;">${lectureOne.lectureName}</a> 
+					</c:when>
+					<c:when test="${lectureOne.lectureName eq '수영'}">
+						<a href="${pageContext.request.contextPath}/swimming" class="btn btn-primary" style="width:100px;">${lectureOne.lectureName}</a> 
+					</c:when>
+					<c:when test="${lectureOne.lectureName eq '테니스'}">
+						<a href="${pageContext.request.contextPath}/tennis" class="btn btn-primary" style="width:100px;">${lectureOne.lectureName}</a> 
+					</c:when>
+					<c:when test="${lectureOne.lectureName eq '탁구'}">
+						<a href="${pageContext.request.contextPath}/pingpong" class="btn btn-primary" style="width:100px;">${lectureOne.lectureName}</a>  
+					</c:when>
+					<c:when test="${lectureOne.lectureName eq '에어로빅'}">
+						<a href="${pageContext.request.contextPath}/aerobics" class="btn btn-primary" style="width:100px;">${lectureOne.lectureName}</a>  
+					</c:when>
+				</c:choose>
+			</td>
 		</tr>
 		<tr>
 			<td>강좌요일</td>
@@ -69,7 +87,7 @@
 		</tr>
 	</table>
 		
-		<button type="submit" name="cart" id="cart" class="btn btn-primary" style="width:100px; float:right;" >장바구니</button>
+		<button type="button" onclick="javascript:btn()" name="cart" id="cart" class="btn btn-primary" style="width:100px; float:right;" >장바구니</button>
 		<a href="${pageContext.request.contextPath}/lectureList" class="btn btn-primary" style="width:100px; float:right; margin-right:10px; ">강좌목록</a>
 		
 		<!-- 관리자만 수정,삭제 가능버튼 보임 -->
@@ -90,75 +108,107 @@
 	
 	<div class="container">
     <div>
-        <h4 class="fw-bold">리뷰</h4>
+        <h4 class="fw-bold fs-4"  style="text-align:center;">리뷰</h4>
     </div>
     
+    <br>
     
-    <!-- 댓글 입력 폼 -->
+    <!-- 리뷰 입력 폼 -->
     <div>
-        <div >
+		<form action="${pageContext.request.contextPath}/reviewInsert" method="get">
            <%--  <c:if test="${sessionScope.loginMember ne null}"> --%>
-            <textarea class="form-control" placeholder="댓글을 입력해주세요" name="reviewContent" id="reviewContent"
+            <textarea class="form-control" placeholder="리뷰를 입력해주세요" name="reviewContent" id="reviewContent"
                       style="height: 100px; resize: none;"></textarea>
            <%--  </c:if> --%>
-            <div class="invalid-feedback">
-                1자 이상 입력해주세요
-            </div>
             <%-- <c:if test="${sessionScope.loginMember eq null}"> --%>
-               <!--  <label for="commentContent">댓글을 작성하려면, 로그인 해주세요</label> -->
+               <!--  <label for="reviewContent">댓글을 작성하려면, 로그인 해주세요</label> -->
             <%-- </c:if> --%>
-        </div>
-       <%--  <c:if test="${sessionScope.loginMember ne null}"> --%>
-            <a boardNo="${board.boardNo}" memberId="${sessionScope.loginMember.memberId}" id="reviewInsertBtn"
-               class="btn btn-primary btn-sm">등록</a>
-      <%--   </c:if> --%>
+	       <%--  <c:if test="${sessionScope.loginMember ne null}"> --%>
+	            <button type="button" id="reviewInsertBtn" class="btn btn-primary btn-sm">등록</button>
+	      <%--   </c:if> --%>
+    	</form>
     </div>
     
     <br>
     <br>
     
-    <!-- 댓글 리스트 -->
-    <div id="commentLists" class="container px-5 my-4">
-        <c:forEach items="${commentList}" var="dto">
-            <!-- 댓글 내용 -->
+    <!-- 리뷰 리스트 -->
+    <div class="container px-5 my-4" >
+    	<form action="${pageContext.request.contextPath}/reviewUpdate?courseNo=${review.courseNo}" method="post">
+        <c:forEach items="${reviewList}" var="review">
+            <!-- 리뷰 내용 -->
             <div class="listForm">
-                <h4 class="fw-bold fs-4">${dto.memberId}</h4>
-                <div class="lh-sm">${dto.commentContent}</div>
+                <h4 class="fw-bold fs-4">${review.memberId}</h4>
+                <div class="lh-sm">${review.reviewContent}</div>
                 <div class="d-flex justify-content-end">
                     <div>
-                        <c:if test="${sessionScope.loginMember.memberId eq dto.memberId}">
-                            <a class='cmUpdateBtnForm btn btn-primary btn-sm'>수정</a>
-                            <a boardNo="${board.boardNo}" commentNo="${dto.commentNo}"
-                               class='cmDelBtn btn btn-primary btn-sm'>삭제</a>
-                        </c:if>
+                      <%--   <c:if test="${sessionScope.loginMember.memberId eq dto.memberId}"> --%>
+                            <a href="${pageContext.request.contextPath}/reviewUpdate?courseNo=${review.courseNo}" 
+                            	class="reviewUpdateBtn btn btn-primary">수정</a>
+                            <a href="${pageContext.request.contextPath}/reviewRemove?courseNo=${review.courseNo}" 
+                            	class="btn btn-primary" style="float:right; margin-right:10px;">삭제</a>
+                        <%-- </c:if> --%>
                     </div>
                 </div>
-                <div class="d-flex justify-content-end">작성일 : ${dto.commentDate}</div>
+                <div >리뷰작성일 : ${review.createDate}</div>
+                <div >리뷰수정일 : ${review.updateDate}</div>
                 <hr/>
             </div>
+          
+            <script>  
+	            // 댓글 수정창
+					$(document).on('click', '.reviewUpdateBtnForm', function () {
+					    $(this).parents('.listForm').css('display', 'none');
+					    $(this).parents('.listForm').next().css('display', '');
+					})
+					$(document).on('click', '.reviewUpdateCancel', function () {
+					    $(this).parents('.updateForm').css('display', 'none');
+					    $(this).parents('.updateForm').prev().css('display', '');
+					})
+            </script> 
             
             <!-- 리뷰 수정하기 -->
             <div class="reviewUpdateForm" style="display: none">
                 <div class="form-floating flex-grow-1 px-2">
-                    <textarea class="cmUpdateContent form-control" style="height: 100px; resize: none;">${dto.commentContent}</textarea>
-                    <div class="invalid-feedback">
-                        1자 이상 입력해주세요
-                    </div>
+                    <textarea class="reviewUpdateContent form-control" style="height: 100px; resize: none;">${review.reviewContent}</textarea>
                 </div>
                 
                 <br>
                 <br>
                 
                 <div class="d-flex justify-content-end mt-2">
-                    <a boardNo="${board.boardNo}" commentNo="${dto.commentNo}"
-                       class='cmUpdateBtn btn btn-primary btn-sm mx-1'>등록</a>
-                    <a class='cmUpdateCancel btn btn-primary btn-sm ms-1'>취소</a>
+                    <a courseNo="${board.courseNo}"
+                       class='reviewUpdateBtn btn btn-primary btn-sm mx-1'>등록</a>
+                    <a class='reviewUpdateCancel btn btn-primary btn-sm ms-1'>취소</a>
                 </div>
                 <hr/>
             </div>
+         
+
+            
         </c:forEach>
+         </form> 
     </div>
 </div>
+	<script>
+	$('.reviewInsertBtn').click(function() {
+		var openedLecNoVal = $(this).val(); 
+		$.ajax({
+			url : 'commons/lectureOne',
+			type : 'post',
+			data : {openedLecNo : openedLecNoVal, studentCode : $('#coursNo').val()},
+			success : function(json) {
+				if(json == 'y') {
+					alert('리뷰 등록에 성공하셨습니다.');
+				} else {
+					alert('리뷰 등록에 실패하셨습니다.');
+				}
+			}
+		});
+		location.reload();
+		return false;
+	});
+	</script>
 	
 	<br>
 	<br>
@@ -201,8 +251,11 @@
 		</script>
 	</c:if>
 	
-	
-
+	<script type="text/javascript">
+		function btn(){
+	        alert('장바구니 추가완료!');
+	    }
+	</script>
 
 	<!-- footer -->
 	<div>

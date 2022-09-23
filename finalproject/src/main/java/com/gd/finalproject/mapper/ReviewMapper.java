@@ -20,7 +20,8 @@ public interface ReviewMapper {
 	int insertReview(Review review);
 	
 	// 리뷰 수정
+	int updateReview(Review review);
 	
 	// 리뷰 삭제
-	
+	int deleteReview(int reviewNo);
 }
