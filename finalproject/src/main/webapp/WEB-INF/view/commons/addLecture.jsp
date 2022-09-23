@@ -7,7 +7,7 @@
 <title>2유2김</title>
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/mainImg/favicon.png">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script type="text/javascript" src="./js/jquery-1.12.4.min.js"></script>
+
 </head>
 <body>
 	<!-- header(로고, 네비게이션바) -->
@@ -138,6 +138,19 @@
 	<script>
 
 		$("#addLectureBtn").click(function(){
+			//날짜를 숫자형태의 날짜 정보로 변환하여 비교한다.	  
+			var startDate = $('#lectureStartDate').val();	        
+			var endDate = $('#lectureEndDate').val();	  
+			     
+			//-을 구분자로 연,월,일로 잘라내어 배열로 반환	        
+			var startArray = startDate.split('-');	        
+			var endArray = endDate.split('-'); 
+			  	        
+			//배열에 담겨있는 연,월,일을 사용해서 Date 객체 생성	        
+			var start_date = new Date(startArray[0], startArray[1], startArray[2]);	        
+			var end_date = new Date(endArray[0], endArray[1], endArray[2]);       
+			      
+			
 			if( $("#lectureNo").val() == "")	 { 
 				alert("빈칸입니다. 강좌번호를 입력해주세요");	
 						$("#lectureNo").focus();	
@@ -172,38 +185,23 @@
 								return false; 
 			} else if( $("#lectureEndDate").val() == "")	 { 
 				alert("빈칸입니다. 종강일을 선택해주세요!");	
-						return false; 
+								return false; 
+			} else if(start_date.getTime() > end_date.getTime()){
+				<!-- 시작날짜가 종료날짜 보다 작으면 경고창을 띄움 -->
+				alert("종료날짜보다 시작날짜가 작아야합니다.");	            
+								return false;	 
 			} else {
 				addLectureForm.submit();
 			}
 		});
 
+		
+		
 	</script>
 	
-	<!-- 시작날짜가 종료날짜 보다 작으면 경고창을 띄움 -->
-	<script type="text/javascript">	
-		$(function(){		
-			$("#addLectureBtn").click(function(){
-				var startDate = $('#lectureStartDate').val();	        
-				var endDate = $('#lectureEndDate').val();	  
-				     
-				//-을 구분자로 연,월,일로 잘라내어 배열로 반환	        
-				var startArray = startDate.split('-');	        
-				var endArray = endDate.split('-'); 
-				  	        
-				//배열에 담겨있는 연,월,일을 사용해서 Date 객체 생성	        
-				var start_date = new Date(startArray[0], startArray[1], startArray[2]);	        
-				var end_date = new Date(endArray[0], endArray[1], endArray[2]);       
-				      
-				//날짜를 숫자형태의 날짜 정보로 변환하여 비교한다.	        
-				if(start_date.getTime() > end_date.getTime()) {	            
-					alert("종료날짜보다 시작날짜가 작아야합니다.");	            
-					return false;	        
-						}	     
-					});	
-				});
+
 			
 	
-	</script>
+	
 </body>
 </html>

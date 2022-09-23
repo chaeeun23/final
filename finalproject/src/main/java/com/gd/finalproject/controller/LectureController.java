@@ -1,6 +1,5 @@
 package com.gd.finalproject.controller;
 
-
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.gd.finalproject.commons.TeamColor;
 import com.gd.finalproject.service.LectureService;
 import com.gd.finalproject.vo.Lecture;
-
-import com.gd.finalproject.vo.Location;
 
 import lombok.extern.slf4j.Slf4j;
 

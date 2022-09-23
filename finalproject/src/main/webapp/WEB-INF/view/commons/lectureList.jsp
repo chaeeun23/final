@@ -37,7 +37,7 @@
 	<br>
 	
 	<div>
-	<table class="table table-bordered" style="text-align:center;" >
+	<table class="table table-bordered" style="text-align:center; vertical-align:middle;">
 		<tr>
 			<th>강좌번호</th>
 			<th>강사이름</th>

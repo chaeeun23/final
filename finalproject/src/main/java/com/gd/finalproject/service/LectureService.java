@@ -33,7 +33,7 @@ public class LectureService {
         log.debug(TeamColor.MS + "LectureService(total) : " + total);
 
         // 만들어논 메서드
-        PageNationDto pageNation = PageNationUtil.getPageNation(current, total, "/finalproject/employeeLectureList", 10);
+        PageNationDto pageNation = PageNationUtil.getPageNation(current, total, "/finalproject/lectureList", 10);
         log.debug(TeamColor.MS + "LectureService(pageNation) : " + pageNation);
 
         // lectureList 가져오기
