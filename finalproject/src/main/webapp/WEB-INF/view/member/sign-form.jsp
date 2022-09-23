@@ -187,7 +187,7 @@
     document.querySelector('#emailCheckBtn').addEventListener('click', function (ev) {
         let email = document.querySelector('#emailData').value;
         let url = '${pageContext.request.contextPath}/sign/email-check?email=' + email;
-
+        document.querySelector('#emailData').setAttribute('readonly', 'readonly');
         fetch(url, {
             method: 'GET'
         }).then(res => res.text())
@@ -196,11 +196,11 @@
                     code = data;
                     document.querySelector('#emailData').classList.remove('is-invalid');
                     document.querySelector('#emailData').className += ' is-valid';
-                    document.querySelector('#emailData').setAttribute('readonly', 'readonly');
                     document.querySelector('#emailCheckNum').removeAttribute('readonly');
                     document.querySelector('#emailCheckBtn').setAttribute('disabled', 'disabled');
                 } else {
                     document.querySelector('#emailData').className += ' is-invalid';
+                    document.querySelector('#emailData').removeAttribute('readonly');
                 }
             })
     })
@@ -395,7 +395,6 @@
         element_layer.style.left = (((window.innerWidth || document.documentElement.clientWidth) - width) / 2 - borderWidth) + 'px';
         element_layer.style.top = (((window.innerHeight || document.documentElement.clientHeight) - height) / 2 - borderWidth) + 'px';
     }
-
 </script>
 </body>
 </html>
