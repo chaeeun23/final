@@ -36,11 +36,7 @@
     </sec:authorize>
     <sec:authorize access="isAuthenticated()" >
         <div class="d-flex justify-content-end" >
-                <%-- 권한 여러개 --%>
-            <sec:authorize access="hasAnyAuthority('USER','ADMIN','INSTRUCTOR')">
-                <sec:authentication property="principal.memberId"/>님
-            </sec:authorize>
-            <a href="${pageContext.request.contextPath}/detail" class="btn btn-primary btn-sm mx-2">내정보</a>
+            <a href="${pageContext.request.contextPath}/detail" class="btn btn-primary btn-sm mx-1">내정보</a>
             <a href="${pageContext.request.contextPath}/logout" class="btn btn-primary btn-sm">로그아웃</a>
         </div>
     </sec:authorize>

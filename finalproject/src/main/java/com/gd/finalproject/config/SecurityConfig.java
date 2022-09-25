@@ -3,6 +3,7 @@ package com.gd.finalproject.config;
 
 import com.gd.finalproject.service.MemberService;
 import com.gd.finalproject.service.OAuth2Service;
+import com.gd.finalproject.service.handler.LoginFailHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +25,7 @@ public class SecurityConfig {
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
     private final OAuth2Service oAuth2Service;
-
+    private final LoginFailHandler loginFailHandler;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
@@ -44,7 +45,8 @@ public class SecurityConfig {
                         .loginPage("/login-form") // 로그인페이지 주소
                         .loginProcessingUrl("/member/login") // 로그인 검증할 url
                         .defaultSuccessUrl("/", true) // 성공시 이동할 url
-                        .failureUrl("/login-form?error=fail") // 실패시 이동할 url
+                        .failureUrl("/login-form?error=f")
+                        // .failureHandler(loginFailHandler) // 실패시 이동할 url
                         .permitAll())
                 // 카카오 로그인 관련
                 .oauth2Login(oauth -> oauth.loginPage("/login-form")
@@ -73,11 +75,6 @@ public class SecurityConfig {
         authProvider.setUserDetailsService(memberService);
         authProvider.setPasswordEncoder(passwordEncoder);
         return authProvider;
-    }
-
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
     }
 
 }

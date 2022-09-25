@@ -32,6 +32,12 @@
         WHERE member_no = #{memberDto.memberNo}
 
     </update>
+    <update id="pwChange">
+        UPDATE member
+        SET member_pw = #{pw}
+        WHERE member_id = #{id}
+          AND member_email = #{email}
+    </update>
     <!-- 아이디 중복체크 -->
     <select id="idCheck" resultType="string">
         SELECT member_id
@@ -60,6 +66,12 @@
                  LEFT JOIN memberImg i ON i.member_id = m.member_id
         WHERE m.member_id = #{id}
     </select>
+    <!-- 메일을 통한 아이디 찾기 -->
+    <select id="idFind" resultType="string">
+        SELECT member_id
+        FROM member
+        WHERE member_email = #{email}
+    </select>
 
     <!--회원정보 조회 -->
     <select id="memberDetail" resultMap="member">
@@ -79,6 +91,12 @@
         WHERE m.member_id = #{memberId}
 
 
+    </select>
+    <select id="pwFind" resultType="java.lang.String">
+        SELECT member_id
+        FROM member
+        WHERE member_email = #{email}
+          AND member_id = #{id}
     </select>
 
     <!-- 회원가입 -->

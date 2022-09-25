@@ -31,13 +31,13 @@ public class MemberController {
 
     private final MemberService memberService;
     private final MailService mailService;
-    private final AuthenticationManager authenticationManager;
     private final MemberMapper memberMapper;
 
     @GetMapping("/login-form")
-    public String loginForm(@ModelAttribute("error") String error,
-                            Authentication authentication) {
-        log.info("authentication = {}", authentication);
+    public String loginForm(@RequestParam(required = false, value = "error") String error, Model model) {
+        if (error != null) {
+            model.addAttribute("error", error);
+        }
         return "/member/login-form";
     }
 
@@ -98,9 +98,43 @@ public class MemberController {
         return "/member/member-detail";
     }
 
+    // 아이디찾기 폼
+    @GetMapping("/find-id")
+    public String findIdForm() {
+        return "/member/find-form";
+    }
 
+    // 아이디찾기 로직
+    @PostMapping("/find-id")
+    public String findId(@RequestParam("email") String email, Model model) throws Exception {
+        String check = mailService.idFind(email);
+        if (check.equals("fail")) {
+            model.addAttribute("error", "메일 형태가 아니거나 해당하는 아이디가 없습니다. 다시 시도해주세요");
+            return "/member/find-form";
+        }
 
+        model.addAttribute("suc", "전송 성공");
+        return "/member/login-form";
+    }
 
+    // 비밀번호찾기 폼
+    @GetMapping("/find-pw")
+    public String findPwForm() {
+        return "/member/find-pw";
+    }
+
+    // 비밀번호찾기 로직
+    @PostMapping("/find-pw")
+    public String findPw(@RequestParam("email") String email,
+                         @RequestParam("id") String id, Model model) throws Exception {
+        String check = mailService.pwFind(id, email);
+        if (check.equals("fail")) {
+            model.addAttribute("error", "메일 형태가 아니거나 해당하는 아이디가 없습니다. 다시 시도해주세요");
+            return "/member/find-pw";
+        }
+        model.addAttribute("suc", "전송 성공");
+        return "/member/login-form";
+    }
 }
 
 

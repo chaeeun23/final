@@ -32,7 +32,7 @@
             <input type="password" class="form-control" name="password" id="password"
                    placeholder="비밀번호를 입력해주세요">
         </div>
-        <c:if test="${error ne ''}">
+        <c:if test="${error ne null}">
             <div class="alert alert-danger d-flex align-items-center justify-content-center">
                 <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
                     <use xlink:href="#exclamation-triangle-fill"/>
@@ -40,21 +40,28 @@
                 <div>정보가 틀리거나 없는 아이디입니다</div>
             </div>
         </c:if>
-        <div class="text-center mt-3">
+        <div class="d-flex justify-content-end">
+            <div>
+                <div>
+                    <a href="${pageContext.request.contextPath}/find-id">아이디찾기</a> | <a
+                        href="${pageContext.request.contextPath}/find-pw">비밀번호찾기</a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
             <button type="submit" id="boardBtn" class="btn btn-secondary mt-2 rounded-0">고객 로그인</button>
-            <a href="${pageContext.request.contextPath}/admin/login-form" type="submit"
-               class="btn btn-secondary mt-2 rounded-0">관리자 로그인</a>
-
             <a href="${pageContext.request.contextPath}" class="btn btn-secondary mt-2 rounded-0">뒤로가기</a>
         </div>
-        <div class="text-center mt-3">
-            <%-- 카카오 버튼 --%>
+        <%-- 카카오 버튼 --%>
+        <div class="text-center mt-2">
             <a href="${pageContext.request.contextPath}/oauth2/authorization/kakao"><img
                     src="${pageContext.request.contextPath}/mainImg/kakao_btn.png"></a>
         </div>
     </form>
 </div>
-</div>
+<c:if test="${suc ne null}">
+    <script>alert('${suc}')</script>
+</c:if>
 </body>
 </html>
 

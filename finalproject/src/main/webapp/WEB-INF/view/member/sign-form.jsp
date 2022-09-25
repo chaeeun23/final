@@ -244,6 +244,10 @@
             alert("아이디를 입력해주세요");
             return
         }
+        if (id.length < 8) {
+            alert("아이디는 8자 이상으로 입력해주세요");
+            return;
+        }
         let url = '${pageContext.request.contextPath}/sign/id-check?id=' + id;
         fetch(url, {
             method: 'GET'

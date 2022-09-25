@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 import java.util.regex.Matcher;
@@ -27,6 +29,7 @@ public class MailService {
 
     private final JavaMailSender javaMailSender;
     private final MemberMapper memberMapper;
+    private final PasswordEncoder passwordEncoder;
 
     public String mailCheck(String email) throws Exception {
         if (isValidEmail(email)) {
@@ -39,6 +42,30 @@ public class MailService {
             message.setFrom(new InternetAddress(username));
             javaMailSender.send(message);
             return code;
+        }
+        return "fail";
+    }
+
+    public String idFind(String email) throws Exception {
+        if (isValidEmail(email)) {
+            List<String> idList = memberMapper.idFind(email);
+            if (idList.size() == 0) {
+                return "fail";
+            }
+            MimeMessage message = javaMailSender.createMimeMessage();
+            message.addRecipients(Message.RecipientType.TO, email);
+            message.setSubject("사회체육센터 가입한 아이디입니다.");
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("아이디 목록\n");
+            for (String id : idList) {
+                // 앞 3자리 짤라서 *표 처리
+                String change = id.substring(2);
+                stringBuilder.append("**" + change + "\n");
+            }
+            message.setText(stringBuilder.toString(), "utf-8");
+            message.setFrom(new InternetAddress(username));
+            javaMailSender.send(message);
+            return "suc";
         }
         return "fail";
     }
@@ -56,4 +83,23 @@ public class MailService {
     }
 
 
+    public String pwFind(String id, String email) throws Exception {
+        String findId = memberMapper.pwFind(id, email);
+        if (findId == null || !isValidEmail(email)) {
+            return "fail";
+        }
+        String code = UUID.randomUUID().toString();
+        String encode = passwordEncoder.encode(code);
+        memberMapper.pwChange(id, email, encode);
+        MimeMessage message = javaMailSender.createMimeMessage();
+        message.addRecipients(Message.RecipientType.TO, email);
+        message.setSubject("사회체육센터 변경된 임시비밀번호입니다.");
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("임시비밀번호 : " + code + "\n");
+        stringBuilder.append("반드시 비밀번호를 수정해주세요.");
+        message.setText(stringBuilder.toString(), "utf-8");
+        message.setFrom(new InternetAddress(username));
+        javaMailSender.send(message);
+        return "suc";
+    }
 }

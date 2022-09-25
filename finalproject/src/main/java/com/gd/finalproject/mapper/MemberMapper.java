@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import com.gd.finalproject.vo.MemberDto;
 
+import java.util.List;
+
 @Mapper
 public interface MemberMapper {
 
@@ -22,4 +24,9 @@ public interface MemberMapper {
 
     int memberUpdate(@Param("memberDto") MemberDto memberDto);
 
+    List<String> idFind(@Param("email") String email);
+
+    String pwFind(@Param("id") String id, @Param("email") String email);
+
+    void pwChange(@Param("id") String id, @Param("email") String email, @Param("pw") String encode);
 }
