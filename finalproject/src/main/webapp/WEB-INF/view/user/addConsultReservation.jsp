@@ -27,17 +27,18 @@
 				style="text-align: center; vertical-align: middle;">
 				<tr>
 					<td>회원아이디</td>
-					<td></td>
+					<td><sec:authentication property="principal" var="member"></sec:authentication>
+					${memberDto.memberId}
+					</td>
 				</tr>
 				<tr>
-					<td>상담날짜</td>
-					<td><input type="date" id="consultDate" name="consultDate"
-						value="${consultReservationOne.consultDate} ${consultReservationOne.consultDateTime}"></td>
+					<td>상담일시</td>
+					<td><input type="datetime-local" id="consultDate" name="consultDate"></td>
 				</tr>
 			</table>
-			<a href="${pageContext.request.contextPath}/userConsultReservationOne"
-				class="btn btn-primary"
-				style="width: 150px; float: right; margin-right: 10px;">상담스케줄</a>
+			<button type="button" class="btn btn-primary" id="addConsultReservationBtn"
+				style="width: 100px; float: right; margin-right: 10px;" onclick="javascript:btn()">상담예약</button>
+		
 		</form>
 	</div>
 	
@@ -48,5 +49,19 @@
 	<div>
 		<c:import url="/WEB-INF/resource/inc/footer.jsp"></c:import>
 	</div>
+	
+	<script>
+	$("#addConsultReservationBtn").click(function() {
+		if ($("#consultDate").val() == "") {
+			alert("상담일시를 입력해주세요.");
+			return false;
+		} else {
+			addConsultReservationForm.submit();
+		}
+	});
+	function btn(){
+		    alert('상담예약 완료');
+		}
+	</script>
 </body>
 </html>

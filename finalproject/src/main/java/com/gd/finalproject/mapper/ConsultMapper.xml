@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gd.finalproject.mapper.ConsultMapper">
+<!-- 상담예약(회원) -->
+<insert id="insertConsultReservation" parameterType="com.gd.finalproject.vo.ConsultReservation">
+INSERT INTO 
+consutlReservation(user_id, consult_date, create_date) 
+VALUES(#{memberId}, #{consultDate}, NOW())
+</insert>
+</mapper>
