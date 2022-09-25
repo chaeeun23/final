@@ -12,6 +12,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -20,6 +21,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @RequiredArgsConstructor
 @Order(Ordered.HIGHEST_PRECEDENCE)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
     private final MemberService memberService;
@@ -33,10 +35,10 @@ public class SecurityConfig {
                 .authenticationProvider(authenticationProvider())
                 // 요청 url 권한관련
                 .authorizeRequests(auth -> auth
+                                .antMatchers("/sign/**").anonymous()
                                 .antMatchers("/**").permitAll() // 임시로 모든 권한 오픈
                         /*.antMatchers("/resources/**").permitAll() // 리소스 허용
                         .antMatchers("/resource/**").permitAll() // 리소스 허용
-                        .antMatchers("/sign/**").permitAll() // 인증을 안했어도 접근가능
                         .antMatchers("/home").hasAnyAuthority("USER", "ADMIN", "TEACHER")
                         .antMatchers("/강사/**").hasAnyAuthority("TEACHER", "ADMIN")
                         .anyRequest().authenticated()*/) // 그외 모든 요청 인증 되어야 한다
@@ -58,6 +60,8 @@ public class SecurityConfig {
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                         .logoutSuccessUrl("/")
                         .invalidateHttpSession(true))
+                .exceptionHandling().accessDeniedPage("/")
+                .and()
                 // 세션 관련 옵션
                 .sessionManagement(session -> session
                         .maximumSessions(100) // 최대 허용 세션 수

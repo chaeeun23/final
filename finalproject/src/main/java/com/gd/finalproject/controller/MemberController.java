@@ -8,6 +8,7 @@ import com.gd.finalproject.vo.MemberForm;
 import com.gd.finalproject.vo.user;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -34,6 +35,7 @@ public class MemberController {
     private final MemberMapper memberMapper;
 
     @GetMapping("/login-form")
+    @PreAuthorize("isAnonymous()")
     public String loginForm(@RequestParam(required = false, value = "error") String error, Model model) {
         if (error != null) {
             model.addAttribute("error", error);
@@ -44,18 +46,6 @@ public class MemberController {
     @GetMapping("/sign/sign-form")
     public String signForm() {
         return "/member/sign-form";
-    }
-
-    @GetMapping("/home")
-    public String loginSuc(@AuthenticationPrincipal DefaultOAuth2User defaultOAuth2User,
-                           Model model,
-                           Authentication authentication) {
-        log.info("defaultOAuth2User = {}", defaultOAuth2User);
-        if (defaultOAuth2User != null) {
-            Map<String, String> properties = (Map<String, String>) defaultOAuth2User.getAttributes().get("properties");
-            model.addAttribute("img", properties.get("profile_image"));
-        }
-        return "/main_page/home";
     }
 
     @ResponseBody
@@ -100,12 +90,14 @@ public class MemberController {
 
     // 아이디찾기 폼
     @GetMapping("/find-id")
+    @PreAuthorize("isAnonymous()")
     public String findIdForm() {
         return "/member/find-form";
     }
 
     // 아이디찾기 로직
     @PostMapping("/find-id")
+    @PreAuthorize("isAnonymous()")
     public String findId(@RequestParam("email") String email, Model model) throws Exception {
         String check = mailService.idFind(email);
         if (check.equals("fail")) {
@@ -119,12 +111,14 @@ public class MemberController {
 
     // 비밀번호찾기 폼
     @GetMapping("/find-pw")
+    @PreAuthorize("isAnonymous()")
     public String findPwForm() {
         return "/member/find-pw";
     }
 
     // 비밀번호찾기 로직
     @PostMapping("/find-pw")
+    @PreAuthorize("isAnonymous()")
     public String findPw(@RequestParam("email") String email,
                          @RequestParam("id") String id, Model model) throws Exception {
         String check = mailService.pwFind(id, email);
