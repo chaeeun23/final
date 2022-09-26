@@ -8,15 +8,15 @@
 </head>
 <body>
 <div>
-<c:import url="/WEB-INF/resource/inc/header.jsp"></c:import>
-<br>
-<br>
-<br>
+    <c:import url="/WEB-INF/resource/inc/header.jsp"></c:import>
+    <br>
+    <br>
+    <br>
 </div>
 <div class="container">
     <h4>회원 권한변경</h4>
     <hr>
-    <div >
+    <div>
         <table class="table table-striped">
             <thead>
             <tr>
@@ -27,29 +27,27 @@
 
             </tr>
             </thead>
-            <tbody>
+            <tbody id="box">
             <c:forEach items="${memberList}" var="member">
-                <th>
-                        ${member.memberId}
-                </th>
-                <th>
-                        ${member.memberName}
-                </th>
-                <th>
-                        ${member.createDate}
-                </th>
+                <tr>
+                    <th>
+                            ${member.memberId}
+                    </th>
+                    <th>
+                            ${member.memberName}
+                    </th>
+                    <th>
+                            ${member.createDate}
+                    </th>
 
-                <th>
-                    <select  id="selectbox" name="selectbox" >
-                        <option selected="selected">N</option>
-                        <option>Y</option>
-                        
-                </select>
-                </th>
-
-                <td>
-
-                </td>
+                    <th>
+                        <select class="emp-yn">
+                            <option value="N" selected="selected">N</option>
+                            <option value="Y">Y</option>
+                        </select>
+                    </th>
+                    <td>
+                    </td>
                 </tr>
             </c:forEach>
             </tbody>
@@ -97,22 +95,29 @@
 </div>
 
 <script>
-    let active = document.querySelectorAll('.active-value');
-    active.forEach(function (element) {
-        element.addEventListener('change', function (e) {
-            fetch(url, {
-                method: "GET",
-            })
-                .then((response) => response.text())
-                .then((data) => {
-                    if (data.trim() == 'ok') {
-                        alert('변경성공')
-                    } else {
-                        alert('변경실패')
-                    }
+    //큰 박스(부모) 걸어주고 다 체인지 이벤트 걸어줌
+    document.querySelector("#box").addEventListener('change', function (ev) {
+        // 클래스 'emp-yn' 비교해서 가져오기
+        if (ev.target.getAttribute('class') == 'emp-yn') {
+            let empYn = ev.target.value;
+            // 아이디 가져오는 건 부모의 부모의 첫번째 자식 이런식으로 찾아야 함 innerText 이건 안에 있는 텍스트
+            let memberId = ev.target.parentElement.parentElement.firstElementChild.innerText;
+            // POST 방식일경우 body가 http 메시지에 담길때 json 형태로 담기기 때문에
+            // 해당 데이터가 json 형태임을 헤더에 명시해준다
+            fetch("${pageContext.request.contextPath}/admin/auth-update", {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    'memberId': memberId,
+                    'empYn': empYn
                 })
-        })
+            }).then(response => response.text())
+                .then(data => console.log(data))
+        }
     })
+
 </script>
 </body>
 </html>
