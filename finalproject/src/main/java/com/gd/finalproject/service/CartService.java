@@ -40,6 +40,7 @@ public class CartService {
 		int deleteUserCart = cartMapper.deleteUserCart(userId, lectureNo);
 		log.debug(TeamColor.YW + "getUserCartList.deleteUserCart) : " + deleteUserCart);
 		
+		
 		return deleteUserCart;
 	}
 }
