@@ -46,11 +46,11 @@ public class LectureController {
 		log.debug(TeamColor.MS + "LectureController.lectureOne(lectureOne) : " + lectureOne);
 		
 		// 강좌 리뷰리스트
-		Map<String,Object> reviewList = reviewService.getReviewList(current);
-		log.debug(TeamColor.MS + "LectureController.lectureOne(reviewList) : " + reviewList);
+//		Map<String,Object> reviewList = reviewService.getReviewList(current);
+//		log.debug(TeamColor.MS + "LectureController.lectureOne(reviewList) : " + reviewList);
 		
 		model.addAttribute("lectureOne", lectureOne);
-		model.addAttribute("reviewList", reviewList);
+//		model.addAttribute("reviewList", reviewList);
 		
 		return "/commons/lectureOne";
 	}
