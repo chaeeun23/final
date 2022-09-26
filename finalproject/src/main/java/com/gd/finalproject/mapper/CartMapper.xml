@@ -1,3 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gd.finalproject.mapper.CartMapper"></mapper>
+<mapper namespace="com.gd.finalproject.mapper.CartMapper">
+
+	<!-- 장바구니 리스트-->
+	<select id="selectUserCartList" resultType="map"> <!-- map : java.util.Map 약식표현, list, string ,int(java.lang.Integer),... -->
+		SELECT
+		l.lecture_no lectureNo,
+		l.lecture_name lectureName,
+		lc.lecture_addr lectureAddr,
+		GROUP_CONCAT(ld.lecture_day
+		ORDER BY CASE ld.lecture_day
+		    WHEN '월' THEN 1
+		    WHEN '화' THEN 2
+		    WHEN '수' THEN 3
+		    WHEN '목' THEN 4
+		    WHEN '금' THEN 5
+		    END ASC) lectureDay,
+		l.lecture_time lectureTime,
+		FORMAT(l.lecture_price, 0) lecturePrice
+		FROM cart c
+		JOIN member m
+		ON c.user_id=m.member_id
+		JOIN user u
+		ON u.member_id=m.member_id
+		JOIN lecture l
+		ON c.lecture_no=l.lecture_no
+		JOIN location lc
+		ON l.location_no=lc.location_no
+		JOIN lectureday ld
+		ON l.lecture_no=ld.lecture_no
+		WHERE m.member_id = #{userId}
+		GROUP BY lectureNo
+	</select>
+	
+	<!-- 징바구니 삭제 -->
+	<delete id="deleteUserCart" parameterType="com.gd.finalproject.vo.Cart">
+		DELETE FROM cart WHERE lecture_no=#{lectureNo} AND user_id=#{userId}
+		
+	</delete>
+
+</mapper>

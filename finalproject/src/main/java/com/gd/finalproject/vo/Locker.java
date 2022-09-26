@@ -6,5 +6,5 @@ import lombok.Data;
 public class Locker {
 	private int lockerNo; //사물함번호
 	private int courseNo; //수강번호
-	private int lockerPrice; //사물함 이용금액
+	private String lockerUse; //사물함 사용유무
 }

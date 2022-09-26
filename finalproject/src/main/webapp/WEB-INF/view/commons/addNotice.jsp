@@ -60,7 +60,9 @@
 <!-- 공지사항 등록폼 -->
 <div class="container">
 	<form enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath }/addNotice" id="addNoticeForm">
-		<h1>공지사항 등록</h1>
+		<h2 style="text-align:center;">공지사항 등록</h2>
+		<br>
+		
 		<table class="table table-bordered">
 			<tr>
 				<td style="width: 10%;">제목</td>
