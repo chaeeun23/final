@@ -191,6 +191,7 @@
 				alert("종료날짜보다 시작날짜가 작아야합니다.");	            
 								return false;	 
 			} else {
+				alert("강좌 추가 성공!");
 				addLectureForm.submit();
 			}
 		});

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.finalproject.commons.TeamColor;
 import com.gd.finalproject.service.LectureService;
+import com.gd.finalproject.service.ReviewService;
 import com.gd.finalproject.vo.Lecture;
 
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class LectureController {
 	@Autowired LectureService lectureService;
+	@Autowired ReviewService reviewService;
 	
 	// 강좌 리스트(lectureList)
 	@GetMapping("/lectureList")		
@@ -31,14 +33,25 @@ public class LectureController {
 		return "/commons/lectureList";		// 경로
 	}
 	
-	// 강좌 상세페이지(lectureListOne)
+	// 강좌 상세페이지(lectureListOne), 리뷰리스트(reviewList)
 	@GetMapping("/lectureOne") 
-	public String lectureOne(Model model, @RequestParam(value="lectureNo") String lectureNo) {
+	public String lectureOne(Model model, @RequestParam(value="lectureNo") String lectureNo, 
+			@RequestParam(required = false, value = "current") String current,
+            @ModelAttribute("check") String check) {
 		// 값 넘겨 받기
 		log.debug(TeamColor.MS + "LectureController.lectureOne(lectureNo) : " + lectureNo);
+		
+		// 강좌 상세페이지
 		Map<String,Object> lectureOne = lectureService.getLectureOne(lectureNo);
-		log.debug(TeamColor.MS + "LectureController(lectureOne) : " + lectureOne);
+		log.debug(TeamColor.MS + "LectureController.lectureOne(lectureOne) : " + lectureOne);
+		
+		// 강좌 리뷰리스트
+		Map<String,Object> reviewList = reviewService.getReviewList(current);
+		log.debug(TeamColor.MS + "LectureController.lectureOne(reviewList) : " + reviewList);
+		
 		model.addAttribute("lectureOne", lectureOne);
+		model.addAttribute("reviewList", reviewList);
+		
 		return "/commons/lectureOne";
 	}
 	

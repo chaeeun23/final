@@ -3,6 +3,7 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,13 +25,10 @@
 	<br>
 	
 	<div>
-<%-- 		<!-- employee 와 총관리자인 권한이면 강좌추가버튼 보이게 -->
-		<c:if test="${member eq 'admin'}">
-			
-		</c:if>  --%>
-
-	<a href="${pageContext.request.contextPath }/addLecture" class="btn btn-primary"  style="width:100px; float:right; ">강좌 추가</a>
-	
+ 	<!-- 관리자이면 추가버튼 보이게 -->
+	<sec:authorize access="hasAuthority('EMPLOYEE')">
+		<a href="${pageContext.request.contextPath }/addLecture" class="btn btn-primary"  style="width:100px; float:right; ">강좌 추가</a>
+	</sec:authorize>
 	</div>
 	
 	<br>

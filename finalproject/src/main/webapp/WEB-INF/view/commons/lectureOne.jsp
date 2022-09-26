@@ -87,7 +87,7 @@
 		</tr>
 	</table>
 		
-		<button type="button" onclick="javascript:btn()" name="cart" id="cart" class="btn btn-primary" style="width:100px; float:right;" >장바구니</button>
+		<button type="button" onclick="javascript:btn()" class="btn btn-primary" style="width:100px; float:right;" >장바구니</button>
 		<a href="${pageContext.request.contextPath}/lectureList" class="btn btn-primary" style="width:100px; float:right; margin-right:10px; ">강좌목록</a>
 		
 		<!-- 관리자만 수정,삭제 가능버튼 보임 -->
@@ -102,7 +102,7 @@
 	<br>
 	<br>
 
-
+<%-- 
 	<!-- 리뷰 -->
 	<!-- 리뷰 자신이 작성한 것만 수정, 삭제 가능(수강:아이디와 로그인한 아이디가 일치하면 수정, 삭제 가능) / 관리자는 모든 리뷰 삭제 가능  -->
 	
@@ -116,16 +116,16 @@
     <!-- 리뷰 입력 폼 -->
     <div>
 		<form action="${pageContext.request.contextPath}/reviewInsert" method="get">
-           <%--  <c:if test="${sessionScope.loginMember ne null}"> --%>
+            <c:if test="${sessionScope.loginMember ne null}">
             <textarea class="form-control" placeholder="리뷰를 입력해주세요" name="reviewContent" id="reviewContent"
                       style="height: 100px; resize: none;"></textarea>
-           <%--  </c:if> --%>
-            <%-- <c:if test="${sessionScope.loginMember eq null}"> --%>
+            </c:if>
+            <c:if test="${sessionScope.loginMember eq null}">
                <!--  <label for="reviewContent">댓글을 작성하려면, 로그인 해주세요</label> -->
-            <%-- </c:if> --%>
-	       <%--  <c:if test="${sessionScope.loginMember ne null}"> --%>
+            </c:if>
+	        <c:if test="${sessionScope.loginMember ne null}">
 	            <button type="button" id="reviewInsertBtn" class="btn btn-primary btn-sm">등록</button>
-	      <%--   </c:if> --%>
+	        </c:if>
     	</form>
     </div>
     
@@ -142,30 +142,19 @@
                 <div class="lh-sm">${review.reviewContent}</div>
                 <div class="d-flex justify-content-end">
                     <div>
-                      <%--   <c:if test="${sessionScope.loginMember.memberId eq dto.memberId}"> --%>
+                        <c:if test="${sessionScope.loginMember.memberId eq dto.memberId}">
                             <a href="${pageContext.request.contextPath}/reviewUpdate?courseNo=${review.courseNo}" 
                             	class="reviewUpdateBtn btn btn-primary">수정</a>
                             <a href="${pageContext.request.contextPath}/reviewRemove?courseNo=${review.courseNo}" 
                             	class="btn btn-primary" style="float:right; margin-right:10px;">삭제</a>
-                        <%-- </c:if> --%>
+                        </c:if>
                     </div>
                 </div>
                 <div >리뷰작성일 : ${review.createDate}</div>
                 <div >리뷰수정일 : ${review.updateDate}</div>
                 <hr/>
             </div>
-          
-            <script>  
-	            // 댓글 수정창
-					$(document).on('click', '.reviewUpdateBtnForm', function () {
-					    $(this).parents('.listForm').css('display', 'none');
-					    $(this).parents('.listForm').next().css('display', '');
-					})
-					$(document).on('click', '.reviewUpdateCancel', function () {
-					    $(this).parents('.updateForm').css('display', 'none');
-					    $(this).parents('.updateForm').prev().css('display', '');
-					})
-            </script> 
+         
             
             <!-- 리뷰 수정하기 -->
             <div class="reviewUpdateForm" style="display: none">
@@ -209,7 +198,7 @@
 		return false;
 	});
 	</script>
-	
+	 --%>
 	<br>
 	<br>
 	<br>
