@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,8 +21,9 @@
 	<div class="container">
 	<h1 style="text-align:center;">강좌 상세보기</h1>
 	<br>
-
-	<form action="${pageContext.request.contextPath}/cartList?lectureNo=${lectureOne.lectureNo}&memberId=yoomisun" method="get">
+	<sec:authentication property="principal" var="member"/>
+	
+	<form action="${pageContext.request.contextPath}/cartList?lectureNo=${lectureOne.lectureNo}" method="get">
 	<table class="table table-bordered" style="text-align:center; vertical-align:middle;">
 		<tr> 
 			<td>강좌번호</td>
@@ -87,7 +89,8 @@
 		</tr>
 	</table>
 		
-		<button type="button" onclick="javascript:btn()" class="btn btn-primary" style="width:100px; float:right;" >장바구니</button>
+		<!-- <button type="button" onclick="javascript:btn()" class="btn btn-primary" style="width:100px; float:right;" >장바구니</button> -->
+		<a href="${pageContext.request.contextPath}/insertUserCart?lectureNo=${lectureOne.lectureNo}&userId=${member.memberId}" type="button" class="btn btn-primary" style="width:100px; float:right;" >장바구니</a>
 		<a href="${pageContext.request.contextPath}/lectureList" class="btn btn-primary" style="width:100px; float:right; margin-right:10px; ">강좌목록</a>
 		
 		<!-- 관리자만 수정,삭제 가능버튼 보임 -->
@@ -240,11 +243,11 @@
 		</script>
 	</c:if>
 	
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
 		function btn(){
 	        alert('장바구니 추가완료!');
 	    }
-	</script>
+	</script> -->
 
 	<!-- footer -->
 	<div>
