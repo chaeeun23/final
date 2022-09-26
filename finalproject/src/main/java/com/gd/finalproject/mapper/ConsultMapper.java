@@ -15,4 +15,10 @@ public interface ConsultMapper {
 
 	//상담예약상세(회원)
 	Map<String,Object> selectUserConsultReservationOne(@Param("userId") String userId);
+
+	//상담예약수정(회원)
+	int updateConsultReservation(ConsultReservation consultReservation);
+	
+	//상담예약삭제(회원) 
+	int deleteConsultReservation(int ConsultReservationNo);
 }

@@ -43,10 +43,10 @@
 				<td>${map.consultContent}</td>
 			</tr>
 		</table>
-		<a href="${pageContext.request.contextPath}/removeConsultReservation"
+		<a href="${pageContext.request.contextPath}/removeConsultReservation?consultReservationNo=${map.consultReservationNo}"
 			class="btn btn-primary"
-			style="width: 150px; float: right; margin-right: 10px;">상담예약삭제</a>
-			<a href="${pageContext.request.contextPath}/modifyConsultReservation"
+			style="width: 150px; float: right; margin-right: 10px;" onclick="javascript:btn()">상담예약취소</a>
+			<a href="${pageContext.request.contextPath}/modifyConsultReservation?consultReservationNo=${map.consultReservationNo}"
 			class="btn btn-primary"
 			style="width: 150px; float: right; margin-right: 10px;">상담예약수정</a>
 	</div>
@@ -61,5 +61,9 @@
 	<div>
 		<c:import url="/WEB-INF/resource/inc/footer.jsp"></c:import>
 	</div>
+	<script>
+	function btn(){
+        alert('상담내역 취소완료');
+    }</script>
 </body>
 </html>

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.finalproject.commons.TeamColor;
+import com.gd.finalproject.service.ConsultReservationService;
 import com.gd.finalproject.service.ConsultService;
 import com.gd.finalproject.vo.ConsultReservation;
 import com.gd.finalproject.vo.MemberDto;
@@ -21,6 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class ConsultController {
 	@Autowired ConsultService consultService;
+	@Autowired ConsultReservationService consultReservationService;
 	
 	//상담예약(회원) - form
 	@GetMapping("/addConsultReservation")
@@ -59,4 +61,43 @@ public class ConsultController {
 		model.addAttribute("map", map);
 		return "/user/userConsultReservationOne";
 	}
+	
+	//상담예약수정(회원) - form
+	@GetMapping("/modifyConsultReservation")
+	public String modifyConsultReservation(Model model, @RequestParam(value = "consultReservationNo") int consultReservationNo) {
+		log.debug(TeamColor.CE + "[ConsultController.modifyConsultReservation] consultReservationNo : " + consultReservationNo);
+
+		//상세에서 정보가져오기
+		Map<String, Object> map = consultReservationService.getConsultReservationOne(consultReservationNo);
+		log.debug(TeamColor.CE + "[ConsultController.modifyConsultReservation] map : " + map);
+		
+		model.addAttribute("map", map);
+		
+		return "/user/modifyConsultReservation";	
+	}
+	
+	
+	  //상담예약수정(회원) - action
+	  @PostMapping("/modifyConsultReservation") 
+	  public String modifyConsultReservation(ConsultReservation consultReservation) {
+		  log.debug(TeamColor.CE + "[ConsultController.modifyConsultReservation] consultReservation : " + consultReservation);
+		  consultReservation.setConsultDate(consultReservation.getConsultDate()+" "+consultReservation.getConsultDateTime());
+			log.debug(TeamColor.CE + "[ConsultController.modifyConsultReservation] consultReservation.getConsultDate() : " + consultReservation.getConsultDate());
+			
+		  int updateConsultReservation = consultService.modifyConsultReservation(consultReservation);
+		  
+		  return "redirect:/userConsultReservationOne?userId="+consultReservation.getUserId();
+	  }
+	  
+	  //상담예약삭제(회원)
+	  @GetMapping("/removeConsultReservation")
+	  public String removeConsultReservation(@RequestParam(value = "consultReservationNo") int consultReservationNo) {
+		  log.debug(TeamColor.CE + "[ConsultController.removeConsultReservation] consultReservationNo : " + consultReservationNo);
+		  
+		  int removeConsultReservation = consultService.removeConsultReservation(consultReservationNo);
+		  
+		  return "redirect:/index";
+		  
+	  }
+	 
 }
