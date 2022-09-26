@@ -20,13 +20,11 @@
 	</div>
 	
 	<div class="container">
-	<h1 style="text-align:center;">버스 리스트</h1>
-	<br>
-	<br>
+	<h1 style="text-align:center;">노선 리스트</h1>
 	<br>
 	
 	<div>
-		<a href="${pageContext.request.contextPath}/addBus" class="btn btn-primary" style="width:100px; float:right;">버스 추가</a>
+		<a href="${pageContext.request.contextPath }/addRoute" class="btn btn-primary" style="width:100px; float:right; ">노선 추가</a>
 	</div>
 	
 	<br>
@@ -35,29 +33,27 @@
 	<div>
 	<table class="table table-bordered" style="text-align:center; vertical-align:middle;">
 		<tr>
-			<th>버스번호</th>
-			<th>버스기사</th>
-			<th>수용인원</th>
+			<th>노선번호</th>
+			<th>운행시작시간</th>
+			<th>운행종료시간</th>
+			<th>운행간격</th>
+			<th>경유지</th>
 			<th>수정</th>
 			<th>삭제</th>
 		</tr>
-		<c:forEach var="b" items="${busList}">
+		<c:forEach var="r" items="${routeList}">
 			<tr>
-				<td>${b.busNo}</td>
-				<td>${b.busDriver}</td>
-				<td>${b.busLimited}</td>
-				<td><a href="${pageContext.request.contextPath}/modifyBus?busNo=${b.busNo}" class="btn btn-primary" >수정</a></td>
-				<td><a href="${pageContext.request.contextPath}/removeBus?busNo=${b.busNo}" class="btn btn-primary" >삭제</a></td>
+				<td>${r.routeNo}</td>
+				<td>${r.routeStart}</td>
+				<td>${r.routeEnd}</td>
+				<td>${r.routeInterval}</td>
+				<td>${r.busStop}</td>
+				<td><a href="${pageContext.request.contextPath}/modifyRoute?routeNo=${r.routeNo}" class="btn btn-primary" >수정</a></td>
+				<td><a href="${pageContext.request.contextPath}/removeRoute?routeNo=${r.routeNo}" class="btn btn-primary" >삭제</a></td>
 			</tr>
 		</c:forEach>
 	</table>
-	
-	<br>
-	
 	</div>
-	
-	<br>
-	<br>
 	
 	
 	<div>

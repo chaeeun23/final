@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gd.finalproject.mapper.RouteMapper">
+  <!-- 노선 리스트(routeList) -->
+	<select id="selectRouteList" resultType="map">
+		SELECT
+			route_no routeNo,
+			route_start routeStart,
+			route_end routeEnd,
+			route_interval routeInterval,
+			bus_stop busStop
+		FROM route
+        LIMIT #{beginRow},#{rowPerPage} 
+	</select>
+
+    <!-- 노선 리스트(routeList) 페이징-Total -->
+    <select id="getRouteTotal" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM route
+    </select>
+
+	<!-- 노선 추가(addRoute) -->
+	<insert id="insertRoute" parameterType="com.gd.finalproject.vo.Route">
+		INSERT INTO route (
+			route_no, route_start, route_end, route_interval, bus_stop 
+		) VALUES (#{routeNo}, #{routeStart}, #{routeEnd}, #{routeInterval}, #{busStop})
+	</insert>
+	
+	<!-- 버스 수정 값들 불러오기(updateRoute) - Form -->
+	<select id="selectUpdateBusForm" resultType="com.gd.finalproject.vo.Route">
+		SELECT 
+			route_no routeNo,
+			route_start routeStart,
+			route_end routeEnd,
+			route_interval routeInterval,
+			bus_stop busStop
+		FROM route
+		WHERE route_no = #{routeNo}
+	</select>
+	
+	<!-- 노선 수정(updateRoute) - Action -->
+	<update id="updateRoute" parameterType="com.gd.finalproject.vo.Route">
+		UPDATE route SET route_no=#{routeNo}, route_start=#{routeStart}, 
+			route_end=#{routeEnd}, route_interval=#{routeInterval}, bus_stop=#{busStop}
+		WHERE route_no=#{routeNo}
+	</update>
+	
+	<!-- 노선 삭제(deleteRoute) -->
+	<delete id="deleteRoute" parameterType="Integer">
+		DELETE FROM route WHERE route_no=#{routeNo}
+	</delete>
+
+
+</mapper>

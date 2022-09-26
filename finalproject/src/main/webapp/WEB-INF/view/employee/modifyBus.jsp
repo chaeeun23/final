@@ -57,11 +57,7 @@
 	<script>
 
 	$("#modifyBusBtn").click(function(){
-		if( $("#busNo").val() == "")	 { 
-			alert("빈칸입니다. 버스번호를 입력해주세요!");	
-					$("#busNo").focus();	
-							return false; 
-	   } else if( $("#busDriver").val() == "")	 { 
+		 if( $("#busDriver").val() == "")	 { 
 			alert("빈칸입니다. 버스기사를 입력해주세요!");	  
 					$("#busDriver").focus();	
 							return false; 
@@ -70,6 +66,7 @@
 					$("#busLimited").focus();	
 							return false; 
 		} else {
+			alert("버스 수정 성공!");	
 			modifyBusForm.submit();
 		}
 	});

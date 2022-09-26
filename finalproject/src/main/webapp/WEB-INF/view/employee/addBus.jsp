@@ -70,6 +70,7 @@
 						$("#busLimited").focus();	
 								return false; 
 			} else {
+				alert("버스 추가 성공!");	
 				addBusForm.submit();
 			}
 		});
