@@ -1,8 +1,10 @@
 package com.gd.finalproject.service;
 
 
+import com.gd.finalproject.util.PageNationUtil;
 import com.gd.finalproject.vo.MemberDto;
 import com.gd.finalproject.mapper.MemberMapper;
+import com.gd.finalproject.vo.PageNationDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;
@@ -12,6 +14,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -46,5 +52,20 @@ public class AdminService implements UserDetailsService {
         }
         log.info("memberDto = {}", memberDto);
         return memberDto;
+    }
+
+    public Map<String, Object> getMemberList(String current) {
+        // 보드 총갯수
+        int total = memberMapper.getMemberTotal();
+        // 만들어논 메서드
+        PageNationDto pageNation = PageNationUtil.getPageNation(current, total, "/admin/member-list", 10);
+        // 보드리스트 가져오기
+        List<MemberDto> memberList = memberMapper.getMemberList(pageNation.getBeginRow(), pageNation.getRowPerPage());
+        // 담을통
+        Map<String, Object> map = new HashMap<>();
+        map.put("pageNation", pageNation);
+        map.put("MemberList", memberList);
+        log.info("member: ---------------------------", memberList);
+        return map;
     }
 }
