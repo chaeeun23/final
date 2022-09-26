@@ -72,7 +72,7 @@
                 <hr style="border: solid 2px black;">
                 <div class="mb-3">
                     전화번호
-                    <input class="form-control valid-check" type="tel" id="phone" name="memberDto.memberPhone"
+                    <input class="form-control" type="tel" id="phone" name="memberDto.memberPhone"
                            value="${member.memberPhone}">
                 </div>
             </div>

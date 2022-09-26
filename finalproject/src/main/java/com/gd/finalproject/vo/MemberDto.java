@@ -33,7 +33,7 @@ public class MemberDto implements UserDetails, OAuth2User {
     private String memberDetailAddr; //상세주소
     private String memberBirth; //생년월일
     private String memberGender; //성별
-    private String creatDate;
+    private String createDate;
     private String updateDate;
     private String memberImg;
 

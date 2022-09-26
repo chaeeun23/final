@@ -23,6 +23,7 @@
         <div class="mb-3">
             아이디 <span style="color: red">*</span>
             <input class="form-control" type="text" name="memberId" id="id" aria-describedby="invalid-id">
+            <div class="mx-1 opacity-50 " style="font-size: 12px">아이디는 8자리 이상으로 입력해주세요</div>
             <div class="valid-feedback">
                 중복체크완료!
             </div>
@@ -34,6 +35,7 @@
         <div class="mb-3">
             비밀번호 <span style="color: red">*</span>
             <input class="form-control" type="password" name="memberPw" id="pw" aria-describedby="invalid-pw">
+            <div class="mx-1 opacity-50 " style="font-size: 12px">비밀번호는 10자이상 20자 이하 영문,특수문자,숫자 조합으로 입력해주세요.</div>
             <div class="valid-feedback">
                 사용 가능합니다.
             </div>

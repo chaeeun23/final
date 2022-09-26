@@ -110,7 +110,7 @@
     <select id="getMemberList" resultType="com.gd.finalproject.vo.MemberDto">
         SELECT member_id      memberId
              , member_name    memberName
-             , create_date    createDate
+             , create_date   createDate
         FROM member LIMIT #{beginRow},#{rowPerPage}
     </select>
 

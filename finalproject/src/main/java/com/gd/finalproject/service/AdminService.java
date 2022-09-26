@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.ServletContext;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,9 @@ public class AdminService implements UserDetailsService {
 
     private final MemberMapper memberMapper;
     private final PasswordEncoder passwordEncoder;
+
+    private final ServletContext servletContext;
+
 
     @Transactional
     public int signAdmin(MemberDto memberDto) {
@@ -57,14 +61,15 @@ public class AdminService implements UserDetailsService {
     public Map<String, Object> getMemberList(String current) {
         // 보드 총갯수
         int total = memberMapper.getMemberTotal();
+        String contextPath = servletContext.getContextPath();
         // 만들어논 메서드
-        PageNationDto pageNation = PageNationUtil.getPageNation(current, total, "/admin/member-list", 10);
+        PageNationDto pageNation = PageNationUtil.getPageNation(current, total, contextPath+"/admin/member-list", 10);
         // 보드리스트 가져오기
         List<MemberDto> memberList = memberMapper.getMemberList(pageNation.getBeginRow(), pageNation.getRowPerPage());
         // 담을통
         Map<String, Object> map = new HashMap<>();
         map.put("pageNation", pageNation);
-        map.put("MemberList", memberList);
+        map.put("memberList", memberList);
         log.info("member: ---------------------------", memberList);
         return map;
     }

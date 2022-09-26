@@ -67,14 +67,14 @@ public class OAuth2Service implements OAuth2UserService<OAuth2UserRequest, OAuth
                     .build();
             memberMapper.signMember(member);
             memberMapper.authInsert(member);
-            MemberImg memberImg = MemberImg.builder()
-                    .memberId(email)
-                    .fileName(fileName)
-                    .fileType("image/jpg")
-                    .build();
-            member.setMemberImg(fileName);
-            memberImgMapper.updateMemberImg(memberImg);
         }
+        MemberImg memberImg = MemberImg.builder()
+                .memberId(email)
+                .fileName(fileName)
+                .fileType("image/jpg")
+                .build();
+        member.setMemberImg(fileName);
+        memberImgMapper.updateMemberImg(memberImg);
         return member;
     }
 }
