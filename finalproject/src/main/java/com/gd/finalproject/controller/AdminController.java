@@ -20,7 +20,6 @@ import java.util.Map;
 public class AdminController {
     private final AdminService adminService;
 
-
     @GetMapping("/admin/login-form")
     public String adminLoginForm(@ModelAttribute("error") String error,
                                  Authentication authentication) {
@@ -34,6 +33,7 @@ public class AdminController {
     }
 
 
+    //회원 리스트 전부 다 가져오기
     @GetMapping("/admin/member-list")
     public String employeeList(@RequestParam(required = false, value = "current") String current,
                                @ModelAttribute("check") String check,
@@ -43,7 +43,6 @@ public class AdminController {
         map.forEach((key, value) -> model.addAttribute(key, value));
         // 파일명
         return "/admin/member-list";
-
 
     }
 }
