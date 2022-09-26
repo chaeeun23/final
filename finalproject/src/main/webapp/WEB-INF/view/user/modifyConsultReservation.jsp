@@ -65,26 +65,51 @@
 	</div>
 
 	<script>
-		$("#modifyConsultReservationBtn").click(function() {
-			if ($("#consultDate").val() == "") {
-				alert("상담날짜를 입력해 주세요.");
-				return false;
-			} else if ($("#consultDateTime option:selected").val() == "default") {
-				alert("상담시간을 선택해 주세요.");
-				return false;
-			} else {
-				alert('상담예약 변경완료');
-				modifyConsultReservationForm.submit();
-			}
-		});
-		
-		
+		$("#modifyConsultReservationBtn")
+				.click(
+						function() {
+							if ($("#consultDate").val() == "") {
+								alert("상담날짜를 입력해 주세요.");
+								return false;
+							} else if ($("#consultDateTime option:selected").val() == "default") {
+								alert("상담시간을 선택해 주세요.");
+								return false;
+							} else {
+								//주말을 선택하면 경고 알림창
+								var consultDate = $("#consultDate").val();
+								var d = new Date(consultDate);
+								let week = new Array('일', '월', '화', '수', '목', '금', '토');
+								let day;
+								let dayLabel;
+								day = new Date(d).getDay();
+								dayLabel = week[day];
+								console.log(dayLabel);
+								if(dayLabel=="일" || dayLabel=="토"){
+									alert('주말을 제외하고 선택해주세요.')
+								}
+								else{
+								alert('상담예약 완료');
+								modifyConsultReservationForm.submit();
+								}
+							}
+						});
 
+		//오늘 날짜 다음 날부터만 선택 가능하게
 		var now_utc = Date.now() // 지금 날짜를 밀리초로
 		// getTimezoneOffset()은 현재 시간과의 차이를 분 단위로 반환
 		var timeOff = new Date().getTimezoneOffset() * 60000; // 분단위를 밀리초로 변환
 		// new Date(now_utc-timeOff).toISOString()은 '2022-05-11T18:09:38.134Z'를 반환
 		var today = new Date(now_utc - timeOff).toISOString().split("T")[0];
+		console.log(today);
+		var todayYear = today.split("-")[0];
+		console.log(todayYear);
+		var todayMonth = today.split("-")[1];
+		console.log(todayMonth);
+		var todayDate = Number(today.split("-")[2]);
+		todayDate += 1;
+		console.log(todayDate);
+		today = todayYear + '-' + todayMonth + '-' + todayDate;
+		console.log(today);
 		document.getElementById("consultDate").setAttribute("min", today);
 	</script>
 </body>
