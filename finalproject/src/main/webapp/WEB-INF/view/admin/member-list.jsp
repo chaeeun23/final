@@ -7,7 +7,7 @@
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/mainImg/favicon.png">
 </head>
 <body>
-<div
+<div>
 <c:import url="/WEB-INF/resource/inc/header.jsp"></c:import>
 <br>
 <br>

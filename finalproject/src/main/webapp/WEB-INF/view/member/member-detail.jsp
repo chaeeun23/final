@@ -33,7 +33,7 @@
                              onerror="this.src = '${pageContext.request.contextPath}/memberImg/aa.png'" id="profile">
                     </div>
                     <input type="file" name="file" class="real-upload" accept="image/*" style="display: none">
-                    <div class="fs-5">
+                    <div class="fs-6">
                         이미지를 클릭해서 회원님을 알릴 수 있는 사진을 등록해주세요.
                         </br>
                         등록된 사진은 회원님의 게시물이나 댓글들에 사용됩니다.
@@ -90,7 +90,7 @@
             <div class="mt-2">
                 <input id="addButton" type="button" class="btn btn-sm btn-secondary mt-2 rounded-0" value="수정하기">
                 <a class="btn btn-sm btn-secondary mt-2 rounded-0"
-                   href="${pageContext.request.contextPath}">뒤로가기</a>
+                   href="${pageContext.request.contextPath}">홈으로</a>
             </div>
         </div>
     </form>

@@ -1,6 +1,7 @@
 package com.gd.finalproject.controller;
 
 
+import com.gd.finalproject.commons.TeamColor;
 import com.gd.finalproject.mapper.MemberMapper;
 import com.gd.finalproject.service.MailService;
 import com.gd.finalproject.service.MemberService;
@@ -68,7 +69,8 @@ public class MemberController {
     @PostMapping("/sign/sign-member")
     public String signMember(MemberDto memberDto) {
         // 로그 확인
-        log.info("memberDto = {}", memberDto);
+        log.debug(TeamColor.JM , "memberDto = {}",  memberDto);
+
         memberService.signMember(memberDto);
         return "redirect:/";
     }
