@@ -17,22 +17,22 @@
 	</div>
 
 	<div class="container">
-		<h1 style="text-align: center;">상담예약하기</h1>
+		<h1 style="text-align: center;">상담예약 변경</h1>
 		<br>
 		<form method="post"
-			action="${pageContext.request.contextPath}/addConsultReservation"
-			id="addConsultReservationForm">
+			action="${pageContext.request.contextPath}/modifyConsultReservation"
+			id="modifyConsultReservationForm">
 
 			<table class="table table-bordered"
 				style="text-align: center; vertical-align: middle;">
 				<tr>
 					<td>회원아이디</td>
 					<td><input type="text" id="userId" name="userId"
-						value="${userId}" readonly></td>
+						value="${map.userId}" readonly></td>
 				</tr>
 				<tr>
 					<td>상담날짜</td>
-					<td><input type="date" id="consultDate" name="consultDate"></td>
+					<td><input type="date" id="consultDate" name="consultDate" value="${map.consultDate}"></td>
 				</tr>
 				<tr>
 					<td>상담시간</td>
@@ -49,7 +49,7 @@
 				</tr>
 			</table>
 			<button type="button" class="btn btn-primary"
-				id="addConsultReservationBtn"
+				id="modifyConsultReservationBtn"
 				style="width: 100px; float: right; margin-right: 10px;"
 				>상담예약</button>
 
@@ -65,7 +65,7 @@
 	</div>
 
 	<script>
-		$("#addConsultReservationBtn").click(function() {
+		$("#modifyConsultReservationBtn").click(function() {
 			if ($("#consultDate").val() == "") {
 				alert("상담날짜를 입력해 주세요.");
 				return false;
@@ -73,8 +73,8 @@
 				alert("상담시간을 선택해 주세요.");
 				return false;
 			} else {
-				alert('상담예약 완료');
-				addConsultReservationForm.submit();
+				alert('상담예약 변경완료');
+				modifyConsultReservationForm.submit();
 			}
 		});
 		
