@@ -33,7 +33,20 @@
 		GROUP BY lectureNo
 	</select>
 	
-	<!-- 징바구니 삭제 -->
+	<!-- 장바구니 추가 -->
+	<insert id="insertUserCart" parameterType="com.gd.finalproject.vo.Cart">
+		INSERT INTO cart(
+			lecture_no,
+			user_id,
+			create_date
+			) VALUES(
+			#{lectureNo},
+			#{userId},
+			NOW()
+			)
+	</insert>
+	
+	<!-- 장바구니 삭제 -->
 	<delete id="deleteUserCart" parameterType="com.gd.finalproject.vo.Cart">
 		DELETE FROM cart WHERE lecture_no=#{lectureNo} AND user_id=#{userId}
 		

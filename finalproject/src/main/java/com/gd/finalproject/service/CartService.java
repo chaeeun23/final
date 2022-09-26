@@ -30,6 +30,19 @@ public class CartService {
 		return userCartList;
 	}
 	
+	// 장바구니(고객) 추가
+	public int insertUserCart(String userId, String lectureNo) {
+		// 파라미터 확인
+		log.debug(TeamColor.YW + "insertUserCart.userId : " + userId);
+		log.debug(TeamColor.YW + "insertUserCart.lectureNo : " + lectureNo);
+		
+		// addUserCart 실행
+		int addUserCart = cartMapper.insertUserCart(userId, lectureNo);
+		log.debug(TeamColor.YW + "getUserCartList.addUserCart) : " + addUserCart);
+		
+		return addUserCart;
+	}
+	
 	// 장바구니(고객) 삭제
 	public int removeUserCart(String userId, String lectureNo) {
 		// 파라미터 확인

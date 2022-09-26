@@ -30,6 +30,19 @@ public class CartController {
 		return "/user/cartList";
 	}
 	
+	//장바구니 추가
+	@GetMapping("/insertUserCart")
+	public String insertUserCart(@AuthenticationPrincipal MemberDto memberDto, String lectureNo) {
+		// 파라미터 확인
+		log.debug(TeamColor.YW + "insertUserCart.memberDto.getMemberId()" + memberDto.getMemberId());
+		log.debug(TeamColor.YW + "insertUserCart.memberDto.lectureNo" + lectureNo);
+		
+		int insertCart = cartService.insertUserCart(memberDto.getMemberId(), lectureNo);
+		log.debug(TeamColor.YW + "insertUserCart.removeCart : " + insertCart);
+		
+		return "redirect:/userCartList";
+	}
+	
 	//장바구니 삭제
 	@GetMapping("/removeUserCart")
 	public String removeUserCart(@AuthenticationPrincipal MemberDto memberDto, String lectureNo) {
