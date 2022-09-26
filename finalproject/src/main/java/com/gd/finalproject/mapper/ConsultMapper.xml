@@ -35,4 +35,17 @@ SELECT
 		WHERE
 		cr.user_id = #{userId}
 </select>
+
+<!-- 상담예약수정(회원) -->
+<update id="updateConsultReservation" parameterType="com.gd.finalproject.vo.ConsultReservation">
+UPDATE consultReservation
+SET consult_date = #{consultDate},
+create_date=NOW()
+WHERE user_id=#{userId}
+</update>
+
+<delete id="deleteConsultReservation" parameterType="Integer">
+DELETE FROM consultReservation
+WHERE consultReservation_no=#{consultReservationNo}
+</delete>
 </mapper>

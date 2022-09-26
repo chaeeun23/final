@@ -30,8 +30,26 @@ public class ConsultService {
 	//상담예약상세(회원)
 	public Map<String, Object> getUserConsultReservationOne(String userId){
 		Map<String,Object> map = consultMapper.selectUserConsultReservationOne(userId);
-		log.debug(TeamColor.CE + "[ConsultService.selectuserConsultReservationOne] map : " + map);
+		log.debug(TeamColor.CE + "[ConsultService.getUserConsultReservationOne] map : " + map);
 		return map;
-		
 	}
+	
+	//상담예약수정(회원)
+	public int modifyConsultReservation(ConsultReservation consultReservation) {
+		log.debug(TeamColor.CE + "[ConsultService.modifyConsultReservation] consultReservation : " + consultReservation);
+		
+		int updateConsultReservation = consultMapper.updateConsultReservation(consultReservation);
+		
+		return updateConsultReservation;
+	}
+	
+	//상담예약삭제(회원)
+	public int removeConsultReservation(int consultReservationNo) {
+		log.debug(TeamColor.CE + "[ConsultService.removeConsultReservation] consultReservationNo : " + consultReservationNo);
+		
+		int deleteConsultReservation = consultMapper.deleteConsultReservation(consultReservationNo);
+		
+		return deleteConsultReservation;
+	}
+	
 }
