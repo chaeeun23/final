@@ -4,7 +4,35 @@
 <!-- 상담예약(회원) -->
 <insert id="insertConsultReservation" parameterType="com.gd.finalproject.vo.ConsultReservation">
 INSERT INTO 
-consutlReservation(user_id, consult_date, create_date) 
-VALUES(#{memberId}, #{consultDate}, NOW())
+consultReservation(user_id, consult_date, create_date) 
+VALUES(#{userId}, #{consultDate} , NOW())
 </insert>
+
+<!-- 상담예약상세(회원) -->
+<select id="selectUserConsultReservationOne" resultType="map">
+SELECT
+		cr.consultReservation_no consultReservationNo,
+		cr.user_id userId,
+		m2.member_name userName,
+		cr.consult_date consultDate,
+		m.member_name
+		memberName,
+		c.consult_content consultContent
+		FROM
+		consultReservation cr left JOIN consult c
+		ON
+		cr.consultReservation_no =
+		c.consultReservation_no
+		left JOIN employee e
+		ON
+		e.member_id =
+		c.employee_id
+		left JOIN member m
+		ON
+		e.member_id = m.member_id
+		JOIN member m2
+		ON cr.user_id = m2.member_id
+		WHERE
+		cr.user_id = #{userId}
+</select>
 </mapper>

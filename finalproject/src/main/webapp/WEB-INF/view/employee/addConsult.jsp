@@ -56,7 +56,7 @@
 				class="btn btn-primary"
 				style="width: 150px; float: right; margin-right: 10px;">상담스케줄</a>
 			<button type="button" class="btn btn-primary" id="addConsultBtn"
-				style="width: 100px; float: right; margin-right: 10px;" onclick="javascript:btn()">추가</button>
+				style="width: 100px; float: right; margin-right: 10px;">추가</button>
 		</form>
 	</div>
 
@@ -80,13 +80,12 @@
 				alert("상담내역을 입력해주세요.");
 				return false;
 			} else {
+				alert('상담내역 추가완료');
 				addConsultForm.submit();
 			}
 		});
 		
-		function btn(){
-		    alert('상담내역 추가완료');
-		}
+		
 	</script>
 
 </body>

@@ -42,7 +42,7 @@
             </tr>
 			</table>
 		<a href="${pageContext.request.contextPath}/consultReservationList" class="btn btn-primary" style="width:150px; float:right; margin-right:10px; ">상담스케줄</a>
-			<button type="button" class="btn btn-primary" id="modifyConsultBtn" style="width:100px; float:right; margin-right:10px;" onclick="javascript:btn()">완료</button>
+			<button type="button" class="btn btn-primary" id="modifyConsultBtn" style="width:100px; float:right; margin-right:10px;" >완료</button>
 		</form>
 	</div>
 	
@@ -63,13 +63,12 @@
 				alert("상담내역을 입력해주세요.");
 				return false;
 			} else {
+				alert('상담내역 수정완료');
 				modifyConsultForm.submit();
 			}
 		});
 		
-		function btn(){
-		    alert('상담내역 수정완료');
-		}
+		
 	</script>
 </body>
 </html>
