@@ -29,4 +29,9 @@ public interface MemberMapper {
     String pwFind(@Param("id") String id, @Param("email") String email);
 
     void pwChange(@Param("id") String id, @Param("email") String email, @Param("pw") String encode);
+
+    int getMemberTotal();
+
+    List<MemberDto> getMemberList(@Param("beginRow") int beginRow,
+                                  @Param("rowPerPage") int rowPerPage);
 }
