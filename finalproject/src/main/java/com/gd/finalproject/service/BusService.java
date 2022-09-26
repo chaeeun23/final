@@ -57,16 +57,25 @@ public class BusService {
     	return insertBus;
     }
 	
-    
-    // 버스 수정하기 (modifyBus - Action )
-    public int modifyBus(Bus bus) {
-    	// bus 값들 넣어졌는지 확인
-    	log.debug(TeamColor.MS + "BusService.modifyBus(bus) : " + bus);
+    // 버스 수정하기 (modifyBus - Form)
+    public Bus getModifyBus(int busNo) {
+
+    	// 버스 값들 불러오기
+    	Bus getBus = busMapper.selectUpdateBusForm(busNo);
+    	log.debug(TeamColor.MS + "BusService.modifyBus(getBus) : " + getBus);
     	
-    	// 버스 추가 
+    	return getBus;
+    }
+    
+    
+    // 버스 수정하기 (modifyBus - Action )	
+    public int modifyBus(Bus bus) {
+
+    	// 버스 수정 
     	int modifyBus = busMapper.updateBus(bus);
     	log.debug(TeamColor.MS + "BusService.modifyBus(bus) : " + modifyBus);
-    
+
+
 		return modifyBus;
     }
     

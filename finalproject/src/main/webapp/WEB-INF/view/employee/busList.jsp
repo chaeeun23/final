@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.Map"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -24,30 +26,34 @@
 	<br>
 	
 	<div>
-	<form action="${pageContext.request.contextPath}/modifyBus?busNo=${busList.busNo}" method="get">
+		<a href="${pageContext.request.contextPath}/addBus" class="btn btn-primary" style="width:100px; float:right;"> 추가</a>
+	</div>
+	
+	<br>
+	<br>
+	
+	<div>
 	<table class="table table-bordered" style="text-align:center; vertical-align:middle;">
 		<tr>
 			<th>버스번호</th>
 			<th>버스기사</th>
 			<th>수용인원</th>
+			<th>수정</th>
+			<th>삭제</th>
 		</tr>
 		<c:forEach var="b" items="${busList}">
 			<tr>
 				<td>${b.busNo}</td>
 				<td>${b.busDriver}</td>
 				<td>${b.busLimited}</td>
+				<td><a href="${pageContext.request.contextPath}/modifyBus?busNo=${b.busNo}" class="btn btn-primary" >수정</a></td>
+				<td><a href="${pageContext.request.contextPath}/removeBus?busNo=${b.busNo}" class="btn btn-primary" >삭제</a></td>
 			</tr>
 		</c:forEach>
 	</table>
 	
 	<br>
 	
-		<a href="${pageContext.request.contextPath}/removeBus?busNo=${busList.busNo}" class="btn btn-primary"  
-				style="width:100px; float:right;">버스삭제</a> 
-		<button type="button" class="btn btn-primary" style="width:100px; float:right; margin-right:10px;">버스수정</button>
-		<a href="${pageContext.request.contextPath}/addBus" class="btn btn-primary"  
-				style="width:100px; float:right; margin-right:10px;">버스추가</a> 
- 	</form>
 	</div>
 	
 	<br>

@@ -22,19 +22,19 @@
 	<h1 style="text-align:center;">버스 수정</h1>
 	<br>
 	
-	<form method="post" action="${pageContext.request.contextPath}/modifyBus?busNo=${busList.busNo}" id="modifyBusForm">
+	<form method="post" action="${pageContext.request.contextPath}/modifyBus?busNo=${modifyBus.busNo}" id="modifyBusForm">
 	<table class="table table-bordered" style="text-align:center;" >
 		<tr> 
 			<td>버스 번호</td>
-			<td><input type="text" id="busNo" name="busNo" value="${busList.busNo}"></td>
+			<td>${modifyBus.busNo}</td>
 		</tr>
 		<tr> 
 			<td>버스 기사</td>
-			<td><input type="text" id="busDriver" name="busDriver" value="${busList.busDriver}"></td>
+			<td><input type="text" id="busDriver" name="busDriver" value="${modifyBus.busDriver}"></td>
 		</tr>
 		<tr> 
 			<td>수용 인원</td>
-			<td><input type="text" id="busLimited" name="busLimited" value="${busList.busLimited}"></td>
+			<td><input type="text" id="busLimited" name="busLimited" value="${modifyBus.busLimited}"></td>
 		</tr> 
 		
 		</table>

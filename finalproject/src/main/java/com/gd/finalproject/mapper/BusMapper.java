@@ -19,6 +19,9 @@ public interface BusMapper {
 	// 버스 추가(insertBus)
 	int insertBus(Bus bus);
 	
+	// 버스 수정 폼에 값 불러오기(updateBus)
+	Bus selectUpdateBusForm(int busNo);
+	
 	// 버스 수정(updateBus)
 	int updateBus(Bus bus);
 	

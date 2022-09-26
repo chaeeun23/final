@@ -28,16 +28,23 @@
 		) VALUES (#{busNo}, #{busDriver}, #{busLimited})
 	</insert>
 
-	<!-- 버스 수정(updateBus) -->
-	<update id="updateBus" parameterType="com.gd.finalproject.vo.Bus">
-		UPDATE 
-			bus 
+	<!-- 버스 수정 값들 불러오기(updateBus) -->
+	<select id="selectUpdateBusForm" resultType="com.gd.finalproject.vo.Bus">
+		SELECT 
+			bus_no busNo, 
+			bus_driver busDriver, 
+			bus_limited busLimited 
+		FROM bus 
+		WHERE bus_no = #{busNo}
+	</select>
+	
+	<!-- 버스 수정(updateBus) - Action -->
+	<update id="updateBus" parameterType="com.gd.finalproject.vo.Bus" >
+		UPDATE bus 
 		SET 
-			bus_no = #{busNo}, 
 			bus_driver = #{busDriver}, 
 			bus_limited = #{busLimited}
-		WHERE 
-			bus_no=#{busNo}
+		WHERE bus_no = #{busNo}
 	</update>
 
 	<!-- 버스 삭제(deleteBus) -->
