@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.finalproject.commons.TeamColor;
+import com.gd.finalproject.mapper.BusMapper;
 import com.gd.finalproject.service.BusService;
 import com.gd.finalproject.vo.Bus;
 
@@ -26,11 +27,12 @@ public class busController {
 	public String busList(@RequestParam(required = false, value = "current") String current,
             @ModelAttribute("check") String check, Model model) {
 		Map<String,Object> busList = busService.getBusList(current);
+		
 		log.debug(TeamColor.MS + "busController.busList : " + busList);
 		busList.forEach((key, value) -> model.addAttribute(key, value));
 		
 		// busNo 값 확인
-		log.debug(TeamColor.MS + "busController.busList(busNo) : " + busList.get(""));
+		log.debug(TeamColor.MS + "busController.busList(busNo) : " + model);
 		
 		return "/employee/busList";		
 	}
@@ -56,14 +58,13 @@ public class busController {
 	
 	// 버스 수정(modifyBus - Form)
 	@GetMapping("/modifyBus")
-	public String modifyBus(Model model, @RequestParam(value="busNo") String busNo, String current) {
-		// 강좌번호 값 넘어 왔는지 확인
+	public String modifyBus(Model model, @RequestParam(value="busNo") int busNo) {
+		// 버스번호 값 넘어 왔는지 확인
 		log.debug(TeamColor.MS + "BusController.modifyBus(busNo) : " + busNo);
 		
-		// 버스 리스트에서 값 받아오기
-		Map<String,Object> busList = busService.getBusList(current);
-		log.debug(TeamColor.MS + "busController.busList : " + busList);
-		busList.forEach((key, value) -> model.addAttribute(key, value));
+		Bus modifyBus = busService.getModifyBus(busNo);
+		model.addAttribute("modifyBus",modifyBus);
+		log.debug(TeamColor.MS + "BusController.modifyBus(modifyBus) : " + modifyBus);
 		
 		return "/employee/modifyBus";
 	}
@@ -87,7 +88,6 @@ public class busController {
 		// busNo에 값 들어와 있는지 확인
 		log.debug(TeamColor.MS + "busController.removeBus(busNo) : " + busNo);
 					
-		
 		int removeBus = busService.removeBus(busNo);
 		log.debug(TeamColor.MS + "busController.removeBus(removeBus) : " + removeBus);
 		return "redirect:/busList";
