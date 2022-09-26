@@ -20,19 +20,8 @@
 
 <!-- 공지사항 리스트 -->
 <div class="container">
-	<h1 style="text-align:center;">공지사항</h1>
+	<h2 style="text-align:center;">공지사항</h2>
 	<br>
-	<div>
-		<!-- employee 와 총관리자인 권한이면 공지사항추가버튼 보이게 -->
-		<c:if test="${member eq 'admin'}">
-			<a class="btn btn-primary" href="${pageContext.request.contextPath }/addNotice/">글쓰기</a>
-		</c:if>
-		
-		<!-- 추가폼 이동(시큐리티 구현시 삭제 예정) -->
-		<a class="btn btn-primary" href="${pageContext.request.contextPath }/addNotice/">글쓰기</a>
-		<br><br>
-	
-	</div>
 	
 	<table class="table" style="text-align:center;">
 		<thead>
@@ -57,8 +46,19 @@
 		</c:forEach>
 		</tbody>
 	</table>
-	</div><!-- 공지사항 리스트 END -->
 	
+	<!-- 공지사항 추가버튼(관리자) -->
+	<div>
+		<!-- employee 와 총관리자인 권한이면 공지사항추가버튼 보이게 -->
+		<c:if test="${member eq 'admin'}">
+			<a class="btn btn-primary" style="float:right; margin-left:10px"href="${pageContext.request.contextPath }/addNotice/">글쓰기</a>
+		</c:if>
+		
+		<!-- 추가폼 이동(시큐리티 구현시 삭제 예정) -->
+		<a class="btn btn-primary" style="float:right; margin-left:10px" href="${pageContext.request.contextPath }/addNotice/">글쓰기</a>
+	</div>
+	
+</div><!-- 공지사항 리스트 END -->
 	
 	<div>
 	<!-- 페이지네이션 -->
@@ -82,6 +82,8 @@
 				</a></li>
 			</c:if>
 		</c:forEach>
+		
+		
 		<!-- 다음버튼 -->
 		<c:if test="${pageNation.endPage ne pageNation.lastPage}">
 			<li class="page-item"><a class="page-link"
@@ -90,9 +92,6 @@
 	</ul>
 	</div>
 	
-	<div>
-	
-	</div>
 	
 	<%-- <c:if test="${check eq 'insert'}">
 		<script>

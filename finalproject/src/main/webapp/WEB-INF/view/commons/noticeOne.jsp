@@ -24,6 +24,8 @@ th {
 
 	<!-- 공지사항 상세보기 -->
 	<div class="container">
+	<h2 style="text-align:center;">공지사항 상세보기</h2>
+	<br>
 		<table class="table table-bordered" style="text-align: center;">
 			<tr>
 				<th style="width: 10%;">제목</th>
