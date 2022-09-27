@@ -17,7 +17,7 @@
 </head>
 <body>
 <div class="d-flex justify-content-center container " style="height: 800px">
-    <form method="post" action="${pageContext.request.contextPath}/find-id"
+    <form method="post" action="${pageContext.request.contextPath}/member/find-id"
           class=" w-75 border p-3 bg-white shadow rounded align-self-center">
         <div class="d-inline-flex">
             <h1 class="ms-2 fw-bold">아이디 찾기</h1>
@@ -37,7 +37,7 @@
         </c:if>
         <div class="text-center">
             <button type="submit" id="boardBtn" class="btn btn-secondary mt-2 rounded-0">아이디 찾기</button>
-            <a href="${pageContext.request.contextPath}/login-form"
+            <a href="${pageContext.request.contextPath}/member/login-form"
                class="btn btn-secondary mt-2 rounded-0">뒤로가기</a>
         </div>
     </form>

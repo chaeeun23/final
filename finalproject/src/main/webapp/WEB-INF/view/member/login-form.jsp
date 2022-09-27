@@ -43,8 +43,8 @@
         <div class="d-flex justify-content-end">
             <div>
                 <div>
-                    <a href="${pageContext.request.contextPath}/find-id">아이디찾기</a> | <a
-                        href="${pageContext.request.contextPath}/find-pw">비밀번호찾기</a>
+                    <a href="${pageContext.request.contextPath}/member/find-id">아이디찾기</a> | <a
+                        href="${pageContext.request.contextPath}/member/find-pw">비밀번호찾기</a>
                 </div>
             </div>
         </div>

@@ -36,7 +36,7 @@ public class MemberController {
 
 
     //로그인폼
-    @GetMapping("/login-form")
+    @GetMapping("/member/login-form")
     @PreAuthorize("isAnonymous()")
     public String loginForm(@RequestParam(required = false, value = "error") String error, Model model) {
         if (error != null) {
@@ -82,14 +82,14 @@ public class MemberController {
     }
 
     //회원정보 조회
-    @GetMapping("/detail")
+    @GetMapping("/member/detail")
     public String memberDetail() {
         return "/member/member-detail";
     }
 
 
     //수정
-    @PostMapping("/update")
+    @PostMapping("/member/update")
     public String memberUpdate(MemberForm memberForm, Authentication authentication) {
         log.info("memberForm = {}", memberForm);
         memberService.updateMember(memberForm, authentication);
@@ -97,7 +97,7 @@ public class MemberController {
     }
 
     // 아이디찾기 폼
-    @GetMapping("/find-id")
+    @GetMapping("/member/find-id")
     @PreAuthorize("isAnonymous()")
     public String findIdForm() {
         return "/member/find-form";
@@ -105,7 +105,7 @@ public class MemberController {
 
 
     // 아이디찾기 로직
-    @PostMapping("/find-id")
+    @PostMapping("/member/find-id")
     @PreAuthorize("isAnonymous()")
     public String findId(@RequestParam("email") String email, Model model) throws Exception {
         String check = mailService.idFind(email);
@@ -120,14 +120,14 @@ public class MemberController {
     }
 
     // 비밀번호찾기 폼
-    @GetMapping("/find-pw")
+    @GetMapping("/member/find-pw")
     @PreAuthorize("isAnonymous()")
     public String findPwForm() {
         return "/member/find-pw";
     }
 
     // 비밀번호찾기 로직
-    @PostMapping("/find-pw")
+    @PostMapping("/member/find-pw")
     @PreAuthorize("isAnonymous()")
     public String findPw(@RequestParam("email") String email,
                          @RequestParam("id") String id, Model model) throws Exception {

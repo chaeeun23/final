@@ -17,7 +17,7 @@
 <body>
 <sec:authentication property="principal" var="member" scope="session"/>
 <div class="d-flex justify-content-center container my-2">
-    <form action="${pageContext.request.contextPath}/update" method="post" enctype="multipart/form-data"
+    <form action="${pageContext.request.contextPath}/member/update" method="post" enctype="multipart/form-data"
           id="member-form"
           class="w-75 border p-3 bg-white shadow rounded align-self-center">
         <div class="mt-4">

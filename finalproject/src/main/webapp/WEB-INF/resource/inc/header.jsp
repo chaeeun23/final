@@ -30,13 +30,13 @@
 
     <sec:authorize access="isAnonymous()">
         <div class="d-flex justify-content-end">
-            <a href="${pageContext.request.contextPath}/login-form" class="btn btn-primary btn-sm">로그인</a>&nbsp;<a
+            <a href="${pageContext.request.contextPath}/member/login-form" class="btn btn-primary btn-sm">로그인</a>&nbsp;<a
                 href="${pageContext.request.contextPath}/sign/sign-form" class="btn btn-primary btn-sm">회원가입</a>
         </div>
     </sec:authorize>
     <sec:authorize access="isAuthenticated()" >
         <div class="d-flex justify-content-end" >
-            <a href="${pageContext.request.contextPath}/detail" class="btn btn-primary btn-sm mx-1">내정보</a>
+            <a href="${pageContext.request.contextPath}/member/detail" class="btn btn-primary btn-sm mx-1">내정보</a>
             <a href="${pageContext.request.contextPath}/logout" class="btn btn-primary btn-sm">로그아웃</a>
         </div>
     </sec:authorize>
