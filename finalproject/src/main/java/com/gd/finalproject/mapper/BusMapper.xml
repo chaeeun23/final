@@ -47,6 +47,12 @@
 		WHERE bus_no = #{busNo}
 	</update>
 
+
+	<!-- 운행 삭제(deleteRace) -->
+	<delete id="deleteRace" parameterType="int">
+		DELETE FROM race WHERE bus_no=#{busNo}
+	</delete>
+
 	<!-- 버스 삭제(deleteBus) -->
 	<delete id="deleteBus" parameterType="int">
 		DELETE FROM bus WHERE bus_no=#{busNo}

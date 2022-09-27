@@ -38,14 +38,19 @@
 		WHERE route_no = #{routeNo}
 	</select>
 	
-	<!-- 노선 수정(updateRoute) - Action -->
+	<!-- 노선 수정 (updateRoute) - Action -->
 	<update id="updateRoute" parameterType="com.gd.finalproject.vo.Route">
 		UPDATE route SET route_no=#{routeNo}, route_start=#{routeStart}, 
 			route_end=#{routeEnd}, route_interval=#{routeInterval}, bus_stop=#{busStop}
 		WHERE route_no=#{routeNo}
 	</update>
 	
-	<!-- 노선 삭제(deleteRoute) -->
+	<!-- 운행 삭제 (deleteRace) -->
+	<delete id="deleteRace" parameterType="int">
+		DELETE FROM race WHERE route_no=#{routeNo}
+	</delete>
+	
+	<!-- 노선 삭제 (deleteRoute) -->
 	<delete id="deleteRoute" parameterType="int">
 		DELETE FROM route WHERE route_no=#{routeNo}
 	</delete>

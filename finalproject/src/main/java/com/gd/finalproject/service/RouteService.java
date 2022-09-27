@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gd.finalproject.commons.TeamColor;
-import com.gd.finalproject.mapper.BusMapper;
 import com.gd.finalproject.mapper.RaceMapper;
 import com.gd.finalproject.mapper.RouteMapper;
 import com.gd.finalproject.util.PageNationUtil;
@@ -23,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 public class RouteService {
 	@Autowired RouteMapper routeMapper;
-	
+	@Autowired RaceMapper raceMapper;
 	
 	// 노선 리스트(routeList)
 	public Map<String, Object> getRouteList(String current){
@@ -39,12 +38,13 @@ public class RouteService {
         List<Route> routeList = routeMapper.selectRouteList(pageNation.getBeginRow(),
                 pageNation.getRowPerPage());
         log.debug(TeamColor.MS + "RouteService(routeList) : " + routeList);
-
+        
+        
         // 객체 생성후 넣기
         Map<String, Object> map = new HashMap<>();
         map.put("pageNation", pageNation);
         map.put("routeList", routeList);
-
+       
         return map;
 	}
 	
@@ -82,16 +82,23 @@ public class RouteService {
 		return updateRoute;
 	}
 	
-	// 노선 삭제 (removeRoute) - 노선, 버스, 운행 삭제(외래키 연결)
+	// 노선 삭제 (removeRoute) - 운행 삭제 후 노선 삭제 (외래키 연결)
 	public int removeRoute(int routeNo) {
-		// routeNo 값 확인
+    	// routeNo 값 확인
     	log.debug(TeamColor.MS + "RouteService.removeRoute(routeNo) : " + routeNo);
     	
-    	// 노선 삭제
-    	int removeRoute = routeMapper.deleteRoute(routeNo);
-    	log.debug(TeamColor.MS + "RouteService.removeRoute(removeRoute) : " + removeRoute);
+    	// 운행 삭제
+    	int removeRace = routeMapper.deleteRace(routeNo);
+    	log.debug(TeamColor.MS + "RaceService.deleteRace(removeRace) : " + removeRace);
+
+    	// 운행이 0일 경우(운행 삭제가 되었을 경우) 노선 삭제
+    	if(removeRace == 0) {
+		    // 노선 삭제
+		    int removeRoute = routeMapper.deleteRoute(routeNo);
+		    log.debug(TeamColor.MS + "RouteService.removeRoute(removeRoute) : " + removeRoute);
+    	} 
     	
-		return removeRoute;
+		return removeRace;
 	}
 	
 	

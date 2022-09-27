@@ -25,9 +25,10 @@ public class RouteController {
 	@GetMapping("/routeList")		
 	public String getRouteList(@RequestParam(required = false, value = "current") String current,
             @ModelAttribute("check") String check, Model model) {
-	Map<String,Object> routeList = routeServcie.getRouteList(current);
+		Map<String,Object> routeList = routeServcie.getRouteList(current);
 		log.debug(TeamColor.MS + "RouteController.selecteRouteList(routeList) : " + routeList);
 		routeList.forEach((key, value) -> model.addAttribute(key, value));
+		
 		return "/employee/routeList";		// 경로
 	}
 	
@@ -85,7 +86,7 @@ public class RouteController {
 		// 노선 삭제
 		int removeRoute = routeServcie.removeRoute(routeNo);
 		log.debug(TeamColor.MS + "RouteController.removeRoute(removeRoute) : " + removeRoute);
-		return "/commons/routeList";
+		return "redirect:/routeList";
 	}
 	
 	

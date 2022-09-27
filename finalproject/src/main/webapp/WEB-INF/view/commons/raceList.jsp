@@ -60,7 +60,7 @@
 				<td>${r.busLimited}</td>
 		<!-- 관리자면 삭제버튼 보이게 -->
 		<sec:authorize access="hasAuthority('EMPLOYEE')">
-				<td><a href="${pageContext.request.contextPath}/removeRoute?routeNo=${r.routeNo}&busNo=${r.busNo}&raceNo=${r.raceNo}" class="btn btn-primary">삭제</a></td>
+				<td><a href="${pageContext.request.contextPath}/removeRace?raceNo=${r.raceNo}" class="btn btn-primary">삭제</a></td>
 		</sec:authorize>
 			</tr>
 		</c:forEach>

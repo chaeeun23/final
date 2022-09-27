@@ -25,6 +25,9 @@ public interface RouteMapper {
 	// 노선 수정(updateRoute) - Action
 	int updateRoute(Route route);
 	
+	// 운행 삭제(deleteRace)
+	int deleteRace(int raceNo);
+	
 	// 노선 삭제(deleteRoute)
 	int deleteRoute(int routeNo);
 	

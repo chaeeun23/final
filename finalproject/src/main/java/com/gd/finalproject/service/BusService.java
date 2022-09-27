@@ -84,14 +84,23 @@ public class BusService {
     }
     
     
-    // 버스 삭제 (removeBus) - 노선, 버스, 운행 삭제(외래키 연결)
+    // 버스 삭제 (removeBus) - 운행 삭제 후 버스 삭제 (외래키 연결)
     public int removeBus(int busNo) {
-    	// 버스 삭제
-	    int deleteBus = busMapper.deleteBus(busNo);
-    	log.debug(TeamColor.MS + "BusService.removeBus(deleteBus) : " + deleteBus);
+    	// busNo 값 확인
+    	log.debug(TeamColor.MS + "BusService.removeBus(busNo) : " + busNo);
     	
+    	// 운행 삭제
+    	int removeRace = busMapper.deleteRace(busNo);
+    	log.debug(TeamColor.MS + "RaceService.deleteRace(removeRace) : " + removeRace);
 
-    	return deleteBus;
+    	// 운행이 0일 경우(운행 삭제가 되었을 경우) 버스 삭제
+    	if(removeRace == 0) {
+	    	// 버스 삭제
+		    int deleteBus = busMapper.deleteBus(busNo);
+	    	log.debug(TeamColor.MS + "BusService.removeBus(deleteBus) : " + deleteBus);
+    	}
+
+    	return removeRace;
     }
 	
     
