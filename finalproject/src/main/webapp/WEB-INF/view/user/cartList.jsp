@@ -52,7 +52,7 @@ th, td {
 				<c:forEach var="uc" items="${userCartList}">
 					
 					<tr>
-						<td><input type="checkbox" name="cartCheck" checked></td>
+						<td><input type="checkbox" name="cartCheck" value="${uc.lectureNo}" checked></td>
 						<td>${uc.lectureNo}</td>
 						<td>${uc.lectureName}</td>
 						<td>${uc.lectureAddr}</td>
