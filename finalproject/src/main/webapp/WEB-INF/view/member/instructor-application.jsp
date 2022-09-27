@@ -55,7 +55,7 @@
         <div class="mb-3">
             소개말
             <textarea class="form-control" type="text" name="introduce" id="introduce">
-            </textarea>
+            </textarea>final
         </div>
         <div class="text-center">
             <button type="submit" id="boardBtn" class="btn btn-outline-danger ">신청하기</button>

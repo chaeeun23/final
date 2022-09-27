@@ -27,7 +27,6 @@
           , member_email      = #{memberDto.memberEmail}
           , member_phone      = #{memberDto.memberPhone}
           , member_birth      = #{memberDto.memberBirth}
-          , member_gender     = #{memberDto.memberGender}
           , member_addr       = #{memberDto.memberAddr}
           , member_detailAddr = #{memberDto.memberDetailAddr}
         WHERE member_no = #{memberDto.memberNo}
