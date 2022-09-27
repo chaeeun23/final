@@ -35,13 +35,18 @@ public class SecurityConfig {
                 .authenticationProvider(authenticationProvider())
                 // 요청 url 권한관련
                 .authorizeRequests(auth -> auth
+                                .antMatchers("/mainImg/**").permitAll()
+                                .antMatchers("/memberImg/**").permitAll()
+                                .antMatchers("/resources/**").permitAll()
+                                .antMatchers("/resource/**").permitAll()
                                 .antMatchers("/sign/**").anonymous()
-                                .antMatchers("/**").permitAll() // 임시로 모든 권한 오픈
+                                .antMatchers("/**").permitAll()
+                                // .anyRequest().authenticated() // 그외 모든 요청 인증 되어야 한다
+                        //        .antMatchers("/**").permitAll() // 임시로 모든 권한 오픈
                         /*.antMatchers("/resources/**").permitAll() // 리소스 허용
                         .antMatchers("/resource/**").permitAll() // 리소스 허용
                         .antMatchers("/home").hasAnyAuthority("USER", "ADMIN", "TEACHER")
-                        .antMatchers("/강사/**").hasAnyAuthority("TEACHER", "ADMIN")
-                        .anyRequest().authenticated()*/) // 그외 모든 요청 인증 되어야 한다
+                        .antMatchers("/강사/**").hasAnyAuthority("TEACHER", "ADMIN")*/)
                 // 로그인 관련
                 .formLogin(form -> form
                         .loginPage("/login-form") // 로그인페이지 주소
@@ -64,9 +69,9 @@ public class SecurityConfig {
                 .and()
                 // 세션 관련 옵션
                 .sessionManagement(session -> session
-                        .maximumSessions(100) // 최대 허용 세션 수
-                        .maxSessionsPreventsLogin(true) // 동시 로그인 차단기능 false가 차단
-                        .expiredUrl("/login-form") // 세션 끝날경우 이동 할 페이지
+                        .maximumSessions(5) // 최대 허용 세션 수
+                        .maxSessionsPreventsLogin(false)
+                        .expiredUrl("/login-form")
                 )
                 .csrf().disable()
                 .build();
