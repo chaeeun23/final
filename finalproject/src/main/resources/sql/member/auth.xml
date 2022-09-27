@@ -4,8 +4,13 @@
 <mapper namespace="com.gd.finalproject.mapper.AuthMapper">
 
     <insert id="authInsert">
-          INSERT INTO auth
-                (member_id, member_auth)
-            VALUES (#{dto.memberId}, 'EMPLOYEE');
+        INSERT INTO auth
+            (member_id, member_auth)
+        VALUES (#{memberId}, 'EMPLOYEE')
     </insert>
+    <delete id="authDelete">
+        DELETE
+        FROM auth
+        WHERE member_id = #{memberId}
+    </delete>
 </mapper>

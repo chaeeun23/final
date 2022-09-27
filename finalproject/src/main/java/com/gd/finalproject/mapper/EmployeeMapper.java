@@ -10,5 +10,7 @@ import java.util.Map;
 @Mapper
 public interface EmployeeMapper {
 
-    int employeeInsert(Map<String, String> map);
+    int employeeInsert(@Param("memberId") String memberId);
+
+    int employeeDelete(@Param("memberId") String memberId);
 }

@@ -39,11 +39,16 @@
                     <th>
                             ${member.createDate}
                     </th>
-
                     <th>
                         <select class="emp-yn">
-                            <option value="N" selected="selected">N</option>
-                            <option value="Y">Y</option>
+                            <c:if test="${member.empYn}">
+                                <option value="Y" selected="selected">Y</option>
+                                <option value="N">N</option>
+                            </c:if>
+                            <c:if test="${!member.empYn}">
+                                <option value="N" selected="selected">N</option>
+                                <option value="Y">Y</option>
+                            </c:if>
                         </select>
                     </th>
                     <td>
@@ -114,7 +119,11 @@
                     'empYn': empYn
                 })
             }).then(response => response.text())
-                .then(data => console.log(data))
+                .then(data => {
+                    if(data == 'ok'){
+                        alert('관리자 권한 변경 성공')
+                    }
+                })
         }
     })
 

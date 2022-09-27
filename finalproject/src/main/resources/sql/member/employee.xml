@@ -6,6 +6,11 @@
         insert into employee(member_id,
                              create_date)
         values (#{memberId},
-               now())
+                now())
     </insert>
+    <delete id="employeeDelete">
+        DELETE
+        FROM employee
+        WHERE member_id = #{memberId}
+    </delete>
 </mapper>

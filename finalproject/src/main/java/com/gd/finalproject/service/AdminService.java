@@ -63,16 +63,20 @@ public class AdminService implements UserDetailsService {
         Map<String, Object> map = new HashMap<>();
         map.put("pageNation", pageNation);
         map.put("memberList", memberList);
-        log.info("member: ---------------------------", memberList);
+        log.info("member: ---------------------------" + memberList);
         return map;
     }
 
-    public int authUpdate(Map<String, String> map) {
+    @Transactional
+    public int authUpdate(String memberId, String empYn) {
         int row = 0;
-        row += authMapper.authInsert(map);
-        row += employeeMapper.employeeInsert(map);
+        if (empYn.equals("Y")) {
+            row += authMapper.authInsert(memberId);
+            row += employeeMapper.employeeInsert(memberId);
+        } else {
+            row += authMapper.authDelete(memberId);
+            row += employeeMapper.employeeDelete(memberId);
+        }
         return row;
-
-
     }
 }

@@ -36,8 +36,8 @@ public class AdminController {
     //회원 리스트 전부 다 가져오기
     @GetMapping("/admin/member-list")
     public String MemberList(@RequestParam(required = false, value = "current") String current,
-                               @ModelAttribute("check") String check,
-                               Model model) {
+                             @ModelAttribute("check") String check,
+                             Model model) {
         Map<String, Object> map = adminService.getMemberList(current);
         // request.setAttribute();
         map.forEach((key, value) -> model.addAttribute(key, value));
@@ -49,8 +49,10 @@ public class AdminController {
     @ResponseBody
     @PostMapping("/admin/auth-update")
     public String authUpdate(@RequestBody Map<String, String> map) {
-        adminService.authUpdate(map);
         log.info("map = {}", map);
+        String memberId = map.get("memberId");
+        String empYn = map.get("empYn");
+        adminService.authUpdate(memberId, empYn);
         return "ok";
     }
 }

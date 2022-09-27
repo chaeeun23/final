@@ -37,6 +37,15 @@ public class MemberDto implements UserDetails, OAuth2User {
     private String updateDate;
     private String memberImg;
 
+
+    public boolean getEmpYn() {
+        if (!this.memberAuth.isEmpty() && this.memberAuth.contains("EMPLOYEE")) {
+            return true;
+        }
+        return false;
+    }
+
+
     /* 여기는 카카오로그인용 */
     @Override
     public String getName() {

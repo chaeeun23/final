@@ -16,6 +16,7 @@
         <result column="memberDetailAddr" property="memberDetailAddr"/>
         <result column="memberBirth" property="memberBirth"/>
         <result column="memberImg" property="memberImg"/>
+        <result column="createDate" property="createDate"/>
         <collection property="memberAuth" ofType="java.lang.String" javaType="list">
             <result column="memberAuth"/>
         </collection>
@@ -107,11 +108,15 @@
 
 
     <!--    회원리스트 가져오기-->
-    <select id="getMemberList" resultType="com.gd.finalproject.vo.MemberDto">
-        SELECT member_id   memberId
-             , member_name memberName
-             , create_date createDate
-        FROM member LIMIT #{beginRow},#{rowPerPage}
+    <select id="getMemberList" resultMap="member">
+        SELECT m.memberId, m.memberName, m.createDate, a.member_auth memberAuth
+        FROM (SELECT m.member_id   memberId
+                   , m.member_name memberName
+                   , m.create_date createDate
+              FROM member m
+                  LIMIT #{beginRow}
+                 , #{rowPerPage}) m
+            LEFT JOIN auth a ON a.member_id = m.memberId
     </select>
 
     <!-- 회원가입 -->
@@ -146,6 +151,6 @@
     <insert id="userInsert" parameterType="com.gd.finalproject.vo.MemberDto">
         INSERT INTO user
             (member_id, create_date)
-        VALUES (#{dto.memberId},now());
+        VALUES (#{dto.memberId}, now());
     </insert>
 </mapper>
