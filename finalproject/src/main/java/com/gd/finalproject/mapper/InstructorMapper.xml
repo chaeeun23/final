@@ -43,7 +43,7 @@
 		JOIN lecture l 
 		ON 
 		i.member_id=l.instructor_id
-		JOIN memberimg mi 
+		JOIN memberImg mi 
 		ON 
 		m.member_id=mi.member_id
 		WHERE m.member_id = #{memberId}
