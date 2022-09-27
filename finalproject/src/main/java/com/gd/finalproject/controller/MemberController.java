@@ -2,29 +2,26 @@ package com.gd.finalproject.controller;
 
 
 import com.gd.finalproject.commons.TeamColor;
-import com.gd.finalproject.mapper.MemberMapper;
 import com.gd.finalproject.service.MailService;
 import com.gd.finalproject.service.MemberService;
+import com.gd.finalproject.vo.Instructor;
+import com.gd.finalproject.vo.MemberDto;
 import com.gd.finalproject.vo.MemberForm;
-import com.gd.finalproject.vo.user;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import com.gd.finalproject.vo.MemberDto;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
-import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -92,7 +89,8 @@ public class MemberController {
     @PostMapping("/member/update")
     public String memberUpdate(MemberForm memberForm, Authentication authentication) {
         log.info("memberForm = {}", memberForm);
-        memberService.updateMember(memberForm, authentication);
+        memberService.updateMember(memberForm);
+        createNewAuthentication(authentication, memberForm.getMemberDto().getMemberId());
         return "/member/member-detail";
     }
 
@@ -142,13 +140,29 @@ public class MemberController {
 
     //강사신청 폼
     @GetMapping("/member/instructor-application")
+    @PreAuthorize("hasAuthority('USER')")
     public String instructorForm() {
         return "/member/instructor-application";
     }
 
     @PostMapping("/member/instructor-application")
-    public String instructorApplication() {
-        return "/main_page/index";
+    @PreAuthorize("hasAuthority('USER')")
+    public String instructorApplication(Instructor instructor, Authentication authentication, Model model) {
+        log.info("instructor = {}", instructor);
+        memberService.instructorApplication(instructor);
+        createNewAuthentication(authentication, instructor.getMemberId());
+        model.addAttribute("suc", "강사신청성공");
+        return "/member/member-detail";
+    }
+
+    // 정보 수정시 세션 객체 변경
+    protected void createNewAuthentication(Authentication currentAuth, String username) {
+        UserDetails newPrincipal = memberService.loadUserByUsername(username);
+        UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(
+                newPrincipal, currentAuth.getCredentials(), newPrincipal.getAuthorities());
+        newAuth.setDetails(currentAuth.getDetails());
+        // 2-2. 현재 Authentication로 사용자 인증 후 새 Authentication 정보를 SecurityContextHolder에 세팅
+        SecurityContextHolder.getContext().setAuthentication(newAuth);
     }
 }
 

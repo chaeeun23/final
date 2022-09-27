@@ -22,40 +22,19 @@
     <br>
 </div>
 <div class="d-flex justify-content-center container" style="height: 800px">
-    <form method="post" action="${pageContext.request.contextPath}/member/instructor-application" id="instructor-application"
+    <form method="post" action="${pageContext.request.contextPath}/member/instructor-application"
+          id="instructor-application"
           class="w-75 border p-3 bg-white shadow rounded align-self-center">
         <div class="text-center">
             <h3>강사신청</h3>
         </div>
         <div class="mb-3">
-            아이디 <span style="color: red">*</span>
-            <input class="form-control" type="text" name="memberDto.memberId" id="id" value="${member.memberId}">
-        </div>
-
-        <div class="mb-3">
-            이름<span style="color: red">*</span>
-            <input class="form-control" type="text" name="memberDto.memberName" id="name" value="${member.memberName}">
-        </div>
-        <div class="mb-3">
-            이메일
-            <input class="form-control" type="text" name="memberDto.memberEmail" id="email" value="${member.memberEmail}">
-        </div>
-        <div class="mb-3">
-            전화번호
-            <input class="form-control" type="text" name="memberDto.memberPhone" id="phone" value="${member.memberPhone}">
-        </div>
-        <div class="mb-3">
-            생년월일
-            <input class="form-control" type="text" name="memberDto.memberBirth" id="birth" value="${member.memberBirth}">
-        </div>
-        <div class="mb-3">
-            성별
-            <input class="form-control" type="text" name="memberDto.memberGender" id="gender" value="${member.memberGender}">
+            아이디
+            <input class="form-control" name="memberId" type="text" id="id" value="${member.memberId}" readonly>
         </div>
         <div class="mb-3">
             소개말
-            <textarea class="form-control" type="text" name="introduce" id="introduce">
-            </textarea>final
+            <textarea class="form-control" name="introduce" type="text" name="introduce" id="introduce"></textarea>
         </div>
         <div class="text-center">
             <button type="submit" id="boardBtn" class="btn btn-outline-danger ">신청하기</button>

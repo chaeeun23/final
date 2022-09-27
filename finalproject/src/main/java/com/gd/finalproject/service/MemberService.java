@@ -3,24 +3,19 @@ package com.gd.finalproject.service;
 
 import com.gd.finalproject.mapper.MemberImgMapper;
 import com.gd.finalproject.mapper.MemberMapper;
+import com.gd.finalproject.vo.Instructor;
+import com.gd.finalproject.vo.MemberDto;
 import com.gd.finalproject.vo.MemberForm;
-
 import com.gd.finalproject.vo.MemberImg;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.gd.finalproject.vo.MemberDto;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
@@ -82,7 +77,7 @@ public class MemberService implements UserDetailsService {
     }
 
     @Transactional
-    public void updateMember(MemberForm memberForm, Authentication authentication) {
+    public void updateMember(MemberForm memberForm) {
         MultipartFile mf = memberForm.getFile();
         memberMapper.memberUpdate(memberForm.getMemberDto());
         System.out.println("mf = " + mf);
@@ -126,18 +121,15 @@ public class MemberService implements UserDetailsService {
                 throw new RuntimeException();    // 트랜잭션 처리가 되도록 강제로 Runtime 예외(try 절을 강요하지 않는)발생
             }
         }
-        // 2-2. 현재 Authentication로 사용자 인증 후 새 Authentication 정보를 SecurityContextHolder에 세팅
-        SecurityContextHolder.getContext().setAuthentication(
-                createNewAuthentication(authentication, memberForm.getMemberDto().getMemberId()));
+
     }
 
-    // 정보 수정시 세션 객체 변경
-    protected Authentication createNewAuthentication(Authentication currentAuth, String username) {
-        UserDetails newPrincipal = loadUserByUsername(username);
-        UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(
-                newPrincipal, currentAuth.getCredentials(), newPrincipal.getAuthorities());
-        newAuth.setDetails(currentAuth.getDetails());
-        return newAuth;
-    }
 
+
+    @Transactional
+    public int instructorApplication(Instructor instructor) {
+        int row = memberMapper.instructorApplication(instructor);
+        memberMapper.inspectAuthInsert(instructor);
+        return row;
+    }
 }
