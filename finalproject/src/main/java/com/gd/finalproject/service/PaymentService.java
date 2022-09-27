@@ -1,5 +1,6 @@
 package com.gd.finalproject.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -19,13 +20,19 @@ public class PaymentService {
 	@Autowired PaymentMapper paymentMapper;
 	
 	// 고객결제 리스트
-	public List<Map<String,Object>> getUserPaymentList(String userId/*, String lockerUse*/){
+	public List<Map<String,Object>> getUserPaymentList(String userId, String cartCheck/*, String lockerUse*/){
 		// 파라미터 체크
 		log.debug(TeamColor.YW + "getUserPaymentList.userId : " + userId);
+		log.debug(TeamColor.YW + "getUserPaymentList.cartCheck : " + cartCheck);
 //		log.debug(TeamColor.YW + "getUserPaymentList.lockerUse : " + lockerUse);
-		
-		List<Map<String,Object>> payment = paymentMapper.selectUserPaymentList();
-		
+		String[] check = cartCheck.split(",");
+		List<Map<String,Object>> payment = new ArrayList<Map<String,Object>>();
+		for(String c:check) {
+			payment.addAll(paymentMapper.selectUserPaymentList(c));	
+		}
+		//log.debug(TeamColor.YW + "getUserPaymentList.payment : " + payment);
+		//List<Map<String,Object>> payment = paymentMapper.selectUserPaymentList(cartCheck);
 		return payment;
+		
 	}
 }

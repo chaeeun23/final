@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,42 +51,36 @@
 						<td>${p.lectureDay}</td>
 						<td>${p.lectureStartDate}</td>
 						<td>${p.lectureEndDate}</td>
-						<td>${p.lecturePrice}</td>
+						<td>${p.lecturePrice}원</td>
 						<td>${p.lockerUse}</td>
 					</tr>
 				</c:forEach>
-			<tr>
-				<th></th>
-				<th></th>
-				<th></th>
-				<th></th>
-				<th></th>
-				<th></th>
-				<th></th>
-				<th>총 금액 : </th>
-				<th>${total}</th>
-				<th></th>
-			</tr>
-			<tr>
-			<td>결제수단</td>
-			<td>
-				<select id="payMethod" name="payMethod">
+				<tr>
+				<th colspan='10' style="font-size:large;">총 금액&nbsp;:&nbsp;&nbsp;${total}원</th>
+				</tr>
+				<tr>
+				<th colspan='10' style="font-size:large;">
+			    결제수단&nbsp;:&nbsp;&nbsp;<select id="payMethod" name="payMethod">
 					<option value="default">******* 결제수단 선택 *******</option>
 					<option value="무통장입금">무통장입금</option>
 					<option value="신용카드">신용카드</option>
 					<option value="네이버페이">네이버페이</option>
 					<option value="카카오페이">카카오페이</option>
-				</select></td>
-			</tr>
+				</select></th>
+				</tr>
 			</table>
-			<button type="button" class="btn btn-primary" id="userPaymentListBtn"
+				<button type="button" class="btn btn-primary" id="userPaymentListBtn"
 				style="width: 100px; float: right; margin-right: 10px;">결제하기</button>
+			
 		</form>
 	</div>
 
 	<!-- footer -->
 	<div>
+	<br><br>
 		<c:import url="/WEB-INF/resource/inc/footer.jsp"></c:import>
 	</div>
+	
+
 </body>
 </html>

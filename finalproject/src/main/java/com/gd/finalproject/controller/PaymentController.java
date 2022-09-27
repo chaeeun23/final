@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.gd.finalproject.commons.TeamColor;
 import com.gd.finalproject.service.PaymentService;
@@ -21,13 +21,13 @@ public class PaymentController {
 	@Autowired PaymentService paymentService;
 	
 	// 고객결제 리스트
-	@GetMapping("/userPaymentList")
-	public String userPaymentList(Model model, @AuthenticationPrincipal MemberDto memberDto, String userId/*, String lockerUse*/) {
+	@PostMapping("/userPaymentList")
+	public String userPaymentList(Model model, @AuthenticationPrincipal MemberDto memberDto, String cartCheck/*, String lockerUse*/) {
 		// 파라미터 체크
-		log.debug(TeamColor.YW + "userPaymentList.userId : " + userId);
+		log.debug(TeamColor.YW + "userPaymentList.memberDto.getMemberId() : " + memberDto.getMemberId());
 		//		log.debug(TeamColor.YW + "getUserPaymentList.lockerUse : " + lockerUse);	
 		
-		List<Map<String,Object>> userPaymentList = paymentService.getUserPaymentList(userId);
+		List<Map<String,Object>> userPaymentList = paymentService.getUserPaymentList(memberDto.getMemberId(),cartCheck);
 		model.addAttribute("userPaymentList", userPaymentList);
 		
 		return "/user/userPaymentList";
