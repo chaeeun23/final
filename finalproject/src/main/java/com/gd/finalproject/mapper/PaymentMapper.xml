@@ -2,8 +2,44 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.finalproject.mapper.PaymentMapper">
 
+<!-- 고객 결제리스트 -->
+<select id="selectUserPaymentList" resultType="map">
+	SELECT
+		l.lecture_no lectureNo,
+		lc.lecture_addr lectureAddr,
+		l.lecture_name lectureName,
+		l.lecture_time lectureTime,
+		l.lecture_price lecturePrice,
+		l.lecture_startDate lectureStartDate,
+		l.lecture_endDate lectureEndDate,
+		lk.locker_use lockerUse,
+		lk.locker_no lockerNo,
+		m.member_name memberName
+		GROUP_CONCAT(ld.lecture_day
+			ORDER BY CASE lecture_day
+				WHEN '월' THEN 1
+				WHEN '화' THEN 2
+				WHEN '수' THEN 3
+				WHEN '목' THEN 4
+				WHEN '금' THEN 5
+			END ASC
+		) lectureday
+	FROM lecture l 
+		LEFT JOIN lectureday ld	ON l.lecture_no = ld.lecture_no
+		LEFT JOIN location lc ON l.location_no = lc.location_no
+		LEFT JOIN payment p ON p.lecture_no = l.lecture_no
+		LEFT JOIN locker lk ON p.locker_no = lk.locker_no
+		LEFT JOIN instructor i ON l.instructor_id = i.member_id
+		LEFT JOIN member m ON m.member_id = i.member_id
+	WHERE l.lecture_no = #{cartCheck} GROUP BY l.lecture_no;
 
+</select>
 
+<!-- 결제내역 추가 -->
+<insert id="insertUserPayment"></insert>
+
+<!-- 장바구니에서 결제강좌 제거 -->
+<delete id="deleteUserPayment"></delete>
 
 
 

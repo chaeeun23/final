@@ -30,17 +30,41 @@ public class CartService {
 		return userCartList;
 	}
 	
+	// 장바구니 중복여부 확인
+	public int getCartCheck(String userId, String lectureNo) {
+		// 파라미터 확인
+		log.debug(TeamColor.YW + "getCartCheck.userId : " + userId);
+		log.debug(TeamColor.YW + "getCartCheck.lectureNo : " + lectureNo);
+		
+		// 리턴값
+		int cartCheck = cartMapper.selectCartCheck(userId, lectureNo);
+		log.debug(TeamColor.YW + "getCartCheck.cartCheck) : " + cartCheck);
+		
+		return cartCheck; 
+	}
+	
 	// 장바구니(고객) 추가
-	public int insertUserCart(String userId, String lectureNo) {
+	public boolean insertUserCart(String userId, String lectureNo) {
 		// 파라미터 확인
 		log.debug(TeamColor.YW + "insertUserCart.userId : " + userId);
 		log.debug(TeamColor.YW + "insertUserCart.lectureNo : " + lectureNo);
 		
-		// addUserCart 실행
-		int addUserCart = cartMapper.insertUserCart(userId, lectureNo);
-		log.debug(TeamColor.YW + "getUserCartList.addUserCart) : " + addUserCart);
+		// 리턴값 세팅
+		boolean result = false;
 		
-		return addUserCart;
+		// 장바구니 중복여부 확인
+		int cartCheck = cartMapper.selectCartCheck(userId, lectureNo);
+		log.debug(TeamColor.YW + "getCartCheck.cartCheck) : " + cartCheck);
+		
+		// 장바구니 중복이 아니라면
+		if(cartCheck==0) {
+			// addUserCart 실행
+			int addUserCart = cartMapper.insertUserCart(userId, lectureNo);
+			log.debug(TeamColor.YW + "getUserCartList.addUserCart) : " + addUserCart);
+			result = true;
+		} 
+		
+		return result;
 	}
 	
 	// 장바구니(고객) 삭제
