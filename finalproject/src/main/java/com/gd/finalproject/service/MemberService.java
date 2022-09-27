@@ -57,6 +57,9 @@ public class MemberService implements UserDetailsService {
         result += memberMapper.signMember(memberDto);
         // 권한넣기
         result += memberMapper.authInsert(memberDto);
+        //user 테이블에 추가
+        result += memberMapper.userInsert(memberDto);
+
         return result;
     }
 

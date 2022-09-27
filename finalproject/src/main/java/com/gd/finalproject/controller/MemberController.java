@@ -33,8 +33,9 @@ public class MemberController {
 
     private final MemberService memberService;
     private final MailService mailService;
-    private final MemberMapper memberMapper;
 
+
+    //로그인폼
     @GetMapping("/login-form")
     @PreAuthorize("isAnonymous()")
     public String loginForm(@RequestParam(required = false, value = "error") String error, Model model) {
@@ -44,11 +45,14 @@ public class MemberController {
         return "/member/login-form";
     }
 
+    //회원가입폼
     @GetMapping("/sign/sign-form")
     public String signForm() {
         return "/member/sign-form";
     }
 
+
+    //중복아이디체크
     @ResponseBody
     @GetMapping("/sign/id-check")
     public String idCheck(@RequestParam("id") String id) {
@@ -59,6 +63,7 @@ public class MemberController {
         return "fail";
     }
 
+    //이메일체크
     @ResponseBody
     @GetMapping("/sign/email-check")
     public String emailCheck(@RequestParam("email") String email, HttpSession httpSession) throws Exception {
@@ -66,6 +71,7 @@ public class MemberController {
         return code;
     }
 
+    //회원가입 로직
     @PostMapping("/sign/sign-member")
     public String signMember(MemberDto memberDto) {
         // 로그 확인
@@ -97,11 +103,13 @@ public class MemberController {
         return "/member/find-form";
     }
 
+
     // 아이디찾기 로직
     @PostMapping("/find-id")
     @PreAuthorize("isAnonymous()")
     public String findId(@RequestParam("email") String email, Model model) throws Exception {
         String check = mailService.idFind(email);
+
         if (check.equals("fail")) {
             model.addAttribute("error", "메일 형태가 아니거나 해당하는 아이디가 없습니다. 다시 시도해주세요");
             return "/member/find-form";

@@ -35,7 +35,7 @@ public class AdminController {
 
     //회원 리스트 전부 다 가져오기
     @GetMapping("/admin/member-list")
-    public String employeeList(@RequestParam(required = false, value = "current") String current,
+    public String MemberList(@RequestParam(required = false, value = "current") String current,
                                @ModelAttribute("check") String check,
                                Model model) {
         Map<String, Object> map = adminService.getMemberList(current);
@@ -49,7 +49,7 @@ public class AdminController {
     @ResponseBody
     @PostMapping("/admin/auth-update")
     public String authUpdate(@RequestBody Map<String, String> map) {
-
+        adminService.authUpdate(map);
         log.info("map = {}", map);
         return "ok";
     }

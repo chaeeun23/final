@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 경로 틀리면 시작시 무조건 에러 -->
+<mapper namespace="com.gd.finalproject.mapper.EmployeeMapper">
+    <insert id="employeeInsert">
+        insert into employee(member_id,
+                             create_date)
+        values (#{memberId},
+               now())
+    </insert>
+</mapper>

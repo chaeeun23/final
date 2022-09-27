@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 경로 틀리면 시작시 무조건 에러 -->
+<mapper namespace="com.gd.finalproject.mapper.AuthMapper">
+
+    <insert id="authInsert">
+          INSERT INTO auth
+                (member_id, member_auth)
+            VALUES (#{dto.memberId}, 'EMPLOYEE');
+    </insert>
+</mapper>

@@ -99,18 +99,18 @@
           AND member_id = #{id}
     </select>
 
-<!--    회원 리스트 토탈 -->
+    <!--    회원 리스트 토탈 -->
     <select id="getMemberTotal" resultType="java.lang.Integer">
         SELECT COUNT(*)
         FROM member
     </select>
 
 
-<!--    회원리스트 가져오기-->
+    <!--    회원리스트 가져오기-->
     <select id="getMemberList" resultType="com.gd.finalproject.vo.MemberDto">
-        SELECT member_id      memberId
-             , member_name    memberName
-             , create_date   createDate
+        SELECT member_id   memberId
+             , member_name memberName
+             , create_date createDate
         FROM member LIMIT #{beginRow},#{rowPerPage}
     </select>
 
@@ -141,11 +141,11 @@
         VALUES (#{dto.memberId}, 'USER');
     </insert>
 
-    <!-- 관리자 권한 넣기 -->
-    <insert id="adminInsert" parameterType="com.gd.finalproject.vo.MemberDto">
-        INSERT INTO auth
-            (member_id, member_auth)
-        VALUES (#{dto.memberId}, 'USER'),
-               (#{dto.memberId}, 'EMPLOYEE');
+
+    <!--user 테이블에 넣기 -->
+    <insert id="userInsert" parameterType="com.gd.finalproject.vo.MemberDto">
+        INSERT INTO user
+            (member_id, create_date)
+        VALUES (#{dto.memberId},now());
     </insert>
 </mapper>

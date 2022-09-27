@@ -1,6 +1,8 @@
 package com.gd.finalproject.service;
 
 
+import com.gd.finalproject.mapper.AuthMapper;
+import com.gd.finalproject.mapper.EmployeeMapper;
 import com.gd.finalproject.util.PageNationUtil;
 import com.gd.finalproject.vo.MemberDto;
 import com.gd.finalproject.mapper.MemberMapper;
@@ -30,18 +32,9 @@ public class AdminService implements UserDetailsService {
 
     private final ServletContext servletContext;
 
+    private final AuthMapper authMapper;
+    private final EmployeeMapper employeeMapper;
 
-    @Transactional
-    public int signAdmin(MemberDto memberDto) {
-        int result = 0;
-        String encodePw = passwordEncoder.encode(memberDto.getMemberPw());
-        memberDto.setMemberPw(encodePw);
-        // 가입하기
-        result += memberMapper.signMember(memberDto);
-        // 권한넣기
-        result += memberMapper.adminInsert(memberDto);
-        return result;
-    }
 
     @Override
     public UserDetails loadUserByUsername(String memberId) throws AuthenticationException {
@@ -63,7 +56,7 @@ public class AdminService implements UserDetailsService {
         int total = memberMapper.getMemberTotal();
         String contextPath = servletContext.getContextPath();
         // 만들어논 메서드
-        PageNationDto pageNation = PageNationUtil.getPageNation(current, total, contextPath+"/admin/member-list", 10);
+        PageNationDto pageNation = PageNationUtil.getPageNation(current, total, contextPath + "/admin/member-list", 10);
         // 보드리스트 가져오기
         List<MemberDto> memberList = memberMapper.getMemberList(pageNation.getBeginRow(), pageNation.getRowPerPage());
         // 담을통
@@ -72,5 +65,14 @@ public class AdminService implements UserDetailsService {
         map.put("memberList", memberList);
         log.info("member: ---------------------------", memberList);
         return map;
+    }
+
+    public int authUpdate(Map<String, String> map) {
+        int row = 0;
+        row += authMapper.authInsert(map);
+        row += employeeMapper.employeeInsert(map);
+        return row;
+
+
     }
 }
