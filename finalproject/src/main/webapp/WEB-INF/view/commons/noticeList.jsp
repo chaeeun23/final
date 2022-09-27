@@ -23,7 +23,7 @@
 	<h2 style="text-align:center;">공지사항</h2>
 	<br>
 	
-	<table class="table" style="text-align:center;">
+	<table class="table table-bordered" style="text-align:center;">
 		<thead>
 			<tr>
 				<th>번호</th>

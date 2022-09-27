@@ -26,12 +26,12 @@ th, td {
 
 	<!-- 장바구니 리스트 -->
 	<div class="container">
-		<h2 style="text-align: center;">장바구니</h2>
+	<sec:authentication property="principal" var="member"/>
+		<h2 style="text-align: center;"> ${member.memberId}님의 장바구니</h2>
 		<hr>
 		<br>
 
-		<sec:authentication property="principal" var="member"/>
-		회원 아이디 : ${member.memberId}
+		
 		
 		<table class="table" style="text-align: center;">
 			<thead>
@@ -65,14 +65,16 @@ th, td {
 				</c:forEach>
 			</tbody>
 		</table>
-		<br>
 		<button class="btn btn-primary" type="button" id="addBtn" style="float:right;">결제하기</button>
+		<a href="${pageContext.request.contextPath}/lectureList" class="btn btn-primary" style="float:right; margin-right:10px;">강좌목록</a>
 	</div>
 	<!-- 장바구니 리스트 END -->
 
 
 	<!-- footer -->
 	<div>
+	<br>
+	<br>
 		<c:import url="/WEB-INF/resource/inc/footer.jsp"></c:import>
 	</div>
 	<!-- footer END -->

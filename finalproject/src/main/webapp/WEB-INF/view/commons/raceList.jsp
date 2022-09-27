@@ -3,6 +3,7 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,12 +21,15 @@
 	</div>
 	
 	<div class="container">
-	<h1 style="text-align:center;">노선 리스트</h1>
+	<h1 style="text-align:center;">운행 리스트</h1>
 	<br>
 	<br>
 	
 	<div>
-		<a href="${pageContext.request.contextPath }/addRoute" class="btn btn-primary" style="width:100px; float:right; ">노선 추가</a>
+ 	<!-- 관리자면 추가버튼 보이게 -->
+	<sec:authorize access="hasAuthority('EMPLOYEE')">
+		<a href="${pageContext.request.contextPath }/addRace" class="btn btn-primary"  style="width:100px; float:right;">운행 추가</a>
+	</sec:authorize>
 	</div>
 	
 	<br>
@@ -39,18 +43,25 @@
 			<th>운행종료시간</th>
 			<th>운행간격</th>
 			<th>경유지</th>
-			<th>수정</th>
+			<th>수용인원</th>
+		<!-- 관리자면 삭제버튼 보이게 -->
+		<sec:authorize access="hasAuthority('EMPLOYEE')">
 			<th>삭제</th>
+		</sec:authorize>
+			
 		</tr>
-		<c:forEach var="r" items="${routeList}">
+		<c:forEach var="r" items="${raceList}">
 			<tr>
 				<td>${r.routeNo}</td>
 				<td>${r.routeStart}</td>
 				<td>${r.routeEnd}</td>
 				<td>${r.routeInterval}</td>
 				<td>${r.busStop}</td>
-				<td><a href="${pageContext.request.contextPath}/modifyRoute?routeNo=${r.routeNo}" class="btn btn-primary" >수정</a></td>
-				<td><a href="${pageContext.request.contextPath}/removeRoute?routeNo=${r.routeNo}&raceNo=${raceList.raceNo}&busNo=${busList.busNo}" class="btn btn-primary" >삭제</a></td>
+				<td>${r.busLimited}</td>
+		<!-- 관리자면 삭제버튼 보이게 -->
+		<sec:authorize access="hasAuthority('EMPLOYEE')">
+				<td><a href="${pageContext.request.contextPath}/removeRoute?routeNo=${r.routeNo}&busNo=${r.busNo}&raceNo=${r.raceNo}" class="btn btn-primary">삭제</a></td>
+		</sec:authorize>
 			</tr>
 		</c:forEach>
 	</table>

@@ -70,7 +70,7 @@ public class RouteController {
 		// route 값 넘겨받기
 		log.debug(TeamColor.MS + "RouteController.modifyRoute(route) : " + route);
 		
-		// 버스 수정하기
+		// 노선 수정하기
 		int updateRoute = routeServcie.modifyRoute(route);
 		log.debug(TeamColor.MS + "RouteController.modifyRoute(updateRoute) : " + updateRoute);
 		return "redirect:/routeList";
@@ -81,11 +81,11 @@ public class RouteController {
 	public String removeBus(@RequestParam(value="routeNo") int routeNo) {
 		// routeNo에 값 들어와 있는지 확인
 		log.debug(TeamColor.MS + "RouteController.removeRoute(routeNo) : " + routeNo);
-			
-		// 노선 추가
+		
+		// 노선 삭제
 		int removeRoute = routeServcie.removeRoute(routeNo);
 		log.debug(TeamColor.MS + "RouteController.removeRoute(removeRoute) : " + removeRoute);
-		return "redirect:/routeList";
+		return "/commons/routeList";
 	}
 	
 	

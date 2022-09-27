@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.gd.finalproject.commons.TeamColor;
 import com.gd.finalproject.mapper.BusMapper;
+import com.gd.finalproject.mapper.RaceMapper;
+import com.gd.finalproject.mapper.RouteMapper;
 import com.gd.finalproject.util.PageNationUtil;
 import com.gd.finalproject.vo.Bus;
 import com.gd.finalproject.vo.PageNationDto;
@@ -20,6 +22,8 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Transactional
 public class BusService {
+	@Autowired RouteMapper routeMapper;
+	@Autowired RaceMapper raceMapper;
 	@Autowired BusMapper busMapper;
 	
 	// 버스 리스트(busList)
@@ -80,12 +84,13 @@ public class BusService {
     }
     
     
-    // 버스 삭제 (removeBus)
+    // 버스 삭제 (removeBus) - 노선, 버스, 운행 삭제(외래키 연결)
     public int removeBus(int busNo) {
-    	
+    	// 버스 삭제
 	    int deleteBus = busMapper.deleteBus(busNo);
-    	log.debug(TeamColor.MS + "BusService.addBus(deleteBus) : " + deleteBus);
+    	log.debug(TeamColor.MS + "BusService.removeBus(deleteBus) : " + deleteBus);
     	
+
     	return deleteBus;
     }
 	

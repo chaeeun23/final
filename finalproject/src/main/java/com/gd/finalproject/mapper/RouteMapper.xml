@@ -46,7 +46,7 @@
 	</update>
 	
 	<!-- 노선 삭제(deleteRoute) -->
-	<delete id="deleteRoute" parameterType="Integer">
+	<delete id="deleteRoute" parameterType="int">
 		DELETE FROM route WHERE route_no=#{routeNo}
 	</delete>
 
