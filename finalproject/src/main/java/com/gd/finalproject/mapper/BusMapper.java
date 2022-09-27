@@ -25,6 +25,9 @@ public interface BusMapper {
 	// 버스 수정(updateBus)
 	int updateBus(Bus bus);
 	
+	// 운행 삭제(deleteRace)
+	int deleteRace(int raceNo);
+	
 	// 버스 삭제(deleteBus)
 	int deleteBus(int busNo);
 	

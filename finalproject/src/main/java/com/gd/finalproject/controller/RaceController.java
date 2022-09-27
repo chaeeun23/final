@@ -61,16 +61,15 @@ public class RaceController {
 	
 	// 운행 삭제(removeRace)
 	@GetMapping("/removeRace")
-	public String remove(@RequestParam(value="raceNo") int raceNo, @RequestParam(value="busNo") int busNo, 
-			@RequestParam(value="routeNo") int routeNo) {
+	public String remove(@RequestParam(value="raceNo") int raceNo) {
 		// raceNo에 값 들어와 있는지 확인
 		log.debug(TeamColor.MS + "RaceController.removeRace(raceNo) : " + raceNo);
 					
 		// 운행 삭제
-		int removeRace = raceService.removeRace(busNo, raceNo, routeNo);
+		int removeRace = raceService.removeRace(raceNo);
 		log.debug(TeamColor.MS + "RaceController.removeRace(removeRace) : " + removeRace);
 		
-		return "/commons/raceList";
+		return "redirect:/raceList";
 		
 	}
 	

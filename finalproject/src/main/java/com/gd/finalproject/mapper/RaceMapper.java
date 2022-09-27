@@ -32,7 +32,7 @@ public interface RaceMapper {
 	
 	// 운행 수정(updateRace) - Action
 	int updateRace(Race race);
-	
+
 	// 운행 삭제(deleteRace)
 	int deleteRace(int raceNo);
 	

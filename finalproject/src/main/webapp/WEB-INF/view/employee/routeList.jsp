@@ -50,7 +50,7 @@
 				<td>${r.routeInterval}</td>
 				<td>${r.busStop}</td>
 				<td><a href="${pageContext.request.contextPath}/modifyRoute?routeNo=${r.routeNo}" class="btn btn-primary" >수정</a></td>
-				<td><a href="${pageContext.request.contextPath}/removeRoute?routeNo=${r.routeNo}&raceNo=${raceList.raceNo}&busNo=${busList.busNo}" class="btn btn-primary" >삭제</a></td>
+				<td><a href="${pageContext.request.contextPath}/removeRoute?routeNo=${r.routeNo}" class="btn btn-primary" >삭제</a></td>
 			</tr>
 		</c:forEach>
 	</table>

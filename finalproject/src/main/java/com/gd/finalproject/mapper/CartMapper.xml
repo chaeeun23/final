@@ -33,6 +33,14 @@
 		GROUP BY lectureNo
 	</select>
 	
+	<!-- 장바구니 중복 여부 확인 -->
+	<select id="selectCartCheck" resultType="int" parameterType="com.gd.finalproject.vo.Cart">
+		SELECT
+		COUNT(user_id) cnt
+		FROM cart
+		WHERE user_id = #{userId} AND lecture_no = #{lectureNo}
+	</select>
+	
 	<!-- 장바구니 추가 -->
 	<insert id="insertUserCart" parameterType="com.gd.finalproject.vo.Cart">
 		INSERT INTO cart(

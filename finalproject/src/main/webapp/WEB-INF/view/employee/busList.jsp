@@ -46,7 +46,7 @@
 				<td>${b.busDriver}</td>
 				<td>${b.busLimited}</td>
 				<td><a href="${pageContext.request.contextPath}/modifyBus?busNo=${b.busNo}" class="btn btn-primary" >수정</a></td>
-				<td><a href="${pageContext.request.contextPath}/removeBus?routeNo=${routeList.routeNo}&raceNo=${routeList.raceNo}&busNo=${routeList.busNo}" class="btn btn-primary" >삭제</a></td>
+				<td><a href="${pageContext.request.contextPath}/removeBus?busNo=${b.busNo}" class="btn btn-primary" >삭제</a></td>
 			</tr>
 		</c:forEach>
 	</table>

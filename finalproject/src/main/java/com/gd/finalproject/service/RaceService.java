@@ -85,27 +85,15 @@ public class RaceService {
 	
 	
 	// 운행 삭제(removeRace.jsp)
-	public int removeRace(int routeNo, int raceNo, int busNo) {
-		// routeNo 값 확인
-		log.debug(TeamColor.MS + "RouteService.removeRoute(routeNo) : " + routeNo);
+	public int removeRace(int raceNo) {
+
 		// raceNo 값 확인
 		log.debug(TeamColor.MS + "RaceService.removeRace(raceNo) : " + raceNo);
-		// busNo 값 확인
-		log.debug(TeamColor.MS + "BusService.removeBus(busNo) : " + busNo);
-		
-    	// 버스 삭제
-	    int deleteBus = busMapper.deleteBus(busNo);
-    	log.debug(TeamColor.MS + "BusService.removeBus(deleteBus) : " + deleteBus);
-    	
-    	// 노선 삭제
-    	int removeRoute = routeMapper.deleteRoute(routeNo);
-    	log.debug(TeamColor.MS + "RouteService.removeRoute(removeRoute) : " + removeRoute);
-    	
-       	// 운행 삭제
+	
+     	// 운행 삭제
     	int removeRace = raceMapper.deleteRace(raceNo);
 		log.debug(TeamColor.MS + "RaceService.removeRace(removeRace) : " + removeRace);
 		
-    	
 		return removeRace;
 	}
 	

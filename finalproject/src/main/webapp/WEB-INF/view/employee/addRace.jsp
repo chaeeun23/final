@@ -31,6 +31,7 @@
 			<td>
 				<select name="busNo" id="busNo" style="text-align:center;">
 						<option value="default" >***** 버스번호 ) 기사 / 인원 *****</option>
+					<c:if test=""></c:if>
 					<c:forEach var="b" items="${busNoList}">
 						<option value="${b.busNo}">${b.busNo} ) ${b.busDriver} / ${b.busLimited} </option>
 					</c:forEach>

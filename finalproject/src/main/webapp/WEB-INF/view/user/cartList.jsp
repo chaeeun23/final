@@ -30,9 +30,8 @@ th, td {
 		<h2 style="text-align: center;"> ${member.memberId}님의 장바구니</h2>
 		<hr>
 		<br>
-
-		
-		
+<form method="post" action="${pageContext.request.contextPath}/userPaymentList" id="addForm">
+	
 		<table class="table" style="text-align: center;">
 			<thead>
 				<tr>
@@ -52,7 +51,7 @@ th, td {
 				<c:forEach var="uc" items="${userCartList}">
 					
 					<tr>
-						<td><input type="checkbox" name="cartCheck" checked></td>
+						<td><input type="checkbox" name="cartCheck" value="${uc.lectureNo}" checked></td>
 						<td>${uc.lectureNo}</td>
 						<td>${uc.lectureName}</td>
 						<td>${uc.lectureAddr}</td>
@@ -65,8 +64,9 @@ th, td {
 				</c:forEach>
 			</tbody>
 		</table>
-		<button class="btn btn-primary" type="button" id="addBtn" style="float:right;">결제하기</button>
+		<button class="btn btn-primary" id="addBtn" type="submit" style="float:right;">결제하기</button>
 		<a href="${pageContext.request.contextPath}/lectureList" class="btn btn-primary" style="float:right; margin-right:10px;">강좌목록</a>
+	</form>
 	</div>
 	<!-- 장바구니 리스트 END -->
 
