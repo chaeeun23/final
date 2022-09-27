@@ -139,4 +139,5 @@ public class MemberService implements UserDetailsService {
         newAuth.setDetails(currentAuth.getDetails());
         return newAuth;
     }
+
 }

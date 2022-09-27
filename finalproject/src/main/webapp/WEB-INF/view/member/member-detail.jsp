@@ -20,7 +20,7 @@
     <form action="${pageContext.request.contextPath}/member/update" method="post" enctype="multipart/form-data"
           id="member-form"
           class="w-75 border p-3 bg-white shadow rounded align-self-center">
-        <div class="mt-4">
+
             <h4>기본 회원정보</h4>
             <hr style="border: solid 2px black;">
             <input type="hidden" name="memberDto.memberNo" value="${member.memberNo}">
@@ -91,8 +91,11 @@
                 <input id="addButton" type="button" class="btn btn-sm btn-secondary mt-2 rounded-0" value="수정하기">
                 <a class="btn btn-sm btn-secondary mt-2 rounded-0"
                    href="${pageContext.request.contextPath}">홈으로</a>
+                <a class="btn btn-sm btn-danger mt-2 rounded-0"
+                   href="${pageContext.request.contextPath}/member/instructor-application">강사신청</a>
             </div>
-        </div>
+
+
     </form>
 </div>
 <script>

@@ -49,4 +49,5 @@ public interface MemberMapper {
 
     //user 테이블에 넣기
     int userInsert(@Param("dto") MemberDto memberDto);
+
 }

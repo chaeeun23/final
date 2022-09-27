@@ -75,7 +75,7 @@ public class MemberController {
     @PostMapping("/sign/sign-member")
     public String signMember(MemberDto memberDto) {
         // 로그 확인
-        log.debug(TeamColor.JM , "memberDto = {}",  memberDto);
+        log.debug(TeamColor.JM, "memberDto = {}", memberDto);
 
         memberService.signMember(memberDto);
         return "redirect:/";
@@ -139,7 +139,19 @@ public class MemberController {
         model.addAttribute("suc", "전송 성공");
         return "/member/login-form";
     }
+
+    //강사신청 폼
+    @GetMapping("/member/instructor-application")
+    public String instructorForm() {
+        return "/member/instructor-application";
+    }
+
+    @PostMapping("/member/instructor-application")
+    public String instructorApplication() {
+        return "/main_page/index";
+    }
 }
+
 
 
 
