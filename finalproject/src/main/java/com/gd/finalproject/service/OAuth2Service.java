@@ -1,8 +1,10 @@
 package com.gd.finalproject.service;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gd.finalproject.mapper.MemberImgMapper;
 import com.gd.finalproject.mapper.MemberMapper;
+import com.gd.finalproject.vo.KakaoProfile;
 import com.gd.finalproject.vo.MemberDto;
 import com.gd.finalproject.vo.MemberImg;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +31,7 @@ public class OAuth2Service implements OAuth2UserService<OAuth2UserRequest, OAuth
     private final PasswordEncoder passwordEncoder;
     private final MemberMapper memberMapper;
     private final MemberImgMapper memberImgMapper;
+    private final ObjectMapper objectMapper;
 
     @Override
     @Transactional
@@ -39,12 +42,12 @@ public class OAuth2Service implements OAuth2UserService<OAuth2UserRequest, OAuth
                 .getUserInfoEndpoint().getUserNameAttributeName();
 
         Map<String, Object> attributes = oAuth2User.getAttributes();
+        System.out.println("attributes = " + attributes);
+        KakaoProfile kakaoProfile = objectMapper.convertValue(attributes, KakaoProfile.class);
         // 카카오 메일 가져오기
-        Map<String, Object> profile = (Map<String, Object>) attributes.get("kakao_account");
-        Map<String, Object> properties = (Map<String, Object>) attributes.get("properties");
-        String email = (String) profile.get("email");
-        String name = (String) properties.get("nickname");
-        String fileName = (String) properties.get("profile_image");
+        String email = kakaoProfile.getKakao_account().getEmail();
+        String name = kakaoProfile.getProperties().getNickname();
+        String fileName = kakaoProfile.getProperties().getProfile_image();
         // 카카오를 통해서 가입했는지 확인
         MemberDto member = memberMapper.getMember(email);
         log.info("member = {}", member);
@@ -63,8 +66,12 @@ public class OAuth2Service implements OAuth2UserService<OAuth2UserRequest, OAuth
                     .memberName(name)
                     .memberAddr("")
                     .memberAuth(auth)
-                    .attributes(properties)
+                    .memberGender("F")
+                    .attributes(attributes)
                     .build();
+            if (!kakaoProfile.getKakao_account().isBirthday_needs_agreement()) {
+                member.setMemberBirth(kakaoProfile.getKakao_account().getBirthday());
+            }
             memberMapper.signMember(member);
             memberMapper.authInsert(member);
         }
