@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.finalproject.commons.TeamColor;
-import com.gd.finalproject.mapper.BusMapper;
 import com.gd.finalproject.service.BusService;
 import com.gd.finalproject.vo.Bus;
 

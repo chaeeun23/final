@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gd.finalproject.mapper.RaceMapper">
+	<!-- 운행 리스트 -->
+	<select id="selectRaceList" resultType="map">
+		SELECT 
+			r.race_no raceNo,
+			r.bus_no busNo,
+			r.route_no routeNo,
+			t.route_start routeStart,
+			t.route_end routeEnd,
+			t.route_interval routeInterval,
+			t.bus_stop busStop,
+			b.bus_limited busLimited
+		FROM race r RIGHT JOIN route t 
+		ON r.route_no = t.route_no
+		JOIN bus b
+		ON r.bus_no = b.bus_no
+	</select>
+	
+	<!-- 운행 리스트 페이징 -->
+	<select id="getRaceTotal" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+        FROM race
+	</select>
+	
+	<!-- 버스 번호 -->
+	<select id="selectBusNo" resultType="com.gd.finalproject.vo.Bus">
+		SELECT bus_no busNo, bus_driver busDriver, bus_limited busLimited FROM bus 
+	</select>
+	
+	<!-- 노선 번호 -->
+	<select id="selectRouteNo" resultType="com.gd.finalproject.vo.Route">
+		SELECT route_no routeNo, route_interval routeInterval, bus_stop busStop FROM route 
+	</select>
+	
+	<!-- 운행 추가 -->
+	<insert id="insertRace" parameterType="com.gd.finalproject.vo.Race">
+		INSERT INTO race (race_no, bus_no, route_no) 
+		VALUES (#{raceNo}, #{busNo}, #{routeNo})  
+	</insert>
+	
+	<!-- 운행 삭제 -->
+	<delete id="deleteRace" parameterType="int">
+		DELETE FROM race WHERE race_no = #{raceNo}
+	</delete>
+
+</mapper>

@@ -23,7 +23,6 @@
 	<h1 style="text-align:center;">버스 리스트</h1>
 	<br>
 	<br>
-	<br>
 	
 	<div>
 		<a href="${pageContext.request.contextPath}/addBus" class="btn btn-primary" style="width:100px; float:right;">버스 추가</a>
@@ -47,7 +46,7 @@
 				<td>${b.busDriver}</td>
 				<td>${b.busLimited}</td>
 				<td><a href="${pageContext.request.contextPath}/modifyBus?busNo=${b.busNo}" class="btn btn-primary" >수정</a></td>
-				<td><a href="${pageContext.request.contextPath}/removeBus?busNo=${b.busNo}" class="btn btn-primary" >삭제</a></td>
+				<td><a href="${pageContext.request.contextPath}/removeBus?routeNo=${routeList.routeNo}&raceNo=${routeList.raceNo}&busNo=${routeList.busNo}" class="btn btn-primary" >삭제</a></td>
 			</tr>
 		</c:forEach>
 	</table>

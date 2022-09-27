@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gd.finalproject.commons.TeamColor;
+import com.gd.finalproject.mapper.BusMapper;
+import com.gd.finalproject.mapper.RaceMapper;
 import com.gd.finalproject.mapper.RouteMapper;
 import com.gd.finalproject.util.PageNationUtil;
 import com.gd.finalproject.vo.PageNationDto;
@@ -21,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 public class RouteService {
 	@Autowired RouteMapper routeMapper;
+	
 	
 	// 노선 리스트(routeList)
 	public Map<String, Object> getRouteList(String current){
@@ -79,15 +82,15 @@ public class RouteService {
 		return updateRoute;
 	}
 	
-	// 노선 삭제 (removeRoute)
+	// 노선 삭제 (removeRoute) - 노선, 버스, 운행 삭제(외래키 연결)
 	public int removeRoute(int routeNo) {
 		// routeNo 값 확인
     	log.debug(TeamColor.MS + "RouteService.removeRoute(routeNo) : " + routeNo);
     	
     	// 노선 삭제
     	int removeRoute = routeMapper.deleteRoute(routeNo);
-    	log.debug(TeamColor.MS + "RouteService.modifyRoute(removeRoute) : " + routeNo);
-    		
+    	log.debug(TeamColor.MS + "RouteService.removeRoute(removeRoute) : " + removeRoute);
+    	
 		return removeRoute;
 	}
 	

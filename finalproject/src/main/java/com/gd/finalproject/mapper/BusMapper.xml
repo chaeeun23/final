@@ -48,7 +48,7 @@
 	</update>
 
 	<!-- 버스 삭제(deleteBus) -->
-	<delete id="deleteBus" parameterType="Integer">
+	<delete id="deleteBus" parameterType="int">
 		DELETE FROM bus WHERE bus_no=#{busNo}
 	</delete>
 
