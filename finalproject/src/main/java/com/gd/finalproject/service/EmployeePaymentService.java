@@ -27,7 +27,7 @@ public class EmployeePaymentService {
 		log.debug(TeamColor.CE + "[EmployeePaymentService.getEmployeePaymentList] total : " + total);
 		
 		// 만들어논 메서드
-		PageNationDto pageNation = PageNationUtil.getPageNation(current, total, "/finalproject/employee/employeePaymentList", 10);
+		PageNationDto pageNation = PageNationUtil.getPageNation(current, total, "/finalproject/employeePaymentList", 10);
 		log.debug(TeamColor.CE + "[EmployeePaymentService.getEmployeePaymentList] pageNation : " + pageNation);
 		
 		List<Map<String,Object>> list = employeePaymentMapper.selectEmployeePaymentList(pageNation.getBeginRow(), pageNation.getRowPerPage());

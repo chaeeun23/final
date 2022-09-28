@@ -11,10 +11,12 @@ p.locker_no lockerNo,
 p.pay_method payMethod,
 p.pay_date payDate,
 l.lecture_price lecturePrice,
-l.lecture_name lectureName
+l.lecture_name lectureName,
+DATE_FORMAT(p.pay_date, '%y-%m-%d') payDateYMD
 FROM payment p LEFT JOIN lecture l
 ON p.lecture_no = l.lecture_no
 ORDER BY course_no ASC
+LIMIT #{beginRow},#{rowPerPage}
 </select>
 <!-- 결제리스트Total -->
 <select id="getEmployeePaymentTotal" resultType="java.lang.Integer">

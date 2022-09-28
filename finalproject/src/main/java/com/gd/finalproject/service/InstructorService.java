@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,14 +23,14 @@ import lombok.extern.slf4j.Slf4j;
 public class InstructorService {
 	@Autowired
 	InstructorMapper instructorMapper;
-
+	
 	// 강사리스트
 	public Map<String, Object> getInstructorList(String current) { // 총 갯수
 		int total = instructorMapper.getInstructorTotal();
 		log.debug(TeamColor.CE + "InstructorService(total) : " + total);
 
 		// 만들어논 메서드
-		PageNationDto pageNation = PageNationUtil.getPageNation(current, total, "/finalproject/commons/instructorList", 10);
+		PageNationDto pageNation = PageNationUtil.getPageNation(current, total, "/finalproject/instructorList", 10);
 		log.debug(TeamColor.CE + "InstructorService(pageNation) : " + pageNation);
 
 		// instructorList 가져오기

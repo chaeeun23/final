@@ -3,60 +3,61 @@
 <mapper namespace="com.gd.finalproject.mapper.InstructorMapper">
 
 
-    <update id="updateInspectYn">
-        UPDATE instructor
-        SET inspectYn = 'Y'
-        WHERE member_id = #{memberId}
-    </update>
-    <delete id="deleteInspectYn">
-        UPDATE instructor
-        SET inspectYn  = 'N'
-        WHERE member_id = #{memberId}
-    </delete>
-    <!-- instructorList -->
-    <select id="selectInstructorList" resultType="map">
-        SELECT m.member_id                                          memberId,
-               m.member_name                                        memberName,
-               l.lecture_name                                       lectureName,
-               group_concat(l.lecture_no ORDER BY l.lecture_no asc) lectureNo,
-               m.member_phone                                       memberPhone
-        FROM member m
-                 join instructor i
-                      ON
-                          m.member_id = i.member_id
-                 JOIN lecture l ON i.member_id = l.instructor_id
-        GROUP BY m.member_id
-            LIMIT #{beginRow}, #{rowPerPage}
-    </select>
+	<update id="updateInspectYn">
+		UPDATE instructor
+		SET inspectYn = 'Y'
+		WHERE member_id = #{memberId}
+	</update>
+	<delete id="deleteInspectYn">
+		UPDATE instructor
+		SET inspectYn = 'N'
+		WHERE member_id = #{memberId}
+	</delete>
+	<!-- instructorList -->
+	<select id="selectInstructorList" resultType="map">
+		SELECT m.member_id memberId,
+		m.member_name memberName,
+		l.lecture_name lectureName,
+		group_concat(l.lecture_no ORDER BY l.lecture_no asc) lectureNo,
+		m.member_phone memberPhone
+		FROM instructor i 
+		LEFT JOIN member m
+		ON
+		m.member_id = i.member_id
+		LEFT JOIN lecture l ON i.member_id = l.instructor_id
+		WHERE deleteYn='Y'
+		GROUP BY m.member_id
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
 
-    <!-- instructorList 페이지네이션 토탈 -->
-    <select id="getInstructorTotal" resultType="java.lang.Integer">
-        SELECT COUNT(*)
-        FROM instructor
-    </select>
+	<!-- instructorList 페이지네이션 토탈 -->
+	<select id="getInstructorTotal" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM instructor
+	</select>
 
-    <!-- instructorOne -->
-    <select id="selectInstructorOne" resultType="map">
-        SELECT m.member_name                                        memberName,
-               mi.file_name                                         fileName,
-               m.member_id                                          memberId,
-               l.lecture_name                                       lectureName,
-               group_concat(l.lecture_no ORDER BY l.lecture_no asc) lectureNo,
-               m.member_gender                                      memberGender,
-               m.member_phone                                       memberPhone,
-               m.member_email                                       memberEmail
-        FROM member m
-                 JOIN instructor i
-                      ON
-                          m.member_id = i.member_id
-                 JOIN lecture l
-                      ON
-                          i.member_id = l.instructor_id
-                 JOIN memberImg mi
-                      ON
-                          m.member_id = mi.member_id
-        WHERE m.member_id = #{memberId}
-        GROUP BY m.member_id
-    </select>
+	<!-- instructorOne -->
+	<select id="selectInstructorOne" resultType="map">
+		SELECT m.member_name memberName,
+		mi.file_name fileName,
+		m.member_id memberId,
+		l.lecture_name lectureName,
+		group_concat(l.lecture_no ORDER BY l.lecture_no asc) lectureNo,
+		m.member_gender memberGender,
+		m.member_phone memberPhone,
+		m.member_email memberEmail
+		FROM member m
+		JOIN instructor i
+		ON
+		m.member_id = i.member_id
+		JOIN lecture l
+		ON
+		i.member_id = l.instructor_id
+		JOIN memberImg mi
+		ON
+		m.member_id = mi.member_id
+		WHERE m.member_id = #{memberId}
+		GROUP BY m.member_id
+	</select>
 
 </mapper>

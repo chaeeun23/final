@@ -18,7 +18,7 @@
 		<h1 style="text-align: center;">강사리스트</h1>
 		<br>
 
-		<table class="table table-bordered" style="text-align: center;">
+		<table class="table table-bordered" style="text-align: center; vertical-align: middle;">
 			<tr>
 				<th>강사이름</th>
 				<th>강좌이름</th>
