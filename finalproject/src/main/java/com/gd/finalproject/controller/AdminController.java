@@ -69,9 +69,8 @@ public class AdminController {
     public String instructorUpdate(@RequestBody Map<String, String> map) {
         log.info("map = {}", map);
         String memberId = map.get("memberId");
-        String memberAuth = map.get("memberAuth");
         String inspectYn = map.get("inspectYn");
-        adminService.instructorUpdate(memberId,memberAuth,inspectYn);
+        adminService.instructorUpdate(memberId,inspectYn);
         return "ok";
     }
 

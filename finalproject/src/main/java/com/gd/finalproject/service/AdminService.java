@@ -31,12 +31,9 @@ public class AdminService implements UserDetailsService {
 
     private final MemberMapper memberMapper;
     private final PasswordEncoder passwordEncoder;
-
     private final ServletContext servletContext;
-
     private final AuthMapper authMapper;
     private final EmployeeMapper employeeMapper;
-
     private final InstructorMapper instructorMapper;
 
 
@@ -102,15 +99,16 @@ public class AdminService implements UserDetailsService {
     }
 
     @Transactional
-    public int instructorUpdate(String memberId, String memberAuth ,String inspectYn) {
+    public int instructorUpdate(String memberId, String inspectYn) {
         int row = 0;
         if (inspectYn.equals("Y")) {
-            row += authMapper.inspectDelete(memberId,memberAuth);
+            row += authMapper.inspectDelete(memberId);
             row += authMapper.instructorInsert(memberId);
             row += instructorMapper.updateInspectYn(memberId);
-
         } else {
+            row += authMapper.inspectInsert(memberId);
             row += authMapper.instructorDelete(memberId);
+            row += instructorMapper.deleteInspectYn(memberId);
         }
         return row;
     }

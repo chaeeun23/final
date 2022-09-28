@@ -14,9 +14,13 @@ public interface AuthMapper {
 
     int authDelete(@Param("memberId") String memberId);
 
-    int inspectDelete(@Param("memberId")String memberId, @Param("memberAuth")String memberAuth);
+    int inspectDelete(@Param("memberId") String memberId);
 
-    int instructorInsert(@Param("memberId")String memberId);
+    int instructorInsert(@Param("memberId") String memberId);
 
-    int instructorDelete(@Param("memberId")String memberId);
+    int employeeDelete(@Param("memberId") String memberId);
+
+    int inspectInsert(@Param("memberId") String memberId);
+
+    int instructorDelete(@Param("memberId") String memberId);
 }

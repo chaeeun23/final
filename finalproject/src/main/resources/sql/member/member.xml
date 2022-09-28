@@ -128,7 +128,6 @@
              , introduce   introduce
              , inspectYn   inspectYn
         FROM instructor
-        WHERE inspectYn = 'N'
             LIMIT #{beginRow}
             , #{rowPerPage}
     </select>

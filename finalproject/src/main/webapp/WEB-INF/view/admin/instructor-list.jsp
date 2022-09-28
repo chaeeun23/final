@@ -23,8 +23,7 @@
                 <th class="col-3">회원아이디</th>
                 <th class="col-3">소개말</th>
                 <th class="col-3">생성날짜</th>
-                <th class="col-3">권한변경</th>
-
+                <th class="col-3">강사승인여부</th>
             </tr>
             </thead>
             <tbody id="box">
@@ -41,11 +40,11 @@
                     </th>
                     <th>
                         <select class="inspect-yn">
-                            <c:if test="${instructor.inspectYn}">
+                            <c:if test="${instructor.inspectYn eq 'Y'}">
                                 <option value="Y" selected="selected">Y</option>
                                 <option value="N">N</option>
                             </c:if>
-                            <c:if test="${!instructor.inspectYn}">
+                            <c:if test="${instructor.inspectYn eq 'N'}">
                                 <option value="N" selected="selected">N</option>
                                 <option value="Y">Y</option>
                             </c:if>
@@ -121,10 +120,11 @@
             }).then(response => response.text())
                 .then(data => {
                     if (data == 'ok') {
-                        alert('강사승인 완료')
+                        alert('강사여부 수정완료')
                     }else {
-                        alert('강사신청 실패')
+                        alert('강사여부 수정실패')
                     }
+                    location.reload();
                 })
         }
     })

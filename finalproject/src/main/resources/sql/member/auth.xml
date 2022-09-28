@@ -18,15 +18,27 @@
         FROM auth
         WHERE member_id = #{memberId}
     </delete>
+    <delete id="inspectInsert">
+        INSERT INTO auth
+            (member_id, member_auth)
+        VALUES (#{memberId}, 'INSPECT')
+    </delete>
     <delete id="inspectDelete">
         DELETE
         FROM auth
         WHERE member_id = #{memberId} AND
-              member_auth = #{memberAuth}
+              member_auth = 'INSPECT'
+    </delete>
+    <delete id="employeeDelete">
+        DELETE
+        FROM auth
+        WHERE member_id = #{memberId} AND
+            member_auth = 'EMPLOYEE'
     </delete>
     <delete id="instructorDelete">
         DELETE
         FROM auth
-        WHERE member_id = #{memberId}
+        WHERE member_id = #{memberId} AND
+            member_auth = 'INSTRUCTOR'
     </delete>
 </mapper>

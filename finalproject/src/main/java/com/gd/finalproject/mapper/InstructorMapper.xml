@@ -7,8 +7,12 @@
         UPDATE instructor
         SET inspectYn = 'Y'
         WHERE member_id = #{memberId}
-
     </update>
+    <delete id="deleteInspectYn">
+        UPDATE instructor
+        SET inspectYn  = 'N'
+        WHERE member_id = #{memberId}
+    </delete>
     <!-- instructorList -->
     <select id="selectInstructorList" resultType="map">
         SELECT m.member_id                                          memberId,
