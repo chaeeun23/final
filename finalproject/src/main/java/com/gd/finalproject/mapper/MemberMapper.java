@@ -54,4 +54,9 @@ public interface MemberMapper {
     int instructorApplication(@Param("instructor") Instructor instructor);
 
     int inspectAuthInsert(@Param("instructor") Instructor instructor);
+
+    int getInstructorTotal();
+
+    List<Instructor> getInstructorList(@Param("beginRow") int beginRow,
+                                       @Param("rowPerPage") int rowPerPage);
 }

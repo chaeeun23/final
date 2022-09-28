@@ -116,6 +116,23 @@
                  , #{rowPerPage}) m
                  LEFT JOIN auth a ON a.member_id = m.memberId
     </select>
+    <select id="getInstructorTotal" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM instructor
+    </select>
+
+    <!--    강사신청리스트-->
+    <select id="getInstructorList" resultType="com.gd.finalproject.vo.Instructor">
+        SELECT member_id   memberId
+             , create_date createDate
+             , introduce   introduce
+             , inspectYn   inspectYn
+        FROM instructor
+        WHERE inspectYn = 'N'
+            LIMIT #{beginRow}
+            , #{rowPerPage}
+    </select>
+
 
     <!-- 회원가입 -->
     <insert id="signMember" parameterType="com.gd.finalproject.vo.MemberDto">

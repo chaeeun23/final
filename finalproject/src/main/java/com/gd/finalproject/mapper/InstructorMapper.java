@@ -17,4 +17,6 @@ public interface InstructorMapper {
 	
 	// 강사상세보기 instructorOne
 	Map<String,Object> selectInstructorOne(@Param("memberId") String memberId);
+
+    int updateInspectYn(@Param("memberId")String memberId);
 }

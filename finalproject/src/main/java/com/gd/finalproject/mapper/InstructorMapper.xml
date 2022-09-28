@@ -1,53 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.finalproject.mapper.InstructorMapper">
-	<!-- instructorList -->
-	<select id="selectInstructorList" resultType="map">
-		SELECT
-		m.member_id memberId,
-		m.member_name memberName,
-		l.lecture_name lectureName,
-		group_concat(l.lecture_no
-		ORDER BY l.lecture_no asc) lectureNo,
-		m.member_phone memberPhone
-		FROM member m join instructor i
-		ON
-		m.member_id = i.member_id
-		JOIN lecture l ON i.member_id=l.instructor_id
-		GROUP BY m.member_id
-		LIMIT #{beginRow},#{rowPerPage}
-	</select>
 
-	<!-- instructorList 페이지네이션 토탈 -->
-	<select id="getInstructorTotal" resultType="java.lang.Integer">
-		SELECT COUNT(*)
-		FROM
-		instructor
-	</select>
 
-	<!-- instructorOne -->
-	<select id="selectInstructorOne" resultType="map">
-		SELECT
-		m.member_name memberName,
-		mi.file_name fileName,
-		m.member_id memberId,
-		l.lecture_name lectureName,
-		group_concat(l.lecture_no
-		ORDER BY l.lecture_no asc) lectureNo,
-		m.member_gender memberGender,
-		m.member_phone memberPhone,
-		m.member_email memberEmail
-		FROM member m JOIN instructor i
-		ON
-		m.member_id = i.member_id
-		JOIN lecture l 
-		ON 
-		i.member_id=l.instructor_id
-		JOIN memberImg mi 
-		ON 
-		m.member_id=mi.member_id
-		WHERE m.member_id = #{memberId}
-		GROUP BY m.member_id
-	</select>
+    <update id="updateInspectYn">
+        UPDATE instructor
+        SET inspectYn = 'Y'
+        WHERE member_id = #{memberId}
+
+    </update>
+    <!-- instructorList -->
+    <select id="selectInstructorList" resultType="map">
+        SELECT m.member_id                                          memberId,
+               m.member_name                                        memberName,
+               l.lecture_name                                       lectureName,
+               group_concat(l.lecture_no ORDER BY l.lecture_no asc) lectureNo,
+               m.member_phone                                       memberPhone
+        FROM member m
+                 join instructor i
+                      ON
+                          m.member_id = i.member_id
+                 JOIN lecture l ON i.member_id = l.instructor_id
+        GROUP BY m.member_id
+            LIMIT #{beginRow}, #{rowPerPage}
+    </select>
+
+    <!-- instructorList 페이지네이션 토탈 -->
+    <select id="getInstructorTotal" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM instructor
+    </select>
+
+    <!-- instructorOne -->
+    <select id="selectInstructorOne" resultType="map">
+        SELECT m.member_name                                        memberName,
+               mi.file_name                                         fileName,
+               m.member_id                                          memberId,
+               l.lecture_name                                       lectureName,
+               group_concat(l.lecture_no ORDER BY l.lecture_no asc) lectureNo,
+               m.member_gender                                      memberGender,
+               m.member_phone                                       memberPhone,
+               m.member_email                                       memberEmail
+        FROM member m
+                 JOIN instructor i
+                      ON
+                          m.member_id = i.member_id
+                 JOIN lecture l
+                      ON
+                          i.member_id = l.instructor_id
+                 JOIN memberImg mi
+                      ON
+                          m.member_id = mi.member_id
+        WHERE m.member_id = #{memberId}
+        GROUP BY m.member_id
+    </select>
 
 </mapper>

@@ -49,4 +49,32 @@ public class AdminController {
         adminService.authUpdate(memberId, empYn);
         return "ok";
     }
+
+    //회원 리스트 전부 다 가져오기
+    @GetMapping("/instructor-list")
+    public String InstructorList(@RequestParam(required = false, value = "current") String current,
+                             @ModelAttribute("check") String check,
+                             Model model) {
+        Map<String, Object> map = adminService.getInstructorList(current);
+        // request.setAttribute();
+        map.forEach((key, value) -> model.addAttribute(key, value));
+        // 파일명
+        return "/admin/instructor-list";
+    }
+
+
+
+    @ResponseBody
+    @PostMapping("/instructor-update")
+    public String instructorUpdate(@RequestBody Map<String, String> map) {
+        log.info("map = {}", map);
+        String memberId = map.get("memberId");
+        String memberAuth = map.get("memberAuth");
+        String inspectYn = map.get("inspectYn");
+        adminService.instructorUpdate(memberId,memberAuth,inspectYn);
+        return "ok";
+    }
+
+
+
 }

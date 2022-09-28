@@ -3,7 +3,9 @@ package com.gd.finalproject.service;
 
 import com.gd.finalproject.mapper.AuthMapper;
 import com.gd.finalproject.mapper.EmployeeMapper;
+import com.gd.finalproject.mapper.InstructorMapper;
 import com.gd.finalproject.util.PageNationUtil;
+import com.gd.finalproject.vo.Instructor;
 import com.gd.finalproject.vo.MemberDto;
 import com.gd.finalproject.mapper.MemberMapper;
 import com.gd.finalproject.vo.PageNationDto;
@@ -34,6 +36,8 @@ public class AdminService implements UserDetailsService {
 
     private final AuthMapper authMapper;
     private final EmployeeMapper employeeMapper;
+
+    private final InstructorMapper instructorMapper;
 
 
     @Override
@@ -79,4 +83,37 @@ public class AdminService implements UserDetailsService {
         }
         return row;
     }
+
+    public Map<String, Object> getInstructorList(String current) {
+        // 보드 총갯수
+        int total = memberMapper.getInstructorTotal();
+        String contextPath = servletContext.getContextPath();
+        // 만들어논 메서드
+        PageNationDto pageNation = PageNationUtil.getPageNation(current, total, contextPath + "/admin/instructor-list", 10);
+        // 보드리스트 가져오기
+        List<Instructor> instructorList = memberMapper.getInstructorList(pageNation.getBeginRow(), pageNation.getRowPerPage());
+        // 담을통
+        Map<String, Object> map = new HashMap<>();
+        map.put("pageNation", pageNation);
+        map.put("instructorList", instructorList);
+        log.info("member: ---------------------------" + instructorList);
+        return map;
+
+    }
+
+    @Transactional
+    public int instructorUpdate(String memberId, String memberAuth ,String inspectYn) {
+        int row = 0;
+        if (inspectYn.equals("Y")) {
+            row += authMapper.inspectDelete(memberId,memberAuth);
+            row += authMapper.instructorInsert(memberId);
+            row += instructorMapper.updateInspectYn(memberId);
+
+        } else {
+            row += authMapper.instructorDelete(memberId);
+        }
+        return row;
+    }
+
 }
+

@@ -3,6 +3,7 @@ package com.gd.finalproject.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.security.core.parameters.P;
 
 import java.util.Map;
 
@@ -12,4 +13,10 @@ public interface AuthMapper {
     int authInsert(@Param("memberId") String memberId);
 
     int authDelete(@Param("memberId") String memberId);
+
+    int inspectDelete(@Param("memberId")String memberId, @Param("memberAuth")String memberAuth);
+
+    int instructorInsert(@Param("memberId")String memberId);
+
+    int instructorDelete(@Param("memberId")String memberId);
 }
