@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gd.finalproject.mapper.EmployeePaymentMapper">
+<!-- 결제리스트(직원) -->
+<select id="selectEmployeePaymentList" resultType="map">
+SELECT 
+p.course_no courseNo,
+p.lecture_no lectureNo,
+p.user_id userId,
+p.locker_no lockerNo,
+p.pay_method payMethod,
+p.pay_date payDate,
+l.lecture_price lecturePrice
+FROM payment p JOIN lecture l
+ON p.lecture_nonoticefile = l.lecture_no
+ORDER BY user_id ASC
+</select>
+</mapper>
