@@ -1,6 +1,7 @@
 package com.gd.finalproject.mapper;
 
 
+import com.gd.finalproject.vo.Instructor;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import com.gd.finalproject.vo.MemberDto;
@@ -50,4 +51,7 @@ public interface MemberMapper {
     //user 테이블에 넣기
     int userInsert(@Param("dto") MemberDto memberDto);
 
+    int instructorApplication(@Param("instructor") Instructor instructor);
+
+    int inspectAuthInsert(@Param("instructor") Instructor instructor);
 }

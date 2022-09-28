@@ -73,23 +73,23 @@
         WHERE member_email = #{email}
     </select>
 
-        <!--회원정보 조회 -->
-        <select id="memberDetail" resultMap="member">
-            SELECT m.member_no         memberNo
-                 , m.member_id         memberId
-                 , m.member_pw         memberPw
-                 , m.member_name       memberName
-                 , m.member_phone      memberPhone
-                 , m.member_email      memberEmail
-                 , m.member_addr       memberAddr
-                 , m.member_detailAddr memberDetailAddr
-                 , m.member_birth      memberBirth
-                 , m.member_gender     memberGender
-                 , i.file_name         fileName
-            FROM member m
-                     LEFT JOIN memberImg i ON m.member_id = i.member_id
-            WHERE m.member_id = #{memberId}
-        </select>
+    <!--회원정보 조회 -->
+    <select id="memberDetail" resultMap="member">
+        SELECT m.member_no         memberNo
+             , m.member_id         memberId
+             , m.member_pw         memberPw
+             , m.member_name       memberName
+             , m.member_phone      memberPhone
+             , m.member_email      memberEmail
+             , m.member_addr       memberAddr
+             , m.member_detailAddr memberDetailAddr
+             , m.member_birth      memberBirth
+             , m.member_gender     memberGender
+             , i.file_name         fileName
+        FROM member m
+                 LEFT JOIN memberImg i ON m.member_id = i.member_id
+        WHERE m.member_id = #{memberId}
+    </select>
 
     <select id="pwFind" resultType="java.lang.String">
         SELECT member_id
@@ -150,5 +150,14 @@
         INSERT INTO user
             (member_id, create_date)
         VALUES (#{dto.memberId}, now());
+    </insert>
+    <insert id="instructorApplication" parameterType="com.gd.finalproject.vo.Instructor">
+        INSERT INTO instructor
+            (member_id, create_date, introduce, inspectYn)
+        VALUES (#{instructor.memberId}, now(), #{instructor.introduce}, 'N');
+    </insert>
+    <insert id="inspectAuthInsert" parameterType="com.gd.finalproject.vo.Instructor">
+        INSERT INTO auth(member_id, member_auth)
+        VALUES (#{instructor.memberId}, 'INSPECT')
     </insert>
 </mapper>
