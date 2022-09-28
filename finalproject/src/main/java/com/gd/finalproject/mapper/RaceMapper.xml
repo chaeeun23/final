@@ -3,7 +3,7 @@
 <mapper namespace="com.gd.finalproject.mapper.RaceMapper">
 	<sql id='search'>
 		<if test="keyword !=''"><!-- 검색어가 공백이 아닐때 -->
-			AND t.bus_stop LIKE CONCAT('%', '#{keyword}', '%')
+			AND t.bus_stop LIKE CONCAT('%', #{keyword}, '%')
 		</if>
 	</sql> 
 	

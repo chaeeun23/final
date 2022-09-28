@@ -9,9 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gd.finalproject.commons.TeamColor;
-import com.gd.finalproject.mapper.BusMapper;
 import com.gd.finalproject.mapper.RaceMapper;
-import com.gd.finalproject.mapper.RouteMapper;
 import com.gd.finalproject.util.PageNationUtil;
 import com.gd.finalproject.vo.Bus;
 import com.gd.finalproject.vo.PageNationDto;
@@ -24,9 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Transactional
 public class RaceService {
-	@Autowired RouteMapper routeMapper;
 	@Autowired RaceMapper raceMapper;
-	@Autowired BusMapper busMapper;
 	
 	// 운행 리스트(raceList.jsp)
 	public Map<String, Object> getRaceList(String current, String keyword){
@@ -38,7 +34,7 @@ public class RaceService {
         PageNationDto pageNation = PageNationUtil.getPageNation(current, total, "/finalproject/raceList", 10);
         log.debug(TeamColor.MS + "RaceService(pageNation) : " + pageNation);
 
-        // RouteList 가져오기
+        // RaceList 가져오기
         List<Race> raceList = raceMapper.selectRaceList(pageNation.getBeginRow(),
                 pageNation.getRowPerPage(),keyword);
         log.debug(TeamColor.MS + "RaceService(raceList) : " + raceList);
