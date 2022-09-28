@@ -25,18 +25,22 @@
 				<th>수강번호</th>
 				<th>회원아이디</th>
 				<th>강좌번호</th>
+				<th>강좌이름</th>
 				<th>사물함번호</th>
 				<th>강좌가격</th>
 				<th>결제수단</th>
+				<th>결제날짜</th>
 			</tr>
 			<c:forEach var="l" items="${list}">
 				<tr>
 					<td>${l.courseNo}</td>
 					<td>${l.userId}</td>
 					<td>${l.lectureNo}</td>
+					<td>${l.lectureName}</td>
 					<td>${l.lockerNo}</td>
-					<td>${l.lecturePrice}</td>
+					<td>${l.lecturePrice}원</td>
 					<td>${l.payMethod}</td>
+					<td>${l.payDate}</td>
 				</tr>
 			</c:forEach>
 		</table>

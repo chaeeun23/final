@@ -10,9 +10,16 @@ p.user_id userId,
 p.locker_no lockerNo,
 p.pay_method payMethod,
 p.pay_date payDate,
-l.lecture_price lecturePrice
-FROM payment p JOIN lecture l
-ON p.lecture_nonoticefile = l.lecture_no
-ORDER BY user_id ASC
+l.lecture_price lecturePrice,
+l.lecture_name lectureName
+FROM payment p LEFT JOIN lecture l
+ON p.lecture_no = l.lecture_no
+ORDER BY course_no ASC
 </select>
+<!-- 결제리스트Total -->
+<select id="getEmployeePaymentTotal" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM
+		payment
+	</select>
 </mapper>

@@ -26,7 +26,7 @@ public class EmployeePaymentController {
 			@ModelAttribute("check") String check, Model model) {
 		Map<String, Object> map = employeePaymentService.getEmployeePaymentList(current);
 		log.debug(TeamColor.CE + "[EmployeePaymentController.employeePaymentList] map : " + map);
-		model.addAttribute("map", map);
+		map.forEach((key, value) -> model.addAttribute(key, value));
 
 		return "/employee/employeePaymentList";
 	}
