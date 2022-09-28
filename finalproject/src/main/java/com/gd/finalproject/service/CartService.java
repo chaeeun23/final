@@ -20,7 +20,7 @@ public class CartService {
 	@Autowired CartMapper cartMapper;
 	@Autowired PaymentMapper paymentMapper;
 	
-	// 장바구니(고객) 리스트
+	// 장바구니(회원) 리스트
 	public List<Cart> getUserCartList(String userId){
 		// 파라미터 확인
 		log.debug(TeamColor.YW + "getUserCartList.userId) : " + userId);
@@ -45,7 +45,7 @@ public class CartService {
 		return cartCheck; 
 	}
 	
-	// 장바구니(고객) 추가
+	// 장바구니 추가
 	public boolean insertUserCart(String userId, String lectureNo) {
 		// 파라미터 확인
 		log.debug(TeamColor.YW + "insertUserCart.userId : " + userId);
@@ -80,7 +80,7 @@ public class CartService {
 		return result;
 	}
 	
-	// 장바구니(고객) 삭제
+	// 장바구니 삭제
 	public int removeUserCart(String userId, String lectureNo) {
 		// 파라미터 확인
 		log.debug(TeamColor.YW + "removeUserCart.userId : " + userId);

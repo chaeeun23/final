@@ -97,7 +97,7 @@
                                         data-toggle="dropdown">이용신청</a>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="${pageContext.request.contextPath}/userCartList">장바구니</a> <a
-                                            class="dropdown-item" href="${pageContext.request.contextPath}/userPaymentList">수강신청내역</a> <a
+                                            class="dropdown-item" href="${pageContext.request.contextPath}/userPaymentHistory">수강신청내역</a> <a
                                             class="dropdown-item" href="${pageContext.request.contextPath}/rentPayment">대관신청</a>
                                     </div>
                                 </li>

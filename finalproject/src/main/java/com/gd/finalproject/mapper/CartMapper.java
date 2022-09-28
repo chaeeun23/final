@@ -12,12 +12,12 @@ public interface CartMapper {
 	// 장바구니 중복여부 확인
 	int selectCartCheck(@Param("userId") String userId, @Param("lectureNo") String lectureNo);
 	
-	// 장바구니(고객) 리스트
+	// 장바구니 리스트
 	List<Cart> selectUserCartList(String userId);
 	
-	// 장바구니(고객) 추가
+	// 장바구니 추가
 	int insertUserCart(@Param("userId") String userId, String lectureNo);
 	
-	// 장바구니(고객) 삭제
+	// 장바구니 삭제
 	int deleteUserCart(@Param("userId") String userId, String lectureNo);
 }	

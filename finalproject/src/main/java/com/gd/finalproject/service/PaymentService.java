@@ -2,6 +2,7 @@ package com.gd.finalproject.service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gd.finalproject.commons.TeamColor;
 import com.gd.finalproject.mapper.CartMapper;
 import com.gd.finalproject.mapper.PaymentMapper;
-import com.gd.finalproject.vo.Cart;
-import com.gd.finalproject.vo.Payment;
+import com.gd.finalproject.util.PageNationUtil;
+import com.gd.finalproject.vo.PageNationDto;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,6 +24,26 @@ import lombok.extern.slf4j.Slf4j;
 public class PaymentService {
 	@Autowired PaymentMapper paymentMapper;
 	@Autowired CartMapper cartMapper;
+	
+	// 회원결제내역
+	public Map<String,Object> getUserPaymentHistory(String userId, String current){
+		int total = paymentMapper.getUserPaymentTotal(userId);
+		log.debug(TeamColor.YW + "getUserPaymentHistory.total : " + total);
+		
+		// 만들어논 메서드
+		PageNationDto pageNation = PageNationUtil.getPageNation(current, total, "/finalproject/userPaymentHistory", 10);
+		log.debug(TeamColor.YW + "getUserPaymentHistory.pageNation : " + pageNation);
+		
+		List<Map<String,Object>> list = paymentMapper.selectUserPaymentHistory(userId, pageNation.getBeginRow(), pageNation.getRowPerPage());
+		log.debug(TeamColor.YW + "getUserPaymentHistory.list : " + list);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("pageNation", pageNation);
+		map.put("list", list);
+
+		return map;
+		
+	}
 	
 	// 고객결제 리스트
 	public List<Map<String,Object>> getUserPaymentList(String userId, String cartCheck/*, String lockerUse*/){

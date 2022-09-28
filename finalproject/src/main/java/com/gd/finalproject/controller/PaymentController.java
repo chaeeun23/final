@@ -1,13 +1,17 @@
 package com.gd.finalproject.controller;
 
 import java.util.List;
+
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.finalproject.commons.TeamColor;
 import com.gd.finalproject.service.PaymentService;
@@ -21,7 +25,18 @@ import lombok.extern.slf4j.Slf4j;
 public class PaymentController {
 	@Autowired PaymentService paymentService;
 	
-	// 고객결제 리스트
+	// 회원결제내역
+	@GetMapping("/userPaymentHistory")
+	public String userPaymentHistory(@AuthenticationPrincipal MemberDto memberDto, @RequestParam(required = false, value = "current") String current,
+			@ModelAttribute("check") String check, Model model) {
+		Map<String, Object> map = paymentService.getUserPaymentHistory(memberDto.getMemberId() ,current);
+		log.debug(TeamColor.YW + "userPaymentHistory.map : " + map);
+		map.forEach((key, value) -> model.addAttribute(key, value));
+
+		return "/user/userPaymentHistory";
+	}
+	
+	// 회원결제 리스트
 	@PostMapping("/userPaymentList")
 	public String userPaymentList(Model model, @AuthenticationPrincipal MemberDto memberDto, String cartCheck/*, String lockerUse*/) {
 		// 파라미터 체크

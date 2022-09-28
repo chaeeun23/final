@@ -2,7 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.finalproject.mapper.PaymentMapper">
 
-<!-- 고객 결제리스트 -->
+
+
+<!-- 회원 결제리스트 -->
 <select id="selectUserPaymentList" resultType="map">
 	SELECT
 		l.lecture_no lectureNo,
@@ -35,13 +37,42 @@
 
 </select>
 
+<!-- 회원 결제내역 -->
+<select id="selectUserPaymentHistory" resultType="map">
+	SELECT
+			p.course_no courseNo,
+			p.lecture_no lectureNo,
+			p.user_id userId,
+			p.locker_no lockerNo,
+			p.pay_method payMethod,
+			p.pay_date payDate,
+			l.lecture_price lecturePrice,
+			l.lecture_name lectureName,
+			m.member_name instructorName
+	FROM payment p 
+		LEFT JOIN lecture l	ON p.lecture_no = l.lecture_no
+		LEFT JOIN instructor i ON l.instructor_id = i.member_id
+		LEFT JOIN member m ON m.member_id = i.member_id
+	WHERE p.user_id = #{userId}
+	ORDER BY course_no ASC
+	LIMIT #{beginRow},#{rowPerPage}
+</select>
+
+<!-- 회원 결제내역 Total -->
+<select id="getUserPaymentTotal" resultType="java.lang.Integer" parameterType="string">
+	SELECT COUNT(*)
+		FROM payment
+		WHERE user_id = #{userId}
+	
+</select>
+
 <!-- 결제 중복 여부 확인 -->
-	<select id="selectPaymentCheck" resultType="int" parameterType="com.gd.finalproject.vo.Payment">
-		SELECT
+<select id="selectPaymentCheck" resultType="int" parameterType="com.gd.finalproject.vo.Payment">
+	SELECT
 		COUNT(user_id) cnt
 		FROM payment
 		WHERE user_id = #{userId} AND lecture_no = #{lectureNo}
-	</select>
+</select>
 
 <!-- 결제내역 추가 -->
 <insert id="insertUserPayment" parameterType="com.gd.finalproject.vo.Payment">
