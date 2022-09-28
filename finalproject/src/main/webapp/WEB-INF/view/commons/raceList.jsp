@@ -10,6 +10,9 @@
 <meta charset="UTF-8">
 <title>2유2김</title>
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/mainImg/favicon.png">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
+<script src="//code.jquery.com/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<!-- header(로고, 네비게이션바) -->
@@ -21,53 +24,75 @@
 	</div>
 	
 	<div class="container">
+	<div class="row">
 	<h1 style="text-align:center;">운행 리스트</h1>
 	<br>
-	<br>
 	
-	<div>
- 	<!-- 관리자면 추가버튼 보이게 -->
-	<sec:authorize access="hasAuthority('EMPLOYEE')">
-		<a href="${pageContext.request.contextPath }/addRace" class="btn btn-primary"  style="width:100px; float:right;">운행 추가</a>
-	</sec:authorize>
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-9">
+			</div>
+	
+		<!-- 검색 -->
+		<div class="col-sm-3">
+			<form class="form-inline" action="${pageContext.request.contextPath}/raceList" method="get">
+				<div class = "search-wrap" >
+					<input type="text" class="form-control search-input" name="keyword" style="text-align:center;" placeholder="Bus-Stop Search..">
+					<button type="submit" class="btn btn-info search-btn" style="float:right;">검색</button>
+				</div>
+			</form>
+		</div>
+		</div>
 	</div>
 	
 	<br>
 	<br>
+	<br>
 	
 	<div>
-	<table class="table table-bordered" style="text-align:center; vertical-align:middle;">
-		<tr>
-			<th>노선번호</th>
-			<th>운행시작시간</th>
-			<th>운행종료시간</th>
-			<th>운행간격</th>
-			<th>경유지</th>
-			<th>수용인원</th>
-		<!-- 관리자면 삭제버튼 보이게 -->
-		<sec:authorize access="hasAuthority('EMPLOYEE')">
-			<th>삭제</th>
-		</sec:authorize>
-			
-		</tr>
-		<c:forEach var="r" items="${raceList}">
+		<table class="table table-bordered" style="text-align:center; vertical-align:middle;">
 			<tr>
-				<td>${r.routeNo}</td>
-				<td>${r.routeStart}</td>
-				<td>${r.routeEnd}</td>
-				<td>${r.routeInterval}</td>
-				<td>${r.busStop}</td>
-				<td>${r.busLimited}</td>
-		<!-- 관리자면 삭제버튼 보이게 -->
-		<sec:authorize access="hasAuthority('EMPLOYEE')">
-				<td><a href="${pageContext.request.contextPath}/removeRace?raceNo=${r.raceNo}" class="btn btn-primary">삭제</a></td>
-		</sec:authorize>
+				<th>노선번호</th>
+				<th>운행시작시간</th>
+				<th>운행종료시간</th>
+				<th>운행간격</th>
+				<th>경유지</th>
+				<th>수용인원</th>
+			<!-- 관리자면 삭제버튼 보이게 -->
+			<sec:authorize access="hasAuthority('EMPLOYEE')">
+				<th>삭제</th>
+			</sec:authorize>
+				
 			</tr>
-		</c:forEach>
-	</table>
+			<c:forEach var="r" items="${raceList}">
+				<tr>
+					<td>${r.routeNo}</td>
+					<td>${r.routeStart}</td>
+					<td>${r.routeEnd}</td>
+					<td>${r.routeInterval}</td>
+					<td>${r.busStop}</td>
+					<td>${r.busLimited}</td>
+			<!-- 관리자면 삭제버튼 보이게 -->
+			<sec:authorize access="hasAuthority('EMPLOYEE')">
+					<td><a href="${pageContext.request.contextPath}/removeRace?raceNo=${r.raceNo}" class="btn btn-primary">삭제</a></td>
+			</sec:authorize>
+				</tr>
+			</c:forEach>
+		</table>
 	</div>
 	
 	
+	<!-- 관리자면 추가버튼 보이게 -->
+	<div>
+		<sec:authorize access="hasAuthority('EMPLOYEE')">
+			<a href="${pageContext.request.contextPath }/addRace" class="btn btn-primary"  style="width:100px; float:right;">운행 추가</a>
+		</sec:authorize>
+	</div>
+	
+	
+	
+
 	<div>
 	<%-- 페이지네이션 --%>
 	<ul class="pagination justify-content-center my-2 mb-2" >
@@ -103,7 +128,7 @@
 		</script>
 	</c:if>
 	
-	
+	</div>
 </div>
 
 	<!-- footer -->

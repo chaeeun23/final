@@ -85,7 +85,7 @@ public class LectureService {
     	int insertLecture = lectureMapper.insertLecture(lecture);
     	log.debug(TeamColor.MS + "LectureService.addLecture(insertLecture) : " + insertLecture);
     	
-    	// 강좌 요일 추가
+    	// 강좌 요일 배열로 하나씩 LectureDay 넣기
     	for(String s : lecture.getLectureDay()) {
     		LectureDay lectureDay = new LectureDay();
     		lectureDay.setLectureDay(s);
@@ -110,12 +110,13 @@ public class LectureService {
     	int deleteLectureDay = lectureMapper.deleteLectureDay(lectureNo);
     	log.debug(TeamColor.MS + "LectureService.modifyLecture(deleteLectureDay) : " + deleteLectureDay);
     	
-    	// 강좌 요일 추가
+    	// 강좌 요일 배열로 하나씩 LectureDay 넣기
     	for(String s : lecture.getLectureDay()) {
     		LectureDay lectureDay = new LectureDay();
     		lectureDay.setLectureDay(s);
     		lectureDay.setLectureNo(lecture.getLectureNo());
     		
+    		// 강좌 요일 추가
     		int insertLectureDay = lectureMapper.insertLectureDay(lectureDay);
     		log.debug(TeamColor.MS + "LectureService.modifyLecture(insertLectureDay) : " + insertLectureDay);
     	}
@@ -129,10 +130,12 @@ public class LectureService {
     	int deleteDayLecture = lectureMapper.deleteLectureDay(lectureNo);
     	log.debug(TeamColor.MS + "LectureService.removeLecture(deleteDayLecture) : " + deleteDayLecture);
     	
-    	// 강좌 삭제
-    	int deleteLecture = lectureMapper.deleteLecture(lectureNo);
-        log.debug(TeamColor.MS + "LectureService.removeLecture(deleteLecture) : " + deleteLecture);
-    	
-    	return deleteLecture;
+    	// 강좌 요일이 삭제되야지만 강좌 삭제
+    	if(deleteDayLecture == 0){
+    		// 강좌 삭제
+    	   	int deleteLecture = lectureMapper.deleteLecture(lectureNo);
+    	   	log.debug(TeamColor.MS + "LectureService.removeLecture(deleteLecture) : " + deleteLecture);
+    	}
+    	return deleteDayLecture;
     }
 }

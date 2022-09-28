@@ -29,18 +29,18 @@ public class RaceService {
 	@Autowired BusMapper busMapper;
 	
 	// 운행 리스트(raceList.jsp)
-	public Map<String, Object> getRaceList(String current){
+	public Map<String, Object> getRaceList(String current, String keyword){
 		// 페이지네이션 총 갯수
-        int total = raceMapper.getRaceTotal();
+        int total = raceMapper.getRaceTotal(keyword);
         log.debug(TeamColor.MS + "RaceService(total) : " + total);
-
+        log.debug(TeamColor.MS + "keyword : " + keyword);
         // 만들어논 메서드
         PageNationDto pageNation = PageNationUtil.getPageNation(current, total, "/finalproject/raceList", 10);
         log.debug(TeamColor.MS + "RaceService(pageNation) : " + pageNation);
 
         // RouteList 가져오기
         List<Race> raceList = raceMapper.selectRaceList(pageNation.getBeginRow(),
-                pageNation.getRowPerPage());
+                pageNation.getRowPerPage(),keyword);
         log.debug(TeamColor.MS + "RaceService(raceList) : " + raceList);
 
         // 객체 생성후 넣기

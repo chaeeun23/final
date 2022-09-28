@@ -13,10 +13,10 @@ import com.gd.finalproject.vo.Route;
 public interface RaceMapper {
 	
 	// 운행 리스트(raceList)
-	List<Race> selectRaceList(@Param("beginRow") int beginRow, @Param("rowPerPage") int rowPerPage);
+	List<Race> selectRaceList(@Param("beginRow") int beginRow, @Param("rowPerPage") int rowPerPage, @Param("keyword") String keyword);
 	
 	// 운행 리스트 (raceList) 페이징 - Total
-	int getRaceTotal();
+	int getRaceTotal(String keyword);
 
 	// 버스 번호(addRace(busNo) - Form)
 	List<Bus> selectBusNo();

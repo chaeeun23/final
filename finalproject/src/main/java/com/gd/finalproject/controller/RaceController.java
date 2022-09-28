@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.finalproject.commons.TeamColor;
-import com.gd.finalproject.service.BusService;
 import com.gd.finalproject.service.RaceService;
-import com.gd.finalproject.service.RouteService;
 import com.gd.finalproject.vo.Race;
 
 import lombok.extern.slf4j.Slf4j;
@@ -22,18 +20,19 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class RaceController {
 	@Autowired RaceService raceService;
-	@Autowired BusService busService;
-	@Autowired RouteService routeService;
 	
 	// 운행 리스트(raceList)
 	@GetMapping("/raceList")
 	public String getRaceList(@RequestParam(required = false, value = "current") String current,
+			@RequestParam(required = false, value = "keyword", defaultValue = "") String keyword,
             @ModelAttribute("check") String check, Model model) {
-	Map<String,Object> raceList = raceService.getRaceList(current);
+		Map<String,Object> raceList = raceService.getRaceList(current, keyword);
 		log.debug(TeamColor.MS + "RaceController.getRaceList(raceList) : " + raceList);
 		raceList.forEach((key, value) -> model.addAttribute(key, value));
+		
 		return "/commons/raceList";		// 경로
 	}
+	
 	
 	// 운행 추가(addRace - Form)
 	@GetMapping("/addRace")

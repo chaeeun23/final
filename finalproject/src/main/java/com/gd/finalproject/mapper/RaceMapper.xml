@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.finalproject.mapper.RaceMapper">
+	<sql id='search'>
+		<if test="keyword !=''"><!-- 검색어가 공백이 아닐때 -->
+			AND t.bus_stop LIKE CONCAT('%', '#{keyword}', '%')
+		</if>
+	</sql> 
+	
 	<!-- 운행 리스트 -->
-	<select id="selectRaceList" resultType="map">
+	<select id="selectRaceList" parameterType="map" resultType="map">
 		SELECT 
 			r.race_no raceNo,
 			r.bus_no busNo,
@@ -16,12 +22,22 @@
 		ON r.route_no = t.route_no
 		JOIN bus b
 		ON r.bus_no = b.bus_no
+ 		WHERE 1=1
+			<include refid='search'/> 
+		LIMIT
+		#{beginRow}, #{rowPerPage}
 	</select>
 	
+
 	<!-- 운행 리스트 페이징 -->
-	<select id="getRaceTotal" resultType="java.lang.Integer">
+	<select id="getRaceTotal" parameterType="String" resultType="java.lang.Integer">
 		SELECT COUNT(*)
-        FROM race
+        FROM race r JOIN route t 
+		ON r.route_no = t.route_no
+		JOIN bus b
+		ON r.bus_no = b.bus_no
+        WHERE 1=1 
+        	<include refid='search'/>  
 	</select>
 	
 	<!-- 버스 번호 -->
