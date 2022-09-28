@@ -35,6 +35,14 @@
 
 </select>
 
+<!-- 결제 중복 여부 확인 -->
+	<select id="selectPaymentCheck" resultType="int" parameterType="com.gd.finalproject.vo.Payment">
+		SELECT
+		COUNT(user_id) cnt
+		FROM payment
+		WHERE user_id = #{userId} AND lecture_no = #{lectureNo}
+	</select>
+
 <!-- 결제내역 추가 -->
 <insert id="insertUserPayment" parameterType="com.gd.finalproject.vo.Payment">
 	INSERT INTO payment(
@@ -49,11 +57,5 @@
 		NOW()
 		)
 </insert>
-		
-<!-- 장바구니에서 결제강좌 제거
-<delete id="deleteUserPayment" parameterType="com.gd.finalproject.vo.Cart">
-	DELETE FROM cart
-		WHERE user_id = #{userId} AND lecture_no = #{lectureNo}
-</delete> -->
 
 </mapper>

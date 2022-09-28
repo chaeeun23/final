@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.gd.finalproject.commons.TeamColor;
 import com.gd.finalproject.mapper.CartMapper;
+import com.gd.finalproject.mapper.PaymentMapper;
 import com.gd.finalproject.vo.Cart;
 
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 public class CartService {
 	@Autowired CartMapper cartMapper;
+	@Autowired PaymentMapper paymentMapper;
 	
 	// 장바구니(고객) 리스트
 	public List<Cart> getUserCartList(String userId){
@@ -56,12 +58,23 @@ public class CartService {
 		int cartCheck = cartMapper.selectCartCheck(userId, lectureNo);
 		log.debug(TeamColor.YW + "getCartCheck.cartCheck) : " + cartCheck);
 		
+		// 이미 결제한 강좌인지 확인
+		int paymentCheck = paymentMapper.selectPaymentCheck(userId, lectureNo);
+		log.debug(TeamColor.YW + "getCartCheck.paymentCheck) : " + paymentCheck);
+		
 		// 장바구니 중복이 아니라면
 		if(cartCheck==0) {
-			// addUserCart 실행
-			int addUserCart = cartMapper.insertUserCart(userId, lectureNo);
-			log.debug(TeamColor.YW + "getUserCartList.addUserCart) : " + addUserCart);
-			result = true;
+			
+			// 결제한 적이 없는 강좌라면
+			if(paymentCheck==0) {
+				
+				// addUserCart 실행
+				int addUserCart = cartMapper.insertUserCart(userId, lectureNo);
+				log.debug(TeamColor.YW + "getUserCartList.addUserCart) : " + addUserCart);
+				
+				result = true;
+			}
+			
 		} 
 		
 		return result;

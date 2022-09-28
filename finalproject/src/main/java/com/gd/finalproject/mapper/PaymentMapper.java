@@ -8,6 +8,9 @@ import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface PaymentMapper {
+	// 결제 중복여부 확인
+	int selectPaymentCheck(@Param("userId") String userId, @Param("lectureNo") String lectureNo);
+	
 	// 고객결제 리스트
 	List<Map<String, Object>> selectUserPaymentList(@Param("cartCheck") String cartCheck/* , @Param("lockerUse") String lockerUse */);
 	
