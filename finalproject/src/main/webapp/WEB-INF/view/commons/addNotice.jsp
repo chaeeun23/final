@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,7 +56,7 @@
 </div><!-- header END -->
 
 <!-- 총 관리자만 공지사항 등록 가능 -->
-
+<sec:authentication property="principal" var="member"/>
 
 <!-- 공지사항 등록폼 -->
 <div class="container">
@@ -70,7 +71,7 @@
 			</tr>
 			<tr>
 				<td>작성자</td>
-				<td><input type="text" id="employeeId" name="employeeId" <%-- value="${notice.employeeId}"  readonly --%> ></td>
+				<td><input type="text" id="employeeId" name="employeeId" value="${member.memberId}" readonly></td>
 			</tr>
 
 			<tr>

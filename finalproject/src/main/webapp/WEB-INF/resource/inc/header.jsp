@@ -73,8 +73,8 @@
                                         data-toggle="dropdown">이용안내</a>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="${pageContext.request.contextPath}/lectureList">강좌안내</a> <a
-                                            class="dropdown-item" href="#">셔틀안내</a> <a
-                                            class="dropdown-item" href="#">대관안내</a>
+                                            class="dropdown-item" href="${pageContext.request.contextPath}/raceList">셔틀안내</a> <a
+                                            class="dropdown-item" href="${pageContext.request.contextPath}/rentList">대관안내</a>
                                     </div>
                                 </li>
                             </div>
@@ -96,9 +96,9 @@
                                         class="nav-link dropdown-toggle" href="#" id="navbardrop"
                                         data-toggle="dropdown">이용신청</a>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">장바구니</a> <a
-                                            class="dropdown-item" href="#">수강신청</a> <a
-                                            class="dropdown-item" href="#">대관신청</a>
+                                        <a class="dropdown-item" href="${pageContext.request.contextPath}/userCartList">장바구니</a> <a
+                                            class="dropdown-item" href="${pageContext.request.contextPath}/userPaymentList">수강신청내역</a> <a
+                                            class="dropdown-item" href="${pageContext.request.contextPath}/rentPayment">대관신청</a>
                                     </div>
                                 </li>
                             </div>

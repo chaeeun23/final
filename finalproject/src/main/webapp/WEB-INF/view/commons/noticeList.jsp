@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,6 +20,7 @@
 
 
 <!-- 공지사항 리스트 -->
+<sec:authentication property="principal" var="member"/>
 <div class="container">
 	<h2 style="text-align:center;">공지사항</h2>
 	<br>
@@ -50,12 +52,9 @@
 	<!-- 공지사항 추가버튼(관리자) -->
 	<div>
 		<!-- employee 와 총관리자인 권한이면 공지사항추가버튼 보이게 -->
-		<c:if test="${member eq 'admin'}">
+		<sec:authorize access="hasAuthority('EMPLOYEE')">
 			<a class="btn btn-primary" style="float:right; margin-left:10px"href="${pageContext.request.contextPath }/addNotice/">글쓰기</a>
-		</c:if>
-		
-		<!-- 추가폼 이동(시큐리티 구현시 삭제 예정) -->
-		<a class="btn btn-primary" style="float:right; margin-left:10px" href="${pageContext.request.contextPath }/addNotice/">글쓰기</a>
+		</sec:authorize>
 	</div>
 	
 </div><!-- 공지사항 리스트 END -->
