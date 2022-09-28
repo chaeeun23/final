@@ -37,7 +37,7 @@ public class CartController {
 		log.debug(TeamColor.YW + "insertUserCart.memberDto.getMemberId() : " + memberDto.getMemberId());
 		log.debug(TeamColor.YW + "insertUserCart.memberDto.lectureNo : " + lectureNo);
 		
-		// 세팅값 세팅
+		// 실행
 		boolean insertCart = cartService.insertUserCart(memberDto.getMemberId(), lectureNo);
 		log.debug(TeamColor.YW + "insertUserCart.removeCart : " + insertCart);
 		

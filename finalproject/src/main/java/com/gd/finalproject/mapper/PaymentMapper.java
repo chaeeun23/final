@@ -11,9 +11,7 @@ public interface PaymentMapper {
 	// 고객결제 리스트
 	List<Map<String, Object>> selectUserPaymentList(@Param("cartCheck") String cartCheck/* , @Param("lockerUse") String lockerUse */);
 	
-	// 결제내역 추가
-	int insertUserPayment(@Param("userId") String userId, String lectureNo, @Param("cartCheck") String cartCheck, @Param("lockerUse") String lockerUse);
+	// 결제내역 추가(결제목록 장바구니에서 삭제 포함)
+	int insertUserPayment(String lectureNo, String userId, String payMethod/*, @Param("lockerUse") String lockerUse*/);
 
-	// 장바구니에서 결제강좌 제거
-	int deleteUserPayment(@Param("userId") String userId, int courseNo);
 }

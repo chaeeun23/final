@@ -24,7 +24,7 @@
 		<br>
 
 		<form method="post"
-			action="${pageContext.request.contextPath}/userPaymentList"
+			action="${pageContext.request.contextPath}/addUserPayment"
 			id="userPaymentListForm">
 			<table class="table table-bordered" style="text-align: center;">
 				<tr>
@@ -41,6 +41,7 @@
 				</tr>
 				<c:set var="total" value="0"/>
 				<c:forEach var="p" items="${userPaymentList}">
+				<input type="hidden" id="lectureNo" name="lectureNo" value="${p.lectureNo}">
 				<c:set var="total" value="${total + p.lecturePrice}"/>
 					<tr>
 						<td>${p.lectureNo}</td>
@@ -69,7 +70,7 @@
 				</select></th>
 				</tr>
 			</table>
-				<button type="button" class="btn btn-primary" id="userPaymentListBtn"
+				<button type="submit" class="btn btn-primary" id="userPaymentListBtn"
 				style="width: 100px; float: right; margin-right: 10px;">결제하기</button>
 			
 		</form>

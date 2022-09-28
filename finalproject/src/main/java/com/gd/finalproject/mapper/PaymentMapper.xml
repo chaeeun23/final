@@ -36,12 +36,24 @@
 </select>
 
 <!-- 결제내역 추가 -->
-<insert id="insertUserPayment"></insert>
-
-<!-- 장바구니에서 결제강좌 제거 -->
-<delete id="deleteUserPayment"></delete>
-
-
-
+<insert id="insertUserPayment" parameterType="com.gd.finalproject.vo.Payment">
+	INSERT INTO payment(
+		lecture_no,
+		user_id,
+		pay_method,
+		pay_date
+		) VALUES(
+		#{lectureNo},
+		#{userId},
+		#{payMethod},
+		NOW()
+		)
+</insert>
+		
+<!-- 장바구니에서 결제강좌 제거
+<delete id="deleteUserPayment" parameterType="com.gd.finalproject.vo.Cart">
+	DELETE FROM cart
+		WHERE user_id = #{userId} AND lecture_no = #{lectureNo}
+</delete> -->
 
 </mapper>
