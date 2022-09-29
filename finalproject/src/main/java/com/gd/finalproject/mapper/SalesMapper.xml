@@ -14,7 +14,7 @@
 		FROM payment p LEFT JOIN lecture l
 		ON p.lecture_no =
 		l.lecture_no
-		WHERE l.lecture_name=#{lectureName}
+		WHERE l.lecture_name=#{lectureName} AND p.refund = 'N'
 		LIMIT
 		#{beginRow},#{rowPerPage}
 
@@ -26,7 +26,7 @@
 		FROM payment p LEFT JOIN lecture l
 		ON p.lecture_no = l.lecture_no
 		WHERE
-		l.lecture_name=#{lectureName}
+		l.lecture_name=#{lectureName} AND p.refund = 'N'
 	</select>
 
 	<!-- 과목별 총 매출 -->
@@ -36,6 +36,7 @@
 		SUM(l.lecture_price) totalSales
 		FROM lecture l JOIN payment p
 		ON l.lecture_no = p.lecture_no
+		WHERE p.refund = 'N'
 		GROUP BY l.lecture_name
 		ORDER BY l.lecture_name ASC
 	</select>
@@ -45,6 +46,7 @@
 	SELECT FORMAT(SUM(l.lecture_price), 0) total
 	FROM lecture l JOIN payment p
 	ON l.lecture_no = p.lecture_no
+	WHERE p.refund = 'N'
 	</select>
 
 
