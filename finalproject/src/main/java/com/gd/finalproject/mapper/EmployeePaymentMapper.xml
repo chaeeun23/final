@@ -10,7 +10,7 @@ p.user_id userId,
 p.locker_no lockerNo,
 p.pay_method payMethod,
 p.pay_date payDate,
-l.lecture_price lecturePrice,
+FORMAT(l.lecture_price, 0) lecturePrice,
 l.lecture_name lectureName,
 DATE_FORMAT(p.pay_date, '%y-%m-%d') payDateYMD,
 p.refund refund
