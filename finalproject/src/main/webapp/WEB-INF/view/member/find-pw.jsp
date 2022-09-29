@@ -16,13 +16,16 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-<div class="d-flex justify-content-center container " style="height: 800px">
+<div>
+    <c:import url="/WEB-INF/resource/inc/header.jsp"></c:import>
+</div>
+<div class="d-flex justify-content-center container " style="height: 500px; padding: 100px">
     <form method="post" action="${pageContext.request.contextPath}/member/find-pw"
-          class=" w-75 border p-3 bg-white shadow rounded align-self-center">
+          class=" w-75 border p-3 bg-white rounded align-self-center">
         <div class="d-inline-flex">
-            <h1 class="ms-2 fw-bold">비밀번호 찾기</h1>
+            <h4 class="ms-2 fw-bold">비밀번호 찾기</h4>
         </div>
-        <p>등록한 메일로 변경된 비밀번호가 전송됩니다.</p>
+        <p class="fw-lighter small">등록한 메일로 변경된 비밀번호가 전송됩니다.</p>
         <div class="mb-3">
             <label for="email" class="form-label">아이디</label>
             <input type="text" class="form-control" name="id" id="id" placeholder="아이디를 입력해주세요">
@@ -45,6 +48,11 @@
                class="btn btn-secondary mt-2 rounded-0">뒤로가기</a>
         </div>
     </form>
+</div>
+<div>
+    <br>
+    <br>
+    <c:import url="/WEB-INF/resource/inc/footer.jsp"></c:import>
 </div>
 </body>
 </html>

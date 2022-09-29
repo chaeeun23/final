@@ -164,6 +164,25 @@ public class MemberController {
         // 2-2. 현재 Authentication로 사용자 인증 후 새 Authentication 정보를 SecurityContextHolder에 세팅
         SecurityContextHolder.getContext().setAuthentication(newAuth);
     }
+
+    //비밀번호 변경폼
+    @GetMapping("/member/update-pw")
+    public String updatePwForm() {
+        return "/member/update-pw";
+    }
+
+//    // 비밀번호변경 로직
+//    @PostMapping("/member/update-pw")
+//    @PreAuthorize("isAnonymous()")
+//    public String updatePw(@RequestParam("pw") String pw, Model model) throws Exception {
+//        String check = mailService.pwUpdate(pw);
+//        if (check.equals("fail")) {
+//            model.addAttribute("error", "해당하는 비밀번호가 없습니다. 다시 시도해주세요");
+//            return "/member/find-pw";
+//        }
+//        model.addAttribute("suc", "전송 성공");
+//        return "/member/member-detail";
+//    }
 }
 
 

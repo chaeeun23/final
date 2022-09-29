@@ -14,14 +14,17 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
+<div>
+    <c:import url="/WEB-INF/resource/inc/header.jsp"></c:import>
+</div>
 <div class="d-flex justify-content-center container mt-2">
     <form method="post" action="${pageContext.request.contextPath}/sign/sign-member" id="sign-form"
-          class="w-75 border p-3 bg-white shadow rounded align-self-center">
+          class="w-75 border p-3 bg-white  rounded align-self-center">
         <div class="text-center">
-            <h1>회원가입</h1>
+            <h4 class="ms-2 fw-bold">회원가입</h4>
         </div>
         <div class="mb-3">
-            아이디 <span style="color: red">*</span>
+            <p class="fw-lighter small">아이디<span style="color: red">*</span></p>
             <input class="form-control" type="text" name="memberId" id="id" aria-describedby="invalid-id">
             <div class="mx-1 opacity-50 " style="font-size: 12px">아이디는 8자리 이상으로 입력해주세요</div>
             <div class="valid-feedback">
@@ -33,7 +36,7 @@
             <button id="idCheck" type="button" class="btn btn-sm btn-secondary mt-2 rounded-0">중복확인</button>
         </div>
         <div class="mb-3">
-            비밀번호 <span style="color: red">*</span>
+            <p class="fw-lighter small">비밀번호 <span style="color: red">*</span></p>
             <input class="form-control" type="password" name="memberPw" id="pw" aria-describedby="invalid-pw">
             <div class="mx-1 opacity-50 " style="font-size: 12px">비밀번호는 10자이상 20자 이하 영문,특수문자,숫자 조합으로 입력해주세요.</div>
             <div class="valid-feedback">
@@ -44,7 +47,7 @@
             </div>
         </div>
         <div class="mb-3">
-            비밀번호 재확인 <span style="color: red">*</span>
+            <p class="fw-lighter small">비밀번호 재확인 <span style="color: red">*</span></p>
             <input class="form-control" type="password" id="checkPw" aria-describedby="invalid-pwCheck">
             <div class="valid-feedback">
                 비밀번호가 일치합니다.
@@ -54,7 +57,7 @@
             </div>
         </div>
         <div class="mb-3">
-            <td>이름<span style="color: red">*</span></td>
+            <p class="fw-lighter small">이름<span style="color: red">*</span></p>
             <td>
                 <input class="form-control valid-check" type="text" name="memberName" id="name"
                        aria-describedby="invalid-nameCheck">
@@ -64,7 +67,7 @@
             </td>
         </div>
         <div class="mb-3">
-            <td>전화번호<span style="color: red">*</span></td>
+            <p class="fw-lighter small">전화번호<span style="color: red">*</span></p>
             <td>
                 <input class="form-control valid-check" type="tel" name="memberPhone" id="phone"
                        aria-describedby="invalid-phoneCheck">
@@ -74,7 +77,7 @@
             </td>
         </div>
         <div class="mb-3">
-            <td>이메일<span style="color: red">*</span></td>
+            <p class="fw-lighter small">이메일<span style="color: red">*</span></p>
             <td>
                 <input class="form-control valid-check" type="tel" name="memberEmail" id="email"
                        aria-describedby="invalid-emailCheck" readonly>
@@ -130,7 +133,7 @@
         </div>
 
         <div class="mb-3">
-            주소<span style="color: red">*</span>
+            <p class="fw-lighter small">주소<span style="color: red">*</span></p>
             <input class="form-control" type="text" name="memberAddr" id="addr" readonly="readonly"
                    aria-describedby="invalid-addrCheck">
             <div id="invalid-addrCheck" class="invalid-feedback">
@@ -140,16 +143,18 @@
                     onclick="sample2_execDaumPostcode()">
                 주소검색
             </button>
+
             <br>
-            상세주소
+            <br>
+            <p class="fw-lighter small" >상세주소</p>
             <input class="form-control" type="text" name="memberDetailAddr" id="subAddr">
         </div>
         <div class="mb-3">
-            <td>생년월일</td>
+            <p class="fw-lighter small" >생년월일</p>
             <td><input class="form-control" type="tel" name="memberBirth" id="birth"></td>
         </div>
         <div style="margin: 0;">
-            성별체크
+            <p class="fw-lighter small" >성별체크</p>
             <br>
             <div class="custom-control custom-radio custom-control-inline">
                 <input type="radio" class="custom-control-input" id="sex-1" name="memberGender" value="1" checked>
@@ -169,6 +174,11 @@
     <img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer"
          style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()"
          alt="닫기 버튼">
+</div>
+<div>
+    <br>
+    <br>
+    <c:import url="/WEB-INF/resource/inc/footer.jsp"></c:import>
 </div>
 <script>
     let code = '';
