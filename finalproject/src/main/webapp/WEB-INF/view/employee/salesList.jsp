@@ -16,10 +16,15 @@
 	<!-- 직원이 보는 결제리스트 -->
 	<div class="container">
 		<h1 style="text-align: center;">매출리스트</h1>
+		<hr>
 		<br>
 		<div class="row">
 			<div class="col-sm-2">
 				<ul class="nav nav-pills flex-column">
+				<li class="nav-item" style="padding-bottom: 15px;"><a class="nav-link"
+						href="${pageContext.request.contextPath}/salesList"
+						style="text-align: center; background-color: #95a5a6; font-size: large; color: white; ">전체
+							매출</a></li>
 					<li class="nav-item dropdown " style="padding-bottom: 15px;"><a
 						class="nav-link dropdown-toggle" href="#" id="navbardrop"
 						data-toggle="dropdown"
@@ -30,13 +35,14 @@
 							<a class="dropdown-item" href="#" style="text-align: center;">2021년</a>
 							<a class="dropdown-item" href="#" style="text-align: center;">2022년</a>
 						</div></li>
-					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/lectureSalesList?lectureName=필라테스"
-						style="text-align: center; background-color: #95a5a6; font-size: large; color: white;">과목별
+					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/lectureSalesList?lectureName=수영"
+						style="text-align: center; background-color: #95a5a6; font-size: large; color: white;">강좌별
 							매출</a></li>
 				</ul>
 			</div>
 			<div class="col-sm-10">
-				<!-- 그래프, 매출리스트 -->
+			<strong style="font-size: x-large;">총&nbsp;매출&nbsp;:&nbsp;${totalSales}원</strong> <br><br>
+				<!-- 매출리스트 -->
 				<table class="table table-bordered" style="text-align: center;">
 					<tr>
 						<th>회원아이디</th>

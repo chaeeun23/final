@@ -30,7 +30,7 @@
 	</select>
 
 	<!-- 과목별 총 매출 -->
-	<select id="getTotalSales" resultType="map">
+	<select id="getLectureTotalSales" resultType="map">
 		SELECT
 		l.lecture_name lectureName,
 		SUM(l.lecture_price) totalSales
@@ -38,6 +38,13 @@
 		ON l.lecture_no = p.lecture_no
 		GROUP BY l.lecture_name
 		ORDER BY l.lecture_name ASC
+	</select>
+	
+	<!-- 총 매출 -->
+	<select id="getTotalSales" resultType="string">
+	SELECT FORMAT(SUM(l.lecture_price), 0) total
+	FROM lecture l JOIN payment p
+	ON l.lecture_no = p.lecture_no
 	</select>
 
 

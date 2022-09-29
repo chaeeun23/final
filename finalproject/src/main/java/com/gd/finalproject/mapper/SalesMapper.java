@@ -16,6 +16,9 @@ public interface SalesMapper {
 	int getLectureSalesTotal(String lectureName);
 	
 	//과목별 매출 
-	List<Map<String,Object>> getTotalSales();
+	List<Map<String,Object>> getLectureTotalSales();
+	
+	//총 매출
+	String getTotalSales();
 	
 }
