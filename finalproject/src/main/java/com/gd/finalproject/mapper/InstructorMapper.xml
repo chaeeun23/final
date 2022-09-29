@@ -25,7 +25,7 @@
 		ON
 		m.member_id = i.member_id
 		LEFT JOIN lecture l ON i.member_id = l.instructor_id
-		WHERE deleteYn='Y'
+		WHERE inspectYn='Y'
 		GROUP BY m.member_id
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>

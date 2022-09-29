@@ -126,28 +126,105 @@
 		let jan = $('#m01').val();
 		console.log(jan);
 		let feb = $('#m02').val();
-		console.log(feb);
 		let mar = $('#m03').val();
-		console.log(mar);
 		let apr = $('#m04').val();
-		console.log(apr);
 		let may = $('#m05').val();
-		console.log(may);
 		let jun = $('#m06').val();
-		console.log(jun);
 		let jul = $('#m07').val();
-		console.log(jul);
 		let aug = $('#m08').val();
-		console.log(aug);
 		let sep = $('#m09').val();
-		console.log(sep);
 		let oct = $('#m10').val();
-		console.log(oct);
 		let nov = $('#m11').val();
-		console.log(nov);
 		let dec = $('#m12').val();
-		console.log(dec);
 
+		//구분자빼기 
+		let jan1 = jan.split(',');
+		console.log(jan1);
+		let jan2 = "";
+		for(let i = 0 ; i < jan1.length; i++){
+			jan2 += jan1[i];
+		}
+		console.log(jan2);
+		
+		let feb1 = feb.split(',');
+		let feb2 = "";
+		for(let i = 0 ; i < feb1.length; i++){
+			feb2 += feb1[i];
+		}
+		console.log(feb2);
+		
+		let mar1 = mar.split(',');
+		let mar2 = "";
+		for(let i = 0 ; i < mar1.length; i++){
+			mar2 += mar1[i];
+		}
+		console.log(mar2);
+		
+		let apr1 = apr.split(',');
+		let apr2 = "";
+		for(let i = 0 ; i < apr1.length; i++){
+			apr2 += apr1[i];
+		}
+		console.log(apr2);
+		
+		let may1 = may.split(',');
+		let may2 = "";
+		for(let i = 0 ; i < may1.length; i++){
+			may2 += may1[i];
+		}
+		console.log(jan2);
+		
+		let jun1 = jun.split(',');
+		let jun2 = "";
+		for(let i = 0 ; i < jun1.length; i++){
+			jun2 += jun1[i];
+		}
+		console.log(jun2);
+		
+		let jul1 = jul.split(',');
+		let jul2 = "";
+		for(let i = 0 ; i < jul1.length; i++){
+			jul2 += jul1[i];
+		}
+		console.log(jul2);
+		
+		let aug1 = aug.split(',');
+		let aug2 = "";
+		for(let i = 0 ; i < aug1.length; i++){
+			aug2 += aug1[i];
+		}
+		console.log(aug2);
+		
+		let sep1 = sep.split(',');
+		let sep2 = "";
+		for(let i = 0 ; i < sep1.length; i++){
+			sep2 += sep1[i];
+		}
+		console.log(sep2);
+		
+		let oct1 = oct.split(',');
+		let oct2 = "";
+		for(let i = 0 ; i < oct1.length; i++){
+			oct2 += oct1[i];
+		}
+		console.log(oct2);
+		
+		let nov1 = nov.split(',');
+		let nov2 = "";
+		for(let i = 0 ; i < nov1.length; i++){
+			nov2 += nov1[i];
+		}
+		console.log(jul2);
+		
+		let dec1 = dec.split(',');
+		let dec2 = "";
+		for(let i = 0 ; i < dec1.length; i++){
+			dec2 += dec1[i];
+		}
+		console.log(dec2);
+
+		
+		
 		new Chart(document.getElementById("bar-chart"), {
 			type : 'bar',
 			data : {
@@ -159,8 +236,8 @@
 							"#e8c3b9", "#c45850", "#3e95cd", "#8e5ea2",
 							"#3cba9f", "#e8c3b9", "#c45850", "#3e95cd",
 							"#8e5ea2" ],
-					data : [ jan, feb, mar, apr, may, jun, jul, aug, sep, oct,
-							nov, dec ]
+					data : [ jan2, feb2, mar2, apr2, may2, jun2, jul2, aug2, sep2, oct2,
+							nov2, dec2 ]
 				} ]
 			},
 			options : {

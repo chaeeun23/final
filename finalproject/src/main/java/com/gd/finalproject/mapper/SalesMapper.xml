@@ -68,7 +68,7 @@
 	<select id="getLectureTotalSales" resultType="map">
 		SELECT
 		l.lecture_name lectureName,
-		SUM(l.lecture_price) totalSales
+		FORMAT(SUM(l.lecture_price), 0) totalSales
 		FROM lecture
 		l JOIN payment p
 		ON l.lecture_no = p.lecture_no
@@ -110,7 +110,7 @@
 	<select id="getMonthTotalSales" resultType="map">
 		SELECT
 		DATE_FORMAT(p.pay_date, '%m') payDateM,
-		SUM(l.lecture_price) totalSales
+		FORMAT(SUM(l.lecture_price), 0) totalSales
 		FROM lecture
 		l JOIN payment p
 		ON l.lecture_no = p.lecture_no

@@ -124,16 +124,46 @@
 
 	<script>
 		let pSales = $('#m필라테스').val();
-		console.log(pSales);
 		let sSales = $('#m수영').val();
-		console.log(sSales);
 		let tSales = $('#m테니스').val();
-		console.log(tSales);
 		let ppSales = $('#m탁구').val();
-		console.log(ppSales);
 		let aSales = $('#m에어로빅').val();
-		console.log(aSales);
+	
+		//구분자 빼기
+		//수영 총매출
+		let Sales1 = sSales.split(',');
+		console.log(Sales1);
+		let sSales1 = "";
+		for(let i = 0 ; i < Sales1.length; i++){
+			sSales1 += Sales1[i];
+		}
+		//에어로빅 총매출
+		let Sales2 = aSales.split(',');
+		console.log(Sales2);
+		let aSales1 = "";
+		for(let i = 0 ; i < Sales2.length; i++){
+			aSales1 += Sales2[i];
+		}
+		//탁구 총매출
+		let Sales3 = ppSales.split(',');
+		let ppSales1 = "";
+		for(let i = 0 ; i < Sales3.length; i++){
+			ppSales1 += Sales3[i];
+		}
+		//테니스 총매출
+		let Sales4 = tSales.split(',');
+		let tSales1 = "";
+		for(let i = 0 ; i < Sales4.length; i++){
+			tSales1 += Sales4[i];
+		}
+		//필라테스 총매출
+		let Sales5 = pSales.split(',');
+		let pSales1 = "";
+		for(let i = 0 ; i < Sales5.length; i++){
+			pSales1 += Sales5[i];
+		}
 
+	
 		new Chart(document.getElementById("bar-chart"), {
 			type : 'bar',
 			data : {
@@ -142,7 +172,7 @@
 					label : "Population (millions)",
 					backgroundColor : [ "#3e95cd", "#8e5ea2", "#3cba9f",
 							"#e8c3b9", "#c45850" ],
-					data : [ sSales, aSales, ppSales, tSales, pSales ]
+					data : [ sSales1, aSales1, ppSales1, tSales1, pSales1 ]
 				} ]
 			},
 			options : {
