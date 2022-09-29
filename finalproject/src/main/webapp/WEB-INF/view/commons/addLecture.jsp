@@ -6,8 +6,6 @@
 <meta charset="UTF-8">
 <title>2유2김</title>
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/mainImg/favicon.png">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
 </head>
 <body>
 	<!-- header(로고, 네비게이션바) -->
