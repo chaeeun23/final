@@ -85,10 +85,31 @@ public class PaymentService {
 			}
 		}
 		
-		
-		
 		// 실행여부 확인
 		log.debug(TeamColor.YW + "addUserPayment.result : " + result);
+		
+		return result;
+	}
+	
+	// 회원결제내역에서 환불상태 변경
+	public boolean modifyRefundStatement(int courseNo, String refund) {
+		// 파라미터 체크
+		log.debug(TeamColor.YW + "modifyRefundStatement.courseNo : " + courseNo);
+		log.debug(TeamColor.YW + "modifyRefundStatement.refund : " + refund);
+	
+		// 리턴값 세팅
+		boolean result = false;
+		
+		int updateRefundStatement = paymentMapper.updateRefundStatement(courseNo);
+		log.debug(TeamColor.YW + "modifyRefundStatement.updateRefundStatement : " + updateRefundStatement);
+		
+		// 환불상태변경이 성공이라면
+		if(updateRefundStatement==1) {
+			result = true;
+		}
+		
+		// 실행여부 확인
+		log.debug(TeamColor.YW + "modifyRefundStatement.result : " + result);
 		
 		return result;
 	}

@@ -24,4 +24,6 @@ public interface PaymentMapper {
 	// 결제내역 추가(결제목록 장바구니에서 삭제 포함)
 	int insertUserPayment(String lectureNo, String userId, String payMethod/*, @Param("lockerUse") String lockerUse*/);
 
+	// 회원결제내역에서 환불상태 변경
+	int updateRefundStatement(int courseNo);
 }

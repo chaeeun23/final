@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>2유2김</title>
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/mainImg/favicon.png">
+
 </head>
 <body>
 	<!-- header(로고, 네비게이션바) -->
@@ -33,6 +34,7 @@
 				<th>강좌가격</th>
 				<th>결제수단</th>
 				<th>결제날짜</th>
+				<th>환불</th>
 			</tr>
 			<c:forEach var="l" items="${list}">
 				<tr>
@@ -44,7 +46,21 @@
 					<td>${l.lecturePrice}원</td>
 					<td>${l.payMethod}</td>
 					<td>${l.payDate}</td>
+					<td>
+						<!-- refund값이 N일 경우 환불신청버튼 / Y일 경우 환불완료 -->
+						<c:if test="${l.refund eq 'N'}">
+								<button type="button" id="fundBtn" class="refundBtn" value="${l.refund}">
+									환불신청
+								</button>
+						</c:if>
+						<c:if test="${l.refund eq 'Y'}">
+								<button>환불완료</button>
+						</c:if>
+					</td>
 				</tr>
+				<c:if test="${l.refund eq 'N'}">
+				<input type="hidden" id="courseNo" value="${l.courseNo}">
+				</c:if>			
 			</c:forEach>
 		</table>
 	</div>
@@ -85,4 +101,24 @@
 		<c:import url="/WEB-INF/resource/inc/footer.jsp"></c:import>
 	</div>
 </body>
+<script>
+	$('.refundBtn').click(function(){
+		var refundVal = $(this).val(); 
+		$.ajax({
+			url : 'modifyRefundStatement',
+			type : 'post',
+			data : {refund : refundVal, courseNo : $('#courseNo').val()},
+			success : function(json) {
+				if(json == 'y') {
+					alert('환불처리가 완료되었습니다.');
+					location.reload();
+				} else {
+					alert('환불처리에 실패하였습니다.');
+					location.reload();
+				}
+			}
+		});
+		return false;
+	});
+</script>
 </html>
