@@ -3,7 +3,9 @@ package com.gd.finalproject.config;
 
 import com.gd.finalproject.service.MemberService;
 import com.gd.finalproject.service.OAuth2Service;
+import com.gd.finalproject.service.handler.KakaoLoginSucHandler;
 import com.gd.finalproject.service.handler.LoginFailHandler;
+import com.gd.finalproject.service.handler.LoginSucHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,6 +30,8 @@ public class SecurityConfig {
     private final PasswordEncoder passwordEncoder;
     private final OAuth2Service oAuth2Service;
     private final LoginFailHandler loginFailHandler;
+    private final LoginSucHandler loginSucHandler;
+    private final KakaoLoginSucHandler kakaoLoginSucHandler;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
@@ -41,7 +45,7 @@ public class SecurityConfig {
                                 .antMatchers("/resource/**").permitAll()
                                 .antMatchers("/sign/**").anonymous()
                                 .antMatchers("/**").permitAll()
-                                // .anyRequest().authenticated() // 그외 모든 요청 인증 되어야 한다
+                        // .anyRequest().authenticated() // 그외 모든 요청 인증 되어야 한다
                         //        .antMatchers("/**").permitAll() // 임시로 모든 권한 오픈
                         /*.antMatchers("/resources/**").permitAll() // 리소스 허용
                         .antMatchers("/resource/**").permitAll() // 리소스 허용
@@ -51,13 +55,12 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/member/login-form") // 로그인페이지 주소
                         .loginProcessingUrl("/member/login") // 로그인 검증할 url
-                        .defaultSuccessUrl("/", true) // 성공시 이동할 url
-                        .failureUrl("/member/login-form?error=f")
-                        // .failureHandler(loginFailHandler) // 실패시 이동할 url
+                        .successHandler(loginSucHandler)
+                        .failureHandler(loginFailHandler) // 실패시 이동할 url
                         .permitAll())
                 // 카카오 로그인 관련
                 .oauth2Login(oauth -> oauth.loginPage("/member/login-form")
-                        .defaultSuccessUrl("/", true)
+                        .successHandler(kakaoLoginSucHandler)
                         .userInfoEndpoint() // 로그인 성공 후 사용자정보를 가져온다
                         .userService(oAuth2Service)) //사용자정보를 처리할 때 사용
                 // 로그아웃 관련 옵션

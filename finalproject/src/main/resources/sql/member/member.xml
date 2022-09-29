@@ -15,6 +15,7 @@
         <result column="memberAddr" property="memberAddr"/>
         <result column="memberDetailAddr" property="memberDetailAddr"/>
         <result column="memberBirth" property="memberBirth"/>
+        <result column="memberSleepYn" property="memberSleepYn"/>
         <result column="memberImg" property="memberImg"/>
         <result column="createDate" property="createDate"/>
         <collection property="memberAuth" ofType="java.lang.String" javaType="list">
@@ -38,6 +39,11 @@
         WHERE member_id = #{id}
           AND member_email = #{email}
     </update>
+    <update id="lastLoginUpdate">
+        UPDATE member
+        SET last_login = now()
+        WHERE member_id = #{memberId}
+    </update>
     <!-- 아이디 중복체크 -->
     <select id="idCheck" resultType="string">
         SELECT member_id
@@ -59,6 +65,7 @@
                m.member_addr       memberAddr,
                m.member_detailAddr memberDetailAddr,
                m.member_birth      memberBirth,
+               m.member_sleepYn    memberSleepYn,
                a.member_auth       memberAuth,
                i.file_name         memberImg
         FROM member m
@@ -127,8 +134,7 @@
              , create_date createDate
              , introduce   introduce
              , inspectYn   inspectYn
-        FROM instructor
-            LIMIT #{beginRow}
+        FROM instructor LIMIT #{beginRow}
             , #{rowPerPage}
     </select>
 
@@ -176,4 +182,11 @@
         INSERT INTO auth(member_id, member_auth)
         VALUES (#{instructor.memberId}, 'INSPECT')
     </insert>
+
+    <!-- 휴면계정 업데이트 -->
+    <update id="sleepMemberUpdate">
+        UPDATE member
+        SET member_sleepYn = 'Y'
+        WHERE last_login &lt; #{date}
+    </update>
 </mapper>

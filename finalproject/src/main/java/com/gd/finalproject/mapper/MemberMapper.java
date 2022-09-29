@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import com.gd.finalproject.vo.MemberDto;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Mapper
@@ -22,7 +23,6 @@ public interface MemberMapper {
 
     //user 권한넣기
     int authInsert(@Param("dto") MemberDto memberDto);
-
 
 
     //회원 마이페이지
@@ -59,4 +59,9 @@ public interface MemberMapper {
 
     List<Instructor> getInstructorList(@Param("beginRow") int beginRow,
                                        @Param("rowPerPage") int rowPerPage);
+
+    int lastLoginUpdate(@Param("memberId") String memberId);
+
+    int sleepMemberUpdate(@Param("date") LocalDateTime dateTime);
+
 }

@@ -16,10 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -183,6 +180,15 @@ public class MemberController {
 //        model.addAttribute("suc", "전송 성공");
 //        return "/member/member-detail";
 //    }
+
+    @GetMapping("/sleep-member-form")
+    @PreAuthorize("isAnonymous()")
+    public String sleepMemberForm(@CookieValue(value = "username", defaultValue = "error") String username) {
+        if (username.equals("error")) {
+            return "redirect:/";
+        }
+        return "/member/sleep-member";
+    }
 }
 
 

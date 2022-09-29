@@ -33,10 +33,19 @@ import java.util.UUID;
 @Slf4j
 public class MemberService implements UserDetailsService {
     private final MemberMapper memberMapper;
-    private final PasswordEncoder bCryptPasswordEncoder;
+    private final PasswordEncoder passwordEncoder;
     private final ResourceLoader resourceLoader;
     private final MemberImgMapper memberImgMapper;
     private final ServletContext servletContext;
+
+    public void pass(String pass, String change) {
+        // select db
+        String dbPass = "";
+        if (passwordEncoder.matches(pass, dbPass)) {
+            String encode = passwordEncoder.encode(change);
+            // encode 인써트
+        }
+    }
 
 
     public String idCheck(String id) {
@@ -46,7 +55,7 @@ public class MemberService implements UserDetailsService {
     @Transactional
     public int signMember(MemberDto memberDto) {
         int result = 0;
-        String encodePw = bCryptPasswordEncoder.encode(memberDto.getMemberPw());
+        String encodePw = passwordEncoder.encode(memberDto.getMemberPw());
         memberDto.setMemberPw(encodePw);
         // 가입하기
         result += memberMapper.signMember(memberDto);
@@ -123,7 +132,6 @@ public class MemberService implements UserDetailsService {
         }
 
     }
-
 
 
     @Transactional

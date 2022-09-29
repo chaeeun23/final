@@ -6,6 +6,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -36,6 +38,8 @@ public class MemberDto implements UserDetails, OAuth2User {
     private String createDate;
     private String updateDate;
     private String memberImg;
+    private LocalDateTime lastLogin;
+    private String memberSleepYn;
 
 
     public boolean getEmpYn() {
@@ -77,6 +81,9 @@ public class MemberDto implements UserDetails, OAuth2User {
 
     @Override
     public boolean isAccountNonExpired() {
+        if (this.memberSleepYn.equals("Y")) {
+            return false;
+        }
         return true;
     }
 
