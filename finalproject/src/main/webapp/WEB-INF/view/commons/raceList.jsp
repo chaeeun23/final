@@ -10,8 +10,7 @@
 <meta charset="UTF-8">
 <title>2유2김</title>
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/mainImg/favicon.png">
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
-<script src="//code.jquery.com/jquery.min.js"></script>
+ <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
 </head>
 <body>
@@ -88,6 +87,8 @@
 		<sec:authorize access="hasAuthority('EMPLOYEE')">
 			<a href="${pageContext.request.contextPath }/addRace" class="btn btn-primary"  style="width:100px; float:right;">운행 추가</a>
 		</sec:authorize>
+			<a href="${pageContext.request.contextPath }/raceList" class="btn btn-primary"  style="width:100px; float:right; margin-right:10px;">운행 목록</a>
+	
 	</div>
 	
 	
