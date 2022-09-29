@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 public class SalesController {
 	@Autowired SalesService salesService;
 	
-	//매출리스트 메인페이지
+	//전체 매출리스트 
 	@GetMapping("/salesList")
 	public String salesList(@RequestParam(required = false, value = "current") String current,
 			@ModelAttribute("check") String check, Model model) {
@@ -42,5 +42,19 @@ public class SalesController {
 		map.forEach((key, value) -> model.addAttribute(key, value));
 		
 		return "/employee/lectureSalesList";
+	}
+	
+	//월별 매출리스트
+	@GetMapping("/monthSalesList")
+	public String monthSalesList(@RequestParam(required = false, value = "current") String current,
+			@ModelAttribute("check") String check, Model model, @RequestParam(value="payDateM", required=false) String payDateM) {
+		log.debug(TeamColor.CE + "[SalesController.monthSalesList] payDateM : " + payDateM);
+		
+		Map<String, Object> map = salesService.getMonthSalesList(current, payDateM);
+		log.debug(TeamColor.CE + "[SalesController.monthSalesList] map : " + map);
+		
+		map.forEach((key, value) -> model.addAttribute(key, value));
+
+		return "/employee/monthSalesList";
 	}
 }

@@ -1,6 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.finalproject.mapper.SalesMapper">
+	<!-- 전체 매출리스트 -->
+	<select id="selectEmployeePaymentList" resultType="map">
+		SELECT
+		p.course_no courseNo,
+		p.lecture_no lectureNo,
+		p.user_id userId,
+		p.locker_no lockerNo,
+		p.pay_method payMethod,
+		p.pay_date payDate,
+		FORMAT(l.lecture_price, 0) lecturePrice,
+		l.lecture_name lectureName,
+		DATE_FORMAT(p.pay_date, '%y-%m-%d') payDateYMD,
+		p.refund refund
+		FROM payment p LEFT JOIN lecture l
+		ON p.lecture_no = l.lecture_no
+		WHERE p.refund = 'N'
+		ORDER BY p.pay_date ASC
+		LIMIT #{beginRow},#{rowPerPage}
+	</select>
+	
+	<!-- 전제 매출리스트 페이징 Total -->
+	<select id="getEmployeePaymentTotal" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM
+		payment
+	</select>
+	
+	<!-- 전체 매출 -->
+	<select id="getTotalSales" resultType="string">
+		SELECT FORMAT(SUM(l.lecture_price), 0) total
+		FROM lecture l JOIN payment p
+		ON l.lecture_no = p.lecture_no
+		WHERE p.refund = 'N'
+	</select>
+	
 	<!-- 과목별 매출리스트 -->
 	<select id="selectLectureSalesList" resultType="map">
 		SELECT
@@ -15,9 +50,9 @@
 		ON p.lecture_no =
 		l.lecture_no
 		WHERE l.lecture_name=#{lectureName} AND p.refund = 'N'
+		ORDER BY p.pay_date ASC
 		LIMIT
 		#{beginRow},#{rowPerPage}
-
 	</select>
 
 	<!-- 과목별 매출리스트 페이징 Total -->
@@ -34,20 +69,56 @@
 		SELECT
 		l.lecture_name lectureName,
 		SUM(l.lecture_price) totalSales
-		FROM lecture l JOIN payment p
+		FROM lecture
+		l JOIN payment p
 		ON l.lecture_no = p.lecture_no
 		WHERE p.refund = 'N'
 		GROUP BY l.lecture_name
 		ORDER BY l.lecture_name ASC
 	</select>
+
 	
-	<!-- 총 매출 -->
-	<select id="getTotalSales" resultType="string">
-	SELECT FORMAT(SUM(l.lecture_price), 0) total
-	FROM lecture l JOIN payment p
-	ON l.lecture_no = p.lecture_no
-	WHERE p.refund = 'N'
+	
+	<!-- 월별 매출리스트 -->
+	<select id="selectMonthSalesList" resultType="map">
+		SELECT
+		p.user_id
+		userId,
+		p.pay_method payMethod,
+		FORMAT(l.lecture_price, 0) lecturePrice,
+		l.lecture_name lectureName,
+		DATE_FORMAT(p.pay_date, '%y-%m-%d')
+		payDateYMD,
+		DATE_FORMAT(p.pay_date, '%m') payDateM
+		FROM payment p LEFT JOIN lecture l
+		ON p.lecture_no =
+		l.lecture_no
+		WHERE DATE_FORMAT(p.pay_date, '%m') =#{payDateM} AND p.refund = 'N'
+		ORDER BY p.pay_date ASC
+		LIMIT #{beginRow},#{rowPerPage}
 	</select>
+	
+	<!-- 월별 매출리스트 페이징 Total -->
+	<select id="getMonthSalesListTotal" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM payment p LEFT JOIN lecture l
+		ON p.lecture_no = l.lecture_no
+		WHERE DATE_FORMAT(p.pay_date, '%m') =#{payDateM} AND p.refund = 'N'
+	</select>
+	
+	<!-- 월별 전체매출 -->
+	<select id="getMonthTotalSales" resultType="map">
+		SELECT
+		DATE_FORMAT(p.pay_date, '%m') payDateM,
+		SUM(l.lecture_price) totalSales
+		FROM lecture
+		l JOIN payment p
+		ON l.lecture_no = p.lecture_no
+		WHERE p.refund = 'N'
+		GROUP BY DATE_FORMAT(p.pay_date, '%m')
+		ORDER BY p.pay_date ASC
+	</select>
+	
 
 
 </mapper>

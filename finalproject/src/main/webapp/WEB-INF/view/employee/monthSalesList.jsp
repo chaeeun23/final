@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
 <body>
 	<!-- header(로고, 네비게이션바) -->
@@ -42,11 +45,25 @@
 							매출</a></li>
 				</ul>
 			</div>
+
+
 			<div class="col-sm-10">
-				<strong style="font-size: x-large;">총&nbsp;매출&nbsp;:&nbsp;${totalSales}원</strong>
-				<br>
-				<br>
-				<!-- 매출리스트 -->
+				<!-- 월별 매출 버튼 -->
+				<div style="text-align: center; vertical-align: middle;">
+					<c:forEach var="t" items="${totalSales}">
+						<input type="hidden" id="m${t.payDateM}" value="${t.totalSales}">
+						<a
+							href="${pageContext.request.contextPath}/monthSalesList?payDateM=${t.payDateM}"
+							class="btn btn-outline-secondary" style="margin-right: 5px; margin-bottom: 5px;" >${t.payDateM}월&nbsp;매출&nbsp;:&nbsp;${t.totalSales}원</a>
+					</c:forEach>
+				</div>
+				<br> 
+				<!-- 그래프 -->
+				<canvas id="bar-chart" width="700" height="200"></canvas>
+
+				<hr>
+
+				<!-- 과목별 매출그래프 -->
 				<table class="table table-bordered" style="text-align: center;">
 					<tr>
 						<th>회원아이디</th>
@@ -71,7 +88,7 @@
 						<!-- 이전 -->
 						<c:if test="${pageNation.startPage ne 1}">
 							<li class="page-item"><a class="page-link"
-								href="${pageNation.path}?current=${pageNation.startPage-1}">
+								href="${pageNation.path}&current=${pageNation.startPage-1}">
 									이전 </a></li>
 						</c:if>
 						<!-- 페이지넘버 -->
@@ -83,14 +100,14 @@
 							</c:if>
 							<c:if test="${pageNation.currentPage ne status.index}">
 								<li class="page-item"><a class="page-link"
-									href="${pageNation.path}?current=${status.index}">${status.index}
+									href="${pageNation.path}&current=${status.index}">${status.index}
 								</a></li>
 							</c:if>
 						</c:forEach>
 						<!-- 다음버튼 -->
 						<c:if test="${pageNation.endPage ne pageNation.lastPage}">
 							<li class="page-item"><a class="page-link"
-								href="${pageNation.path}?current=${pageNation.endPage+1}">다음</a></li>
+								href="${pageNation.path}&current=${pageNation.endPage+1}">다음</a></li>
 						</c:if>
 					</ul>
 				</div>
@@ -100,10 +117,62 @@
 
 
 
-
 	<!-- footer -->
 	<div>
 		<c:import url="/WEB-INF/resource/inc/footer.jsp"></c:import>
 	</div>
+
+	<script>
+		let jan = $('#m01').val();
+		console.log(jan);
+		let feb = $('#m02').val();
+		console.log(feb);
+		let mar = $('#m03').val();
+		console.log(mar);
+		let apr = $('#m04').val();
+		console.log(apr);
+		let may = $('#m05').val();
+		console.log(may);
+		let jun = $('#m06').val();
+		console.log(jun);
+		let jul = $('#m07').val();
+		console.log(jul);
+		let aug = $('#m08').val();
+		console.log(aug);
+		let sep = $('#m09').val();
+		console.log(sep);
+		let oct = $('#m10').val();
+		console.log(oct);
+		let nov = $('#m11').val();
+		console.log(nov);
+		let dec = $('#m12').val();
+		console.log(dec);
+
+		new Chart(document.getElementById("bar-chart"), {
+			type : 'bar',
+			data : {
+				labels : [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월",
+						"9월", "10월", "11월", "12월" ],
+				datasets : [ {
+					label : "Population (millions)",
+					backgroundColor : [ "#3e95cd", "#8e5ea2", "#3cba9f",
+							"#e8c3b9", "#c45850", "#3e95cd", "#8e5ea2",
+							"#3cba9f", "#e8c3b9", "#c45850", "#3e95cd",
+							"#8e5ea2" ],
+					data : [ jan, feb, mar, apr, may, jun, jul, aug, sep, oct,
+							nov, dec ]
+				} ]
+			},
+			options : {
+				legend : {
+					display : false
+				},
+				title : {
+					display : false,
+					text : '월별 매출 그래프'
+				}
+			}
+		});
+	</script>
 </body>
 </html>

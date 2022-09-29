@@ -22,12 +22,12 @@ import lombok.extern.slf4j.Slf4j;
 public class SalesService {
 	@Autowired
 	SalesMapper salesMapper;
-	@Autowired EmployeePaymentMapper employeePaymentMapper;
+	
 
-	//매출리스트 메인
+	///////////// 매출리스트 메인
 	public Map<String,Object> getSalesList(String current){
 		//페이징 토탈
-		int total = employeePaymentMapper.getEmployeePaymentTotal(); 
+		int total = salesMapper.getEmployeePaymentTotal(); 
 		log.debug(TeamColor.CE + "[SalesService.getSalesList] total : " + total);
 		
 		// 만들어논 메서드
@@ -35,10 +35,10 @@ public class SalesService {
 		log.debug(TeamColor.CE + "[SalesService.getSalesList] pageNation : " + pageNation);
 		
 		//전체 매출리스트
-		List<Map<String,Object>> list = employeePaymentMapper.selectEmployeePaymentList(pageNation.getBeginRow(), pageNation.getRowPerPage());
+		List<Map<String,Object>> list = salesMapper.selectEmployeePaymentList(pageNation.getBeginRow(), pageNation.getRowPerPage());
 		log.debug(TeamColor.CE + "[SalesService.getSalesList] list : " + list);
 		
-		//총매출
+		//전체매출
 		String totalSales = salesMapper.getTotalSales();
 		log.debug(TeamColor.CE + "[SalesService.getSalesList] totalSales : " + totalSales);
 		
@@ -49,8 +49,10 @@ public class SalesService {
 
 		return map;
 	}
-	// 과목별 매출리스트
+	
+	/////////// 과목별 매출리스트
 	public Map<String, Object> getLectureSalesList(String current, String lectureName) {
+		//페이징 토탈
 		int total = salesMapper.getLectureSalesTotal(lectureName);
 		log.debug(TeamColor.CE + "[SalesService.getLectureSalesList] total : " + total);
 
@@ -58,18 +60,47 @@ public class SalesService {
 		PageNationDto pageNation = PageNationUtil.getPageNation(current, total,
 				"/finalproject/lectureSalesList?lectureName="+lectureName, 10);
 		log.debug(TeamColor.CE + "[SalesService.getLectureSalesList] pageNation : " + pageNation);
-
+		
+		//과목별 매출리스트
 		List<Map<String,Object>> list = salesMapper.selectLectureSalesList(pageNation.getBeginRow(), pageNation.getRowPerPage(), lectureName);
+		log.debug(TeamColor.CE + "[SalesService.getLectureSalesList] list : " + list);
+		
+		//과목별 전체매출
 		List<Map<String,Object>> totalSales = salesMapper.getLectureTotalSales();
 		log.debug(TeamColor.CE + "[SalesService.getLectureSalesList] totalSales : " + totalSales);
 		
-		log.debug(TeamColor.CE + "[SalesService.getLectureSalesList] list : " + list);
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("pageNation", pageNation);
 		map.put("list", list);
 		map.put("totalSales", totalSales);
 					
+		return map;
+	}
+	
+	///////////// 월별 매출리스트 
+	public Map<String, Object> getMonthSalesList(String current, String payDateM){
+		//페이징 토탈 
+		int total = salesMapper.getMonthSalesListTotal(payDateM);
+		log.debug(TeamColor.CE + "[SalesService.getMonthSalesList] total : " + total);
+		
+		PageNationDto pageNation = PageNationUtil.getPageNation(current, total,
+				"/finalproject/monthSalesList?payDateM="+payDateM, 10);
+		log.debug(TeamColor.CE + "[SalesService.getMonthSalesList] pageNation : " + pageNation);
+		
+		//월별 매출리스트 
+		List<Map<String, Object>> list = salesMapper.selectMonthSalesList(pageNation.getBeginRow(), pageNation.getRowPerPage(), payDateM);
+		log.debug(TeamColor.CE + "[SalesService.getMonthSalesList] list : " + list);
+		
+		//월별 전체매출
+		List<Map<String,Object>> totalSales = salesMapper.getMonthTotalSales();
+		log.debug(TeamColor.CE + "[SalesService.getMonthSalesList] totalSales : " + totalSales);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("pageNation", pageNation);
+		map.put("list", list);
+		map.put("totalSales", totalSales);
+		
 		return map;
 	}
 }
