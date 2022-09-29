@@ -28,22 +28,22 @@ $(document).on('click', '.page-info', function () {
 })
 
 /* 댓글 삭제 ajax */
-$(document).on('click', '.cmDelBtn', function () {
-    let commentNo = $(this).attr('commentNo');
-    let boardNo = $(this).attr('boardNo');
+$(document).on('click', '.reviewDelBtn', function () {
+    let reviewNo = $(this).attr('reviewNo');
+    let lectureNo = $(this).attr('lectureNo');
     let current = $(this).attr('current');
     $.ajax({
         type: "POST",//방식
         url: "/board/cmDelete",//주소
         data: {
-            commentNo: commentNo,
-            boardNo: boardNo,
+            reviewNo: reviewNo,
+            lectureNo: lectureNo,
             current: current
         },
         dataType: 'JSON',
         success: function (data) { //성공시
             alert('삭제성공')
-            commentList(data);
+            reviewList(data);
         },
         error: function (e) { //실패시
             console.log(e);
@@ -53,7 +53,7 @@ $(document).on('click', '.cmDelBtn', function () {
 
 /* 댓글 등록 ajax */
 $('#cmInsertBtn').on('click', function () {
-    // 여기에 받을 변수
+    // 여기에 받을 변수 써주세용
     let commentContent = $('#commentContent').val();
     let memberId = this.getAttribute('memberId')
     let boardNo = this.getAttribute('boardNo');
@@ -82,44 +82,44 @@ $('#cmInsertBtn').on('click', function () {
     }
 })
 
-/* 댓글 리스트 메서드 */
-function commentList(map) {
+/* 리뷰 리스트 메서드 */
+function reviewList(map) {
     let content = '';
-    let sessionId = map.loginId;
-    /*댓글리스트 불러오기*/
-    $.each(map.cmList, function (i, dto) {
+    let sessionId = map.userId;
+    /* 리뷰 리스트 불러오기*/
+    $.each(map.getReviewList, function (i, dto) {
         content += '<div class="listForm">'
-        content += '<h4 class="fw-bold fs-4">' + dto.memberId + '</h4>'
+        content += '<h4 class="fw-bold fs-4">' + dto.userId + '</h4>'
         content += '<div class="lh-sm">' + dto.commentContent + '</div>'
         content += '<div class="d-flex justify-content-end">'
         content += '<div>'
         if (sessionId != null) {
-            if (sessionId == dto.memberId) {
-                content += '<a class="cmUpdateBtnForm btn btn-primary btn-sm mx-1">수정</a>'
-                content += '<a boardNo ="' + dto.boardNo + '" current="' + map.pageNation.currentPage + '" commentNo="' + dto.commentNo + '" class="cmDelBtn btn btn-primary btn-sm ms-1">삭제</a>'
+            if (sessionId == dto.userId) {
+                content += '<a class="reviewUpdateBtnForm btn btn-primary btn-sm mx-1">수정</a>'
+                content += '<a lectureNo ="' + dto.lectureNo + '" current="' + map.pageNation.currentPage + '" reviewNo="' + dto.reviewNo + '" class="reviewDelBtn btn btn-primary btn-sm ms-1">삭제</a>'
             }
         }
         content += '</div>'
         content += '</div>'
         content += '<div class="d-flex justify-content-end">'
-        content += '작성일 :' + dto.commentDate
+        content += '작성일 :' + dto.createDate
         content += '</div>'
         content += '<hr/>'
         content += '</div>'
         content += '<div class="updateForm" style="display: none">'
         content += '<div class="form-floating flex-grow-1 px-2">'
-        content += '<textarea class="cmUpdateContent form-control" style="height: 100px; resize: none;">' + dto.commentContent + '</textarea>'
+        content += '<textarea class="reviewUpdateContent form-control" style="height: 100px; resize: none;">' + dto.reviewContent + '</textarea>'
         content += '<div class="invalid-feedback">1자 이상 입력해주세요</div>'
         content += '</div>'
         content += '<div class="d-flex justify-content-end mt-2">'
-        content += '<a current="' + map.pageNation.currentPage + '" boardNo="' + dto.boardNo + '" commentNo="' + dto.commentNo + '" class="cmUpdateBtn btn btn-primary btn-sm mx-1">등록</a>'
-        content += '<a class="cmUpdateCancel btn btn-primary btn-sm ms-1">취소</a>'
+        content += '<a current="' + map.pageNation.currentPage + '" lectureNo="' + dto.lectureNo + '" reviewNo="' + dto.reviewNo + '" class="reviewUpdateBtn btn btn-primary btn-sm mx-1">등록</a>'
+        content += '<a class="reviewUpdateCancel btn btn-primary btn-sm ms-1">취소</a>'
         content += '</div>'
         content += '<hr/>'
         content += '</div>'
     })
-    $('#commentLists').empty();
-    $('#commentLists').append(content);
+    $('#reviewLists').empty();
+    $('#reviewLists').append(content);
 
     /* 페이지네이션 */
     content = '';
@@ -150,7 +150,7 @@ function commentList(map) {
     $('#paginationBox').append(content);
 }
 
-/* 리뷰 수정 ajax */
+/* 댓글 업데이트 ajax */
 $(document).on('click', '.cmUpdateBtn', function () {
     let commentNo = $(this).attr('commentNo');
     let boardNo = $(this).attr('boardNo');
