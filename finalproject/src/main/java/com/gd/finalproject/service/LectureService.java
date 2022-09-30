@@ -11,12 +11,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.gd.finalproject.commons.TeamColor;
 import com.gd.finalproject.mapper.LectureMapper;
+import com.gd.finalproject.mapper.ReviewMapper;
 import com.gd.finalproject.util.PageNationUtil;
 import com.gd.finalproject.vo.Instructor;
 import com.gd.finalproject.vo.Lecture;
 import com.gd.finalproject.vo.LectureDay;
 import com.gd.finalproject.vo.Location;
 import com.gd.finalproject.vo.PageNationDto;
+import com.gd.finalproject.vo.Review;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,6 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 public class LectureService {
     @Autowired LectureMapper lectureMapper;
+    @Autowired ReviewMapper reviewMapper;
 
     // 강좌 리스트(lectureList)
     public Map<String, Object> getLectureList(String current) {
@@ -55,6 +58,7 @@ public class LectureService {
         log.debug(TeamColor.MS + "LectureService.lectureOne : " + lectureOne);
         return lectureOne;
     }
+    
     
     // 강좌 Form에서 장소, 강사 추출(addLecture.jsp-Form)
     public Map<String, Object> addLecture() {

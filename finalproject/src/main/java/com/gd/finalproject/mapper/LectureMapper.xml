@@ -26,6 +26,7 @@
 		FROM lecture l JOIN member m ON m.member_id = l.instructor_id
         LEFT JOIN lectureday d ON l.lecture_no = d.lecture_no
         GROUP BY l.lecture_no
+        ORDER BY l.lecture_name ASC
         LIMIT #{beginRow},#{rowPerPage} 
     </select>
 

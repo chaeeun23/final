@@ -91,7 +91,7 @@
 	</table>
 		
 		<!-- <button type="button" onclick="javascript:btn()" class="btn btn-primary" style="width:100px; float:right;" >장바구니</button> -->
-		<a href="${pageContext.request.contextPath}/insertUserCart?lectureNo=${lectureOne.lectureNo}&<%-- userId=${member.memberId} --%>" type="button" class="btn btn-primary" style="width:100px; float:right;" >장바구니</a>
+		<a href="${pageContext.request.contextPath}/insertUserCart?lectureNo=${lectureOne.lectureNo}&userId=${member.memberId} " type="button" class="btn btn-primary" style="width:100px; float:right;" >장바구니</a>
 		<a href="${pageContext.request.contextPath}/lectureList" class="btn btn-primary" style="width:100px; float:right; margin-right:10px; ">강좌목록</a>
 		
 		<!-- 관리자면 수정, 삭제버튼 보이게 -->
@@ -146,7 +146,7 @@
                     <div>
                        <%--  <c:if test="${member.memberId eq review.userId}"> --%>
                             <a class='reviewUpdateBtnForm btn btn-primary btn-sm'>수정</a>
-                            <a lectureNo="${lectureList.lectureNo}" reviewNo="${r.reviewNo}"
+                            <a lectureNo="${r.lectureNo}" reviewNo="${r.reviewNo}"
                                class='reviewDelBtn btn btn-primary btn-sm'>삭제</a>
                        <%--  </c:if> --%>
                     </div>
@@ -166,21 +166,22 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-end mt-2">
-                    <a lectureNo="${lectureList.lectureNo}" reviewNo="${r.reviewNo}"
+                    <a lectureNo="${r.lectureNo}" reviewNo="${r.reviewNo}"
                        class='reviewUpdateBtn btn btn-primary btn-sm mx-1'>등록</a>
                     <a class='reviewUpdateCancel btn btn-primary btn-sm ms-1'>취소</a>
                 </div>
                 <hr/>
             </div>
-        </c:forEach>
+       </c:forEach>
     </div>
     
-  <div>
+ 
 	<%-- 페이지네이션 --%>
+	 <div id="paginationBox">
 	<ul class="pagination justify-content-center my-2 mb-2" >
 		<%-- 이전 --%>
 		<c:if test="${pageNation.startPage ne 1}">
-			<li class="page-item"><a class="page-link"
+			<li class="page-item"><a class="page-link page-info"  lectureNo="${reviewList.lectureNo}"
 				href="${pageNation.path}?current=${pageNation.startPage-1}"> 이전
 			</a></li>
 		</c:if>
@@ -192,14 +193,14 @@
 				</a></li>
 			</c:if>
 			<c:if test="${pageNation.currentPage ne status.index}">
-				<li class="page-item"><a class="page-link"
+				<li class="page-item"><a class="page-link page-info"  lectureNo="${reviewList.lectureNo}"
 					href="${pageNation.path}?current=${status.index}">${status.index}
 				</a></li>
 			</c:if>
 		</c:forEach>
 		<%-- 다음버튼 --%>
 		<c:if test="${pageNation.endPage ne pageNation.lastPage}">
-			<li class="page-item"><a class="page-link"
+			<li class="page-item"><a class="page-link page-info" lectureNo="${reviewList.lectureNo}"
 				href="${pageNation.path}?current=${pageNation.endPage+1}">다음</a></li>
 		</c:if>
 	</ul>
@@ -209,7 +210,7 @@
 			alert('등록성공');
 		</script>
 	</c:if>
-    
+
 </div>
 	<br>
 	

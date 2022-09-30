@@ -11,17 +11,17 @@ import com.gd.finalproject.vo.Review;
 public interface ReviewMapper {
 	
 	// 리뷰 리스트(reviewList)
-	List<Review> selectReviewList(@Param("beginRow") int beginRow, @Param("rowPerPage") int rowPerPage);
+	List<Review> selectReviewList(String lectureNo, @Param("beginRow") int beginRow, @Param("rowPerPage") int rowPerPage);
 	
 	// 리뷰 리스트(reviewList) 페이징-Total
-	int getReviewTotal();
+	int getReviewTotal(String lectureNo);
 	
 	// 리뷰 추가
-	int insertReview(Review review);
+	int insertReview(String userId, Review review, String lectureNo);
 	
 	// 리뷰 수정
-	int updateReview(Review review);
+	int updateReview(String userId, Review review, String lectureNo);
 	
 	// 리뷰 삭제
-	int deleteReview(int reviewNo);
+	int deleteReview(String userId, int reviewNo, String lectureNo);
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gd.finalproject.commons.TeamColor;
 import com.gd.finalproject.service.LectureService;
@@ -33,7 +34,7 @@ public class LectureController {
 		return "/commons/lectureList";		// 경로
 	}
 	
-	// 강좌 상세페이지(lectureListOne), 리뷰리스트(reviewList)
+	// 강좌 상세페이지(lectureListOne), 리뷰 리스트(reviewList)
 	@GetMapping("/lectureOne") 
 	public String lectureOne(Model model, @RequestParam(value="lectureNo") String lectureNo, 
 			@RequestParam(required = false, value = "current") String current,
@@ -45,29 +46,49 @@ public class LectureController {
 		Map<String,Object> lectureOne = lectureService.getLectureOne(lectureNo);
 		log.debug(TeamColor.MS + "LectureController.lectureOne(lectureOne) : " + lectureOne);
 		
-		// 강좌 리뷰리스트
-//		Map<String,Object> reviewList = reviewService.getReviewList(current);
-//		log.debug(TeamColor.MS + "LectureController.lectureOne(reviewList) : " + reviewList);
+		// 리뷰 리스트
+		Map<String,Object> reviewList = reviewService.getReviewList(lectureNo, current);
+		log.debug(TeamColor.MS + "LectureController.lectureOne(reviewList) : " + reviewList); 
 		
+		// reviewList에서 꺼내주기
+		log.debug(TeamColor.MS + "LectureController.lectureOne(pageNation) : " + reviewList.get("pageNation")); 
+		log.debug(TeamColor.MS + "LectureController.lectureOne(reviewList) : " + reviewList.get("reviewList")); 
+		
+		
+		// 꺼낸 값 model에 넣어주기
 		model.addAttribute("lectureOne", lectureOne);
-//		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("pageNation", reviewList.get("pageNation"));
+		model.addAttribute("reviewList", reviewList.get("reviewList"));
 		
 		return "/commons/lectureOne";
 	}
+	
+	// 리뷰 리스트(lectureOne - reviewList)
+	@ResponseBody
+	@GetMapping("/reviewList") 
+	public String reviewList(Model model, @RequestParam(value="lectureNo") String lectureNo, 
+			@RequestParam(required = false, value = "current") String current,
+            @ModelAttribute("check") String check) {
+		
+		// 리뷰 리스트
+		Map<String,Object> getReviewList = reviewService.getReviewList(lectureNo, current);
+		log.debug(TeamColor.MS + "LectureController.lectureOne(reviewList) : " + getReviewList); 
+		model.addAttribute("getReviewList", getReviewList);
+		
+		
+		return "/commons/lectureOne";
+	}
+	
 	
 	// 강좌 추가 (addLecture.jsp-Form)
 	@GetMapping("/addLecture")
 	public String addLecture(Model model) {
 		
-		// 강사 아이디 추출
-		Map<String,Object> instructor = lectureService.addLecture();
-		log.debug(TeamColor.MS + "LectureController.addLecture(instructor) : " + instructor);
-		instructor.forEach((key, value) -> model.addAttribute(key, value));
-		
-		// 장소 추출
-		Map<String,Object> location = lectureService.addLecture();
-		log.debug(TeamColor.MS + "LectureController.addLecture(location) : " + location);
-		location.forEach((key, value) -> model.addAttribute(key, value));
+		// 강사 아이디, 장소 추출
+		Map<String,Object> locationAndInstructor = lectureService.addLecture();
+		log.debug(TeamColor.MS + "LectureController.addLecture(locationAndInstructor) : " + locationAndInstructor);
+		locationAndInstructor.forEach((key, value) -> model.addAttribute(key, value));
+	
 		
 		return "/commons/addLecture";
 	}

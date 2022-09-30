@@ -22,18 +22,19 @@ import lombok.extern.slf4j.Slf4j;
 public class ReviewService {
 	@Autowired ReviewMapper reviewMapper;
 	
-	// 리뷰 리스트
-	public Map<String, Object> getReviewList(String current) {
+	 
+	// 리뷰 리스트(reviewList)
+	public Map<String, Object> getReviewList(String lectureNo, String current) {
 		// 페이지네이션 총 갯수
-        int total = reviewMapper.getReviewTotal();
+        int total = reviewMapper.getReviewTotal(lectureNo);
         log.debug(TeamColor.MS + "ReviewService(total) : " + total);
-
+        
         // 만들어논 메서드
-        PageNationDto pageNation = PageNationUtil.getPageNation(current, total, "/finalproject/lectureOne", 5);
+        PageNationDto pageNation = PageNationUtil.getPageNation(current, total, "/finalproject/reviewList", 5);
         log.debug(TeamColor.MS + "ReviewService(pageNation) : " + pageNation);
 
-        // lectureList 가져오기
-        List<Review> reviewList = reviewMapper.selectReviewList(pageNation.getBeginRow(),
+        // reviewList 가져오기
+        List<Review> reviewList = reviewMapper.selectReviewList(lectureNo, pageNation.getBeginRow(),
                 pageNation.getRowPerPage());
         log.debug(TeamColor.MS + "ReviewService(reviewList) : " + reviewList);
 
@@ -46,12 +47,24 @@ public class ReviewService {
 		
 	}
 	
-	// 리뷰 추가
-	public int addReview(Review review) {
-		int addReview = reviewMapper.insertReview(review);
-		log.debug(TeamColor.MS + "ReviewService(addReview) : " + addReview);
-		return addReview;
+	/*
+	 * // 리뷰 추가 (addReview - Form) public int addReview()
+	 */
+	
+	// 리뷰 추가 (addReview - Action)
+	public int addReview(String userId, Review review, String lectureNo) {
+		 // 넘겨온 값
+		 log.debug(TeamColor.MS + "ReviewService.addReview(review) : " + review);
+		 log.debug(TeamColor.MS + "ReviewService.addReview(userId) : " + userId);
+		 log.debug(TeamColor.MS + "ReviewService.addReview(lectureNo) : " + lectureNo);
+		 
+		 // 리뷰 추가하기
+		 int add = reviewMapper.insertReview(userId, review, lectureNo);
+		 log.debug(TeamColor.MS + "ReviewService.addReview(add) : " + add);
+		 
+		 return add;
 	}
+
 	
 	// 리뷰 수정
 	

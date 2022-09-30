@@ -85,16 +85,16 @@ $('#cmInsertBtn').on('click', function () {
 /* 리뷰 리스트 메서드 */
 function reviewList(map) {
     let content = '';
-    let sessionId = map.userId;
+    let sessionId = map.reviewWriter;
     /* 리뷰 리스트 불러오기*/
     $.each(map.getReviewList, function (i, dto) {
         content += '<div class="listForm">'
-        content += '<h4 class="fw-bold fs-4">' + dto.userId + '</h4>'
-        content += '<div class="lh-sm">' + dto.commentContent + '</div>'
+        content += '<h4 class="fw-bold fs-5">' + dto.reviewWriter + '</h4>'
+        content += '<div class="lh-sm">' + dto.reviewContent + '</div>'
         content += '<div class="d-flex justify-content-end">'
         content += '<div>'
         if (sessionId != null) {
-            if (sessionId == dto.userId) {
+            if (sessionId == dto.reviewWriter) {
                 content += '<a class="reviewUpdateBtnForm btn btn-primary btn-sm mx-1">수정</a>'
                 content += '<a lectureNo ="' + dto.lectureNo + '" current="' + map.pageNation.currentPage + '" reviewNo="' + dto.reviewNo + '" class="reviewDelBtn btn btn-primary btn-sm ms-1">삭제</a>'
             }
@@ -126,21 +126,21 @@ function reviewList(map) {
     content += '<ul class="pagination justify-content-center my-2 mb-2">'
     if (map.pageNation.startPage != 1) {
         content += '<li class="page-item">'
-        content += '<a class="page-link page-info" boardNo="' + map.boardNo + '" page="' + (map.pageNation.startPage - 1) + '" style="cursor:pointer;">'
+        content += '<a class="page-link page-info" lectureNo="' + map.lectureNo + '" page="' + (map.pageNation.startPage - 1) + '" style="cursor:pointer;">'
         content += '이전'
         content += '</a>'
         content += '</li>'
     }
     for (let i = map.pageNation.startPage; i <= map.pageNation.endPage; i++) {
         if (map.pageNation.currentPage != i) {
-            content += '<li class="page-item"><a style="cursor:pointer;" boardNo="' + map.boardNo + '" class="page-link page-info" page="' + i + '" >' + i + '</a></li>'
+            content += '<li class="page-item"><a style="cursor:pointer;" lectureNo="' + map.lectureNo + '" class="page-link page-info" page="' + i + '" >' + i + '</a></li>'
         } else {
             content += '<li class="page-item active"><a class="page-link">' + i + '</a></li>'
         }
     }
     if (map.pageNation.endPage != map.pageNation.lastPage) {
         content += '<li class="page-item">'
-        content += '<a class="page-link page-info" boardNo="' + map.boardNo + '" page="' + (map.pageNation.endPage + 1) + '" aria-label="Next" style="cursor:pointer;">'
+        content += '<a class="page-link page-info" lectureNo="' + map.lectureNo + '" page="' + (map.pageNation.endPage + 1) + '" aria-label="Next" style="cursor:pointer;">'
         content += '다음'
         content += '</a>'
         content += '</li>'

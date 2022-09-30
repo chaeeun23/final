@@ -4,28 +4,33 @@
 	<!-- 리뷰 리스트(reviewList) -->
 	<select id="selectReviewList" resultType="map">
 		SELECT 
+			review_no reviewNo,
+			lecture_no lectureNo,
 			course_no courseNo,
-			review_title reviewTitle,
+			review_writer reviewWriter,
 			review_content reviewContent,
 			create_date createDate,
-			update_date updateDate,
+			update_date updateDate
 		FROM review 
-		ORDER BY create_date DESC LIMIT #{beginRow},#{rowPerPage} 
+		WHERE lecture_no=#{lectureNo}
+		ORDER BY create_date DESC 
+		LIMIT #{beginRow},#{rowPerPage} 
 	</select>
 	
 	<!-- 리뷰 리스트(reviewList) - 페이징 -->
-	<select id="getReviewTotal" resultType="com.gd.finalproject.vo.Review">   
+	<select id="getReviewTotal" resultType="int" parameterType="com.gd.finalproject.vo.Review">   
 		SELECT COUNT(*)
         FROM review
-        WHERE course_no = #{courseNo}
+        WHERE lecture_no = #{letureNo}
     </select>
 	
 	<!-- 리뷰 추가(addReview) -->
 	<insert id="insertReview" parameterType="com.gd.finalproject.vo.Review">
 		INSERT INTO review 
-			(course_no, review_title, review_content, create_date, update_date)
-		VALUES (#{courseNo}, #{reviewTitle}, #{reviewContent}, NOW(), NOW())	
-	</insert> 
+        	 (lecture_no, course_no, review_writer, review_content, create_date, update_date)
+     	 SELECT #{lectureNo}, #{courseNo}, #{reviewWriter}, #{reviewContent}, NOW(), NOW()
+     	 FROM payment where refund='N' AND course_no = #{courseNo}
+	</insert>
 	
 	<!-- 리뷰 수정(updateReview) -->
 	<update id="updateReview" parameterType="com.gd.finalproject.vo.Review">
