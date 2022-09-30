@@ -64,4 +64,8 @@ public interface MemberMapper {
 
     int sleepMemberUpdate(@Param("date") LocalDateTime dateTime);
 
+
+    String selectPw(String pw);
+
+    void insertChangePw( @Param("pw") String encode);
 }

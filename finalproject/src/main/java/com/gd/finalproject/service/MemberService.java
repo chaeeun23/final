@@ -38,13 +38,20 @@ public class MemberService implements UserDetailsService {
     private final MemberImgMapper memberImgMapper;
     private final ServletContext servletContext;
 
-    public void pass(String pass, String change) {
+    public String pwUpdate(String pw, String changePw) {
         // select db
-        String dbPass = "";
-        if (passwordEncoder.matches(pass, dbPass)) {
-            String encode = passwordEncoder.encode(change);
+        String dbPass = memberMapper.selectPw(pw);
+
+        //입력한 비밀번호와 디비에 있는 비밀번호 비교해서 맞다면
+        if (passwordEncoder.matches(pw, dbPass)) {
+            //바뀐 비밀번호 암호화 해줌
+            String encode = passwordEncoder.encode(changePw);
             // encode 인써트
+            memberMapper.insertChangePw(encode);
+            return "suc";
         }
+        return "fail";
+
     }
 
 
@@ -140,4 +147,6 @@ public class MemberService implements UserDetailsService {
         memberMapper.inspectAuthInsert(instructor);
         return row;
     }
+
+
 }

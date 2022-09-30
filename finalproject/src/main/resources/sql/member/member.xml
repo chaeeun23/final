@@ -33,12 +33,16 @@
         WHERE member_no = #{memberDto.memberNo}
 
     </update>
+
+<!--    임시비밀번호-->
     <update id="pwChange">
         UPDATE member
         SET member_pw = #{pw}
         WHERE member_id = #{id}
           AND member_email = #{email}
     </update>
+
+<!--    마지막 로그인 시간 업데이트-->
     <update id="lastLoginUpdate">
         UPDATE member
         SET last_login = now()
@@ -138,6 +142,11 @@
             , #{rowPerPage}
     </select>
 
+    <select id="selectPw" resultType="java.lang.String">
+        SELECT member_pw
+        FROM member
+    </select>
+
 
     <!-- 회원가입 -->
     <insert id="signMember" parameterType="com.gd.finalproject.vo.MemberDto">
@@ -181,6 +190,11 @@
     <insert id="inspectAuthInsert" parameterType="com.gd.finalproject.vo.Instructor">
         INSERT INTO auth(member_id, member_auth)
         VALUES (#{instructor.memberId}, 'INSPECT')
+    </insert>
+
+    <insert id="insertChangePw" >
+        UPDATE member
+        SET member_pw = #{pw}
     </insert>
 
     <!-- 휴면계정 업데이트 -->
