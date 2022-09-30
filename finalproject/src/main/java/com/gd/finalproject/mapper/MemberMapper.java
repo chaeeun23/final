@@ -67,5 +67,5 @@ public interface MemberMapper {
 
     String selectPw(String pw);
 
-    void insertChangePw( @Param("pw") String encode);
+    void insertChangePw(@Param("id") String memberId, @Param("pw") String memberPw);
 }

@@ -38,20 +38,19 @@ public class MemberService implements UserDetailsService {
     private final MemberImgMapper memberImgMapper;
     private final ServletContext servletContext;
 
-    public String pwUpdate(String pw, String changePw) {
+    public String pwUpdate(String id, String pw, String changePw) {
         // select db
-        String dbPass = memberMapper.selectPw(pw);
-
-        //입력한 비밀번호와 디비에 있는 비밀번호 비교해서 맞다면
-        if (passwordEncoder.matches(pw, dbPass)) {
-            //바뀐 비밀번호 암호화 해줌
-            String encode = passwordEncoder.encode(changePw);
-            // encode 인써트
-            memberMapper.insertChangePw(encode);
-            return "suc";
+        // 이미 로그인된 상태이니까 세션에서 id 가져와서 입력한 pw랑 id에 일치하는 db 비밀번호랑 비교
+        MemberDto memberDto = memberMapper.getMember(id);
+        // 일치하지 않는다면
+        if (!passwordEncoder.matches(pw, memberDto.getPassword())) {
+            return "fail";
         }
-        return "fail";
-
+        // 바뀐 비밀번호 암호화 해줌
+        String encode = passwordEncoder.encode(changePw);
+        // 바뀐 비밀번호로 아이디에 맞는 녀석한테 업데이트 해줘야지
+        memberMapper.insertChangePw(id,encode);
+        return "suc";
     }
 
 

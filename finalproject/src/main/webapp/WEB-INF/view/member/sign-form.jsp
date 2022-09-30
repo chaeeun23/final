@@ -17,7 +17,7 @@
 <div>
     <c:import url="/WEB-INF/resource/inc/header.jsp"></c:import>
 </div>
-<div class="d-flex justify-content-center container mt-2">
+<div class="d-flex justify-content-center container" style="margin-top: 20px">
     <form method="post" action="${pageContext.request.contextPath}/sign/sign-member" id="sign-form"
           class="w-75 border p-3 bg-white  rounded align-self-center">
         <div class="text-center">

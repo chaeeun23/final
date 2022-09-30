@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -170,16 +171,16 @@ public class MemberController {
 
     // 비밀번호변경 로직
     @PostMapping("/member/update-pw")
-    @PreAuthorize("isAnonymous()")
     public String updatePw(@RequestParam("pw") String pw,
                            @RequestParam("changePw") String changePw,
+                           @AuthenticationPrincipal MemberDto memberDto,
                            Model model) {
-       String check = memberService.pwUpdate(pw,changePw);
+       String check = memberService.pwUpdate(memberDto.getMemberId(),pw,changePw);
         if (check.equals("fail")) {
             model.addAttribute("error", "해당하는 비밀번호가 없습니다. 다시 시도해주세요");
             return "/member/update-pw";
         }
-        model.addAttribute("suc", "전송 성공");
+        model.addAttribute("suc", "변경 성공");
         return "/member/member-detail";
     }
 

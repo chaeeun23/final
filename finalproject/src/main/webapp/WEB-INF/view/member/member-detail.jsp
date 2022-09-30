@@ -39,8 +39,8 @@
                 <form action="${pageContext.request.contextPath}/member/update" method="post"
                       enctype="multipart/form-data"
                       id="member-form"
-                      class="w-75 p-1 border ">
-                    <p class="fw-bolder">기본정보</p>
+                      class="w-100 p-3 border">
+                    <h4 class="fw-bolder">기본정보</h4>
                     <hr style="border: solid 2px black;">
                     <input type="hidden" name="memberDto.memberNo" value="${member.memberNo}">
                     <div class="mb-4 mx-2">

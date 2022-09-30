@@ -34,7 +34,7 @@
 
     </update>
 
-<!--    임시비밀번호-->
+    <!--    임시비밀번호-->
     <update id="pwChange">
         UPDATE member
         SET member_pw = #{pw}
@@ -42,7 +42,7 @@
           AND member_email = #{email}
     </update>
 
-<!--    마지막 로그인 시간 업데이트-->
+    <!--    마지막 로그인 시간 업데이트-->
     <update id="lastLoginUpdate">
         UPDATE member
         SET last_login = now()
@@ -192,9 +192,10 @@
         VALUES (#{instructor.memberId}, 'INSPECT')
     </insert>
 
-    <insert id="insertChangePw" >
+    <insert id="insertChangePw">
         UPDATE member
         SET member_pw = #{pw}
+        WHERE member_id = #{id}
     </insert>
 
     <!-- 휴면계정 업데이트 -->
