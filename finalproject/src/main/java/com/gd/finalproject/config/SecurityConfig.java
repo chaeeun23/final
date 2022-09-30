@@ -1,19 +1,17 @@
 package com.gd.finalproject.config;
 
 
+import com.gd.finalproject.secrity.provider.LoginAuthProvider;
 import com.gd.finalproject.service.MemberService;
 import com.gd.finalproject.service.OAuth2Service;
-import com.gd.finalproject.service.handler.KakaoLoginSucHandler;
-import com.gd.finalproject.service.handler.LoginFailHandler;
-import com.gd.finalproject.service.handler.LoginSucHandler;
+import com.gd.finalproject.secrity.handler.KakaoLoginSucHandler;
+import com.gd.finalproject.secrity.handler.LoginFailHandler;
+import com.gd.finalproject.secrity.handler.LoginSucHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,17 +24,16 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
-    private final MemberService memberService;
-    private final PasswordEncoder passwordEncoder;
     private final OAuth2Service oAuth2Service;
     private final LoginFailHandler loginFailHandler;
     private final LoginSucHandler loginSucHandler;
     private final KakaoLoginSucHandler kakaoLoginSucHandler;
+    private final LoginAuthProvider loginAuthProvider;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
-                .authenticationProvider(authenticationProvider())
+                .authenticationProvider(loginAuthProvider)
                 // 요청 url 권한관련
                 .authorizeRequests(auth -> auth
                                 .antMatchers("/mainImg/**").permitAll()
@@ -80,13 +77,14 @@ public class SecurityConfig {
                 .build();
     }
 
-    @Bean
+
+  /*  @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         // 인증할때 어떤 객체랑 패스워드 엔코더 쓸껀지
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(memberService);
         authProvider.setPasswordEncoder(passwordEncoder);
         return authProvider;
-    }
+    }*/
 
 }

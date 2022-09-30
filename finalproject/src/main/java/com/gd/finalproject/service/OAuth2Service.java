@@ -82,6 +82,7 @@ public class OAuth2Service implements OAuth2UserService<OAuth2UserRequest, OAuth
                 .build();
         member.setMemberImg(fileName);
         memberImgMapper.updateMemberImg(memberImg);
+        member.setMemberPw(null);
         return member;
     }
 }

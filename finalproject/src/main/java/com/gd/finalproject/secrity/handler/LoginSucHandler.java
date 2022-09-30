@@ -1,4 +1,4 @@
-package com.gd.finalproject.service.handler;
+package com.gd.finalproject.secrity.handler;
 
 import com.gd.finalproject.mapper.MemberMapper;
 import com.gd.finalproject.vo.MemberDto;
@@ -24,6 +24,7 @@ public class LoginSucHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         MemberDto memberDto = (MemberDto) authentication.getPrincipal();
+        // 마지막 로그인 날짜 업데이트
         memberMapper.lastLoginUpdate(memberDto.getMemberId());
         String contextPath = servletContext.getContextPath();
         response.sendRedirect(contextPath + "/");
