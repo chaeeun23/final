@@ -7,6 +7,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gd.finalproject.commons.TeamColor;
 import com.gd.finalproject.service.CartService;
@@ -32,7 +34,7 @@ public class CartController {
 	
 	//장바구니 추가
 	@GetMapping("/insertUserCart")
-	public String insertUserCart(@AuthenticationPrincipal MemberDto memberDto, String lectureNo) {
+	public String insertUserCart(@AuthenticationPrincipal MemberDto memberDto, @RequestParam(value = "lectureNo") String lectureNo) {
 		// 파라미터 확인
 		log.debug(TeamColor.YW + "insertUserCart.memberDto.getMemberId() : " + memberDto.getMemberId());
 		log.debug(TeamColor.YW + "insertUserCart.memberDto.lectureNo : " + lectureNo);
