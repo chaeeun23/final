@@ -68,4 +68,9 @@ public interface MemberMapper {
     String selectPw(String pw);
 
     void insertChangePw(@Param("id") String memberId, @Param("pw") String memberPw);
+
+    int pwChangeDateUpdate(@Param("id") String id);
+
+    void sleepMemberChange(@Param("id") String memberId);
+
 }

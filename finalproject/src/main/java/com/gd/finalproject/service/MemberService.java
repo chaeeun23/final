@@ -9,7 +9,6 @@ import com.gd.finalproject.vo.MemberForm;
 import com.gd.finalproject.vo.MemberImg;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -26,6 +25,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
@@ -34,10 +34,10 @@ import java.util.UUID;
 public class MemberService implements UserDetailsService {
     private final MemberMapper memberMapper;
     private final PasswordEncoder passwordEncoder;
-    private final ResourceLoader resourceLoader;
     private final MemberImgMapper memberImgMapper;
     private final ServletContext servletContext;
 
+    @Transactional
     public String pwUpdate(String id, String pw, String changePw) {
         // select db
         // 이미 로그인된 상태이니까 세션에서 id 가져와서 입력한 pw랑 id에 일치하는 db 비밀번호랑 비교
@@ -49,7 +49,8 @@ public class MemberService implements UserDetailsService {
         // 바뀐 비밀번호 암호화 해줌
         String encode = passwordEncoder.encode(changePw);
         // 바뀐 비밀번호로 아이디에 맞는 녀석한테 업데이트 해줘야지
-        memberMapper.insertChangePw(id,encode);
+        memberMapper.insertChangePw(id, encode);
+        memberMapper.pwChangeDateUpdate(id);
         return "suc";
     }
 
@@ -81,9 +82,9 @@ public class MemberService implements UserDetailsService {
             throw new UsernameNotFoundException("User not authorized.");
         }
         // 권한 ADMIN 아니면 쳐버리기
-        if (memberDto.getMemberAuth().contains("ADMIN")) {
+        /*if (memberDto.getMemberAuth().contains("ADMIN")) {
             throw new UsernameNotFoundException("User not authorized.");
-        }
+        }*/
         return memberDto;
     }
 
@@ -95,7 +96,6 @@ public class MemberService implements UserDetailsService {
     public void updateMember(MemberForm memberForm) {
         MultipartFile mf = memberForm.getFile();
         memberMapper.memberUpdate(memberForm.getMemberDto());
-        System.out.println("mf = " + mf);
         if (mf.getSize() > 0) {
             MemberImg memberImg = MemberImg.builder()
                     .memberId(memberForm.getMemberDto().getMemberId())
@@ -148,4 +148,25 @@ public class MemberService implements UserDetailsService {
     }
 
 
+    public boolean pwChangeDateCheck(LocalDateTime pwChangeDate) {
+        LocalDateTime minusDays = LocalDateTime.now().minusMonths(3).minusDays(1);
+        return minusDays.isAfter(pwChangeDate);
+    }
+
+    public void pwChangeUpdate(String memberId) {
+        memberMapper.pwChangeDateUpdate(memberId);
+    }
+
+    @Transactional
+    public String sleepUpdate(String memberId, String username) {
+        // select db
+        // 이미 로그인된 상태이니까 세션에서 id 가져와서 입력한 pw랑 id에 일치하는 db 비밀번호랑 비교
+        MemberDto memberDto = memberMapper.getMember(memberId);
+        if (memberDto == null || !memberId.equals(username)) {
+            return "fail";
+        }
+        memberMapper.sleepMemberChange(memberId);
+        return "ok";
+
+    }
 }

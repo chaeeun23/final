@@ -1,27 +1,21 @@
 package com.gd.finalproject.config;
 
 
-import com.gd.finalproject.secrity.provider.LoginAuthProvider;
-import com.gd.finalproject.service.MemberService;
-import com.gd.finalproject.service.OAuth2Service;
 import com.gd.finalproject.secrity.handler.KakaoLoginSucHandler;
 import com.gd.finalproject.secrity.handler.LoginFailHandler;
 import com.gd.finalproject.secrity.handler.LoginSucHandler;
+import com.gd.finalproject.secrity.provider.LoginAuthProvider;
+import com.gd.finalproject.service.OAuth2Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @RequiredArgsConstructor
-@Order(Ordered.HIGHEST_PRECEDENCE)
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
     private final OAuth2Service oAuth2Service;
@@ -41,6 +35,8 @@ public class SecurityConfig {
                                 .antMatchers("/resources/**").permitAll()
                                 .antMatchers("/resource/**").permitAll()
                                 .antMatchers("/sign/**").anonymous()
+                                .antMatchers("/admin/**").hasAuthority("ADMIN")
+                                .antMatchers("/member/**").hasAuthority("USER")
                                 .antMatchers("/**").permitAll()
                         // .anyRequest().authenticated() // 그외 모든 요청 인증 되어야 한다
                         //        .antMatchers("/**").permitAll() // 임시로 모든 권한 오픈
@@ -50,13 +46,13 @@ public class SecurityConfig {
                         .antMatchers("/강사/**").hasAnyAuthority("TEACHER", "ADMIN")*/)
                 // 로그인 관련
                 .formLogin(form -> form
-                        .loginPage("/member/login-form") // 로그인페이지 주소
-                        .loginProcessingUrl("/member/login") // 로그인 검증할 url
+                        .loginPage("/user/login-form") // 로그인페이지 주소
+                        .loginProcessingUrl("/user/login") // 로그인 검증할 url
                         .successHandler(loginSucHandler)
                         .failureHandler(loginFailHandler) // 실패시 이동할 url
                         .permitAll())
                 // 카카오 로그인 관련
-                .oauth2Login(oauth -> oauth.loginPage("/member/login-form")
+                .oauth2Login(oauth -> oauth.loginPage("/user/login-form")
                         .successHandler(kakaoLoginSucHandler)
                         .userInfoEndpoint() // 로그인 성공 후 사용자정보를 가져온다
                         .userService(oAuth2Service)) //사용자정보를 처리할 때 사용
@@ -71,7 +67,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session
                         .maximumSessions(5) // 최대 허용 세션 수
                         .maxSessionsPreventsLogin(false)
-                        .expiredUrl("/member/login-form")
+                        .expiredUrl("/user/login-form")
                 )
                 .csrf().disable()
                 .build();

@@ -16,17 +16,6 @@ import java.util.Map;
 public class AdminController {
     private final AdminService adminService;
 
-    @GetMapping("/login-form")
-    public String adminLoginForm(@ModelAttribute("error") String error) {
-        return "/admin/login-form";
-    }
-
-    @GetMapping("/home")
-    public String adminHome() {
-        return "/admin/home";
-    }
-
-
     //회원 리스트 전부 다 가져오기
     @GetMapping("/member-list")
     public String MemberList(@RequestParam(required = false, value = "current") String current,

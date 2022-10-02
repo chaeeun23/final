@@ -198,7 +198,7 @@
 
     document.querySelector('#emailCheckBtn').addEventListener('click', function (ev) {
         let email = document.querySelector('#emailData').value;
-        let url = '${pageContext.request.contextPath}/sign/email-check?email=' + email;
+        let url = '${pageContext.request.contextPath}/sign/email-check?memberEmail=' + email;
         document.querySelector('#emailData').setAttribute('readonly', 'readonly');
         fetch(url, {
             method: 'GET'
@@ -260,7 +260,7 @@
             alert("아이디는 8자 이상으로 입력해주세요");
             return;
         }
-        let url = '${pageContext.request.contextPath}/sign/id-check?id=' + id;
+        let url = '${pageContext.request.contextPath}/sign/id-check?memberId=' + id;
         fetch(url, {
             method: 'GET'
         }).then(res => res.text())

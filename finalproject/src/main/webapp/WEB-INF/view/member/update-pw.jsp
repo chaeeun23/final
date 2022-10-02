@@ -35,13 +35,13 @@
             </div>
             <div class="col-10">
                 <form method="post" action="${pageContext.request.contextPath}/member/update-pw"
-                      class=" w-100 border p-3 bg-white  rounded align-self-center">
+                      class=" w-100 border p-3 bg-white  rounded align-self-center" id="pw-change-form">
                     <div class="d-inline-flex">
                         <h4 class="ms-2 fw-bold">비밀번호 변경하기</h4>
                     </div>
                     <div class="mb-3">
                         <p class="fw-lighter small">현재 비밀번호</p>
-                        <input class="form-control" type="password" name="pw" id="pw"
+                        <input class="form-control" type="password" name="pw" id="curPass"
                                aria-describedby="invalid-pw">
                         <div class="valid-feedback">
                         </div>
@@ -51,7 +51,7 @@
                     </div>
                     <div class="mb-3">
                         <p class="fw-lighter small">새로운 비밀번호 </p>
-                        <input class="form-control" type="password" name="changePw" id="updatePw"
+                        <input class="form-control" type="password" name="changePw" id="pw"
                                aria-describedby="invalid-pw">
                         <div class="mx-1 opacity-50 " style="font-size: 12px">비밀번호는 10자이상 20자 이하 영문,특수문자,숫자 조합으로
                             입력해주세요.
@@ -74,7 +74,7 @@
                         </div>
                     </div>
                     <div class="text-center">
-                        <button type="submit" id="boardBtn" class="btn btn-secondary mt-2 rounded-0">비밀번호 변경
+                        <button type="button" id="pwUpdateBtn" class="btn btn-secondary mt-2 rounded-0">비밀번호 변경
                         </button>
                         <a href="${pageContext.request.contextPath}/member/login-form"
                            class="btn btn-secondary mt-2 rounded-0">홈으로</a>
@@ -95,5 +95,43 @@
         </div>
     </div>
 </div>
+<script>
+    document.querySelector("#pw").addEventListener('keyup', function (ev) {
+        let check = /^(?=.*[a-zA-Z])(?=.*[.!@#$%^~*+=-])(?=.*[0-9]).{10,19}$/;
+        if (!check.test(this.value)) {
+            this.classList.remove("is-valid");
+            this.className += ' is-invalid';
+        } else {
+            this.classList.remove("is-invalid");
+            this.className += ' is-valid';
+        }
+    })
+
+    document.querySelector("#checkPw").addEventListener('keyup', function (ev) {
+        let pw = document.querySelector("#pw").value;
+        if (pw == this.value) {
+            this.classList.remove("is-invalid");
+            this.className += ' is-valid';
+        } else {
+            this.classList.remove("is-valid");
+            this.className += ' is-invalid';
+        }
+    })
+
+    // 회원가입 버튼 클릭시
+    document.querySelector('#pwUpdateBtn').addEventListener('click', function (ev) {
+        let pw = document.querySelector('#pw');
+        let checkPw = document.querySelector("#checkPw");
+        if (!pw.classList.contains('is-valid')) {
+            pw.className += ' is-invalid';
+            return;
+        }
+        if (!checkPw.classList.contains('is-valid')) {
+            checkPw.className += ' is-invalid';
+            return;
+        }
+        document.querySelector('#pw-change-form').submit();
+    })
+</script>
 </body>
 </html>

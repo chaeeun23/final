@@ -17,6 +17,7 @@
         <result column="memberBirth" property="memberBirth"/>
         <result column="memberSleepYn" property="memberSleepYn"/>
         <result column="memberImg" property="memberImg"/>
+        <result column="pwChangeDate" property="pwChangeDate"/>
         <result column="createDate" property="createDate"/>
         <collection property="memberAuth" ofType="java.lang.String" javaType="list">
             <result column="memberAuth"/>
@@ -70,6 +71,7 @@
                m.member_detailAddr memberDetailAddr,
                m.member_birth      memberBirth,
                m.member_sleepYn    memberSleepYn,
+               m.pw_change_date    pwChangeDate,
                a.member_auth       memberAuth,
                i.file_name         memberImg
         FROM member m
@@ -203,5 +205,16 @@
         UPDATE member
         SET member_sleepYn = 'Y'
         WHERE last_login &lt; #{date}
+    </update>
+    <update id="pwChangeDateUpdate">
+        UPDATE member
+        SET pw_change_date = now()
+        WHERE member_id = #{id}
+    </update>
+    <update id="sleepMemberChange">
+        UPDATE member
+        SET member_sleepYn = 'N',
+            last_login= now()
+        WHERE member_id = #{id}
     </update>
 </mapper>

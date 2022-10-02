@@ -5,12 +5,14 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
+import javax.validation.Valid;
 
 @Getter
 @Setter
 @ToString
 public class MemberForm {
+
+    @Valid
     private MemberDto memberDto;
     private MultipartFile file;
 }

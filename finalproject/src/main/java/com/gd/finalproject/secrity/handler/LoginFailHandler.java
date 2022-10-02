@@ -26,8 +26,10 @@ public class LoginFailHandler extends SimpleUrlAuthenticationFailureHandler {
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         String contextPath = servletContext.getContextPath();
         if (exception instanceof UsernameNotFoundException || exception instanceof BadCredentialsException) {
-            // 기본적인 아이디가 없거나, 비밀번호가 틀릴경우 경로
-            response.sendRedirect(contextPath + "/member/login-form?error=f");
+            // 기본적인 아이디가 없거나, 비밀번호가 틀릴경우 경우
+            setDefaultFailureUrl("/user/login-form?error=f");
+            super.onAuthenticationFailure(request, response, exception);
+
         } else if (exception instanceof AccountExpiredException) {
             // 휴면 계정이라면
             String username = request.getParameter("username");

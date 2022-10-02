@@ -7,7 +7,6 @@
     <title>Title</title>
 </head>
 <body>
-<a href="/logout" class="btn btn-primary">관리자 로그아웃</a>
-여기는 관리자 메인페이지
+ 서버 에러다 말걸지마라
 </body>
 </html>

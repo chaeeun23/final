@@ -28,11 +28,11 @@
         <p class="fw-lighter small">등록한 메일로 변경된 비밀번호가 전송됩니다.</p>
         <div class="mb-3">
             <label for="email" class="form-label">아이디</label>
-            <input type="text" class="form-control" name="id" id="id" placeholder="아이디를 입력해주세요">
+            <input type="text" class="form-control" name="memberId" id="id" placeholder="아이디를 입력해주세요">
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">이메일</label>
-            <input type="text" class="form-control" name="email" id="email" placeholder="메일을 입력해주세요">
+            <input type="text" class="form-control" name="memberEmail" id="email" placeholder="메일을 입력해주세요">
         </div>
         <c:if test="${error ne null}">
             <div class="alert alert-danger d-flex align-items-center justify-content-center">

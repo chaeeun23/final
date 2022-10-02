@@ -168,6 +168,7 @@
 
                         if (name.value.trim() == '') {
                             name.className += ' is-invalid';
+                            return
                         }
                         document.querySelector('#member-form').submit();
                     }

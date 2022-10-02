@@ -20,7 +20,7 @@
 <div class="container">
 
     <div class="row mt-5 justify-content-center">
-        <form action="${pageContext.request.contextPath}/member/sleep-member" method="post"
+        <form action="${pageContext.request.contextPath}/sleep-member" method="post"
               enctype="multipart/form-data"
               id="member-form"
               class="w-75 p-3">
@@ -39,20 +39,16 @@
                     <br>
                     아래 로그인을 하여 휴면상태를 해제해주세요
                 </p>
-                <div class="row mb-2">
-                    <label for="id" class="col-sm-2 col-form-label">아이디</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="id">
+                <div class="mb-2">
+                    <p class="fw-bold  text-center">아이디</p>
+                    <div class="d-flex justify-content-center">
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" name="memberId" id="id">
+                        </div>
                     </div>
                 </div>
-                <div class="row mb-2">
-                    <label for="pw" class="col-sm-2 col-form-label ">비밀번호</label>
-                    <div class="col-sm-10">
-                        <input type="password" class="form-control" id="pw">
-                    </div>
-                </div>
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <button type="submit" class="btn btn-sm btn-primary  ">계정활성화</button>
+                <div class="mt-2 text-center">
+                    <button type="submit" class="btn btn-sm btn-primary">계정활성화</button>
                     <a class="btn btn-sm btn-primary"
                        href="${pageContext.request.contextPath}">홈으로</a>
                 </div>
@@ -65,6 +61,11 @@
         <br>
         <c:import url="/WEB-INF/resource/inc/footer.jsp"></c:import>
     </div>
+    <c:if test="${error ne null}">
+    <script>
+        alert('${error}')
+    </script>
+    </c:if>
 </body>
 </html>
 
