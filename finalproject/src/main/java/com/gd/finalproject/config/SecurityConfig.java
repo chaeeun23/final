@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -28,7 +29,6 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
-                .cors().and()
                 .authenticationProvider(loginAuthProvider)
                 // 요청 url 권한관련
                 .authorizeRequests(auth -> auth
@@ -71,6 +71,13 @@ public class SecurityConfig {
                         .maxSessionsPreventsLogin(false)
                         .expiredUrl("/user/login-form")
                 )
+                .cors().and()
+                // csrf란
+                // 사이트 간 요청 위조(Cross-Site Request Forgery)
+                // 인터넷 사용자(희생자)가 자신의 의지와는 무관하게 공격자가 의도한 행위(등록, 수정, 삭제 등)를 특정 웹사이트에 요청하도록 만드는 공격
+                // 스프링에서는 POST,PUT,DELETE 등 GET을 제외한 서버에서 토큰을 발급하여 토큰이 일치할 경우만 요청을 승낙한다
+                // <sec:csrfInput/> 를 폼안에 이용하면 쉽게 토큰검증을 진행할 수 있다. ex) <input type="hidden" name="_csrf" value="a2ed13cc-4598-4263-a584-fecef684a0fa">
+                // .csrf().csrfTokenRepository(new CookieCsrfTokenRepository())
                 .csrf().disable()
                 .build();
     }

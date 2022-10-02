@@ -10,11 +10,9 @@
 <div>
     <c:import url="/WEB-INF/resource/inc/header.jsp"></c:import>
     <br>
-    <br>
-    <br>
 </div>
 <div class="container">
-    <h4>강사신청 리스트</h4>
+    <h4 class="text-center">강사 신청리스트</h4>
     <hr>
     <div>
         <table class="table table-striped">

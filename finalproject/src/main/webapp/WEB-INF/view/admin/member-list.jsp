@@ -10,11 +10,9 @@
 <div>
     <c:import url="/WEB-INF/resource/inc/header.jsp"></c:import>
     <br>
-    <br>
-    <br>
 </div>
 <div class="container">
-    <h4>회원 권한변경</h4>
+    <h4 class="text-center">회원 권한변경</h4>
     <hr>
     <div>
         <table class="table table-striped">

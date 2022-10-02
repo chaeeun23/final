@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="xlink" uri="http://jakarta.apache.org/taglibs/standard/permittedTaglibs" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -23,6 +23,7 @@
 <div class="d-flex justify-content-center container " style="height: 800px">
     <form method="post" action="${pageContext.request.contextPath}/user/login"
           class=" w-75 border p-3 bg-white shadow rounded align-self-center">
+        <sec:csrfInput/>
         <div class="d-inline-flex">
             <h4 class="ms-2 fw-bold">로그인</h4>
         </div>
