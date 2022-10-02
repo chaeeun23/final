@@ -65,26 +65,17 @@ public class PaymentController {
 	}
 	
 	// 회원결제내역에서 환불상태 변경
-	@PostMapping("/modifyRefundStatement")
-	public @ResponseBody String modifyRefundStatement(@RequestParam(value = "courseNo") int courseNo, @RequestParam(value = "refund") String refund) {
+	@GetMapping("/modifyRefundStatement")
+	public String modifyRefundStatement(@RequestParam(value = "courseNo") int courseNo, @RequestParam(value = "refund") String refund) {
 		// 파라미터 체크
 		log.debug(TeamColor.YW + "modifyRefundStatement.courseNo : " + courseNo);
 		log.debug(TeamColor.YW + "modifyRefundStatement.refund : " + refund);
 		
 		// 실행
 		boolean updateRefundStatement = paymentService.modifyRefundStatement(courseNo, refund);
-		log.debug(TeamColor.YW + "modifyRefundStatement.refundPayment : " + updateRefundStatement);
+		log.debug(TeamColor.YW + "modifyRefundStatement.updateRefundStatement : " + updateRefundStatement);
 		
-		// ajax Json에 보낼 메시지
-		String returnJson;
+		return "redirect:/userPaymentHistory";
 		
-		// 실행값이 true일 경우 환불완료
-		if(updateRefundStatement) {
-			returnJson = "y";
-		} else {
-			returnJson = "n";
-		}
-		
-		return returnJson;
 	}
 }

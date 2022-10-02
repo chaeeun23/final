@@ -51,7 +51,7 @@ th, td {
 				<c:forEach var="uc" items="${userCartList}">
 					
 					<tr>
-						<td><input type="checkbox" name="cartCheck" value="${uc.lectureNo}" checked></td>
+						<td><input type="checkbox" id="cartCheck" name="cartCheck" value="${uc.lectureNo}" checked></td>
 						<td>${uc.lectureNo}</td>
 						<td>${uc.lectureName}</td>
 						<td>${uc.lectureAddr}</td>
@@ -64,7 +64,7 @@ th, td {
 				</c:forEach>
 			</tbody>
 		</table>
-		<button class="btn btn-primary" id="addBtn" type="submit" style="float:right;">결제하기</button>
+		<button class="btn btn-primary" id="movePaymentPageBtn" type="button" style="float:right;" value="cntCheck">결제하기</button>
 		<a href="${pageContext.request.contextPath}/lectureList" class="btn btn-primary" style="float:right; margin-right:10px;">강좌목록</a>
 	</form>
 	</div>
@@ -79,4 +79,16 @@ th, td {
 	</div>
 	<!-- footer END -->
 </body>
+<script>
+	// 결제하기 알림창
+	$('#movePaymentPageBtn').click(function(){
+		if($(":checkbox[name='cartCheck']:checked").length == 0) {
+			alert('결제할 강좌를 1 이상 체크해주세요.');
+			return false;
+		} else if(confirm("결제페이지로 이동하시겠습니까?")) {
+			alert('결제페이지로 이동합니다.');
+			addForm.submit();
+		}
+	});
+</script>
 </html>
