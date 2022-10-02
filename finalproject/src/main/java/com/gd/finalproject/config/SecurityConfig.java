@@ -9,13 +9,14 @@ import com.gd.finalproject.service.OAuth2Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @RequiredArgsConstructor
+@Order
 public class SecurityConfig {
 
     private final OAuth2Service oAuth2Service;
@@ -27,6 +28,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
+                .cors().and()
                 .authenticationProvider(loginAuthProvider)
                 // 요청 url 권한관련
                 .authorizeRequests(auth -> auth
@@ -34,7 +36,7 @@ public class SecurityConfig {
                                 .antMatchers("/memberImg/**").permitAll()
                                 .antMatchers("/resources/**").permitAll()
                                 .antMatchers("/resource/**").permitAll()
-                                .antMatchers("/sign/**").anonymous()
+                                .antMatchers("/anonymous/**").anonymous()
                                 .antMatchers("/admin/**").hasAuthority("ADMIN")
                                 .antMatchers("/member/**").hasAuthority("USER")
                                 .antMatchers("/**").permitAll()
@@ -46,13 +48,13 @@ public class SecurityConfig {
                         .antMatchers("/강사/**").hasAnyAuthority("TEACHER", "ADMIN")*/)
                 // 로그인 관련
                 .formLogin(form -> form
-                        .loginPage("/user/login-form") // 로그인페이지 주소
+                        .loginPage("/anonymous/login-form") // 로그인페이지 주소
                         .loginProcessingUrl("/user/login") // 로그인 검증할 url
                         .successHandler(loginSucHandler)
                         .failureHandler(loginFailHandler) // 실패시 이동할 url
                         .permitAll())
                 // 카카오 로그인 관련
-                .oauth2Login(oauth -> oauth.loginPage("/user/login-form")
+                .oauth2Login(oauth -> oauth.loginPage("/anonymous/login-form")
                         .successHandler(kakaoLoginSucHandler)
                         .userInfoEndpoint() // 로그인 성공 후 사용자정보를 가져온다
                         .userService(oAuth2Service)) //사용자정보를 처리할 때 사용

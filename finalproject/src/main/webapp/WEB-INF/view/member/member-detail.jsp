@@ -25,10 +25,12 @@
             <div class="col-2">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a href="${pageContext.request.contextPath}/member/detail" class="nav-link active text-secondary" >내 정보 조회/수정</a>
+                        <a href="${pageContext.request.contextPath}/member/detail"
+                           class="nav-link active text-secondary">내 정보 조회/수정</a>
                     </li>
                     <li class="nav-item">
-                        <a href="${pageContext.request.contextPath}/member/update-pw" class="nav-link text-secondary" >비밀번호 변경</a>
+                        <a href="${pageContext.request.contextPath}/member/update-pw" class="nav-link text-secondary">비밀번호
+                            변경</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-secondary" href="#">회원탈톼</a>
@@ -47,11 +49,18 @@
                         <p class="fw-lighter small"> 프로필 이미지</p>
                         <div class="d-flex">
                             <div class="upload">
-                                <img style=" width: 200px; height: 200px; cursor: pointer; margin-bottom: 20px"
-                                     src="${member.memberImg}"
-                                     class="rounded-pill"
-                                     onerror="this.src = '${pageContext.request.contextPath}/memberImg/aa.png'"
-                                     id="profile">
+                                <c:if test="${member.memberImg eq null}">
+                                    <img style=" width: 200px; height: 200px; cursor: pointer; margin-bottom: 20px"
+                                         src="${pageContext.request.contextPath}/memberImg/aa.png"
+                                         class="rounded-pill"
+                                         id="profile">
+                                </c:if>
+                                <c:if test="${member.memberImg ne null}">
+                                    <img style=" width: 200px; height: 200px; cursor: pointer; margin-bottom: 20px"
+                                         src="${member.memberImg}"
+                                         class="rounded-pill"
+                                         id="profile">
+                                </c:if>
                                 <p class="fw-bolder small">
                                     이미지를 클릭해서 회원님을 알릴 수 있는 사진을 등록해주세요.
                                     </br>

@@ -20,7 +20,7 @@
 <div class="container">
 
     <div class="row mt-5 justify-content-center">
-        <form action="${pageContext.request.contextPath}/sleep-member" method="post"
+        <form action="${pageContext.request.contextPath}/anonymous/sleep-member" method="post"
               enctype="multipart/form-data"
               id="member-form"
               class="w-75 p-3">

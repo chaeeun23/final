@@ -28,8 +28,8 @@
 
     <sec:authorize access="isAnonymous()">
         <div class="d-flex justify-content-end">
-            <a href="${pageContext.request.contextPath}/user/login-form" class="btn btn-primary btn-sm">로그인</a>&nbsp;<a
-                href="${pageContext.request.contextPath}/sign/sign-form" class="btn btn-primary btn-sm">회원가입</a>
+            <a href="${pageContext.request.contextPath}/anonymous/login-form" class="btn btn-primary btn-sm">로그인</a>&nbsp;<a
+                href="${pageContext.request.contextPath}/anonymous/sign-form" class="btn btn-primary btn-sm">회원가입</a>
         </div>
     </sec:authorize>
     <sec:authorize access="isAuthenticated()" >

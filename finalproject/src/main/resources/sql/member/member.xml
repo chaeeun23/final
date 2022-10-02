@@ -26,13 +26,10 @@
     <update id="memberUpdate">
         UPDATE member
         SET member_name       = #{memberDto.memberName}
-          , member_email      = #{memberDto.memberEmail}
           , member_phone      = #{memberDto.memberPhone}
           , member_birth      = #{memberDto.memberBirth}
-          , member_addr       = #{memberDto.memberAddr}
           , member_detailAddr = #{memberDto.memberDetailAddr}
         WHERE member_no = #{memberDto.memberNo}
-
     </update>
 
     <!--    임시비밀번호-->
@@ -123,10 +120,11 @@
         FROM (SELECT m.member_id   memberId
                    , m.member_name memberName
                    , m.create_date createDate
-              FROM member m
+              FROM member m ORDER BY createDate DESC
                   LIMIT #{beginRow}
                  , #{rowPerPage}) m
                  LEFT JOIN auth a ON a.member_id = m.memberId
+        ORDER BY m.createDate DESC
     </select>
     <select id="getInstructorTotal" resultType="java.lang.Integer">
         SELECT COUNT(*)
@@ -139,8 +137,9 @@
              , create_date createDate
              , introduce   introduce
              , inspectYn   inspectYn
-        FROM instructor LIMIT #{beginRow}
-            , #{rowPerPage}
+        FROM instructor
+        ORDER BY createDate DESC LIMIT #{beginRow}
+               , #{rowPerPage}
     </select>
 
     <select id="selectPw" resultType="java.lang.String">

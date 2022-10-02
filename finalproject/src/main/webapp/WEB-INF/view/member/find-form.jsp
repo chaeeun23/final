@@ -20,7 +20,7 @@
     <c:import url="/WEB-INF/resource/inc/header.jsp"></c:import>
 </div>
 <div class="d-flex justify-content-center container " style="height: 500px; padding: 100px">
-    <form method="post" action="${pageContext.request.contextPath}/member/find-id"
+    <form method="post" action="${pageContext.request.contextPath}/anonymous/find-id"
           class=" w-75 border p-3 bg-white shadow rounded align-self-center">
         <div class="d-inline-flex">
             <h4 class="ms-2 fw-bold">아이디 찾기</h4>

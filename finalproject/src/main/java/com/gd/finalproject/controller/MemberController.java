@@ -29,71 +29,25 @@ import javax.validation.constraints.NotBlank;
 @RequiredArgsConstructor
 @Slf4j
 @Validated
+@RequestMapping("/member")
 public class MemberController {
 
     private final MemberService memberService;
-    private final MailService mailService;
-
-
-    //로그인폼
-    @GetMapping("/user/login-form")
-    @PreAuthorize("isAnonymous()")
-    public String loginForm(@RequestParam(required = false, value = "error") String error, Model model) {
-        if (error != null) {
-            model.addAttribute("error", error);
-        }
-        return "/member/login-form";
-    }
-
-    //회원가입폼
-    @GetMapping("/sign/sign-form")
-    public String signForm() {
-        return "/member/sign-form";
-    }
-
-
-    //중복아이디체크
-    @ResponseBody
-    @GetMapping("/sign/id-check")
-    public String idCheck(@RequestParam("memberId") @NotBlank @Length(min = 8) String id) throws Exception {
-        String check = memberService.idCheck(id);
-        if (check == null) {
-            return "ok";
-        }
-        return "fail";
-    }
-
-    //이메일체크
-    @ResponseBody
-    @GetMapping("/sign/email-check")
-    public String emailCheck(@RequestParam("memberEmail") @NotBlank String email) throws Exception {
-        String code = mailService.mailCheck(email);
-        return code;
-    }
-
-    //회원가입 로직
-    @PostMapping("/sign/sign-member")
-    public String signMember(@Validated(ValidationGroups.SignCheck.class) MemberDto memberDto) {
-        // 로그 확인
-        log.debug(TeamColor.JM, "memberDto = {}", memberDto);
-
-        memberService.signMember(memberDto);
-        return "redirect:/";
-    }
 
     //회원정보 조회
-    @GetMapping("/member/detail")
+    @GetMapping("/detail")
     public String memberDetail() {
         return "/member/member-detail";
     }
 
 
     //수정
-    @PostMapping("/member/update")
-    public String memberUpdate(@Validated(ValidationGroups.UpdateCheck.class) MemberForm memberForm, Authentication authentication) {
+    @PostMapping("/update")
+    public String memberUpdate(@Validated(ValidationGroups.UpdateCheck.class) MemberForm memberForm, Authentication authentication, Model model) {
         log.info("memberForm = {}", memberForm);
         memberService.updateMember(memberForm);
         createNewAuthentication(authentication, memberForm.getMemberDto().getMemberId());
+        model.addAttribute("suc", "수정되었습니다");
         return "/member/member-detail";
     }
 
@@ -109,58 +63,14 @@ public class MemberController {
         SecurityContextHolder.getContext().setAuthentication(newAuth);
     }
 
-    // 아이디찾기 폼
-    @GetMapping("/member/find-id")
-    @PreAuthorize("isAnonymous()")
-    public String findIdForm() {
-        return "/member/find-form";
-    }
-
-
-    // 아이디찾기 로직
-    @PostMapping("/member/find-id")
-    @PreAuthorize("isAnonymous()")
-    public String findId(@RequestParam("memberEmail") @NotBlank String email, Model model) throws Exception {
-        String check = mailService.idFind(email);
-
-        if (check.equals("fail")) {
-            model.addAttribute("error", "메일 형태가 아니거나 해당하는 아이디가 없습니다. 다시 시도해주세요");
-            return "/member/find-form";
-        }
-
-        model.addAttribute("suc", "전송 성공");
-        return "/member/login-form";
-    }
-
-    // 비밀번호찾기 폼
-    @GetMapping("/member/find-pw")
-    @PreAuthorize("isAnonymous()")
-    public String findPwForm() {
-        return "/member/find-pw";
-    }
-
-    // 비밀번호찾기 로직
-    @PostMapping("/member/find-pw")
-    @PreAuthorize("isAnonymous()")
-    public String findPw(@RequestParam("memberEmail") @NotBlank String email,
-                         @RequestParam("memberId") @NotBlank String id,
-                         Model model) throws Exception {
-        String check = mailService.pwFind(id, email);
-        if (check.equals("fail")) {
-            model.addAttribute("error", "메일 형태가 아니거나 해당하는 아이디가 없습니다. 다시 시도해주세요");
-            return "/member/find-pw";
-        }
-        model.addAttribute("suc", "전송 성공");
-        return "/member/login-form";
-    }
 
     //강사신청 폼
-    @GetMapping("/member/instructor-application")
+    @GetMapping("/instructor-application")
     public String instructorForm() {
         return "/member/instructor-application";
     }
 
-    @PostMapping("/member/instructor-application")
+    @PostMapping("/instructor-application")
     public String instructorApplication(@Valid Instructor instructor, Authentication authentication, Model model) {
         log.info("instructor = {}", instructor);
         memberService.instructorApplication(instructor);
@@ -171,13 +81,13 @@ public class MemberController {
 
 
     //비밀번호 변경폼
-    @GetMapping("/member/update-pw")
+    @GetMapping("/update-pw")
     public String updatePwForm() {
         return "/member/update-pw";
     }
 
     // 비밀번호변경 로직
-    @PostMapping("/member/update-pw")
+    @PostMapping("/update-pw")
     public String updatePw(@RequestParam("pw") @NotBlank String pw,
                            @RequestParam("changePw") @NotBlank String changePw,
                            @AuthenticationPrincipal MemberDto memberDto,
@@ -191,41 +101,16 @@ public class MemberController {
         return "/member/member-detail";
     }
 
-    @GetMapping("/member/pw-change-update")
+    @GetMapping("/pw-change-update")
     public String pwChangeUpdate(@AuthenticationPrincipal MemberDto memberDto) {
         memberService.pwChangeUpdate(memberDto.getMemberId());
         return "/main_page/index";
     }
 
-    @GetMapping("/sleep-member-form")
-    @PreAuthorize("isAnonymous()")
-    public String sleepMemberForm(@CookieValue(value = "username", defaultValue = "error") String username) {
-        if (username.equals("error")) {
-            return "redirect:/";
-        }
-        return "/member/sleep-member";
-    }
-
-    // 휴면 계정 해제
-    @PostMapping("/sleep-member")
-    @PreAuthorize("isAnonymous()")
-    public String updatePw(@RequestParam("memberId") String id,
-                           @CookieValue(value = "username", defaultValue = "error") String username,
-                           Model model) {
-        String check = memberService.sleepUpdate(id,username);
-        if (check.equals("fail")) {
-            model.addAttribute("error", "본인의 아이디를 정확하게 입력해주세요.");
-            return "/member/sleep-member";
-        }
-        model.addAttribute("suc", "휴면해제 성공 다시 로그인해주세요");
-        return "/member/login-form";
-    }
-
-    @GetMapping("/member/pw-change-form")
+    @GetMapping("/pw-change-form")
     public String pwChangeForm() {
         return "/member/pw-change-form";
     }
-
 
 }
 

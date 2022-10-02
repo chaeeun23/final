@@ -27,7 +27,7 @@ public class LoginFailHandler extends SimpleUrlAuthenticationFailureHandler {
         String contextPath = servletContext.getContextPath();
         if (exception instanceof UsernameNotFoundException || exception instanceof BadCredentialsException) {
             // 기본적인 아이디가 없거나, 비밀번호가 틀릴경우 경우
-            setDefaultFailureUrl("/user/login-form?error=f");
+            setDefaultFailureUrl("/anonymous/login-form?error=f");
             super.onAuthenticationFailure(request, response, exception);
 
         } else if (exception instanceof AccountExpiredException) {
@@ -38,7 +38,7 @@ public class LoginFailHandler extends SimpleUrlAuthenticationFailureHandler {
             cookie.setMaxAge(180);
             cookie.setPath("/");
             response.addCookie(cookie);
-            response.sendRedirect(contextPath + "/sleep-member-form");
+            response.sendRedirect(contextPath + "/anonymous/sleep-member-form");
         }
     }
 }

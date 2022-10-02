@@ -18,7 +18,7 @@
     <c:import url="/WEB-INF/resource/inc/header.jsp"></c:import>
 </div>
 <div class="d-flex justify-content-center container" style="margin-top: 20px">
-    <form method="post" action="${pageContext.request.contextPath}/sign/sign-member" id="sign-form"
+    <form method="post" action="${pageContext.request.contextPath}/anonymous/sign-member" id="sign-form"
           class="w-75 border p-3 bg-white  rounded align-self-center">
         <div class="text-center">
             <h4 class="ms-2 fw-bold">회원가입</h4>
@@ -198,7 +198,7 @@
 
     document.querySelector('#emailCheckBtn').addEventListener('click', function (ev) {
         let email = document.querySelector('#emailData').value;
-        let url = '${pageContext.request.contextPath}/sign/email-check?memberEmail=' + email;
+        let url = '${pageContext.request.contextPath}/anonymous/email-check?memberEmail=' + email;
         document.querySelector('#emailData').setAttribute('readonly', 'readonly');
         fetch(url, {
             method: 'GET'
@@ -260,7 +260,7 @@
             alert("아이디는 8자 이상으로 입력해주세요");
             return;
         }
-        let url = '${pageContext.request.contextPath}/sign/id-check?memberId=' + id;
+        let url = '${pageContext.request.contextPath}/anonymous/id-check?memberId=' + id;
         fetch(url, {
             method: 'GET'
         }).then(res => res.text())

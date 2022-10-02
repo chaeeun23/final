@@ -39,6 +39,6 @@ public class KakaoLoginSucHandler implements AuthenticationSuccessHandler {
         cookie.setMaxAge(180);
         cookie.setPath("/");
         response.addCookie(cookie);
-        response.sendRedirect(contextPath + "/sleep-member-form");
+        response.sendRedirect(contextPath + "/anonymous/sleep-member-form");
     }
 }
