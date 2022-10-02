@@ -7,6 +7,12 @@
     <title>Title</title>
 </head>
 <body>
- 잘못된 요청인듯
+<p>400대 에러나면 여기로 와여</p>
+
+status : ${status}
+<br/>
+error : ${error}
+<br/>
+stacktrace : ${trace}
 </body>
 </html>

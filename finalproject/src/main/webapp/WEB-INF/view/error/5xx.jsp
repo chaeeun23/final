@@ -7,6 +7,12 @@
     <title>Title</title>
 </head>
 <body>
- 서버 에러다 말걸지마라
+<p>500대 에러나면 여기로 와여</p>
+
+status : ${status}
+<br/>
+error : ${error}
+<br/>
+stacktrace : ${trace}
 </body>
 </html>

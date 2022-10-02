@@ -17,6 +17,7 @@
         DELETE
         FROM auth
         WHERE member_id = #{memberId}
+        AND member_auth = 'EMPLOYEE'
     </delete>
     <delete id="inspectInsert">
         INSERT INTO auth
@@ -28,12 +29,6 @@
         FROM auth
         WHERE member_id = #{memberId} AND
               member_auth = 'INSPECT'
-    </delete>
-    <delete id="employeeDelete">
-        DELETE
-        FROM auth
-        WHERE member_id = #{memberId} AND
-            member_auth = 'EMPLOYEE'
     </delete>
     <delete id="instructorDelete">
         DELETE
