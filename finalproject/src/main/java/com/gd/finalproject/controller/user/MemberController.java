@@ -1,4 +1,4 @@
-package com.gd.finalproject.controller;
+package com.gd.finalproject.controller.user;
 
 
 import com.gd.finalproject.commons.TeamColor;
@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
+import static com.gd.finalproject.valid.ValidationGroups.*;
+
 @Controller
 @RequiredArgsConstructor
 @Slf4j
@@ -43,7 +45,7 @@ public class MemberController {
 
     //수정
     @PostMapping("/update")
-    public String memberUpdate(@Validated(ValidationGroups.UpdateCheck.class) MemberForm memberForm, Authentication authentication, Model model) {
+    public String memberUpdate(@Validated(UpdateCheck.class) MemberForm memberForm, Authentication authentication, Model model) {
         log.info("memberForm = {}", memberForm);
         memberService.updateMember(memberForm);
         createNewAuthentication(authentication, memberForm.getMemberDto().getMemberId());

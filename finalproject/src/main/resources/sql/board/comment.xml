@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 경로 틀리면 시작시 무조건 에러 -->
+<mapper namespace="com.gd.finalproject.mapper.CmMapper">
+
+    <resultMap id="cm" type="com.gd.finalproject.vo.freeboard.CmDto">
+        <result column="cmNo" property="cmNo"/>
+        <result column="memberId" property="memberId"/>
+        <result column="boardNo" property="boardNo"/>
+        <result column="cmContents" property="cmContents"/>
+        <result column="createDate" property="createDate"/>
+        <result column="updateDate" property="updateDate"/>
+        <collection property="memberAuth" ofType="java.lang.String" javaType="list">
+            <result column="memberAuth"/>
+        </collection>
+    </resultMap>
+    <insert id="cmInsert">
+        INSERT INTO free_board_cm (board_no, member_id,
+                                   cm_contents, create_date, update_date)
+        VALUES (#{cmDto.boardNo}, #{cmDto.memberId}, #{cmDto.cmContents}, now(), now())
+    </insert>
+    <update id="cmUpdate">
+        UPDATE free_board_cm
+        SET cm_contents = #{cmDto.cmContents}
+        WHERE cm_no = #{cmDto.cmNo}
+    </update>
+    <delete id="cmDelete">
+        DELETE
+        FROM free_board_cm
+        WHERE cm_no = #{cmDto.cmNo}
+    </delete>
+    <select id="getCmList" resultMap="cm">
+        SELECT c.cmNo,
+               c.memberId,
+               c.boardNo,
+               c.cmContents,
+               c.createDate,
+               c.updateDate,
+               a.member_auth memberAuth
+        FROM (SELECT c.cm_no       cmNo
+                   , c.member_id   memberId
+                   , c.board_no    boardNo
+                   , c.cm_contents cmContents
+                   , c.create_date createDate
+                   , c.update_date updateDate
+              FROM free_board_cm c
+              WHERE board_no = #{boardNo}
+              ORDER BY createDate DESC
+                  LIMIT #{beginRow}, #{rowPerPage}) c
+                 LEFT JOIN auth a ON a.member_id = c.memberId
+    </select>
+    <select id="getCmTotal" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM free_board_cm
+        WHERE board_no = #{boardNo}
+    </select>
+</mapper>

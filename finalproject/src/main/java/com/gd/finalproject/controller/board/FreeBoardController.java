@@ -1,0 +1,36 @@
+package com.gd.finalproject.controller.board;
+
+import com.gd.finalproject.service.board.FreeBoardService;
+import com.gd.finalproject.vo.freeboard.BoardDetailDto;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+@Controller
+@RequiredArgsConstructor
+@Slf4j
+@RequestMapping("/free-board")
+@Validated
+@PreAuthorize("permitAll()")
+public class FreeBoardController {
+    private final FreeBoardService freeBoardService;
+
+    @GetMapping("/list")
+    public String boardList(@RequestParam(required = false, value = "current") String current, Model model) {
+        model.addAttribute("pageBoardDto", freeBoardService.boardList(current));
+        return "/free_board/board-list";
+    }
+
+    @GetMapping("/detail")
+    public String boardDetail(@RequestParam("boardNo") int boardNo, Model model) {
+        BoardDetailDto boardDto = freeBoardService.boardDetail(boardNo);
+        model.addAttribute("boardDetailDto", boardDto);
+        return "/free_board/board-detail";
+    }
+}

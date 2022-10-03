@@ -1,4 +1,4 @@
-package com.gd.finalproject.controller;
+package com.gd.finalproject.controller.user;
 
 import com.gd.finalproject.service.AdminService;
 import lombok.RequiredArgsConstructor;

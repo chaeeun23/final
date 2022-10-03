@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 경로 틀리면 시작시 무조건 에러 -->
+<mapper namespace="com.gd.finalproject.mapper.FreeBoardMapper">
+
+    <update id="showUp">
+        UPDATE free_board
+        SET board_read = board_read + 1
+        WHERE board_no = #{boardNo}
+    </update>
+
+
+    <select id="getBoardTotal" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM free_board
+    </select>
+
+    <select id="getBoardList" resultType="com.gd.finalproject.vo.freeboard.BoardDto">
+        SELECT board_no       boardNo
+             , member_id      memberId
+             , board_title    boardTitle
+             , board_contents boardContents
+             , board_read     boardRead
+             , create_date    createDate
+             , update_date    updateDate
+        FROM free_board
+        ORDER BY create_date DESC LIMIT #{beginRow}, #{rowPerPage}
+    </select>
+    <select id="boardDetail" resultType="com.gd.finalproject.vo.freeboard.BoardDto">
+        SELECT board_no       boardNo
+             , member_id      memberId
+             , board_title    boardTitle
+             , board_contents boardContents
+             , board_read     boardRead
+             , create_date    createDate
+             , update_date    updateDate
+        FROM free_board
+        WHERE board_no = #{boardNo}
+    </select>
+</mapper>

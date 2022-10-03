@@ -1,4 +1,4 @@
-package com.gd.finalproject.controller;
+package com.gd.finalproject.controller.user;
 
 import com.gd.finalproject.commons.TeamColor;
 import com.gd.finalproject.service.MailService;
@@ -8,13 +8,15 @@ import com.gd.finalproject.vo.MemberDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotBlank;
+
+import static com.gd.finalproject.valid.ValidationGroups.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -36,25 +38,25 @@ public class AnonymousController {
     //중복아이디체크
     @ResponseBody
     @GetMapping("/id-check")
-    public String idCheck(@RequestParam("memberId") @NotBlank @Length(min = 8) String id) throws Exception {
+    public ResponseEntity<String> idCheck(@RequestParam("memberId") @NotBlank @Length(min = 8) String id) throws Exception {
         String check = memberService.idCheck(id);
         if (check == null) {
-            return "ok";
+            return ResponseEntity.ok("ok");
         }
-        return "fail";
+        return ResponseEntity.badRequest().body("fail");
     }
 
     //이메일체크
     @ResponseBody
     @GetMapping("/email-check")
-    public String emailCheck(@RequestParam("memberEmail") @NotBlank String email) throws Exception {
+    public ResponseEntity<String> emailCheck(@RequestParam("memberEmail") @NotBlank String email) throws Exception {
         String code = mailService.mailCheck(email);
-        return code;
+        return ResponseEntity.ok(code);
     }
 
     //회원가입 로직
     @PostMapping("/sign-member")
-    public String signMember(@Validated(ValidationGroups.SignCheck.class) MemberDto memberDto) {
+    public String signMember(@Validated(SignCheck.class) MemberDto memberDto) {
         // 로그 확인
         log.debug(TeamColor.JM, "memberDto = {}", memberDto);
 

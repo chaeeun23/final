@@ -116,13 +116,17 @@
 
     <!--    회원리스트 가져오기-->
     <select id="getMemberList" resultMap="member">
-        SELECT m.memberId, m.memberName, m.createDate, a.member_auth memberAuth
+        SELECT m.memberId,
+               m.memberName,
+               m.createDate,
+               a.member_auth memberAuth
         FROM (SELECT m.member_id   memberId
                    , m.member_name memberName
                    , m.create_date createDate
-              FROM member m ORDER BY createDate DESC
+              FROM member m
+              ORDER BY createDate DESC
                   LIMIT #{beginRow}
-                 , #{rowPerPage}) m
+                     , #{rowPerPage}) m
                  LEFT JOIN auth a ON a.member_id = m.memberId
         ORDER BY m.createDate DESC
     </select>
