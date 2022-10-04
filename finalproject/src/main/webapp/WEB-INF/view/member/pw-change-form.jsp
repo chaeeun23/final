@@ -16,10 +16,12 @@
             <div class="col-10">
                 <form method="post" action="${pageContext.request.contextPath}/member/update-pw" id="pw-change-form"
                       class=" w-100 border p-3 bg-white  rounded align-self-center">
-                    <h4>고객님이 비밀번호를 변경한지 3개월이 지났습니다.</h4>
-                    <h4> 보안을 위하여 비밀번호를 변경해주세요.</h4>
+                    <div class="mt-5 mb-5 text-center">
+                        <p class="fw-bolder fs-5">고객님이 비밀번호를 변경한지 3개월이 지났습니다.</p>
+                        <p class="fw-bolder fs-5"> 보안을 위하여 비밀번호를 변경해주세요.</p>
+                    </div>
                     <div class="mb-3">
-                        <p class="fw-lighter small">현재 비밀번호</p>
+                        <p class="fw-bolder  small">현재 비밀번호</p>
                         <input class="form-control" type="password" name="pw" id="curPass"
                                aria-describedby="invalid-pw">
                         <div class="valid-feedback">
@@ -29,10 +31,10 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <p class="fw-lighter small">새로운 비밀번호 </p>
+                        <p class="fw-bolder  small">새로운 비밀번호 </p>
                         <input class="form-control" type="password" name="changePw" id="pw"
                                aria-describedby="invalid-pw">
-                        <div class="mx-1 opacity-50 " style="font-size: 12px">비밀번호는 10자이상 20자 이하 영문,특수문자,숫자 조합으로
+                        <div class="mt-2 ttext-opacity-75" style="font-size: 14px;color: #666">비밀번호는 10자이상 20자 이하 영문,특수문자,숫자 조합으로
                             입력해주세요.
                         </div>
                         <div class="valid-feedback">
@@ -43,7 +45,7 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <p class="fw-lighter small">비밀번호 재확인</p>
+                        <p class="fw-bolder small">비밀번호 재확인</p>
                         <input class="form-control" type="password" id="checkPw" aria-describedby="invalid-pwCheck">
                         <div class="valid-feedback">
                             비밀번호가 일치합니다.
