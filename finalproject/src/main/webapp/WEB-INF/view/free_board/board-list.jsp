@@ -98,12 +98,14 @@
                 </c:if>
             </ul>
         </div>
-    <!-- footer -->
-    <div>
-        <br>
-        <br>
-        <c:import url="/WEB-INF/resource/inc/footer.jsp"></c:import>
+        <!-- footer -->
+        <div>
+            <br>
+            <br>
+            <c:import url="/WEB-INF/resource/inc/footer.jsp"></c:import>
+        </div>
     </div>
-
+</div>
+${suc}
 </body>
 </html>
