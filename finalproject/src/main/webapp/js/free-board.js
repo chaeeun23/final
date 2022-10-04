@@ -116,9 +116,9 @@ function commentList(result) {
     $.each(result.cmList, function (i, dto) {
         content += '<div class="listForm">'
         if (dto.memberAuth.includes('ADMIN') || dto.memberAuth.includes('EMPLOYEE')) {
-            content += '<h4 class="fw-bolder fs-5" style="color: red">' + dto.memberId + ' (관리자)</h4>'
+            content += '<h4 class="fw-bolder fs-6" style="color: red">' + dto.memberId + ' (관리자)</h4>'
         } else {
-            content += '<h4 class="fw-bolder fs-5">' + dto.memberId + '</h4>'
+            content += '<h4 class="fw-bolder fs-6">' + dto.memberId + '</h4>'
         }
         content += '<div class="lh-sm">' + dto.cmContents + '</div>'
         content += '<div class="d-flex justify-content-end">'

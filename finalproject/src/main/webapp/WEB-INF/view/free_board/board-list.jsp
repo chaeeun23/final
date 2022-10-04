@@ -14,10 +14,15 @@
     <c:set value="${pageContext.request.contextPath}" var="contextPath"/>
 </head>
 <body>
-<div class="container px-2 px-lg-1 mt-5">
-    <h1>Q&A</h1>
+<div>
+    <c:import url="/WEB-INF/resource/inc/header.jsp"></c:import>
+</div>
+<div class="d-flex justify-content-center container my-2">
+<div class="container ">
+    <div class="row mt-5 justify-content-center">
+    <h4 class="fw-bolder">Q&A 게시판</h4>
     <div>
-        <table class="table table-hover table-striped">
+        <table class="table table-hover">
             <thead>
             <tr>
                 <th class="col-1">번호</th>
@@ -89,6 +94,12 @@
             </li>
         </c:if>
     </ul>
+</div>
+<!-- footer -->
+<div>
+    <br>
+    <br>
+    <c:import url="/WEB-INF/resource/inc/footer.jsp"></c:import>
 </div>
 </body>
 </html>

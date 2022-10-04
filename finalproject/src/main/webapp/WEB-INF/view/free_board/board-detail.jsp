@@ -21,30 +21,65 @@
     <c:import url="/WEB-INF/resource/inc/header.jsp"></c:import>
 </div>
 <div class="d-flex justify-content-center container my-2">
-<div class="container">
-    <form action="/board/update" method="post">
-        <div class="mb-3">
-            <label for="subject" class="form-label">제목</label>
-            <input type="text" class="form-control" id="subject" name="subject"
-                   value="${boardDetailDto.boardDto.boardTitle}">
+    <div class="container">
+        <div class="row mt-2 justify-content-center">
+            <div style="padding: 20px; font-size: 40px; text-align: center"> Q&A</div>
+            <hr style="border: solid 1px #ddd">
+            <form action="/board/update" method="post">
+                <%--제목--%>
+                <div class="fw-bolder fs-4 ">
+                    <%--작성한 아이디로 로그인한 상태라면 --%>
+                    <sec:authorize access="hasAuthority('USER')">
+                        <c:if test="${boardDetailDto.boardDto.memberId eq memberDto.memberId}">
+                            <h5 class="fs-6 text-dark">제목</h5>
+                            <input type="text" class="form-control" id="subject" name="subject"
+                                   value="${boardDetailDto.boardDto.boardTitle}">
+                        </c:if>
+                    </sec:authorize>
+                    <%--작성한 아이디로 로그인한 상태가 아니라면--%>
+                        <c:if test="${boardDetailDto.boardDto.memberId ne memberDto.memberId}">
+                        ${boardDetailDto.boardDto.boardTitle}
+                        </c:if>
+                </div>
+                <hr style="border: solid 1px #ddd">
+                <%--작성일자--%>
+                    <c:if test="${boardDetailDto.boardDto.memberId ne memberDto.memberId}">
+                    <div class="fw-bolder mt-3" style="font-size: 14px;color: #666">
+                        <p>작성자 : ${boardDetailDto.boardDto.memberId} | 작성일자
+                            : ${boardDetailDto.boardDto.createDate} </p>
+                    </div>
+                    <hr style="border: solid 1px #ddd">
+                    </c:if>
+                <%--내용--%>
+                <div class="mb-3 fs-6" style="border-bottom:solid 1px #ddd;padding: 15px 10px;min-height: 300px">
+                    <%--작성자로 로그인된 경우--%>
+                    <sec:authorize access="hasAuthority('USER')">
+                        <c:if test="${boardDetailDto.boardDto.memberId eq memberDto.memberId}">
+                            <h5 class="fs-6 text-dark">내용</h5>
+                            <textarea class="form-control" name="content" id="content" style="height: 200px"
+                                      rows="5">${boardDetailDto.boardDto.boardContents}</textarea>
+                        </c:if>
+                    </sec:authorize>
+                    <%--작성자로 로그인 안된 경우--%>
+                        <c:if test="${boardDetailDto.boardDto.memberId ne memberDto.memberId}">
+                        ${boardDetailDto.boardDto.boardContents}
+                        </c:if>
+
+                </div>
+                <%--수정삭제버튼--%>
+                <div>
+                    <sec:authorize access="hasAuthority('USER')">
+                        <c:if test="${boardDetailDto.boardDto.memberId eq memberDto.memberId}">
+                            <input type="submit" class="btn btn-primary" value="수정">
+                            <a id="deleteBtn" class="btn btn-primary">삭제</a>
+                        </c:if>
+                    </sec:authorize>
+                </div>
+            </form>
         </div>
-        <div class="mb-3">
-            <label for="content" class="form-label">내용</label>
-            <textarea class="form-control" name="content" id="content"
-                      rows="5">${boardDetailDto.boardDto.boardContents}</textarea>
-        </div>
-        <div>
-            <sec:authorize access="hasAuthority('USER')">
-                <c:if test="${boardDetailDto.boardDto.memberId eq memberDto.memberId}">
-                    <input type="submit" class="btn btn-primary" value="수정">
-                    <a id="deleteBtn" class="btn btn-primary">삭제</a>
-                </c:if>
-            </sec:authorize>
-        </div>
-    </form>
+    </div>
 </div>
-</div>
-<div class="container px-3">
+<div class="container px-3 mt-5">
     <div class="pt-4 border-bottom border-dark">
         <h4 class="fw-bold">댓글</h4>
     </div>
@@ -73,10 +108,10 @@
             <%-- 댓글 내용 --%>
             <div class="listForm">
                 <c:if test="${dto.memberAuth.contains('EMPLOYEE') || dto.memberAuth.contains('ADMIN')}">
-                    <h4 class="fw-bolder fs-5" style="color: red">${dto.memberId} (관리자)</h4>
+                    <h4 class="fw-bolder fs-6" style="color: red">${dto.memberId} (관리자)</h4>
                 </c:if>
                 <c:if test="${!dto.memberAuth.contains('EMPLOYEE') && !dto.memberAuth.contains('ADMIN')}">
-                    <h4 class="fw-bolder fs-5">${dto.memberId}</h4>
+                    <h4 class="fw-bolder fs-6">${dto.memberId}</h4>
                 </c:if>
                 <div class="lh-sm">${dto.cmContents}</div>
                 <div class="d-flex justify-content-end">
