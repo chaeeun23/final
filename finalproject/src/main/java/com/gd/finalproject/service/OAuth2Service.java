@@ -67,6 +67,7 @@ public class OAuth2Service implements OAuth2UserService<OAuth2UserRequest, OAuth
                     .memberAddr("")
                     .memberAuth(auth)
                     .memberGender("F")
+                    .memberSleepYn("N")
                     .attributes(attributes)
                     .build();
             if (!kakaoProfile.getKakao_account().isBirthday_needs_agreement()) {
