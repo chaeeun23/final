@@ -41,7 +41,6 @@ th, td {
 					<th>장소</th>
 					<th>수강요일</th>
 					<th>시간</th>
-					<th>사물함</th>
 					<th>가격</th>
 					<th>주문관리</th>
 				</tr>
@@ -57,7 +56,6 @@ th, td {
 						<td>${uc.lectureAddr}</td>
 						<td>${uc.lectureDay}</td>
 						<td>${uc.lectureTime}</td>
-						<td>${uc.lockerUse}<input type="checkbox" name="lockerUse" value="1"></td>
 						<td>${uc.lecturePrice}원</td>
 						<td><a class="btn btn-primary" href="${pageContext.request.contextPath}/removeUserCart?lectureNo=${uc.lectureNo}&userId=${member.memberId}">삭제하기</a></td>
 					</tr>

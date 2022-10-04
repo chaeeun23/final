@@ -30,7 +30,7 @@
 				<th>강좌이름</th>
 				<th>강사이름</th>
 				<th>사물함번호</th>
-				<th>강좌가격</th>
+				<th>결제가격</th>
 				<th>결제수단</th>
 				<th>결제날짜</th>
 				<th>환불</th>
@@ -42,7 +42,7 @@
 					<td>${l.lectureName}</td>
 					<td>${l.instructorName}</td>
 					<td>${l.lockerNo}</td>
-					<td>${l.lecturePrice}원</td>
+					<td>${l.payPrice}원</td>
 					<td>${l.payMethod}</td>
 					<td>${l.payDate}</td>
 					<td>

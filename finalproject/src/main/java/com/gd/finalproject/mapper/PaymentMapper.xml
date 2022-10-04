@@ -4,97 +4,120 @@
 
 
 
-<!-- 회원 결제리스트 -->
-<select id="selectUserPaymentList" resultType="map">
-	SELECT
+	<!-- 회원 결제리스트 -->
+	<select id="selectUserPaymentList" resultType="map">
+		SELECT
 		l.lecture_no lectureNo,
 		lc.lecture_addr lectureAddr,
-		l.lecture_name lectureName,
+		l.lecture_name
+		lectureName,
 		l.lecture_time lectureTime,
 		l.lecture_price lecturePrice,
 		l.lecture_startDate lectureStartDate,
 		l.lecture_endDate lectureEndDate,
-		lk.locker_use lockerUse,
 		lk.locker_no lockerNo,
 		m.member_name memberName,
 		GROUP_CONCAT(ld.lecture_day
-			ORDER BY CASE lecture_day
-				WHEN '월' THEN 1
-				WHEN '화' THEN 2
-				WHEN '수' THEN 3
-				WHEN '목' THEN 4
-				WHEN '금' THEN 5
-			END ASC
+		ORDER BY CASE lecture_day
+		WHEN '월' THEN 1
+		WHEN '화' THEN 2
+		WHEN '수' THEN 3
+		WHEN '목' THEN 4
+		WHEN '금' THEN 5
+		END ASC
 		) lectureDay
-	FROM lecture l 
-		LEFT JOIN lectureday ld	ON l.lecture_no = ld.lecture_no
-		LEFT JOIN location lc ON l.location_no = lc.location_no
-		LEFT JOIN payment p ON p.lecture_no = l.lecture_no
-		LEFT JOIN locker lk ON p.locker_no = lk.locker_no
+		FROM lecture l
+		LEFT JOIN lectureday ld ON l.lecture_no = ld.lecture_no
+		LEFT JOIN location
+		lc ON l.location_no = lc.location_no
+		LEFT JOIN payment p ON
+		p.lecture_no = l.lecture_no
+		LEFT JOIN locker lk ON p.locker_no =
+		lk.locker_no
 		LEFT JOIN instructor i ON l.instructor_id = i.member_id
 		LEFT JOIN member m ON m.member_id = i.member_id
-	WHERE l.lecture_no = #{cartCheck} GROUP BY l.lecture_no;
+		WHERE l.lecture_no = #{cartCheck} GROUP BY l.lecture_no;
 
-</select>
+	</select>
 
-<!-- 회원 결제내역 -->
-<select id="selectUserPaymentHistory" resultType="map">
-	SELECT
-			p.course_no courseNo,
-			p.lecture_no lectureNo,
-			p.user_id userId,
-			p.locker_no lockerNo,
-			p.pay_method payMethod,
-			DATE_FORMAT(p.pay_date, '%Y-%m-%d %T') payDate,
-			p.refund refund,
-			FORMAT(l.lecture_price, 0) lecturePrice,
-			l.lecture_name lectureName,
-			m.member_name instructorName
-	FROM payment p 
-		LEFT JOIN lecture l	ON p.lecture_no = l.lecture_no
-		LEFT JOIN instructor i ON l.instructor_id = i.member_id
-		LEFT JOIN member m ON m.member_id = i.member_id
-	WHERE p.user_id = #{userId}
-	ORDER BY course_no ASC
-	LIMIT #{beginRow},#{rowPerPage}
-</select>
+	<!-- 회원 결제내역 -->
+	<select id="selectUserPaymentHistory" resultType="map">
+		SELECT
+		p.course_no courseNo,
+		p.lecture_no lectureNo,
+		p.user_id userId,
+		p.locker_no lockerNo,
+		p.pay_method payMethod,
+		DATE_FORMAT(p.pay_date, '%Y-%m-%d %T') payDate,
+		p.refund refund,
+		FORMAT(p.pay_price, 0) payPrice,
+		l.lecture_name lectureName,
+		m.member_name instructorName
+		FROM payment p
+		LEFT JOIN lecture l ON p.lecture_no = l.lecture_no
+		LEFT JOIN instructor i
+		ON l.instructor_id = i.member_id
+		LEFT JOIN member m ON m.member_id =
+		i.member_id
+		WHERE p.user_id = #{userId}
+		ORDER BY course_no ASC
+		LIMIT #{beginRow},#{rowPerPage}
+	</select>
 
-<!-- 회원 결제내역 Total -->
-<select id="getUserPaymentTotal" resultType="java.lang.Integer" parameterType="string">
-	SELECT COUNT(*)
+	<!-- 회원 결제내역 Total -->
+	<select id="getUserPaymentTotal" resultType="java.lang.Integer"
+		parameterType="string">
+		SELECT COUNT(*)
 		FROM payment
 		WHERE user_id = #{userId}
-	
-</select>
 
-<!-- 결제 중복 여부 확인 -->
-<select id="selectPaymentCheck" resultType="int" parameterType="com.gd.finalproject.vo.Payment">
-	SELECT
-		COUNT(user_id) cnt
-		FROM payment
+	</select>
+
+	<!-- 결제 중복 여부 확인 -->
+	<select id="selectPaymentCheck" resultType="int"
+		parameterType="com.gd.finalproject.vo.Payment">
+		SELECT
+			COUNT(user_id
+		) cnt FROM payment
 		WHERE user_id = #{userId} AND lecture_no = #{lectureNo}
-</select>
+	</select>
 
-<!-- 결제내역 추가 -->
-<insert id="insertUserPayment" parameterType="com.gd.finalproject.vo.Payment">
-	INSERT INTO payment(
-		lecture_no,
-		user_id,
-		pay_method,
-		pay_date
+	<!-- 결제내역 추가 -->
+	<insert id="insertUserPayment"
+		parameterType="com.gd.finalproject.vo.Payment" useGeneratedKeys="true" keyProperty="payment.courseNo">
+		INSERT INTO payment(
+			lecture_no,
+			user_id,
+			pay_method,
+			pay_date
 		) VALUES(
-		#{lectureNo},
-		#{userId},
-		#{payMethod},
-		NOW()
+			#{lectureNo},
+			#{userId},
+			#{payment.payMethod},
+			NOW()
 		)
-</insert>
+	</insert>
 
-<!-- 환불상태 변경 -->
-<update id="updateRefundStatement" parameterType="com.gd.finalproject.vo.Payment">
-	UPDATE payment 
-	SET
+	<!-- 환불상태 변경 -->
+	<update id="updateRefundStatement"
+		parameterType="com.gd.finalproject.vo.Payment">
+		UPDATE payment
+		SET
 		refund = 'Y'
-	WHERE course_no = #{courseNo} AND refund = 'N'
-</update>
+		WHERE course_no = #{courseNo} AND refund = 'N'
+	</update>
+	
+	<!-- 사물함 선택시 결제내역 수정(사물함 번호 삽입 및 결제금액 추가 -->
+	<update id="updateUserPayment" parameterType="Integer">
+		UPDATE payment p
+				JOIN lecture l
+				ON p.lecture_no = l.lecture_no
+				LEFT OUTER JOIN locker lk
+				ON p.course_no = lk.course_no
+				SET
+				p.locker_no = lk.locker_no,
+				p.pay_price = CASE WHEN p.locker_no IS NULL THEN l.lecture_price ELSE l.lecture_price + lk.locker_price END
+				WHERE p.course_no = #{courseNo}
+
+	</update>
 </mapper>

@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 </head>
 <body>
 	<!-- header(로고, 네비게이션바) -->
@@ -53,7 +54,12 @@
 						<td>${p.lectureStartDate}</td>
 						<td>${p.lectureEndDate}</td>
 						<td>${p.lecturePrice}원</td>
-						<td>${p.lockerUse}</td>
+						<td>
+							<select name="lockerUse">
+								<option value="N">X
+								<option value="Y">O
+							</select>
+						</td>
 					</tr>
 				</c:forEach>
 				<tr>
@@ -84,4 +90,5 @@
 	
 
 </body>
+
 </html>

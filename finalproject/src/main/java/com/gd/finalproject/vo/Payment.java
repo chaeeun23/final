@@ -11,4 +11,5 @@ public class Payment {
 	private String payMethod; //결제수단
 	private String payDate; //결제날짜
 	private String refund; //환불여부
+	private int payPrice; // 결제금액
 }

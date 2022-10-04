@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gd.finalproject.commons.TeamColor;
 import com.gd.finalproject.service.PaymentService;
+import com.gd.finalproject.vo.Locker;
 import com.gd.finalproject.vo.MemberDto;
 import com.gd.finalproject.vo.Payment;
 
@@ -38,10 +38,9 @@ public class PaymentController {
 	
 	// 회원결제 리스트
 	@PostMapping("/userPaymentList")
-	public String userPaymentList(Model model, @AuthenticationPrincipal MemberDto memberDto, String cartCheck/*, String lockerUse*/) {
+	public String userPaymentList(Model model, @AuthenticationPrincipal MemberDto memberDto, String cartCheck) {
 		// 파라미터 체크
 		log.debug(TeamColor.YW + "userPaymentList.memberDto.getMemberId() : " + memberDto.getMemberId());
-		//		log.debug(TeamColor.YW + "getUserPaymentList.lockerUse : " + lockerUse);	
 		
 		List<Map<String,Object>> userPaymentList = paymentService.getUserPaymentList(memberDto.getMemberId(),cartCheck);
 		model.addAttribute("userPaymentList", userPaymentList);
@@ -51,13 +50,14 @@ public class PaymentController {
 	
 	// 결제내역 추가(결제목록 장바구니에서 삭제 포함)
 	@PostMapping("/addUserPayment")
-	public String addUserPayment(Model model, @AuthenticationPrincipal MemberDto memberDto, Payment payment) {
+	public String addUserPayment(@AuthenticationPrincipal MemberDto memberDto, Payment payment, @RequestParam(value = "lockerUse") String lockerUse) {
 		// 파라미터 체크
 		log.debug(TeamColor.YW + "addUserPayment.memberDto.getMemberId() : " + memberDto.getMemberId());
 		log.debug(TeamColor.YW + "addUserPayment.payment : " + payment);
+		log.debug(TeamColor.YW + "addUserPayment.locker : " + lockerUse);
 		
 		// 실행
-		boolean insertPayment = paymentService.addUserPayment(payment.getLectureNo(), memberDto.getMemberId(), payment.getPayMethod()); 
+		boolean insertPayment = paymentService.addUserPayment(memberDto.getMemberId(), payment, lockerUse); 
 		log.debug(TeamColor.YW + "addUserPayment.insertPayment : " + insertPayment);
 		
 		// 임시로 cartList로 지정, 결제내역폼 만든 후 바꿀 예정
