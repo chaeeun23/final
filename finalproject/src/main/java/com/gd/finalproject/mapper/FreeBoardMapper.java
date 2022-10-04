@@ -17,4 +17,6 @@ public interface FreeBoardMapper {
 
     BoardDto boardDetail(@Param("boardNo") int boardNo);
 
+
+    int addBoard(@Param("boardDto")BoardDto boardDto);
 }

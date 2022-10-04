@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"  isErrorPage= "true" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isErrorPage="true" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +7,10 @@
     <title>Title</title>
 </head>
 <body>
-<p>500대 에러나면 여기로 와여</p>
+<div class="text-center">
+    <h4 >죄송합니다</h4>
+    <h4>잘못된 요청입니다</h4>
+</div>
 
 status : 500
 <br/>

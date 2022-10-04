@@ -3,6 +3,7 @@ package com.gd.finalproject.service.board;
 import com.gd.finalproject.mapper.CmMapper;
 import com.gd.finalproject.mapper.FreeBoardMapper;
 import com.gd.finalproject.util.PageNationUtil;
+import com.gd.finalproject.vo.MemberDto;
 import com.gd.finalproject.vo.freeboard.BoardDetailDto;
 import com.gd.finalproject.vo.freeboard.BoardDto;
 import com.gd.finalproject.vo.freeboard.CmDto;
@@ -12,7 +13,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.ServletContext;
 import java.util.List;
 
 @Service
@@ -21,10 +25,13 @@ public class FreeBoardService {
 
     private final FreeBoardMapper freeBoardMapper;
     private final CmMapper cmMapper;
+    private final ServletContext servletContext;
 
     public PageBoardDto boardList(@RequestParam(required = false) String current) {
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        String contextPath = attr.getRequest().getContextPath();
         // 만들어논 메서드
-        PageNationDto pageNation = PageNationUtil.getPageNation(current, freeBoardMapper.getBoardTotal(), "/free-board/list", 10);
+        PageNationDto pageNation = PageNationUtil.getPageNation(current, freeBoardMapper.getBoardTotal(), contextPath +"/free-board/list", 10);
         // 보드리스트 가져오기
         List<BoardDto> boardList = freeBoardMapper.getBoardList(pageNation.getBeginRow(), pageNation.getRowPerPage());
 
@@ -47,5 +54,9 @@ public class FreeBoardService {
                 .pageNation(pageNation)
                 .cmList(cmList)
                 .build();
+    }
+
+    public int addBoard(BoardDto boardDto) {
+        return freeBoardMapper.addBoard(boardDto);
     }
 }

@@ -7,7 +7,10 @@
     <title>Title</title>
 </head>
 <body>
-<p>400대 에러나면 여기로 와여</p>
+<div class="test-center">
+    <img src="${pageContext.request.contextPath}/mainImg/403.jpg">
+    <h4>죄송합니다</h4>
+    <h4>잘못된 요청입니다</h4></div>
 
 status : ${status}
 <br/>

@@ -2,6 +2,18 @@
 <!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <!-- 경로 틀리면 시작시 무조건 에러 -->
 <mapper namespace="com.gd.finalproject.mapper.FreeBoardMapper">
+    <insert id="addBoard" parameterType="com.gd.finalproject.vo.freeboard.BoardDto">
+        insert into free_board(board_no,
+                               member_id,
+                               board_title,
+                               board_contents,
+                               create_date)
+        values (#{boardDto.boardNo},
+                #{boardDto.memberId},
+                #{boardDto.boardTitle},
+                #{boardDto.boardContents},
+                now())
+    </insert>
 
     <update id="showUp">
         UPDATE free_board

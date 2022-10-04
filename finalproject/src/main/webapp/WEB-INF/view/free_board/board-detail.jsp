@@ -37,19 +37,34 @@
                         </c:if>
                     </sec:authorize>
                     <%--작성한 아이디로 로그인한 상태가 아니라면--%>
+                    <sec:authorize access="hasAuthority('USER')">
                         <c:if test="${boardDetailDto.boardDto.memberId ne memberDto.memberId}">
-                        ${boardDetailDto.boardDto.boardTitle}
+                            ${boardDetailDto.boardDto.boardTitle}
                         </c:if>
+                    </sec:authorize>
+                    <%--비회원--%>
+                    <sec:authorize access="isAnonymous()">
+                        ${boardDetailDto.boardDto.boardTitle}
+                    </sec:authorize>
+
                 </div>
                 <hr style="border: solid 1px #ddd">
                 <%--작성일자--%>
-                    <c:if test="${boardDetailDto.boardDto.memberId ne memberDto.memberId}">
-                    <div class="fw-bolder mt-3" style="font-size: 14px;color: #666">
+                <div class="fw-bolder mt-3" style="font-size: 14px;color: #666">
+                    <sec:authorize access="hasAuthority('USER')">
+                        <c:if test="${boardDetailDto.boardDto.memberId ne memberDto.memberId}">
+                            <p>작성자 : ${boardDetailDto.boardDto.memberId} | 작성일자
+                                : ${boardDetailDto.boardDto.createDate} </p>
+                        </c:if>
+                    </sec:authorize>
+                    <%--비회원--%>
+                    <sec:authorize access="isAnonymous()">
                         <p>작성자 : ${boardDetailDto.boardDto.memberId} | 작성일자
-                            : ${boardDetailDto.boardDto.createDate} </p>
-                    </div>
-                    <hr style="border: solid 1px #ddd">
-                    </c:if>
+                            : ${boardDetailDto.boardDto.createDate}
+                        </p>
+                    </sec:authorize>
+                </div>
+                <hr style="border: solid 1px #ddd">
                 <%--내용--%>
                 <div class="mb-3 fs-6" style="border-bottom:solid 1px #ddd;padding: 15px 10px;min-height: 300px">
                     <%--작성자로 로그인된 경우--%>
@@ -61,9 +76,16 @@
                         </c:if>
                     </sec:authorize>
                     <%--작성자로 로그인 안된 경우--%>
+                    <sec:authorize access="hasAuthority('USER')">
                         <c:if test="${boardDetailDto.boardDto.memberId ne memberDto.memberId}">
-                        ${boardDetailDto.boardDto.boardContents}
+                            ${boardDetailDto.boardDto.boardContents}
                         </c:if>
+                    </sec:authorize>
+
+                    <%--비회원--%>
+                    <sec:authorize access="isAnonymous()">
+                        ${boardDetailDto.boardDto.boardContents}
+                    </sec:authorize>
 
                 </div>
                 <%--수정삭제버튼--%>

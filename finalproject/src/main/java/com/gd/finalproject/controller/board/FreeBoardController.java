@@ -1,14 +1,18 @@
 package com.gd.finalproject.controller.board;
 
 import com.gd.finalproject.service.board.FreeBoardService;
+import com.gd.finalproject.vo.MemberDto;
 import com.gd.finalproject.vo.freeboard.BoardDetailDto;
+import com.gd.finalproject.vo.freeboard.BoardDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -33,4 +37,23 @@ public class FreeBoardController {
         model.addAttribute("boardDetailDto", boardDto);
         return "/free_board/board-detail";
     }
+
+
+    // 입력폼
+    @GetMapping("/insert-form")
+    public String insertForm() {
+        return "/free_board/insert-form";
+    }
+
+
+    //로직
+    @PostMapping("/insert")
+    public String addBoard(BoardDto boardDto, @AuthenticationPrincipal MemberDto memberDto,
+                           Model model) {
+        log.info("boardDto = {}", boardDto);
+        boardDto.setMemberId(memberDto.getMemberId());
+       int boardNo =  freeBoardService.addBoard(boardDto);
+        return "redirect:/free-board/list";
+    }
 }
+
