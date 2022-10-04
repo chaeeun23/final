@@ -18,7 +18,6 @@ import com.gd.finalproject.vo.Lecture;
 import com.gd.finalproject.vo.LectureDay;
 import com.gd.finalproject.vo.Location;
 import com.gd.finalproject.vo.PageNationDto;
-import com.gd.finalproject.vo.Review;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -134,12 +133,17 @@ public class LectureService {
     	int deleteDayLecture = lectureMapper.deleteLectureDay(lectureNo);
     	log.debug(TeamColor.MS + "LectureService.removeLecture(deleteDayLecture) : " + deleteDayLecture);
     	
-    	// 강좌 요일이 삭제되야지만 강좌 삭제
-    	if(deleteDayLecture == 0){
-    		// 강좌 삭제
-    	   	int deleteLecture = lectureMapper.deleteLecture(lectureNo);
-    	   	log.debug(TeamColor.MS + "LectureService.removeLecture(deleteLecture) : " + deleteLecture);
+    	int deleteLecture = 0;
+    	if(deleteDayLecture != 0){   
+    		
+    	// 강좌 삭제
+    	deleteLecture = lectureMapper.deleteLecture(lectureNo);
+       	log.debug(TeamColor.MS + "LectureService.removeLecture(deleteLecture) : " + deleteLecture);
     	}
-    	return deleteDayLecture;
+    	
+    	return deleteLecture;
     }
+    
+    
+    
 }
