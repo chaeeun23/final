@@ -7,7 +7,14 @@ INSERT INTO
 consultReservation(user_id, consult_date, create_date) 
 VALUES(#{userId}, #{consultDate} , NOW())
 </insert>
-
+<!-- 상담예약리스트(회원) -->
+<select id="selectUserConsultReservationList" resultType="com.gd.finalproject.vo.ConsultReservation">
+SELECT user_id userId,
+       consult_date consultDate
+FROM consultReservation
+WHERE user_id = #{userId}
+       
+</select>
 <!-- 상담예약상세(회원) -->
 <select id="selectUserConsultReservationOne" resultType="map">
 SELECT
@@ -48,4 +55,6 @@ WHERE user_id=#{userId}
 DELETE FROM consultReservation
 WHERE consultReservation_no=#{consultReservationNo}
 </delete>
+
+
 </mapper>

@@ -1,5 +1,7 @@
 package com.gd.finalproject.service;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +24,21 @@ public class ConsultService {
 	public int addConsultReservation(ConsultReservation consultReservation){
 		log.debug(TeamColor.CE + "[ConsultService.addConsultReservation] consultReservation : " + consultReservation);
 		
+	
 		int insertConsultReservation = consultMapper.insertConsultReservation(consultReservation);
 		
 		return insertConsultReservation;
+	}
+	
+	//상담예약리스트(회원)
+	public Map<String, Object> getUserConsultReservationList(String userId){
+		List<ConsultReservation> list = consultMapper.selectUserConsultReservationList(userId);
+		log.debug(TeamColor.CE + "[ConsultService.getUserConsultReservationList] list : " + list);
+		
+		Map<String,Object> map = new HashMap<>();
+		map.put("list", list);
+		
+		return map;
 	}
 	
 	//상담예약상세(회원)

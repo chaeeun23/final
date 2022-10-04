@@ -30,15 +30,27 @@ public class ConsultController {
 		log.debug(TeamColor.CE + "[ConsultController.addConsultReservation] memberDto : " + memberDto);
 		userId=memberDto.getMemberId();
 		log.debug(TeamColor.CE + "[ConsultController.addConsultReservation] userId : " + userId);
-		
 		model.addAttribute("memberDto",memberDto);
 		model.addAttribute("userId", userId);
+		
 		return "/user/addConsultReservation";
 	}
 	
+	//상담예약 리스트(회원)
+	@GetMapping("/userConsultReservationList")
+	public String userConsultReservationList(Model model, @RequestParam(value = "userId",  required=false) String userId) {
+		log.debug(TeamColor.CE + "[ConsultController.userConsultReservationList] userId : " + userId);
+		
+		Map<String,Object> map = consultService.getUserConsultReservationList(userId);
+		
+		log.debug(TeamColor.CE + "[ConsultController.userConsultReservationList] map : " + map);
+		
+		map.forEach((key,value) -> model.addAttribute(key,value));
+		
+		return "/user/userConsultReservationList";
+	}
 	//상담예약(회원) - action
 	@PostMapping("/addConsultReservation")
-	
 	public String addConsultReservaion(ConsultReservation consultReservation) {
 		log.debug(TeamColor.CE + "[ConsultController.addConsultReservation] consultReservation : " + consultReservation);
 		consultReservation.setConsultDate(consultReservation.getConsultDate()+" "+consultReservation.getConsultDateTime());
