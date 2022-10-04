@@ -32,7 +32,8 @@
 				</tr>
 				<tr>
 					<td>상담날짜</td>
-					<td><input type="date" id="consultDate" name="consultDate" value="${map.consultDate}"></td>
+					<td><input type="date" id="consultDate" name="consultDate"
+						value="${map.consultDate}"></td>
 				</tr>
 				<tr>
 					<td>상담시간</td>
@@ -50,8 +51,7 @@
 			</table>
 			<button type="button" class="btn btn-primary"
 				id="modifyConsultReservationBtn"
-				style="width: 100px; float: right; margin-right: 10px;"
-				>상담예약</button>
+				style="width: 100px; float: right; margin-right: 10px;">상담예약</button>
 
 		</form>
 	</div>
@@ -65,35 +65,6 @@
 	</div>
 
 	<script>
-		$("#modifyConsultReservationBtn")
-				.click(
-						function() {
-							if ($("#consultDate").val() == "") {
-								alert("상담날짜를 입력해 주세요.");
-								return false;
-							} else if ($("#consultDateTime option:selected").val() == "default") {
-								alert("상담시간을 선택해 주세요.");
-								return false;
-							} else {
-								//주말을 선택하면 경고 알림창
-								var consultDate = $("#consultDate").val();
-								var d = new Date(consultDate);
-								let week = new Array('일', '월', '화', '수', '목', '금', '토');
-								let day;
-								let dayLabel;
-								day = new Date(d).getDay();
-								dayLabel = week[day];
-								console.log(dayLabel);
-								if(dayLabel=="일" || dayLabel=="토"){
-									alert('주말을 제외하고 선택해주세요.')
-								}
-								else{
-								alert('상담예약 완료');
-								modifyConsultReservationForm.submit();
-								}
-							}
-						});
-
 		//오늘 날짜 다음 날부터만 선택 가능하게
 		var now_utc = Date.now() // 지금 날짜를 밀리초로
 		// getTimezoneOffset()은 현재 시간과의 차이를 분 단위로 반환
@@ -106,11 +77,45 @@
 		var todayMonth = today.split("-")[1];
 		console.log(todayMonth);
 		var todayDate = Number(today.split("-")[2]);
+		console.log(todayDate);
 		todayDate += 1;
+		if (todayDate < 10){
+			todayDate = "0" + todayDate;
+		}
 		console.log(todayDate);
 		today = todayYear + '-' + todayMonth + '-' + todayDate;
 		console.log(today);
 		document.getElementById("consultDate").setAttribute("min", today);
+
+		$("#modifyConsultReservationBtn")
+				.click(
+						function() {
+							if ($("#consultDate").val() == "") {
+								alert("상담날짜를 입력해 주세요.");
+								return false;
+							} else if ($("#consultDateTime option:selected")
+									.val() == "default") {
+								alert("상담시간을 선택해 주세요.");
+								return false;
+							} else {
+								//주말을 선택하면 경고 알림창
+								var consultDate = $("#consultDate").val();
+								var d = new Date(consultDate);
+								let week = new Array('일', '월', '화', '수', '목',
+										'금', '토');
+								let day;
+								let dayLabel;
+								day = new Date(d).getDay();
+								dayLabel = week[day];
+								console.log(dayLabel);
+								if (dayLabel == "일" || dayLabel == "토") {
+									alert('주말을 제외하고 선택해주세요.')
+								} else {
+									alert('상담예약 완료');
+									modifyConsultReservationForm.submit();
+								}
+							}
+						});
 	</script>
 </body>
 </html>
