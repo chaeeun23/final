@@ -41,7 +41,7 @@ public interface LectureMapper {
 	int deleteLectureDay(String lectureNo);
 	
 	// 강좌 삭제(deleteLecture)
-	int deleteLecture(String lectureNo);
+	int deleteLecture(@Param("lectureNo") String lectureNo);
 	
 	
 }

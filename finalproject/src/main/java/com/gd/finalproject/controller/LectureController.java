@@ -9,11 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gd.finalproject.commons.TeamColor;
 import com.gd.finalproject.service.LectureService;
-import com.gd.finalproject.service.ReviewService;
 import com.gd.finalproject.vo.Lecture;
 
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class LectureController {
 	@Autowired LectureService lectureService;
-	@Autowired ReviewService reviewService;
+	
 	
 	// 강좌 리스트(lectureList)
 	@GetMapping("/lectureList")		
@@ -34,51 +32,22 @@ public class LectureController {
 		return "/commons/lectureList";		// 경로
 	}
 	
-	// 강좌 상세페이지(lectureListOne), 리뷰 리스트(reviewList)
-	@GetMapping("/lectureOne") 
-	public String lectureOne(Model model, @RequestParam(value="lectureNo") String lectureNo, 
-			@RequestParam(required = false, value = "current") String current,
-            @ModelAttribute("check") String check) {
-		// 값 넘겨 받기
-		log.debug(TeamColor.MS + "LectureController.lectureOne(lectureNo) : " + lectureNo);
+	// 강좌 상세페이지(lectureListOne)
+	@GetMapping("/lectureOne")		
+	public String lectureOne(Model model, String lectureNo) {
 		
+		// 값 넘겨 받기 
+		 log.debug(TeamColor.MS + "LectureController.lectureOne(lectureNo) : " + lectureNo);
+		 
 		// 강좌 상세페이지
 		Map<String,Object> lectureOne = lectureService.getLectureOne(lectureNo);
 		log.debug(TeamColor.MS + "LectureController.lectureOne(lectureOne) : " + lectureOne);
-		
-		// 리뷰 리스트
-		Map<String,Object> reviewList = reviewService.getReviewList(lectureNo, current);
-		log.debug(TeamColor.MS + "LectureController.lectureOne(reviewList) : " + reviewList); 
-		
-		// reviewList에서 꺼내주기
-		log.debug(TeamColor.MS + "LectureController.lectureOne(pageNation) : " + reviewList.get("pageNation")); 
-		log.debug(TeamColor.MS + "LectureController.lectureOne(reviewList) : " + reviewList.get("reviewList")); 
-		
-		
+	
 		// 꺼낸 값 model에 넣어주기
 		model.addAttribute("lectureOne", lectureOne);
-		model.addAttribute("pageNation", reviewList.get("pageNation"));
-		model.addAttribute("reviewList", reviewList.get("reviewList"));
 		
 		return "/commons/lectureOne";
 	}
-	
-	// 리뷰 리스트(lectureOne - reviewList)
-	@ResponseBody
-	@GetMapping("/reviewList") 
-	public String reviewList(Model model, @RequestParam(value="lectureNo") String lectureNo, 
-			@RequestParam(required = false, value = "current") String current,
-            @ModelAttribute("check") String check) {
-		
-		// 리뷰 리스트
-		Map<String,Object> getReviewList = reviewService.getReviewList(lectureNo, current);
-		log.debug(TeamColor.MS + "LectureController.lectureOne(reviewList) : " + getReviewList); 
-		model.addAttribute("getReviewList", getReviewList);
-		
-		
-		return "/commons/lectureOne";
-	}
-	
 	
 	// 강좌 추가 (addLecture.jsp-Form)
 	@GetMapping("/addLecture")
@@ -89,7 +58,6 @@ public class LectureController {
 		log.debug(TeamColor.MS + "LectureController.addLecture(locationAndInstructor) : " + locationAndInstructor);
 		locationAndInstructor.forEach((key, value) -> model.addAttribute(key, value));
 	
-		
 		return "/commons/addLecture";
 	}
 	
