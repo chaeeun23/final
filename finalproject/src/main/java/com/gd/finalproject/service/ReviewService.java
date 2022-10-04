@@ -1,5 +1,6 @@
 package com.gd.finalproject.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import com.gd.finalproject.util.PageNationUtil;
 import com.gd.finalproject.vo.PageNationDto;
 import com.gd.finalproject.vo.Review;
 
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -22,28 +24,31 @@ import lombok.extern.slf4j.Slf4j;
 public class ReviewService {
 	@Autowired ReviewMapper reviewMapper;
 	
-	 
 	// 리뷰 리스트(reviewList)
-	public Map<String, Object> getReviewList(String lectureNo, String current) {
+	public List<Map<String,Object>> getReviewList(String lectureNo, String current) {
+		log.debug(TeamColor.MS + "ReviewService(lectureNo) : " + lectureNo);
+        log.debug(TeamColor.MS + "ReviewService(current) : " + current);
+        
 		// 페이지네이션 총 갯수
         int total = reviewMapper.getReviewTotal(lectureNo);
         log.debug(TeamColor.MS + "ReviewService(total) : " + total);
-        
+       
         // 만들어논 메서드
-        PageNationDto pageNation = PageNationUtil.getPageNation(current, total, "/finalproject/reviewList", 5);
+		PageNationDto pageNation = PageNationUtil.getPageNation(current, total, "/finalproject/lectureOne", 5);
         log.debug(TeamColor.MS + "ReviewService(pageNation) : " + pageNation);
 
+
         // reviewList 가져오기
-        List<Review> reviewList = reviewMapper.selectReviewList(lectureNo, pageNation.getBeginRow(),
+        List<Map<String,Object>> review = reviewMapper.selectReviewList(lectureNo, pageNation.getBeginRow(),
                 pageNation.getRowPerPage());
-        log.debug(TeamColor.MS + "ReviewService(reviewList) : " + reviewList);
+        log.debug(TeamColor.MS + "ReviewService(review) : " + review);
 
         // 객체 생성후 넣기
         Map<String, Object> map = new HashMap<>();
         map.put("pageNation", pageNation);
-        map.put("reviewList", reviewList);
+        map.put("review", review);
 
-        return map;
+        return review;
 		
 	}
 	
