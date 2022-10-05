@@ -15,7 +15,6 @@ public class SleeperMemberScheduler {
     private final MemberMapper memberMapper;
 
     // 매일 오전7시
-    //@Scheduled(cron = "0 0/1 * * * *")
     @Scheduled(cron = "0 0 7 * * *")
     public void sleeperMemberUpdate() throws Exception {
         log.info("휴면 계정 검증 시작");
@@ -26,4 +25,7 @@ public class SleeperMemberScheduler {
         memberMapper.sleepMemberUpdate(date);
         log.info("휴면 계정 업데이트 완료");
     }
+
+    // 매일 오전7시
+    //
 }

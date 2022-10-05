@@ -115,9 +115,6 @@ public class MemberController {
     }
 
 
-
-
-
     //회원탈퇴 폼
     @GetMapping("/out-member")
     public String outMemberForm() {
@@ -127,16 +124,14 @@ public class MemberController {
 
     // 회원탈퇴 로직
     @PostMapping("/out-member")
-    public String deleteMember(@RequestParam("pw") String pw,
-                           @AuthenticationPrincipal MemberDto memberDto,
-                           Model model) {
-        String check = memberService.memberDeleteYn(pw,memberDto.getMemberId());
+    public String deleteMember(@RequestParam("pw") String pw, @AuthenticationPrincipal MemberDto memberDto,
+                               Model model) {
+        String check = memberService.memberDeleteYn(pw, memberDto.getMemberId());
         if (check.equals("fail")) {
             model.addAttribute("error", "해당하는 회원이 없습니다. 다시 시도해주세요");
             return "/member/out-member";
         }
-        model.addAttribute("suc", "변경 성공");
-        return "/main_page/index";
+        return "redirect:/logout";
     }
 }
 

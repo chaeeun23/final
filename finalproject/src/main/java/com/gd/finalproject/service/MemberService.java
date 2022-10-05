@@ -178,6 +178,7 @@ public class MemberService implements UserDetailsService {
         if (!passwordEncoder.matches(pw, memberDto.getPassword())) {
             return "fail";
         }
-        return   memberMapper.deleteMemberYn(pw);
+        memberMapper.deleteMemberYn(memberId);
+        return "suc";
     }
 }

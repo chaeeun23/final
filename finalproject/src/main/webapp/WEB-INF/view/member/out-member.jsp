@@ -48,17 +48,17 @@
                                 <div class="row">
                             <div class="col-sm-4 ">
                                 <label for="name" class="form-label small">이름</label>
-                                <input type="text" class="form-control" style="width: 250px" name="memberId" id="name"
+                                <input type="text" class="form-control" style="width: 250px"  id="name"
                                        value="${member.memberName}" readonly>
                             </div>
                             <div class="col-sm-4 ">
                                 <label for="id" class="form-label small">아이디</label>
-                                <input class="form-control" type="text" style="width: 250px" name="memberId" id="id"
+                                <input class="form-control" type="text" style="width: 250px"  id="id"
                                        value="${member.memberId}" readonly>
                             </div>
                             <div class="col-sm-4">
                                 <label for="pw" class="form-label small ">비밀번호</label>
-                                <input type="text" class="form-control" name="memberEmail" style="width: 250px" id="pw"
+                                <input type="text" class="form-control" name="pw" style="width: 250px" id="pw"
                                        placeholder="비밀번호를 입력해주세요">
                             </div>
                         </div>

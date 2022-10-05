@@ -37,7 +37,12 @@
                 <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
                     <use xlink:href="#exclamation-triangle-fill"/>
                 </svg>
-                <div>정보가 틀리거나 없는 아이디입니다</div>
+                <c:if test="${error eq 'f'}">
+                    <div>정보가 틀리거나 없는 아이디입니다</div>
+                </c:if>
+                <c:if test="${error eq 't'}">
+                    <div>탈퇴한 아이디입니다. 관리자에게 문의해주세요</div>
+                </c:if>
             </div>
         </c:if>
         <div class="d-flex justify-content-end">

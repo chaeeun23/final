@@ -3,6 +3,7 @@ package com.gd.finalproject.secrity.handler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
@@ -29,7 +30,6 @@ public class LoginFailHandler extends SimpleUrlAuthenticationFailureHandler {
             // 기본적인 아이디가 없거나, 비밀번호가 틀릴경우 경우
             setDefaultFailureUrl("/anonymous/login-form?error=f");
             super.onAuthenticationFailure(request, response, exception);
-
         } else if (exception instanceof AccountExpiredException) {
             // 휴면 계정이라면
             String username = request.getParameter("username");
@@ -39,6 +39,9 @@ public class LoginFailHandler extends SimpleUrlAuthenticationFailureHandler {
             cookie.setPath("/");
             response.addCookie(cookie);
             response.sendRedirect(contextPath + "/anonymous/sleep-member-form");
+        } else if (exception instanceof DisabledException) {
+            setDefaultFailureUrl("/anonymous/login-form?error=t");
+            super.onAuthenticationFailure(request, response, exception);
         }
     }
 }
