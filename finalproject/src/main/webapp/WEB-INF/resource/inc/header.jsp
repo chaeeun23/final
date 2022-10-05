@@ -125,7 +125,7 @@
 										<div class="dropdown-menu">
 											<a class="dropdown-item"
 												href="${pageContext.request.contextPath}/noticeList">공지사항</a>
-											<a class="dropdown-item" href="#">Q&A</a>
+											<a class="dropdown-item" href="${pageContext.request.contextPath}/free-board/list">Q&A</a>
 											
 												<sec:authorize access="hasAuthority('EMPLOYEE')">
 													<a class="dropdown-item"

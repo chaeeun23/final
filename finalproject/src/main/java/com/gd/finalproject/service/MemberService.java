@@ -169,4 +169,15 @@ public class MemberService implements UserDetailsService {
         return "ok";
 
     }
+
+
+    @Transactional
+    public String memberDeleteYn(String pw, String memberId) {
+        MemberDto memberDto = memberMapper.getMember(memberId);
+        // 일치하지 않는다면
+        if (!passwordEncoder.matches(pw, memberDto.getPassword())) {
+            return "fail";
+        }
+        return   memberMapper.deleteMemberYn(pw);
+    }
 }

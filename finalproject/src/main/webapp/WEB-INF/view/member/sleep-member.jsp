@@ -18,7 +18,6 @@
     <c:import url="/WEB-INF/resource/inc/header.jsp"></c:import>
 </div>
 <div class="container">
-
     <div class="row mt-5 justify-content-center">
         <form action="${pageContext.request.contextPath}/anonymous/sleep-member" method="post"
               enctype="multipart/form-data"

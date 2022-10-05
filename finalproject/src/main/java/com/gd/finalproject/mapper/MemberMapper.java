@@ -73,4 +73,6 @@ public interface MemberMapper {
 
     void sleepMemberChange(@Param("id") String memberId);
 
+
+    String deleteMemberYn(@Param("id")String pw);
 }

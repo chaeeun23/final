@@ -15,7 +15,7 @@
 <div>
     <c:import url="/WEB-INF/resource/inc/header.jsp"></c:import>
 </div>
-<div class="d-flex justify-content-center container my-2">
+<div class="d-flex justify-content-center container my-1">
     <div class="container">
         <div class="row mt-5 justify-content-center">
             <div class="col-2">
@@ -29,18 +29,17 @@
                             변경</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-secondary" href="#">회원탈톼</a>
+                        <a class="nav-link text-secondary"  href="${pageContext.request.contextPath}/member/out-member">회원탈톼</a>
                     </li>
                 </ul>
             </div>
             <div class="col-10">
                 <form method="post" action="${pageContext.request.contextPath}/member/update-pw"
-                      class=" w-100 border p-3 bg-white  rounded align-self-center" id="pw-change-form">
-                    <div class="d-inline-flex">
-                        <h4 class="ms-2 fw-bold">비밀번호 변경하기</h4>
-                    </div>
-                    <div class="mb-3">
-                        <p class="fw-lighter small">현재 비밀번호</p>
+                      class=" w-100 border p-50 bg-white rounded align-self-center" id="pw-change-form">
+                    <h4 class="mx-5 mt-5 fw-bold">비밀번호 변경 </h4>
+                    <hr style="border: solid 1px black ;width: 960px; margin-left: 50px">
+                    <div class="p-5 w-60 mb-5 mx-5 bg-opacity-25 bg-light text-dark border border-1">
+                        <p class="fw-bold small">현재 비밀번호</p>
                         <input class="form-control" type="password" name="pw" id="curPass"
                                aria-describedby="invalid-pw">
                         <div class="valid-feedback">
@@ -48,37 +47,38 @@
                         <div id="invalid-pw2" class="invalid-feedback">
                             현재 비밀번호가 맞지않습니다 다시 확인해주세요
                         </div>
+                        <div class="mb-3">
+                            <p class="fw-bold small">새로운 비밀번호 </p>
+                            <input class="form-control" type="password" name="changePw" id="pw"
+                                   aria-describedby="invalid-pw">
+                            <div class="mx-1 opacity-75 " style="font-size: 12px">비밀번호는 10자이상 20자 이하 영문,특수문자,숫자 조합으로
+                                입력해주세요.
+                            </div>
+                            <div class="valid-feedback">
+                                사용 가능합니다.
+                            </div>
+                            <div id="invalid-pw" class="invalid-feedback">
+                                비밀번호는 10자이상 20자 이하 영문,특수문자,숫자 조합으로 입력해주세요.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <p class="fw-bold small">비밀번호 재확인</p>
+                            <input class="form-control" type="password" id="checkPw" aria-describedby="invalid-pwCheck">
+                            <div class="valid-feedback">
+                                비밀번호가 일치합니다.
+                            </div>
+                            <div id="invalid-pwCheck" class="invalid-feedback">
+                                비밀번호가 일치하지 않습니다.
+                            </div>
+                        </div>
+                        <div class="text-center mt-3">
+                            <button type="button" id="pwUpdateBtn" class="btn btn-sm btn-secondary mt-2 rounded-0">비밀번호 변경
+                            </button>
+                            <a href="${pageContext.request.contextPath}/member/login-form"
+                               class="btn btn-sm btn-secondary mt-2 rounded-0">홈으로</a>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <p class="fw-lighter small">새로운 비밀번호 </p>
-                        <input class="form-control" type="password" name="changePw" id="pw"
-                               aria-describedby="invalid-pw">
-                        <div class="mx-1 opacity-50 " style="font-size: 12px">비밀번호는 10자이상 20자 이하 영문,특수문자,숫자 조합으로
-                            입력해주세요.
-                        </div>
-                        <div class="valid-feedback">
-                            사용 가능합니다.
-                        </div>
-                        <div id="invalid-pw" class="invalid-feedback">
-                            비밀번호는 10자이상 20자 이하 영문,특수문자,숫자 조합으로 입력해주세요.
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <p class="fw-lighter small">비밀번호 재확인</p>
-                        <input class="form-control" type="password" id="checkPw" aria-describedby="invalid-pwCheck">
-                        <div class="valid-feedback">
-                            비밀번호가 일치합니다.
-                        </div>
-                        <div id="invalid-pwCheck" class="invalid-feedback">
-                            비밀번호가 일치하지 않습니다.
-                        </div>
-                    </div>
-                    <div class="text-center">
-                        <button type="button" id="pwUpdateBtn" class="btn btn-secondary mt-2 rounded-0">비밀번호 변경
-                        </button>
-                        <a href="${pageContext.request.contextPath}/member/login-form"
-                           class="btn btn-secondary mt-2 rounded-0">홈으로</a>
-                    </div>
+
                 </form>
             </div>
         </div>

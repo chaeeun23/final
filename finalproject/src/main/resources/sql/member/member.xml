@@ -46,6 +46,12 @@
         SET last_login = now()
         WHERE member_id = #{memberId}
     </update>
+    <update id="deleteMemberYn">
+        UPDATE member
+        SET delete_yn = 'Y'
+        WHERE member_id = #{memberId}
+
+    </update>
     <!-- 아이디 중복체크 -->
     <select id="idCheck" resultType="string">
         SELECT member_id
