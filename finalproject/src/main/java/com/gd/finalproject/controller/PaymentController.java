@@ -60,8 +60,7 @@ public class PaymentController {
 		boolean insertPayment = paymentService.addUserPayment(memberDto.getMemberId(), payment, lockerUse); 
 		log.debug(TeamColor.YW + "addUserPayment.insertPayment : " + insertPayment);
 		
-		// 임시로 cartList로 지정, 결제내역폼 만든 후 바꿀 예정
-		return "redirect:/userCartList";
+		return "redirect:/userPaymentHistory";
 	}
 	
 	// 회원결제내역에서 환불상태 변경

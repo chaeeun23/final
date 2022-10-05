@@ -16,8 +16,9 @@
 		l.lecture_startDate lectureStartDate,
 		l.lecture_endDate lectureEndDate,
 		lk.locker_no lockerNo,
+		lk.locker_price lockerPrice,
 		m.member_name memberName,
-		GROUP_CONCAT(ld.lecture_day
+		GROUP_CONCAT(DISTINCT ld.lecture_day
 		ORDER BY CASE lecture_day
 		WHEN '월' THEN 1
 		WHEN '화' THEN 2
@@ -60,7 +61,7 @@
 		LEFT JOIN member m ON m.member_id =
 		i.member_id
 		WHERE p.user_id = #{userId}
-		ORDER BY course_no ASC
+		ORDER BY course_no DESC
 		LIMIT #{beginRow},#{rowPerPage}
 	</select>
 
