@@ -58,8 +58,8 @@
 				<th>운행간격</th>
 				<th>경유지</th>
 				<th>수용인원</th>
-			<!-- 관리자면 삭제버튼 보이게 -->
-			<sec:authorize access="hasAuthority('EMPLOYEE')">
+			<!-- 직원, 총관리자면 삭제버튼 보이게 -->
+			<sec:authorize access="hasAnyAuthority('EMPLOYEE','ADMIN')">
 				<th>삭제</th>
 			</sec:authorize>
 				
@@ -82,9 +82,9 @@
 	</div>
 	
 	
-	<!-- 관리자면 추가버튼 보이게 -->
 	<div>
-		<sec:authorize access="hasAuthority('EMPLOYEE')">
+		<!-- 직원, 총관리자면 삭제버튼 보이게 -->
+		<sec:authorize access="hasAnyAuthority('EMPLOYEE','ADMIN')">
 			<a href="${pageContext.request.contextPath }/addRace" class="btn btn-primary"  style="width:100px; float:right;">운행 추가</a>
 		</sec:authorize>
 			<a href="${pageContext.request.contextPath }/raceList" class="btn btn-primary"  style="width:100px; float:right; margin-right:10px;">운행 목록</a>

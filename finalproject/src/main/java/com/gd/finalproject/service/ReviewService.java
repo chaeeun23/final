@@ -1,19 +1,15 @@
 package com.gd.finalproject.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gd.finalproject.commons.TeamColor;
 import com.gd.finalproject.mapper.ReviewMapper;
-import com.gd.finalproject.util.PageNationUtil;
-import com.gd.finalproject.vo.PageNationDto;
 import com.gd.finalproject.vo.Review;
 
 
@@ -26,32 +22,29 @@ public class ReviewService {
 	@Autowired ReviewMapper reviewMapper;
 	
 	// 리뷰 리스트(reviewList)
-	public List<Map<String,Object>> getReviewList(String lectureNo, String current) {
+	public List<Map<String,Object>> getReviewList(String lectureNo) {
 		log.debug(TeamColor.MS + "ReviewService(lectureNo) : " + lectureNo);
-        log.debug(TeamColor.MS + "ReviewService(current) : " + current);
         
-		// 페이지네이션 총 갯수
-        int total = reviewMapper.getReviewTotal(lectureNo);
-        log.debug(TeamColor.MS + "ReviewService(total) : " + total);
-       
-        // 만들어논 메서드
-		PageNationDto pageNation = PageNationUtil.getPageNation(current, total, "/finalproject/lectureOne", 5);
-        log.debug(TeamColor.MS + "ReviewService(pageNation) : " + pageNation);
-
-
         // reviewList 가져오기
-        List<Map<String,Object>> review = reviewMapper.selectReviewList(lectureNo, pageNation.getBeginRow(),
-                pageNation.getRowPerPage());
+        List<Map<String,Object>> review = reviewMapper.selectReviewList(lectureNo);
         log.debug(TeamColor.MS + "ReviewService(review) : " + review);
-
-        // 객체 생성후 넣기
-        Map<String, Object> map = new HashMap<>();
-        map.put("pageNation", pageNation);
-        map.put("review", review);
 
         return review;
 		
 	}
+	
+	// 리뷰
+	public Map<String,Object> review(String lectureNo){
+		log.debug(TeamColor.MS + "ReviewService(lectureNo) : " + lectureNo);
+		
+		Review review = reviewMapper.review(lectureNo);
+		log.debug(TeamColor.MS + "ReviewService(review) : " + review);
+		
+		Map<String,Object> map = new HashMap<>();
+		map.put("review", review);
+		
+		return map;
+	} 
 	
 	/*
 	 * // 리뷰 추가 (addReview - Form) public int addReview()
@@ -79,15 +72,14 @@ public class ReviewService {
 	
 	
 	// 리뷰 삭제
-	public int removeReivew(int reviewNo, String lectureNo) {
+	public int deleteReivew(int reviewNo) {
 		// 값 확인
 		 log.debug(TeamColor.MS + "ReviewService.removeReivew(reviewNo) : " + reviewNo);
-		 log.debug(TeamColor.MS + "ReviewService.removeReivew(lectureNo) : " + lectureNo);
 		 
 		 // 리뷰 삭제
-		 int remove = reviewMapper.deleteReview(reviewNo, lectureNo);
+		 int remove = reviewMapper.deleteReview(reviewNo);
 		 log.debug(TeamColor.MS + "ReviewService.removeReivew(remove) : " + remove);
-				
+		
 		return remove;
 		}
 	

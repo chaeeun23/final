@@ -118,14 +118,18 @@
 			<td>${lectureOne.lectureEndDate}</td>
 		</tr>
 	</table>
-		
-		<!-- <button type="button" onclick="javascript:btn()" class="btn btn-primary" style="width:100px; float:right;" >장바구니</button> -->
-		<a href="${pageContext.request.contextPath}/insertUserCart?lectureNo=${lectureOne.lectureNo}&userId=${member.memberId} " type="button" class="btn btn-primary" style="width:100px; float:right;" >장바구니</a>
+	
+		<!-- 회원만 가능 -->
+		<sec:authorize access="hasAuthority('USER')">
+			<!-- <button type="button" onclick="javascript:btn()" class="btn btn-primary" style="width:100px; float:right;" >장바구니</button> -->
+			<a href="${pageContext.request.contextPath}/insertUserCart?lectureNo=${lectureOne.lectureNo}&userId=${member.memberId} " type="button" class="btn btn-primary" style="width:100px; float:right;" >장바구니</a>
+		</sec:authorize>
 		<a href="${pageContext.request.contextPath}/lectureList" class="btn btn-primary" style="width:100px; float:right; margin-right:10px; ">강좌목록</a>
 		
 		<!-- 관리자면 수정, 삭제버튼 보이게 -->
-		<sec:authorize access="hasAuthority('EMPLOYEE')">
-			<a href="${pageContext.request.contextPath}/removeLecture?lectureNo=${lectureOne.lectureNo}" class="btn btn-primary" style="width:100px; float:right; margin-right:10px;">강좌삭제</a>
+		<sec:authorize access="hasAnyAuthority('EMPLOYEE','ADMIN')">
+			<a href="${pageContext.request.contextPath}/removeLecture?lectureNo=${lectureOne.lectureNo}" 
+				id="removeBtn" class="btn btn-primary" style="width:100px; float:right; margin-right:10px;">강좌삭제</a>
 			<a href="${pageContext.request.contextPath}/modifyLecture?lectureNo=${lectureOne.lectureNo}" 
 				class="btn btn-primary" style="width:100px; float:right; margin-right:10px;">강좌수정</a>
 		</sec:authorize>
@@ -196,37 +200,7 @@
 			</table>
 		</c:forEach>  --%>
 		
-		
-	<%-- 페이지네이션 --%>
-	 <div id="paginationBox">
-	<ul class="pagination justify-content-center my-2 mb-2" >
-		<!-- 이전 -->
-		<c:if test="${pageNation.startPage ne 1}">
-			<li class="page-item"><a class="page-link page-info" 
-				href="${pageNation.path}?current=${pageNation.startPage-1}"> 이전
-			</a></li>
-		</c:if>
-		<!-- 페이지넘버 -->
-		<c:forEach begin="${pageNation.startPage}" end="${pageNation.endPage}"
-			varStatus="status">
-			<c:if test="${pageNation.currentPage eq status.index}">
-				<li class="page-item active" ><a class="page-link">${status.index}
-				</a></li>
-			</c:if>
-			<c:if test="${pageNation.currentPage ne status.index}">
-				<li class="page-item"><a class="page-link page-info"
-					href="${pageNation.path}?current=${status.index}">${status.index}
-				</a></li>
-			</c:if>
-		</c:forEach>
-		<!-- 다음버튼 -->
-		<c:if test="${pageNation.endPage ne pageNation.lastPage}">
-			<li class="page-item"><a class="page-link page-info" 
-				href="${pageNation.path}?current=${pageNation.endPage+1}">다음</a></li>
-		</c:if>
-	</ul> 
 	</div>
-
 </div>
 	
 <script type="text/javascript">
@@ -234,13 +208,10 @@
 /* 리뷰 목록  */
 $(document).ready(function(){ 
 	// alert('aaa'); 
-	var a =''; 
-	var currentPage = '${pagination.currentPage}'; 
-	var rowPerPage = '${pagination.currentPage}'; 
+	let a =''; 
 	// lectureController에 있는 Review를 가져와 페이지네이션만 뽑아옴
-	var content = '';
-	var lectureNo = $('#lectureNo').val(); 
-	var url = '/finalproject/reviewList';
+	let lectureNo = $('#lectureNo').val(); 
+	let url = '/finalproject/reviewList';
 	/* alert(url); */
 	// 아이디를 설정해 값을 가져오기
 	// alert('bbb'); 
@@ -256,7 +227,7 @@ $(document).ready(function(){ 
         $(json).each(function(i, item){			// 리스트에서 뽑기
            	a += '<tr>';
            	a += 	'<td>';
-           	a += 		'<div class="review_name">★'+ item.reviewWriter + '님의 리뷰 </div>';               
+           	a += 		'<div class="review_name">★&nbsp;&nbsp;'+ item.reviewWriter + '님의 리뷰 </div>';               
        		a += 	'</td>';  
        		a += 	'<td class="text-right" width="300px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+ item.createDate+'에 작성 ';
        		a += 	'</td>';                
@@ -265,14 +236,14 @@ $(document).ready(function(){ 
        		a += '<tr>';              
        		a +=	'<td>';             
        		a += 		'<div class="review_text">';               
-       		a += 			'<p>&nbsp;&nbsp;&nbsp;&nbsp;'+ item.reviewContent+'</p>';              
+       		a += 			'<p>&nbsp;&nbsp;&nbsp;&nbsp;'+ item.reviewContent + '</p>';              
        		a += 		'</div>';            
        		a += 	'</td>';           
        		a += 	'<td class="text-right" width="300px">';                
        		a += 		'<div class="review_text">';                
        		a += 		'<p>';             
-       		a += 		'<a class="btn btn-primary" style="float:right;" href="${pageContext.request.contextPath}/removeReview?reviewNo='+ item.reviewNo+'">삭제</a>';             
-       		a += 		'<a class="btn btn-primary" style="float:right; margin-right:10px;" href="${pageContext.request.contextPath}/updateReview?reviewNo='+ item.reviewNo+'">수정</a>';           
+       		a += 		'<button type="button" class="btn btn-primary" style="float:right;" id="removeReviewBtn" href="${pageContext.request.contextPath}/removeReview?reviewNo='+ item.reviewNo+'">삭제</a>';             
+       		a += 		'<button type="button" class="btn btn-primary" style="float:right; id="updateReivewBtn" margin-right:50px;" href="${pageContext.request.contextPath}/updateReview?reviewNo='+ item.reviewNo+'">수정</a>';           
        		a += 		'</p>';             
        		a += 	'</div>';               
        		a += 	'</td>';              
@@ -280,38 +251,41 @@ $(document).ready(function(){ 
        			});       
        		a += '</table>';                  
 			  $("#reviewList").append(a);       
-			} 
-/* 			
-	// 페이지네이션 	
-    a = '';
-    a += '<ul class="pagination justify-content-center my-2 mb-2" >'
-	 if (item.pageNation.startPage != 1) {
-        a += '<li class="page-item">'
-        a += '<a class="page-link page-info" lectureNo="' + item.lectureNo + '" page="' + (item.pageNation.startPage - 1) + '" style="cursor:pointer;">'
-        a += '이전'
-        a += '</a>'
-        a += '</li>'
-    }
-    for (let i = item.pageNation.startPage; i <= item.pageNation.endPage; i++) {
-        if (value.pageNation.currentPage != i) {
-            a += '<li class="page-item"><a style="cursor:pointer;" lectureNo="' + item.lectureNo + '" class="page-link page-info" page="' + i + '" >' + i + '</a></li>'
-        } else {
-            a += '<li class="page-item active"><a class="page-link">' + i + '</a></li>'
-        }
-    }
-    if (item.pageNation.endPage != item.pageNation.lastPage) {
-        a += '<li class="page-item">'
-        a += '<a class="page-link page-info" lectureNo="' + item.lectureNo + '" page="' + (item.pageNation.endPage + 1) + '" aria-label="Next" style="cursor:pointer;">'
-        a += '다음'
-        a += '</a>'
-        a += '</li>'
-   			 }
-   	 a += '</ul>'
-    $('#paginationBox').empty();
-    $('#paginationBox').append(a); 
-		}	*/
+		}
 	});
 }); 	
+		
+	
+	
+	
+$(document).on('click', '#removeReviewBtn', function (){
+	let delete_warning = confirm('댓글을 삭제하시겠습니까?');
+    let reviewNo = '${reviewList.reviewNo}';
+    let lectureNo = $('#lectureNo').val(); 
+    let url = '/finalproject/removeReview';
+    if (delete_warning == true) {
+        $.ajax({
+            type: "GET",
+            url: url,
+            dataType: "json",
+            data: {reviewNo :reviewNo},
+            success: function (data) { //성공시
+            	alert('삭제 성공!');               	
+                reviewList(data); 
+            },
+            error: function (e) { //실패시
+            	alert('삭제 실패!'); 
+                console.log(e);
+            }
+        });
+     }
+  }); 
+		  
+		
+	$("#removeBtn").click(function(){
+			alert("강좌 삭제 성공!");
+	});
+
 		
 
 </script>
