@@ -215,7 +215,7 @@
 			</c:if>
 			<c:if test="${pageNation.currentPage ne status.index}">
 				<li class="page-item"><a class="page-link page-info"
-					href="${pageNation.path}&current=${status.index}">${status.index}
+					href="${pageNation.path}?current=${status.index}">${status.index}
 				</a></li>
 			</c:if>
 		</c:forEach>
@@ -231,16 +231,17 @@
 	
 <script type="text/javascript">
 	
-//리뷰 목록 
+/* 리뷰 목록  */
 $(document).ready(function(){ 
 	// alert('aaa'); 
 	var a =''; 
 	var currentPage = '${pagination.currentPage}'; 
+	var rowPerPage = '${pagination.currentPage}'; 
 	// lectureController에 있는 Review를 가져와 페이지네이션만 뽑아옴
 	var content = '';
 	var lectureNo = $('#lectureNo').val(); 
 	var url = '/finalproject/reviewList';
-	alert(url);
+	/* alert(url); */
 	// 아이디를 설정해 값을 가져오기
 	// alert('bbb'); 
 	$.ajax({        
@@ -249,10 +250,10 @@ $(document).ready(function(){ 
 		data : {lectureNo:lectureNo},
 		success : function(json) {
 			const x = $(json);
-			alert(x);
+			/* alert(x); */
 			// alert('ccc'); 
 			a += '<table class="table">';
-        $(json).each(function(index, item){			// 리스트에서 뽑기
+        $(json).each(function(i, item){			// 리스트에서 뽑기
            	a += '<tr>';
            	a += 	'<td>';
            	a += 		'<div class="review_name">★'+ item.reviewWriter + '님의 리뷰 </div>';               
@@ -280,113 +281,42 @@ $(document).ready(function(){ 
        		a += '</table>';                  
 			  $("#reviewList").append(a);       
 			} 
-			
-			 
-	/* 
-    content = '';
-    content += '<ul class="pagination justify-content-center my-2 mb-2">'
-    if (value.pageNation.startPage != 1) {
-        content += '<li class="page-item">'
-        content += '<a class="page-link page-info" lectureNo="' + value.lectureNo + '" page="' + (value.pageNation.startPage - 1) + '" style="cursor:pointer;">'
-        content += '이전'
-        content += '</a>'
-        content += '</li>'
+/* 			
+	// 페이지네이션 	
+    a = '';
+    a += '<ul class="pagination justify-content-center my-2 mb-2" >'
+	 if (item.pageNation.startPage != 1) {
+        a += '<li class="page-item">'
+        a += '<a class="page-link page-info" lectureNo="' + item.lectureNo + '" page="' + (item.pageNation.startPage - 1) + '" style="cursor:pointer;">'
+        a += '이전'
+        a += '</a>'
+        a += '</li>'
     }
-    for (let i = value.pageNation.startPage; i <= value.pageNation.endPage; i++) {
+    for (let i = item.pageNation.startPage; i <= item.pageNation.endPage; i++) {
         if (value.pageNation.currentPage != i) {
-            content += '<li class="page-item"><a style="cursor:pointer;" lectureNo="' + value.lectureNo + '" class="page-link page-info" page="' + i + '" >' + i + '</a></li>'
+            a += '<li class="page-item"><a style="cursor:pointer;" lectureNo="' + item.lectureNo + '" class="page-link page-info" page="' + i + '" >' + i + '</a></li>'
         } else {
-            content += '<li class="page-item active"><a class="page-link">' + i + '</a></li>'
+            a += '<li class="page-item active"><a class="page-link">' + i + '</a></li>'
         }
     }
-    if (value.pageNation.endPage != value.pageNation.lastPage) {
-        content += '<li class="page-item">'
-        content += '<a class="page-link page-info" lectureNo="' + value.lectureNo + '" page="' + (value.pageNation.endPage + 1) + '" aria-label="Next" style="cursor:pointer;">'
-        content += '다음'
-        content += '</a>'
-        content += '</li>'
-    }
-    content += '</ul>'
+    if (item.pageNation.endPage != item.pageNation.lastPage) {
+        a += '<li class="page-item">'
+        a += '<a class="page-link page-info" lectureNo="' + item.lectureNo + '" page="' + (item.pageNation.endPage + 1) + '" aria-label="Next" style="cursor:pointer;">'
+        a += '다음'
+        a += '</a>'
+        a += '</li>'
+   			 }
+   	 a += '</ul>'
     $('#paginationBox').empty();
-    $('#paginationBox').append(content); 
+    $('#paginationBox').append(a); 
 		}	*/
 	});
-});
-
-	/*
-// 리뷰 리스트 메서드 
-function reviewList(map) {
-    var content = '';
-    // 리뷰 리스트 불러오기
-    $.ajax({
-        type:'GET',
-        url:'/reviewList',
-        success:function(result)
-        {
-            let json=JSON.parse(result);
-            let res="";
-            $.each(map.reviewList.review, function (i, dto) {
-            	a += '<table class="table">';  
-            	a += '<tr><td><div class="review_name">★'+ map.reviewWriter + '님의 리뷰'
-        		a += '</div>'               
-        		a += '</td>'  
-        		a += '<td class="text-right" width="300px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+ map.createDate+'에 작성 </td>';                
-        		a += '</tr>'               
-        		a += '<tr>'              
-        		a += '<td>'             
-        		a += '<div class="review_text">'               
-        		a += '<p>&nbsp;&nbsp;&nbsp;&nbsp;'+ map.reviewContent+'</p>'              
-        		a += '</div>'            
-        		a += '</td>'           
-        		a += '<td class="text-right" width="300px">'                
-        		a += '<div class="review_text">'                
-        		a += '<p>'             
-        		a += '<a class="btn btn-primary" style="float:right;" href="${pageContext.request.contextPath}/removeReview?reviewNo='+ map.reviewNo+'">삭제</a>'             
-        		a += '<a class="btn btn-primary" style="float:right; margin-right:10px;" href="${pageContext.request.contextPath}/updateReview?reviewNo='+ map.reviewNo+'">수정</a>'           
-        		a += '</p>'              
-        		a += '</div>'               
-        		a += '</td>'              
-        		a += '</tr>'  
-        		
-            })
-            a += '</table>' 
-            $('#reviewList').html(a);
-        }
-      });
- 
-function reviewList(map){    
-	var a ='';   
-	
-	$.each(map.review,function(index, map){       
-		a += '<tr><td><div class="review_name">★'+ map.reviewWriter + '님의 리뷰';
-		a += '</div>';                
-		a += '</td>';   
-		a += '<td class="text-right" width="300px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+ map['createDate']+'에 작성 </td>';                
-		a += '</tr>';                
-		a += '<tr>';                
-		a += '<td>';                
-		a += '<div class="review_text">';                
-		a += '<p>&nbsp;&nbsp;&nbsp;&nbsp;'+ map.reviewContent+'</p>';                
-		a += '</div>';                
-		a += '</td>';                
-		a += '<td class="text-right" width="300px">';                
-		a += '<div class="review_text">';                
-		a += '<p>';                
-		a += '<a class="btn btn-primary" style="float:right;" href="${pageContext.request.contextPath}/removeReview?reviewNo='+ map['reviewNo']+'">삭제</a>';                
-		a += '<a class="btn btn-primary" style="float:right; margin-right:10px;" href="${pageContext.request.contextPath}/updateReview?reviewNo='+ map['reviewNo']+'">수정</a>';                
-		a += '</p>';                
-		a += '</div>';                
-		a += '</td>';                
-		a += '</tr>';                
-				});     
-		a += '</table>';  
-		           
-		 $("#reviewList").html(a)        
+}); 	
 		
-	} */
+
 </script>
 <%-- 
-			수정 클릭시
+			<!-- 수정 클릭시 --!>
             <div class="updateForm" style="display: none">
                 <div class="form-floating flex-grow-1 px-2">
                     <textarea class="reviewUpdateContent form-control"

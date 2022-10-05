@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -59,12 +60,12 @@ public class ReviewService {
 	// 리뷰 추가 (addReview - Action)
 	public int addReview(String userId, Review review, String lectureNo) {
 		 // 넘겨온 값
-		 log.debug(TeamColor.MS + "ReviewService.addReview(review) : " + review);
 		 log.debug(TeamColor.MS + "ReviewService.addReview(userId) : " + userId);
+		 log.debug(TeamColor.MS + "ReviewService.addReview(review) : " + review);
 		 log.debug(TeamColor.MS + "ReviewService.addReview(lectureNo) : " + lectureNo);
 		 
 		 // 리뷰 추가하기
-		 int add = reviewMapper.insertReview(userId, review, lectureNo);
+		 int add = reviewMapper.insertReview(review, lectureNo);
 		 log.debug(TeamColor.MS + "ReviewService.addReview(add) : " + add);
 		 
 		 return add;
@@ -73,7 +74,22 @@ public class ReviewService {
 	
 	// 리뷰 수정
 	
+	
+	
+	
+	
 	// 리뷰 삭제
+	public int removeReivew(int reviewNo, String lectureNo) {
+		// 값 확인
+		 log.debug(TeamColor.MS + "ReviewService.removeReivew(reviewNo) : " + reviewNo);
+		 log.debug(TeamColor.MS + "ReviewService.removeReivew(lectureNo) : " + lectureNo);
+		 
+		 // 리뷰 삭제
+		 int remove = reviewMapper.deleteReview(reviewNo, lectureNo);
+		 log.debug(TeamColor.MS + "ReviewService.removeReivew(remove) : " + remove);
+				
+		return remove;
+		}
 	
 	
 }
