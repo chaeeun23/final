@@ -84,7 +84,6 @@ th, td {
 			alert('결제할 강좌를 1 이상 체크해주세요.');
 			return false;
 		} else if(confirm("결제페이지로 이동하시겠습니까?")) {
-			alert('결제페이지로 이동합니다.');
 			addForm.submit();
 		}
 	});

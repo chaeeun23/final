@@ -98,7 +98,7 @@ public class PaymentService {
 			log.debug(TeamColor.YW + "addUserPayment.insertUserPayment : " + insertUserPayment);
 			
 			// 사물함 체크 시 사물함 배정
-			if(locker[i].equals("Y")) {
+			if(locker[i].equals("10000")) {
 				log.debug(TeamColor.YW + "addUserPayment.locker[i] : " + locker[i]);
 				int insertUserLocker = lockerMapper.insertLocker(payment.getCourseNo());
 				log.debug(TeamColor.YW + "addUserPayment.insertUserLocker : " + insertUserLocker);
