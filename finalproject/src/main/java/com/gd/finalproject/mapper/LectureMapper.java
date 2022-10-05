@@ -40,6 +40,9 @@ public interface LectureMapper {
 	// 강좌 요일 삭제(deleteLecture)
 	int deleteLectureDay(String lectureNo);
 	
+	// 리뷰 삭제 (deleteReview);
+	int deleteReview(String lectureNo);
+	
 	// 강좌 삭제(deleteLecture)
 	int deleteLecture(@Param("lectureNo") String lectureNo);
 	
