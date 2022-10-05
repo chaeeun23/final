@@ -14,6 +14,7 @@
 			l.lecture_startDate lectureStartDate,
 			l.lecture_endDate lectureEndDate,
 			m.member_name memberName,
+			r.review_no reviewNo,
 			GROUP_CONCAT(d.lecture_day 
 			ORDER BY CASE d.lecture_day
 		    WHEN '월' THEN 1
@@ -25,7 +26,8 @@
 				) lectureDay
 		FROM lecture l JOIN member m ON m.member_id = l.instructor_id
         LEFT JOIN lectureday d ON l.lecture_no = d.lecture_no
-        GROUP BY l.lecture_no
+        LEFT JOIN review r ON l.lecture_no = r.lecture_no 
+		GROUP BY l.lecture_no
         ORDER BY l.lecture_name ASC
         LIMIT #{beginRow},#{rowPerPage} 
     </select>
