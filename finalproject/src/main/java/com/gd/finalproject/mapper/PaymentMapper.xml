@@ -16,6 +16,7 @@
 		l.lecture_startDate lectureStartDate,
 		l.lecture_endDate lectureEndDate,
 		lk.locker_no lockerNo,
+		lk.locker_price lockerPrice,
 		m.member_name memberName,
 		GROUP_CONCAT(DISTINCT ld.lecture_day
 		ORDER BY CASE lecture_day

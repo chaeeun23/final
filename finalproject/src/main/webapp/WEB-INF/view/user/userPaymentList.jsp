@@ -82,7 +82,8 @@
 				<c:forEach var="p" items="${userPaymentList}">
 				<input type="hidden" id="lectureNo" name="lectureNo" value="${p.lectureNo}">
 				<c:set var="totalLecture" value="${totalLecture + p.lecturePrice}"/>
-				<c:set var="totalLocker" value="${totalLocker + p.lecturePrice}"/>
+				<c:set var="totalLocker" value="${totalLocker + lockerUse}"/>
+				<c:set var="payPrice" value="${totalLecture + totalLocker}"/>
 					<tr>
 						<td>${p.lectureNo}</td>
 						<td>${p.lectureName}</td>
@@ -94,8 +95,8 @@
 						<td>${p.lectureEndDate}</td>
 						<td>${p.lecturePrice}원</td>
 						<td>
-							<select name="lockerUse">
-								<option value="0">X
+							<select id="lockerUse" class="lockerUse" name="lockerUse">
+								<option value="-10000">X
 								<option value="10000">O
 							</select>
 						</td>
@@ -139,7 +140,7 @@
 			</tr>
 		</table>
 		
-		<input type="hidden" value="${totalLecture}" id="totalLecture" name="totalLecture">
+		<%-- <input type="hidden" value="${totalLecture}" id="totalLecture" name="totalLecture"> --%>
 		<input type="hidden" value="${totalLocker}" id="totalLocker" name="totalLocker">
 		<input type="hidden" value="${payment}" id="totalLocker" name="totalLocker">
 		<input type="hidden" id="count" name="count">
@@ -158,13 +159,16 @@
 	// 최종 결제 금액 창 화면
 	
 	var totalLecture = $('#totalLecture').val();
-	/* var str += $('#lockerUse').val();  */
-	var totalLocker = 0;
-	var payPrice = totalLecture + totalLocker;
 	
-	$('#totalLecture').text(totalLecture+'원');
-	$('#totalLocker').text(totalLocker+'원');
-	$('#payPrice').text(payPrice+'원');
+	var totalLocker = 0;
+	$('.lockerUse').change(function(){
+		alert($(this).val());
+		totalLocker = parseInt(totalLocker) + parseInt($(this).val());
+		alert('totalLocker : ' + totalLocker);
+		
+	});
+
+	
 	
 	function orderBtn(){  
 	    if($('.payMethod').val() == 'default'){
