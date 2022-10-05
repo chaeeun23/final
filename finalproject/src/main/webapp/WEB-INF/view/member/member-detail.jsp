@@ -33,7 +33,7 @@
                             변경</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-secondary" href="#">회원탈톼</a>
+                        <a class="nav-link text-secondary" href="${pageContext.request.contextPath}/member/out-member">회원탈톼</a>
                     </li>
                 </ul>
             </div>

@@ -114,6 +114,19 @@ public class MemberController {
         return "/member/pw-change-form";
     }
 
+
+
+
+
+    //회원탈퇴 폼
+    @GetMapping("/out-member")
+    public String outMemberForm() {
+        return "/member/out-member";
+    }
+
+
+
+
 }
 
 

@@ -63,8 +63,10 @@ public class FreeBoardController {
         log.info("여기는 업데이트 boardDto = {}", boardDto);
         boardDto.setBoardNo(boardDto.getBoardNo());
         freeBoardService.updateBoard(boardDto);
+        // ?boardNo=13 이런식으로 자동으로 붙여줌
+        redirectAttribute.addAttribute("boardNo", boardDto.getBoardNo());
         redirectAttribute.addFlashAttribute("suc", "<script>alert('수정성공')</script>");
-        return "redirect:/free-board/detail?boardNo=" + boardDto.getBoardNo();
+        return "redirect:/free-board/detail";
     }
 
 
