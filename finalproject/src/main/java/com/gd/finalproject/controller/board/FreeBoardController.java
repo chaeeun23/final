@@ -64,7 +64,7 @@ public class FreeBoardController {
         boardDto.setBoardNo(boardDto.getBoardNo());
         freeBoardService.updateBoard(boardDto);
         redirectAttribute.addFlashAttribute("suc", "<script>alert('수정성공')</script>");
-        return "redirect:/free-board/list";
+        return "redirect:/free-board/detail?boardNo=" + boardDto.getBoardNo();
     }
 
 

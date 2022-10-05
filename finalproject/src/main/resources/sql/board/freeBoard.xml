@@ -36,6 +36,7 @@
     <select id="getBoardTotal" resultType="java.lang.Integer">
         SELECT COUNT(*)
         FROM free_board
+        WHERE delete_yn = 'N'
     </select>
 
     <select id="getBoardList" resultType="com.gd.finalproject.vo.freeboard.BoardDto">
