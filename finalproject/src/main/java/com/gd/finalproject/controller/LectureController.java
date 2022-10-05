@@ -1,7 +1,5 @@
 package com.gd.finalproject.controller;
 
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,29 +37,19 @@ public class LectureController {
 	// 강좌 상세페이지(lectureListOne)
 	@GetMapping("/lectureOne")		
 	public String lectureOne(Model model, 
-			@RequestParam(required = false, value = "lectureNo") String lectureNo,
-			@RequestParam(required = false, value = "current") String current,
-            @ModelAttribute("check") String check) {
+			@RequestParam(required = false, value = "lectureNo") String lectureNo) {
 		
 		// 값 넘겨 받기 
-		 log.debug(TeamColor.MS + "LectureController.lectureOne(lectureNo) : " + lectureNo);
+		log.debug(TeamColor.MS + "LectureController.lectureOne(lectureNo) : " + lectureNo);
 		 
 		// 강좌 상세페이지
 		Map<String,Object> lectureOne = lectureService.getLectureOne(lectureNo);
 		log.debug(TeamColor.MS + "LectureController.lectureOne(lectureOne) : " + lectureOne);
-	
-		// 리뷰 리스트
-		List<Map<String,Object>> reviewList = reviewService.getReviewList(lectureNo, current);
-		log.debug(TeamColor.MS + "ReviewController.reviewList(reviewList) : " + reviewList); 
-		/*
-		 * log.debug(TeamColor.MS +
-		 * "ReviewController.reviewList(reviewList.get(0).get(\"pageNation\")) : " +
-		 * reviewList.get(0).get("pageNation"));
-		 */ 
+
 
 		// 꺼낸 값 model에 넣어주기
 		model.addAttribute("lectureOne", lectureOne);
-		/* model.addAttribute("pageNation", reviewList); */
+		
 		
 		return "/commons/lectureOne";
 	}

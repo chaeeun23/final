@@ -10,5 +10,4 @@ public class Review {
 	private String reviewWriter;	// 리뷰작성자
 	private String reviewContent; 	// 리뷰내용
 	private String createDate;		// 리뷰작성일
-	private String updateDate;		// 리뷰수정일
 }

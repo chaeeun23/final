@@ -129,16 +129,21 @@ public class LectureService {
     // 강좌 요일, 강좌 삭제 (removeLecture)
     public int removeLecture(String lectureNo) {
     	
+    	// 리뷰 삭제
+    	int removeReview = lectureMapper.deleteReview(lectureNo);
+    	log.debug(TeamColor.MS + "LectureService.removeReview(removeReview) : " + removeReview);
+    	
     	// 강좌 요일 삭제
     	int deleteDayLecture = lectureMapper.deleteLectureDay(lectureNo);
-    	log.debug(TeamColor.MS + "LectureService.removeLecture(deleteDayLecture) : " + deleteDayLecture);
+    	log.debug(TeamColor.MS + "LectureService.removeLectureDay(deleteDayLecture) : " + deleteDayLecture);
     	
     	int deleteLecture = 0;
-    	if(deleteDayLecture != 0){   
-    		
-    	// 강좌 삭제
-    	deleteLecture = lectureMapper.deleteLecture(lectureNo);
-       	log.debug(TeamColor.MS + "LectureService.removeLecture(deleteLecture) : " + deleteLecture);
+    	
+    	// 리뷰 삭제, 강좌 요일 삭제 후 강좌 삭제 
+    	if(deleteDayLecture != 0){  
+	    	// 강좌 삭제
+	    	deleteLecture = lectureMapper.deleteLecture(lectureNo);
+	       	log.debug(TeamColor.MS + "LectureService.removeLecture(deleteLecture) : " + deleteLecture);
     	}
     	
     	return deleteLecture;

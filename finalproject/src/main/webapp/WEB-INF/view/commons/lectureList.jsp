@@ -25,8 +25,8 @@
 	<br>
 	
 	<div>
- 	<!-- 관리자이면 추가버튼 보이게 -->
-	<sec:authorize access="hasAuthority('EMPLOYEE')">
+ 	<!-- 직원, 총관리자면 삭제버튼 보이게 -->
+	<sec:authorize access="hasAnyAuthority('EMPLOYEE','ADMIN')">
 		<a href="${pageContext.request.contextPath }/addLecture" class="btn btn-primary"  style="width:100px; float:right; ">강좌 추가</a>
 	</sec:authorize>
 	</div>

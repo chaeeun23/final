@@ -30,6 +30,7 @@
 				<th>강좌가격</th>
 				<th>결제수단</th>
 				<th>결제날짜</th>
+				<th>결제금액</th>
 				<th>환불여부</th>
 			</tr>
 			<c:forEach var="l" items="${list}">
@@ -42,6 +43,7 @@
 					<td>${l.lecturePrice}원</td>
 					<td>${l.payMethod}</td>
 					<td>${l.payDate}</td>
+					<th>${l.payPrice}원</th>
 					<td>${l.refund}</td>
 				</tr>
 			</c:forEach>
