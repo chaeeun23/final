@@ -18,11 +18,11 @@ public interface ReviewMapper {
 	int getReviewTotal(String lectureNo);
 	
 	// 리뷰 추가
-	int insertReview(String userId, Review review, @Param("lectureNo") String lectureNo);
+	int insertReview(Review review, @Param("lectureNo") String lectureNo);
 	
 	// 리뷰 수정
-	int updateReview(String userId, Review review, @Param("lectureNo") String lectureNo);
+	int updateReview(Review review, @Param("lectureNo") String lectureNo);
 	
 	// 리뷰 삭제
-	int deleteReview(String userId, int reviewNo, @Param("lectureNo") String lectureNo);
+	int deleteReview(int reviewNo, @Param("lectureNo") String lectureNo);
 }
