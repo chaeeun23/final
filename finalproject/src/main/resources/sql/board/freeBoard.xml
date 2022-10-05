@@ -20,6 +20,17 @@
         SET board_read = board_read + 1
         WHERE board_no = #{boardNo}
     </update>
+    <update id="updateBoard">
+        UPDATE free_board
+        SET board_title    = #{boardDto.boardTitle},
+            board_contents =#{boardDto.boardContents}
+        WHERE board_no = #{boardDto.boardNo}
+    </update>
+    <update id="boardDeleteYn">
+        UPDATE free_board
+        SET delete_yn = 'Y'
+        WHERE board_no = #{boardNo}
+    </update>
 
 
     <select id="getBoardTotal" resultType="java.lang.Integer">
@@ -33,9 +44,11 @@
              , board_title    boardTitle
              , board_contents boardContents
              , board_read     boardRead
+             , delete_yn      deleteYn
              , create_date    createDate
              , update_date    updateDate
         FROM free_board
+        WHERE delete_yn = 'N'
         ORDER BY create_date DESC LIMIT #{beginRow}, #{rowPerPage}
     </select>
     <select id="boardDetail" resultType="com.gd.finalproject.vo.freeboard.BoardDto">

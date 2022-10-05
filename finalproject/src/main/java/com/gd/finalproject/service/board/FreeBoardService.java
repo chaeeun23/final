@@ -3,7 +3,6 @@ package com.gd.finalproject.service.board;
 import com.gd.finalproject.mapper.CmMapper;
 import com.gd.finalproject.mapper.FreeBoardMapper;
 import com.gd.finalproject.util.PageNationUtil;
-import com.gd.finalproject.vo.MemberDto;
 import com.gd.finalproject.vo.freeboard.BoardDetailDto;
 import com.gd.finalproject.vo.freeboard.BoardDto;
 import com.gd.finalproject.vo.freeboard.CmDto;
@@ -31,7 +30,7 @@ public class FreeBoardService {
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         String contextPath = attr.getRequest().getContextPath();
         // 만들어논 메서드
-        PageNationDto pageNation = PageNationUtil.getPageNation(current, freeBoardMapper.getBoardTotal(), contextPath +"/free-board/list", 10);
+        PageNationDto pageNation = PageNationUtil.getPageNation(current, freeBoardMapper.getBoardTotal(), contextPath + "/free-board/list", 10);
         // 보드리스트 가져오기
         List<BoardDto> boardList = freeBoardMapper.getBoardList(pageNation.getBeginRow(), pageNation.getRowPerPage());
 
@@ -58,5 +57,14 @@ public class FreeBoardService {
 
     public int addBoard(BoardDto boardDto) {
         return freeBoardMapper.addBoard(boardDto);
+    }
+
+    public int updateBoard(BoardDto boardDto) {
+        return freeBoardMapper.updateBoard(boardDto);
+    }
+
+
+    public int boardDeleteYn(int boardNo) {
+        return freeBoardMapper.boardDeleteYn(boardNo);
     }
 }

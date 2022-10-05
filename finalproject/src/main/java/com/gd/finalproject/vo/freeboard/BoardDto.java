@@ -16,6 +16,7 @@ public class BoardDto {
     private String boardTitle;
     private String boardContents;
     private int boardRead;
+    private String deleteYn;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
 }

@@ -25,14 +25,15 @@
         <div class="row mt-2 justify-content-center">
             <div style="padding: 20px; font-size: 40px; text-align: center"> Q&A</div>
             <hr style="border: solid 1px #ddd">
-            <form action="/board/update" method="post">
+            <form action="${pageContext.request.contextPath}/free-board/update" method="post">
                 <%--제목--%>
                 <div class="fw-bolder fs-4 ">
+                    <input type="hidden"name="boardNo"  value="${boardDetailDto.boardDto.boardNo}" >
                     <%--작성한 아이디로 로그인한 상태라면 --%>
                     <sec:authorize access="hasAuthority('USER')">
                         <c:if test="${boardDetailDto.boardDto.memberId eq memberDto.memberId}">
                             <h5 class="fs-6 text-dark">제목</h5>
-                            <input type="text" class="form-control" id="subject" name="subject"
+                            <input type="text" class="form-control" id="subject" name="boardTitle"
                                    value="${boardDetailDto.boardDto.boardTitle}">
                         </c:if>
                     </sec:authorize>
@@ -71,7 +72,7 @@
                     <sec:authorize access="hasAuthority('USER')">
                         <c:if test="${boardDetailDto.boardDto.memberId eq memberDto.memberId}">
                             <h5 class="fs-6 text-dark">내용</h5>
-                            <textarea class="form-control" name="content" id="content" style="height: 200px"
+                            <textarea class="form-control" name="boardContents" id="content" style="height: 200px"
                                       rows="5">${boardDetailDto.boardDto.boardContents}</textarea>
                         </c:if>
                     </sec:authorize>
@@ -93,7 +94,7 @@
                     <sec:authorize access="hasAuthority('USER')">
                         <c:if test="${boardDetailDto.boardDto.memberId eq memberDto.memberId}">
                             <input type="submit" class="btn btn-primary" value="수정">
-                            <a id="deleteBtn" class="btn btn-primary">삭제</a>
+                            <a href="${pageContext.request.contextPath}/free-board/delete?boardNo=${boardDetailDto.boardDto.boardNo}" class="btn btn-primary">삭제</a>
                         </c:if>
                     </sec:authorize>
                 </div>

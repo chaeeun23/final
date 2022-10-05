@@ -50,12 +50,31 @@ public class FreeBoardController {
     //로직
     @PostMapping("/insert")
     public String addBoard(BoardDto boardDto, @AuthenticationPrincipal MemberDto memberDto,
-                           RedirectAttributes redirectAttribute, Model model) {
+                           RedirectAttributes redirectAttribute) {
         log.info("boardDto = {}", boardDto);
         boardDto.setMemberId(memberDto.getMemberId());
-        int boardNo = freeBoardService.addBoard(boardDto);
+        freeBoardService.addBoard(boardDto);
         redirectAttribute.addFlashAttribute("suc", "<script>alert('등록성공')</script>");
         return "redirect:/free-board/list";
     }
+
+    @PostMapping("/update")
+    public String boardUpdate(BoardDto boardDto, RedirectAttributes redirectAttribute) {
+        log.info("여기는 업데이트 boardDto = {}", boardDto);
+        boardDto.setBoardNo(boardDto.getBoardNo());
+        freeBoardService.updateBoard(boardDto);
+        redirectAttribute.addFlashAttribute("suc", "<script>alert('수정성공')</script>");
+        return "redirect:/free-board/list";
+    }
+
+
+    @GetMapping("/delete")
+    public String boardDeleteYn(@RequestParam("boardNo") int boardNo
+            , RedirectAttributes redirectAttribute) {
+        freeBoardService.boardDeleteYn(boardNo);
+        redirectAttribute.addFlashAttribute("suc", "<script>alert('삭제성공')</script>");
+        return "redirect:/free-board/list";
+    }
+
 }
 
