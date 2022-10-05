@@ -69,7 +69,7 @@
 				<tr>
 					<th>회원아이디</th>
 					<th>강좌이름</th>
-					<th>강좌가격</th>
+					<th>결제가격</th>
 					<th>결제수단</th>
 					<th>결제날짜</th>
 				</tr>
@@ -77,7 +77,7 @@
 					<tr>
 						<td>${l.userId}</td>
 						<td>${l.lectureName}</td>
-						<td>${l.lecturePrice}원</td>
+						<td>${l.payPrice}원</td>
 						<td>${l.payMethod}</td>
 						<td>${l.payDateYMD}</td>
 					</tr>
