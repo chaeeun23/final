@@ -169,7 +169,7 @@
     
     <%-- 리뷰리스트 --%>
     <div id="reviewList">
-    <c:forEach items="${reviewList}" var="r">
+ <%--    <c:forEach items="${reviewList}" var="r">
             <!-- 댓글 내용 -->
 			<table class="table">
 				<tr>
@@ -194,7 +194,7 @@
 					</td>
 				<tr>
 			</table>
-		</c:forEach> 
+		</c:forEach>  --%>
 		
 		
 	<%-- 페이지네이션 --%>

@@ -53,11 +53,15 @@ public class LectureController {
 		// 리뷰 리스트
 		List<Map<String,Object>> reviewList = reviewService.getReviewList(lectureNo, current);
 		log.debug(TeamColor.MS + "ReviewController.reviewList(reviewList) : " + reviewList); 
-		log.debug(TeamColor.MS + "ReviewController.reviewList(reviewList.get(0).get(\"pageNation\")) : " + reviewList.get(0).get("pageNation")); 
+		/*
+		 * log.debug(TeamColor.MS +
+		 * "ReviewController.reviewList(reviewList.get(0).get(\"pageNation\")) : " +
+		 * reviewList.get(0).get("pageNation"));
+		 */ 
 
 		// 꺼낸 값 model에 넣어주기
 		model.addAttribute("lectureOne", lectureOne);
-		model.addAttribute("pageNation", reviewList.get(0).get("pageNation"));
+		/* model.addAttribute("pageNation", reviewList); */
 		
 		return "/commons/lectureOne";
 	}
