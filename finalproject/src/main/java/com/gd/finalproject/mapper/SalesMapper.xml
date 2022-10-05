@@ -13,7 +13,8 @@
 		FORMAT(l.lecture_price, 0) lecturePrice,
 		l.lecture_name lectureName,
 		DATE_FORMAT(p.pay_date, '%y-%m-%d') payDateYMD,
-		p.refund refund
+		p.refund refund,
+		FORMAT(p.pay_price, 0) payPrice
 		FROM payment p LEFT JOIN lecture l
 		ON p.lecture_no = l.lecture_no
 		WHERE p.refund = 'N'
@@ -30,10 +31,9 @@
 	
 	<!-- 전체 매출 -->
 	<select id="getTotalSales" resultType="string">
-		SELECT FORMAT(SUM(l.lecture_price), 0) total
-		FROM lecture l JOIN payment p
-		ON l.lecture_no = p.lecture_no
-		WHERE p.refund = 'N'
+		SELECT FORMAT(SUM(pay_price), 0) total
+		FROM payment 
+		WHERE refund = 'N'
 	</select>
 	
 	<!-- 과목별 매출리스트 -->
@@ -42,7 +42,7 @@
 		p.user_id
 		userId,
 		p.pay_method payMethod,
-		FORMAT(l.lecture_price, 0) lecturePrice,
+		FORMAT(p.pay_price, 0) payPrice,
 		l.lecture_name lectureName,
 		DATE_FORMAT(p.pay_date, '%y-%m-%d')
 		payDateYMD
@@ -68,9 +68,9 @@
 	<select id="getLectureTotalSales" resultType="map">
 		SELECT
 		l.lecture_name lectureName,
-		FORMAT(SUM(l.lecture_price), 0) totalSales
+		FORMAT(SUM(p.pay_price), 0) totalSales
 		FROM lecture
-		l JOIN payment p
+		l LEFT JOIN payment p
 		ON l.lecture_no = p.lecture_no
 		WHERE p.refund = 'N'
 		GROUP BY l.lecture_name
@@ -85,7 +85,7 @@
 		p.user_id
 		userId,
 		p.pay_method payMethod,
-		FORMAT(l.lecture_price, 0) lecturePrice,
+		FORMAT(p.pay_price, 0) payPrice,
 		l.lecture_name lectureName,
 		DATE_FORMAT(p.pay_date, '%y-%m-%d')
 		payDateYMD,
@@ -110,9 +110,9 @@
 	<select id="getMonthTotalSales" resultType="map">
 		SELECT
 		DATE_FORMAT(p.pay_date, '%m') payDateM,
-		FORMAT(SUM(l.lecture_price), 0) totalSales
+		FORMAT(SUM(p.pay_price), 0) totalSales
 		FROM lecture
-		l JOIN payment p
+		l LEFT JOIN payment p
 		ON l.lecture_no = p.lecture_no
 		WHERE p.refund = 'N'
 		GROUP BY DATE_FORMAT(p.pay_date, '%m')
