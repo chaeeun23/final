@@ -42,24 +42,30 @@
 				<sec:authorize access="hasAnyAuthority('EMPLOYEE','ADMIN')">
 					<div class="btn-group">
 						<button type="button" class="btn btn-primary">관리자용</button>
-						
-							<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"> <span class="caret"></span></button>
-							<div class="dropdown-menu">
-							<a
-									class="dropdown-item" href="${pageContext.request.contextPath}/lectureList">강좌관리</a>
-								 <a
-									class="dropdown-item" href="${pageContext.request.contextPath}/consultReservationList">상담스케줄</a>
-									<a
-									class="dropdown-item" href="${pageContext.request.contextPath}/busList">버스관리</a>
-									<a
-									class="dropdown-item" href="${pageContext.request.contextPath}/routeList">노선관리</a>
-									<a
-									class="dropdown-item" href="${pageContext.request.contextPath}/raceList">운행관리</a>
-									<a class="dropdown-item" href="${pageContext.request.contextPath}/salesList">매출리스트</a>
-								<a class="dropdown-item" href="${pageContext.request.contextPath}/employeePaymentList">결제리스트</a>
-									
-							</div>
-						
+
+						<button type="button"
+							class="btn btn-primary dropdown-toggle dropdown-toggle-split"
+							data-toggle="dropdown">
+							<span class="caret"></span>
+						</button>
+						<div class="dropdown-menu">
+							<a class="dropdown-item"
+								href="${pageContext.request.contextPath}/lectureList">강좌관리</a> <a
+								class="dropdown-item"
+								href="${pageContext.request.contextPath}/consultReservationList">상담스케줄</a>
+							<a class="dropdown-item"
+								href="${pageContext.request.contextPath}/busList">버스관리</a> <a
+								class="dropdown-item"
+								href="${pageContext.request.contextPath}/routeList">노선관리</a> <a
+								class="dropdown-item"
+								href="${pageContext.request.contextPath}/raceList">운행관리</a> <a
+								class="dropdown-item"
+								href="${pageContext.request.contextPath}/salesList">매출리스트</a> <a
+								class="dropdown-item"
+								href="${pageContext.request.contextPath}/employeePaymentList">결제리스트</a>
+
+						</div>
+
 					</div>
 				</sec:authorize>
 				<a href="${pageContext.request.contextPath}/member/detail"
@@ -107,10 +113,11 @@
 												href="${pageContext.request.contextPath}/lectureList">강좌안내</a>
 											<a class="dropdown-item"
 												href="${pageContext.request.contextPath}/instructorList">강사안내</a>
-												<a class="dropdown-item"
-												href="${pageContext.request.contextPath}/raceList">셔틀버스 운행안내</a>
-											
-						
+											<a class="dropdown-item"
+												href="${pageContext.request.contextPath}/raceList">셔틀버스
+												운행안내</a>
+
+
 										</div></li>
 								</div>
 								<div class="col-sm-2">
@@ -135,11 +142,13 @@
 										class="nav-link dropdown-toggle" href="#" id="navbardrop"
 										data-toggle="dropdown">이용신청</a>
 										<div class="dropdown-menu">
-											<a class="dropdown-item"
-												href="${pageContext.request.contextPath}/userCartList">장바구니</a>
-											<a class="dropdown-item"
-												href="${pageContext.request.contextPath}/userPaymentHistory">수강신청내역</a>
-											
+											<sec:authorize access="hasAuthority('USER')">
+												<a class="dropdown-item"
+													href="${pageContext.request.contextPath}/userCartList">
+													장바구니</a>
+												<a class="dropdown-item"
+													href="${pageContext.request.contextPath}/userPaymentHistory">수강신청내역</a>
+											</sec:authorize>
 
 										</div></li>
 								</div>
@@ -150,9 +159,10 @@
 										<div class="dropdown-menu">
 											<a class="dropdown-item"
 												href="${pageContext.request.contextPath}/noticeList">공지사항</a>
-											<a class="dropdown-item" href="${pageContext.request.contextPath}/free-board/list">Q&A</a>
+											<a class="dropdown-item"
+												href="${pageContext.request.contextPath}/free-board/list">Q&A</a>
 
-											
+
 
 											<sec:authorize access="hasAuthority('USER')">
 												<sec:authentication property="principal" var="member" />
