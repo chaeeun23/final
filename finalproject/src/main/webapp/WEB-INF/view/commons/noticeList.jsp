@@ -52,7 +52,7 @@
 	<!-- 공지사항 추가버튼(관리자) -->
 	<div>
 		<!-- employee 와 총관리자인 권한이면 공지사항추가버튼 보이게 -->
-		<sec:authorize access="hasAuthority('EMPLOYEE')">
+		<sec:authorize access="hasAnyAuthority('ADMIN', 'EMPLOYEE')">
 			<a class="btn btn-primary" style="float:right; margin-left:10px"href="${pageContext.request.contextPath }/addNotice/">글쓰기</a>
 		</sec:authorize>
 	</div>
