@@ -146,15 +146,15 @@
 
             <br>
             <br>
-            <p class="fw-lighter small" >상세주소</p>
+            <p class="fw-lighter small">상세주소</p>
             <input class="form-control" type="text" name="memberDetailAddr" id="subAddr">
         </div>
         <div class="mb-3">
-            <p class="fw-lighter small" >생년월일</p>
+            <p class="fw-lighter small">생년월일</p>
             <td><input class="form-control" type="tel" name="memberBirth" id="birth"></td>
         </div>
         <div style="margin: 0;">
-            <p class="fw-lighter small" >성별체크</p>
+            <p class="fw-lighter small">성별체크</p>
             <br>
             <div class="custom-control custom-radio custom-control-inline">
                 <input type="radio" class="custom-control-input" id="sex-1" name="memberGender" value="1" checked>
@@ -197,24 +197,31 @@
 
 
     document.querySelector('#emailCheckBtn').addEventListener('click', function (ev) {
-        let email = document.querySelector('#emailData').value;
+        let email = document.querySelector('#emailData').value.trim();
+        if (email == '') {
+            document.querySelector('#emailData').className += ' is-invalid';
+            document.querySelector('#emailData').removeAttribute('readonly');
+            return
+        }
         let url = '${pageContext.request.contextPath}/anonymous/email-check?memberEmail=' + email;
         document.querySelector('#emailData').setAttribute('readonly', 'readonly');
         fetch(url, {
             method: 'GET'
-        }).then(res => res.text())
-            .then(data => {
-                if (data != 'fail') {
-                    code = data;
-                    document.querySelector('#emailData').classList.remove('is-invalid');
-                    document.querySelector('#emailData').className += ' is-valid';
-                    document.querySelector('#emailCheckNum').removeAttribute('readonly');
-                    document.querySelector('#emailCheckBtn').setAttribute('disabled', 'disabled');
-                } else {
-                    document.querySelector('#emailData').className += ' is-invalid';
-                    document.querySelector('#emailData').removeAttribute('readonly');
-                }
-            })
+        }).then(res => {
+            if (res.status != 500) {
+                return res.text();
+            }
+            return new Error();
+        }).then(data => {
+            code = data;
+            document.querySelector('#emailData').classList.remove('is-invalid');
+            document.querySelector('#emailData').className += ' is-valid';
+            document.querySelector('#emailCheckNum').removeAttribute('readonly');
+            document.querySelector('#emailCheckBtn').setAttribute('disabled', 'disabled');
+        }).catch(e => {
+            document.querySelector('#emailData').className += ' is-invalid';
+            document.querySelector('#emailData').removeAttribute('readonly');
+        })
     })
 
     document.querySelectorAll(".valid-check").forEach(e => e.addEventListener('keyup', function (ev) {

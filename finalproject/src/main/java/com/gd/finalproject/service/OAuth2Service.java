@@ -75,6 +75,7 @@ public class OAuth2Service implements OAuth2UserService<OAuth2UserRequest, OAuth
             }
             memberMapper.signMember(member);
             memberMapper.authInsert(member);
+            memberMapper.userInsert(member);
         }
         MemberImg memberImg = MemberImg.builder()
                 .memberId(email)
