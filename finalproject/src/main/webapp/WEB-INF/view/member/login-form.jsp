@@ -17,18 +17,18 @@
 <div>
     <c:import url="/WEB-INF/resource/inc/header.jsp"></c:import>
 </div>
-<div class="d-flex justify-content-center container " style="height: 800px">
+<div class="d-flex justify-content-center container " style="height: 600px">
     <form method="post" action="${pageContext.request.contextPath}/user/login"
-          class=" w-75 border p-3 bg-white shadow rounded align-self-center">
-        <div class="d-inline-flex">
-            <h4 class="ms-2 fw-bold">로그인</h4>
+          class=" w-75 border p-5 mt-5  bg-white shadow rounded align-self-center">
+        <div class=" text-center">
+            <h3 class="ms-20 fw-bold mb-5 ">Log In</h3>
         </div>
         <div class="mb-3">
-            <label for="username" class="form-label">아이디</label>
+            <label for="username" class="fw-bold small mb-2 ">아이디</label>
             <input type="text" class="form-control" name="username" id="username" placeholder="아이디를 입력해주세요">
         </div>
         <div class="mb-3">
-            <label for="password" class="form-label">비밀번호</label>
+            <label for="password" class="fw-bold small mb-2 ">비밀번호</label>
             <input type="password" class="form-control" name="password" id="password"
                    placeholder="비밀번호를 입력해주세요">
         </div>
@@ -47,15 +47,15 @@
         </c:if>
         <div class="d-flex justify-content-end">
             <div>
-                <div>
+                <div class="small">
                     <a href="${pageContext.request.contextPath}/anonymous/find-id">아이디찾기</a> | <a
                         href="${pageContext.request.contextPath}/anonymous/find-pw">비밀번호찾기</a>
                 </div>
             </div>
         </div>
         <div class="text-center">
-            <button type="submit" id="boardBtn" class="btn btn-secondary mt-2 rounded-0">고객 로그인</button>
-            <a href="${pageContext.request.contextPath}" class="btn btn-secondary mt-2 rounded-0">뒤로가기</a>
+            <button type="submit" id="boardBtn" class="btn btn-dark">고객 로그인</button>
+            <a href="${pageContext.request.contextPath}" class="btn btn-dark">뒤로가기</a>
         </div>
         <%-- 카카오 버튼 --%>
         <div class="text-center mt-2">

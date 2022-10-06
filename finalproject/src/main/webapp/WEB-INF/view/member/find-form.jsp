@@ -19,15 +19,15 @@
 <div>
     <c:import url="/WEB-INF/resource/inc/header.jsp"></c:import>
 </div>
-<div class="d-flex justify-content-center container " style="height: 500px; padding: 100px">
+<div class="d-flex justify-content-center container " style="height: 600px">
     <form method="post" action="${pageContext.request.contextPath}/anonymous/find-id"
-          class=" w-75 border p-3 bg-white shadow rounded align-self-center">
-        <div class="d-inline-flex">
-            <h4 class="ms-2 fw-bold">아이디 찾기</h4>
+          class="  w-75 border p-5 mt-5  bg-white shadow rounded align-self-center">
+        <div class="text-center">
+            <h5 class="ms-2 mt-5 fw-bold tex-center">아이디 찾기</h5>
         </div>
-        <p class="fw-lighter small" small>등록한 메일로 아이디가 전송됩니다.</p>
+        <p class=" fw-bold text-center small mt-4 text-black-50">등록한 메일로 가입한 아이디가 전송됩니다.</p>
         <div class="mb-3">
-            <label for="email" class="form-label">이메일</label>
+            <label for="email" class="fw-bold small">이메일</label>
             <input type="text" class="form-control" name="memberEmail" id="email" placeholder="메일을 입력해주세요">
         </div>
         <c:if test="${error ne null}">

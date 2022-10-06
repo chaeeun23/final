@@ -38,7 +38,7 @@ public class AnonymousController {
     //중복아이디체크
     @ResponseBody
     @GetMapping("/id-check")
-    public ResponseEntity<String> idCheck(@RequestParam("memberId") @NotBlank @Length(min = 8) String id) throws Exception {
+    public ResponseEntity<String> idCheck(@RequestParam("memberId") @NotBlank @Length(min = 4) String id) throws Exception {
         String check = memberService.idCheck(id);
         if (check == null) {
             return ResponseEntity.ok("ok");

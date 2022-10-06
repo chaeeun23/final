@@ -178,7 +178,18 @@ public class MemberService implements UserDetailsService {
         if (!passwordEncoder.matches(pw, memberDto.getPassword())) {
             return "fail";
         }
+        //회원 탈퇴하면 멤버 테이블에서 y처리 돼서 로그인 못함
         memberMapper.deleteMemberYn(memberId);
+        //강사 테이블에서 삭제 컬럼 y처리
+        memberMapper.deleteInstructorYn(memberId);
+        //강사 테이블 강사 권한에서 n처리
+        memberMapper.updateInstructorYn(memberId);
+        //권한 테이블에서 삭제
+        memberMapper.deleteAuth(memberId);
+        //유저 테이블에서 삭제
+        memberMapper.deleteUser(memberId);
+        //관리자 테이블에서 삭제
+        memberMapper.deleteEmployee(memberId);
         return "suc";
     }
 }

@@ -39,12 +39,13 @@ public class SecurityConfig {
                                 .antMatchers("/anonymous/**").anonymous()
                                 .antMatchers("/admin/**").hasAuthority("ADMIN")
                                 .antMatchers("/member/**").hasAuthority("USER")
-                                .antMatchers("/**").permitAll()
-                        // .anyRequest().authenticated() // 그외 모든 요청 인증 되어야 한다
+                     .antMatchers("/**").permitAll()
+//                                .anyRequest().authenticated()
+//                                .antMatchers("/home").permitAll()// 그외 모든 요청 인증 되어야 한다
                         //        .antMatchers("/**").permitAll() // 임시로 모든 권한 오픈
                         /*.antMatchers("/resources/**").permitAll() // 리소스 허용
                         .antMatchers("/resource/**").permitAll() // 리소스 허용
-                        .antMatchers("/home").hasAnyAuthority("USER", "ADMIN", "TEACHER")
+                        .antMatchers("/home").permitAll()
                         .antMatchers("/강사/**").hasAnyAuthority("TEACHER", "ADMIN")*/)
                 // 로그인 관련
                 .formLogin(form -> form

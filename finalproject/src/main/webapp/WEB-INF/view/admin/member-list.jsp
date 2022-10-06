@@ -23,6 +23,7 @@
                 <th class="col-3">생성날짜</th>
                 <th class="col-3">권한변경</th>
 
+
             </tr>
             </thead>
             <tbody id="box">

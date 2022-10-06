@@ -148,13 +148,13 @@
 										class="nav-link dropdown-toggle" href="#" id="navbardrop"
 										data-toggle="dropdown">이용신청</a>
 										<div class="dropdown-menu">
-											<sec:authorize access="hasAuthority('USER')">
+
 												<a class="dropdown-item"
 													href="${pageContext.request.contextPath}/userCartList">
 													장바구니</a>
 												<a class="dropdown-item"
 													href="${pageContext.request.contextPath}/userPaymentHistory">수강신청내역</a>
-											</sec:authorize>
+
 
 										</div></li>
 								</div>

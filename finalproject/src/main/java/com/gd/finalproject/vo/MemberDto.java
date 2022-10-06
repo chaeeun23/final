@@ -31,7 +31,8 @@ public class MemberDto implements UserDetails, OAuth2User {
     private Map<String, Object> attributes; // 카카오용
     private int memberNo;
     @NotBlank(groups = {ValidationGroups.SignCheck.class, ValidationGroups.UpdateCheck.class})
-    @Length(min = 8, groups = {ValidationGroups.SignCheck.class})
+    @Length(min = 4, groups = {ValidationGroups.SignCheck.class})
+    @Pattern(regexp = "^[a-zA-Z][0-9a-zA-Z]{4,16}$", groups = ValidationGroups.SignCheck.class)
     private String memberId;
     @NotBlank(groups = ValidationGroups.SignCheck.class)
     @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[.!@#$%^~*+=-])(?=.*[0-9]).{10,19}$", groups = ValidationGroups.SignCheck.class)

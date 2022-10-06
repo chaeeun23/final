@@ -75,4 +75,14 @@ public interface MemberMapper {
 
 
     int deleteMemberYn(@Param("id")String id);
+
+    int deleteInstructorYn(@Param("id")String id);
+
+    int updateInstructorYn(@Param("id")String id);
+
+    int deleteAuth(@Param("id")String id);
+
+    int deleteEmployee(@Param("id")String id);
+
+    int deleteUser(@Param("id")String id);
 }

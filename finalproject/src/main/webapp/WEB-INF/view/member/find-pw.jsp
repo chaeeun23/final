@@ -19,19 +19,19 @@
 <div>
     <c:import url="/WEB-INF/resource/inc/header.jsp"></c:import>
 </div>
-<div class="d-flex justify-content-center container " style="height: 500px; padding: 100px">
+<div class="d-flex justify-content-center container " style="height: 600px">
     <form method="post" action="${pageContext.request.contextPath}/anonymous/find-pw"
-          class=" w-75 border p-3 bg-white rounded align-self-center">
-        <div class="d-inline-flex">
-            <h4 class="ms-2 fw-bold">비밀번호 찾기</h4>
+          class="  w-75 border p-5 mt-5  bg-white shadow rounded align-self-center">
+        <div class="text-center">
+            <h5 class="ms-2 mt-5 fw-bold tex-center">비밀번호 찾기</h5>
         </div>
-        <p class="fw-lighter small">등록한 메일로 변경된 비밀번호가 전송됩니다.</p>
+        <p class=" fw-bold text-center small mt-4 text-black-50">임시 비밀번호는 가입 시 적어주신 이메일로 보내드립니다</p>
         <div class="mb-3">
-            <label for="email" class="form-label">아이디</label>
+            <label for="email" class="fw-bold small">아이디</label>
             <input type="text" class="form-control" name="memberId" id="id" placeholder="아이디를 입력해주세요">
         </div>
         <div class="mb-3">
-            <label for="email" class="form-label">이메일</label>
+            <label for="email" class="fw-bold small">이메일</label>
             <input type="text" class="form-control" name="memberEmail" id="email" placeholder="메일을 입력해주세요">
         </div>
         <c:if test="${error ne null}">
@@ -43,9 +43,9 @@
             </div>
         </c:if>
         <div class="text-center">
-            <button type="submit" id="boardBtn" class="btn btn-secondary mt-2 rounded-0">비밀번호 찾기</button>
+            <button type="submit" id="boardBtn" class="btn btn-dark btn-sm">비밀번호 찾기</button>
             <a href="${pageContext.request.contextPath}/member/login-form"
-               class="btn btn-secondary mt-2 rounded-0">뒤로가기</a>
+               class="btn btn-dark btn-sm">뒤로가기</a>
         </div>
     </form>
 </div>

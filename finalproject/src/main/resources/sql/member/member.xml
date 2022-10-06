@@ -52,6 +52,26 @@
         WHERE member_id = #{id}
 
     </update>
+    <update id="deleteInstructorYn">
+        UPDATE instructor
+        SET deleteYn = 'Y'
+        WHERE member_id = #{id}
+    </update>
+    <delete id="deleteAuth">
+        delete
+        from auth
+        where member_id = #{id}
+    </delete>
+    <delete id="deleteEmployee">
+        delete
+        from employee
+        where member_id = #{id}
+    </delete>
+    <delete id="deleteUser">
+        delete
+        from user
+        where member_id = #{id}
+    </delete>
     <!-- 아이디 중복체크 -->
     <select id="idCheck" resultType="string">
         SELECT member_id
@@ -224,5 +244,11 @@
         SET member_sleepYn = 'N',
             last_login= now()
         WHERE member_id = #{id}
+    </update>
+    <update id="updateInstructorYn">
+        UPDATE instructor
+        SET inspectYn = 'N'
+        WHERE member_id = #{id}
+
     </update>
 </mapper>

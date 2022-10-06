@@ -26,7 +26,7 @@
         <div class="mb-3">
             <p class="fw-lighter small">아이디<span style="color: red">*</span></p>
             <input class="form-control" type="text" name="memberId" id="id" aria-describedby="invalid-id">
-            <div class="mx-1 opacity-50 " style="font-size: 12px">아이디는 8자리 이상으로 입력해주세요</div>
+            <div class="mx-1 opacity-50 " style="font-size: 12px">아이디는 4자리 이상 16자리 이하로 입력해주세요</div>
             <div class="valid-feedback">
                 중복체크완료!
             </div>
@@ -155,7 +155,6 @@
         </div>
         <div style="margin: 0;">
             <p class="fw-lighter small">성별체크</p>
-            <br>
             <div class="custom-control custom-radio custom-control-inline">
                 <input type="radio" class="custom-control-input" id="sex-1" name="memberGender" value="1" checked>
                 <label class="custom-control-label" for="sex-1">여자</label>
@@ -263,8 +262,8 @@
             alert("아이디를 입력해주세요");
             return
         }
-        if (id.length < 8) {
-            alert("아이디는 8자 이상으로 입력해주세요");
+        if (id.length < 4 || id.length > 15) {
+            alert("아이디는 4자 이상 16자리 이하로 입력해주세요");
             return;
         }
         let url = '${pageContext.request.contextPath}/anonymous/id-check?memberId=' + id;
