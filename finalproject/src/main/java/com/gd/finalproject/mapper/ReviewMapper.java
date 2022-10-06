@@ -6,7 +6,6 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.gd.finalproject.vo.Review;
 
 @Mapper
 public interface ReviewMapper {
@@ -15,7 +14,7 @@ public interface ReviewMapper {
 	List<Map<String,Object>> selectReviewList(@Param("lectureNo") String lectureNo);
 	
 	// 리뷰 추가
-	int insertReview(Review review, @Param("lectureNo") String lectureNo);
+	List<Map<String,Object>> insertReview(Map<String, Object> map);
 	
 	// 리뷰 수정
 	int updateReview(@Param("reviewNo") int reviewNo);

@@ -1,5 +1,6 @@
 package com.gd.finalproject.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,23 +30,21 @@ public class ReviewService {
         log.debug(TeamColor.MS + "ReviewService(review) : " + review);
 
         return review;
-		
 	}
 
-	
-	/*
-	 * // 리뷰 추가 (addReview - Form) public int addReview()
-	 */
-	
 	// 리뷰 추가 (addReview - Action)
-	public int addReview(String userId, Review review, String lectureNo) {
+	public List<Map<String, Object>> addReview(String reviewContent, String lectureNo, String reviewWriter) {
 		 // 넘겨온 값
-		 log.debug(TeamColor.MS + "ReviewService.addReview(userId) : " + userId);
-		 log.debug(TeamColor.MS + "ReviewService.addReview(review) : " + review);
+		 log.debug(TeamColor.MS + "ReviewService.addReview(reviewContent) : " + reviewContent);
 		 log.debug(TeamColor.MS + "ReviewService.addReview(lectureNo) : " + lectureNo);
+		 log.debug(TeamColor.MS + "ReviewService.addReview(reviewWriter) : " + reviewWriter);
+		 Map<String, Object> mapReivew = new HashMap<>();
+		 mapReivew.put("reviewContent", reviewContent);
+		 mapReivew.put("lectureNo", lectureNo);
+		 mapReivew.put("reviewWriter", reviewWriter);
 		 
 		 // 리뷰 추가하기
-		 int add = reviewMapper.insertReview(review, lectureNo);
+		 List<Map<String, Object>> add = reviewMapper.insertReview(mapReivew);
 		 log.debug(TeamColor.MS + "ReviewService.addReview(add) : " + add);
 		 
 		 return add;

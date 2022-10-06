@@ -16,7 +16,7 @@
 	</select>
 	
 	<!-- 리뷰 추가(addReview) -->
-	<insert id="insertReview" parameterType="com.gd.finalproject.vo.Review">
+	<insert id="insertReview" parameterType="map" >
 		INSERT INTO review 
         	 (lecture_no, course_no, review_writer, review_content, create_date)
      	 SELECT #{lectureNo}, #{courseNo}, #{reviewWriter}, #{reviewContent}, NOW()
@@ -33,7 +33,7 @@
 	</update>
 	
 	<!-- 리뷰 삭제(deleteReview) -->
-	<delete id="deleteReview" parameterType="string">
+	<delete id="deleteReview" parameterType="int">
 		DELETE FROM review WHERE review_no=#{reviewNo}
 	</delete>
 	

@@ -36,6 +36,39 @@
 	transition: all 200ms ease;
 }
 .review_name a:hover { color: #937c6f; }
+
+#removeReivew {
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: 17px;
+  cursor: pointer;
+  text-align: center;	
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 13px;
+}
+
+#updateReivew {
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: 17px;
+  cursor: pointer;
+  text-align: center;	
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 13px;
+}
+
+
+
+
+
 </style>
  
 </head>
@@ -137,67 +170,46 @@
 	<br>
 	<br>
 	<br>
-	<br>
 
 
 	<!-- 리뷰 입력 -->
 	<!-- 리뷰 자신이 작성한 것만 수정, 삭제 가능(수강:아이디와 로그인한 아이디가 일치하면 수정, 삭제 가능) / 관리자는 모든 리뷰 삭제 가능  -->
-	<!-- Reviews -->
 	<div class="container"> 
 		<div class="reviews" style="width: 100%; margin-top: 99px;">
 			<div class="reviews_title">&nbsp;&nbsp;Reviews</div>
 		<hr>
-<%-- 		
-   댓글 입력 폼
-    <div class="d-flex align-items-center mt-2">
-        <div class="form-floating flex-grow-1 px-2">
-             <c:if test="${member.memberId ne null}">
-            <textarea class="form-control" placeholder="리뷰를 작성해주세요" name="reviewContent" id="reviewContent"
-                      style="height: 100px; resize: none;"></textarea>
-            </c:if>
-            <div class="invalid-feedback">
-                1자 이상 입력해주세요
-            </div>
-            <c:if test="${member.memberId eq null}">
-                <label for="reviewContent">댓글을 작성하려면, 로그인 해주세요</label>
-            </c:if>
-        </div>
-        <c:if test="${sessionScope.loginMember ne null}">
-            <a lectureNo="${lectureList.lectureNo}" userId="${userId}" id="reviewInsertBtn"
-               class="btn btn-primary btn-sm">등록</a>
-        </c:if>
-    </div>
-     --%>
+	
+  <!--  리뷰 입력 폼 -->
+    <div>
+    <form></form>
+    	<input type="hidden" name="reviewWriter" id="reviewWriter" value="${member.memberId}">&nbsp;&nbsp;&nbsp;&nbsp;리뷰 작성자 : ${member.memberId}
+    <br>
+    <br>
     
-    <%-- 리뷰리스트 --%>
- <%--    <div id="reviewList">
-    <c:forEach items="${reviewList}" var="r">
-            <!-- 댓글 내용 -->
-			<table class="table">
-				<tr>
-					<td><div class="review_name">★ ${r.reviewWriter}님의 리뷰 </div></td>
-					<td class="text-right" width="300px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${r.createDate}에 작성 </td>
-				</tr>
-				<tr>
-					<td>
-						<div class="review_text">
-							<p>&nbsp;&nbsp;&nbsp;&nbsp;${r.reviewContent} </p>
-						</div>
-					</td>
-					<td class="text-right" width="300px">
-					<div class="review_text">
-							<p>
-								<button type="button" class="btn btn-primary" style="float:right;" id="removeReviewBtn" href="${pageContext.request.contextPath}/removeReview?reviewNo=">삭제</a>
-								<a class="btn btn-primary" style="float:right; margin-right:10px;"  
-									href="${pageContext.request.contextPath}/updateReview?reviewNo=${r.reviewNo}">수정</a>
-							</p>
-						</div>
-					</td>
-				<tr>
-			</table>
-		</c:forEach>  
-		
-	</div> --%>
+         <c:if test="${member.memberId ne null}">
+        <textarea class="form-control" placeholder="리뷰를 작성해주세요!" name="reviewContent" id="reviewContent"
+                  style="height: 100px; resize: none;"></textarea>
+        </c:if>
+        <div class="invalid-feedback">
+            1자 이상 입력해주세요
+        </div>
+    </div>
+    <br>
+    <c:if test="${member.memberId ne null}"> 
+        <button type="button" id="reviewInsertBtn" class="btn btn-primary" 
+        		style="float:right; margin-right:10px;">등록</button>
+    </c:if> 
+    
+ 	<br>
+ 	<br>
+ 	
+ 	
+   	<!-- 리뷰리스트 -->
+    <div id="reviewList"></div>
+    
+    </div>	
+    	
+	
 </div>
 	
 <script type="text/javascript">
@@ -217,9 +229,11 @@ $(document).ready(function(){ 
 		type : 'GET',        
 		data : {lectureNo:lectureNo},
 		success : function(json) {
-			const x = $(json);
+		const x = $(json);
 			/* alert(x); */
-			 alert('ccc'); 
+		if(json.length < 1){
+			a = "등록된 댓글이 없습니다.";
+		} else{
 			a += '<table class="table">';
         $(json).each(function(i, item){			// 리스트에서 뽑기
            	a += '<tr>';
@@ -239,74 +253,93 @@ $(document).ready(function(){ 
        		a += 	'<td class="text-right" width="300px">';                
        		a += 		'<div class="review_text">';                
        		a += 		'<p>';             
-       		a += 		'<a type="button" class="btn btn-primary" style="float:right;" id="removeReviewBtn" href="${pageContext.request.contextPath}/removeReview?reviewNo='+ item.reviewNo+'">삭제</a>';             
-       		a += 		'<a type="button" class="btn btn-primary" style="float:right;" id="updateReivewBtn" margin-right:50px;" href="${pageContext.request.contextPath}/updateReview?reviewNo='+ item.reviewNo+'">수정</a>';           
+       		a += 		'<button type="button" class="removeReviewBtn" id="removeReivew" style="float:right; margin-right:50px;"" value="'+ item.reviewNo+'">삭제</button>';             
+       		a += 		'<button type="button" class="updateReivewBtn" id="updateReivew" style="float:right; margin-right:10px;" value="'+ item.reviewNo+'">수정</button>';           
        		a += 		'</p>';             
        		a += 	'</div>';               
        		a += 	'</td>';              
        		a += '</tr>';    
        			});       
-       		a += '</table>';                  
-			  $("#reviewList").append(a);       
+       		a += '</table>';      
+       		      }     
+			  $("#reviewList").append(a);   
 		}
 	});
 }); 	
+ 
+
+	// 리뷰 등록 
+	$(document).on('click', '#reviewInsertBtn', function () {
+		//Json으로 전달할 파라미터 변수선언
+		const reviewContent = $('#reviewContent').val();
+		const lectureNo = $('#lectureNo').val(); 
+		const reviewWriter = $('#reviewWriter').val();
+	    alert(reviewWriter);
+	    alert(reviewContent);
+	    alert(lectureNo);
+	   if(reviewWriter == ''){
+				alert('로그인 후 이용해주세요');
+				return;
+			}else if(reviewContent == '') {
+				alert('내용을 입력하세요');
+				return;
+			} else { 
+	     $.ajax({
+            type: "POST", 
+            url: "/finalproject/addReview", 
+            headers: {'Content-Type': 'application/json'},
+            data: JSON.stringify({
+            	reviewContent: reviewContent,
+                lectureNo: lectureNo,
+                reviewWriter: reviewWriter
+            }),
+            success: function (data) { //성공시
+                reviewList(data);
+
+            },
+            error: function (e) { //실패시
+                console.log(e);
+            }
+        });
+		}
+	}) 
+	
+	
+	/*	 
+	// 댓글 수정창 Form
+	$(document).on('click', '.cmUpdateBtnForm', function () {
+	    $(this).parents('.listForm').css('display', 'none');
+	    $(this).parents('.listForm').next().css('display', '');
+	})
+	$(document).on('click', '.cmUpdateCancel', function () {
+	    $(this).parents('.updateForm').css('display', 'none');
+	    $(this).parents('.updateForm').prev().css('display', '');
+	})	
+		 */
 		
-	$(document).on('click', '#removeReviewBtn', function (){
+	
+	// 리뷰 삭제	
+	$(document).on('click', '.removeReviewBtn', function (){
 		let delete_warning = confirm('댓글을 삭제하시겠습니까?');
-	    let reviewNo = '${reviewList.reviewNo}';
-	    let lectureNo = $('#lectureNo').val(); 
-	    alert(reviewNo);  
+		let reviewNo = $(this).val();
 	    let url = '/finalproject/removeReview';
 	    if (delete_warning == true) {
 	        $.ajax({
 	            type: "GET",
 	            url: url,
 	            dataType: "json",
-	            data: {reviewNo :reviewNo},
-	            success: function (data) { //성공시
-	            	alert('삭제 성공!');               	
-	                reviewList(data); 
-	            },
-	            error: function (e) { //실패시
-	            	alert('삭제 실패!'); 
-	                console.log(e);
+	            data: {reviewNo : reviewNo}, // 이름, 값
+	            success: function (data) {
+	            	// alert('7777');   
+	            	alert('삭제 성공!');  
+	            	reviewList(data);
 	            }
 	        });
+	        location.reload();
+	        return false;
 	     }
-	  }); 	  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  /* 
-		  
-		$('#removeReviewBtn').click(function() {
-			alert(reviewNo);
-			var reviewNo = $(this).val(); 
-			$.ajax({
-				url : '/finalproject/removeReview',
-				type : 'GET',
-				data : {reviewNo : reviewNo},
-				success : function(json) {
-					if(json == 'y') {
-						alert('삭제 성공!');
-					} else {
-						alert('삭제 실패!');					
-					}
-				}
-			});
-			
-			location.reload();
-			return false;
-		});
-		   */
+	  }); 	   
+		 
 		  
 		  
 		  
@@ -319,7 +352,9 @@ $(document).ready(function(){ 
         alert('장바구니 추가완료!');
     }
 
-</script>
+
+	</script>
+
 <%-- 
 			<!-- 수정 클릭시 --!>
             <div class="updateForm" style="display: none">
