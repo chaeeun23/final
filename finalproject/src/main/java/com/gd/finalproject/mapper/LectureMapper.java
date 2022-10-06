@@ -38,13 +38,13 @@ public interface LectureMapper {
 	int updateLecture(Lecture lecture);
 	
 	// 강좌 요일 삭제(deleteLecture)
-	int deleteLectureDay(String lectureNo);
+	 int deleteLectureDay(String lectureNo);
 	
 	// 리뷰 삭제 (deleteReview);
-	int deleteReview(String lectureNo);
+	// int deleteReview(String lectureNo);
 	
-	// 강좌 삭제(deleteLecture)
-	int deleteLecture(@Param("lectureNo") String lectureNo);
+	// 강좌 삭제(deleteLecture) - lecture_deleteYn => 'Y'로 변경
+	int updateLectureDeleteYn(@Param("lectureNo") String lectureNo);
 	
 	
 }

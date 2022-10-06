@@ -115,7 +115,7 @@ public class LectureController {
 		return "redirect:/lectureList";
 	}
 	  
-	// 강좌 삭제(removeLecture)
+	// 강좌 삭제(deleteLecture) - lecture_deleteYn => 'Y'로 변경
 	@GetMapping("/removeLecture")
 	public String removeLecture(@RequestParam(value="lectureNo") String lectureNo) {
 		int removeLecture = lectureService.removeLecture(lectureNo);
