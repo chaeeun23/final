@@ -1,5 +1,6 @@
 package com.gd.finalproject.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gd.finalproject.commons.TeamColor;
 import com.gd.finalproject.service.ReviewService;
+import com.gd.finalproject.vo.Review;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,14 +40,20 @@ public class ReviewController {
 	
 	// 리뷰 삭제 (removeReview)
 	@GetMapping("/removeReview")
-	public int removeReivew(
+	public List<Review> removeReivew(
 			@RequestParam(required = false, value = "reviewNo") int reviewNo) {
 		log.debug(TeamColor.MS + "ReviewService.removeReivew(reviewNo) : " + reviewNo);
 		
 		// 리뷰 삭제
 		int removeReivew = reviewService.deleteReivew(reviewNo);
+		log.debug(TeamColor.MS + "ReviewService.removeReivew(removeReivew) : " + removeReivew);
 		
-		return removeReivew;
+		Review review = new Review();
+		List<Review> list = new ArrayList<>();
+		list.add(review);
+		log.debug(TeamColor.MS + "ReviewService.removeReivew(list) : " + list);
+		
+		return list;
 	}
 	
 }

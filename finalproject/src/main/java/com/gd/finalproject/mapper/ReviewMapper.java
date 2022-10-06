@@ -14,9 +14,6 @@ public interface ReviewMapper {
 	// 리뷰 리스트(reviewList)
 	List<Map<String,Object>> selectReviewList(@Param("lectureNo") String lectureNo);
 	
-	// 리뷰 뽑기
-	Review review(@Param("lectureNo") String lectureNo);
-	
 	// 리뷰 추가
 	int insertReview(Review review, @Param("lectureNo") String lectureNo);
 	

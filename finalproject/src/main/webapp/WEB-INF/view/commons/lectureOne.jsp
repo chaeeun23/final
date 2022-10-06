@@ -53,10 +53,9 @@
 	<br>
 	<sec:authentication property="principal" var="member"/>
 	
-	<form action="${pageContext.request.contextPath}/cartList?lectureNo=${lectureOne.lectureNo}" method="get">
 	<table class="table table-bordered" style="text-align:center; vertical-align:middle;">
 		<tr> 
-			<td>강좌번호</td>
+			<td>강좌 번호</td>
 			<td><input type="hidden" id=lectureNo value="${lectureOne.lectureNo}">${lectureOne.lectureNo}</td>
 		</tr>
 		<tr> 
@@ -82,31 +81,31 @@
 			</td>
 		</tr>
 		<tr>
-			<td>강좌요일</td>
+			<td>강좌 요일</td>
 			<td>${lectureOne.lectureDay}</td>
 		</tr>
 		<tr> 
-			<td>강사이름</td>
+			<td>강사 이름</td>
 			<td>${lectureOne.memberName}</td>
 		</tr>
 		<tr> 
-			<td>성별</td>
+			<td>강사 성별</td>
 			<td>${lectureOne.memberGender}</td>
 		</tr>
 		<tr> 
-			<td>장소번호</td>
+			<td>장소 번호</td>
 			<td>${lectureOne.locationNo}</td>
 		</tr>
 		<tr> 
-			<td>수강정원</td>
+			<td>수강 정원</td>
 			<td>${lectureOne.lectureLimited}</td>
 		</tr>
 		<tr> 
-			<td>수업시간</td>
+			<td>수업 시간</td>
 			<td>${lectureOne.lectureTime}</td>
 		</tr>
 		<tr> 
-			<td>강의금액</td>
+			<td>강의 금액</td>
 			<td>${lectureOne.lecturePrice}</td>
 		</tr>
 		<tr> 
@@ -120,9 +119,9 @@
 	</table>
 	
 		<!-- 회원만 가능 -->
-		<sec:authorize access="hasAuthority('USER')">
-			<!-- <button type="button" onclick="javascript:btn()" class="btn btn-primary" style="width:100px; float:right;" >장바구니</button> -->
-			<a href="${pageContext.request.contextPath}/insertUserCart?lectureNo=${lectureOne.lectureNo}&userId=${member.memberId} " type="button" class="btn btn-primary" style="width:100px; float:right;" >장바구니</a>
+		<sec:authorize access="hasAnyAuthority('USER','EMPLOYEE','ADMIN')">
+			<a href="${pageContext.request.contextPath}/insertUserCart?lectureNo=${lectureOne.lectureNo}&userId=${member.memberId}" 
+				onclick="javascript:btAn()" type="button" class="btn btn-primary" style="width:100px; float:right;" >장바구니</a>
 		</sec:authorize>
 		<a href="${pageContext.request.contextPath}/lectureList" class="btn btn-primary" style="width:100px; float:right; margin-right:10px; ">강좌목록</a>
 		
@@ -133,7 +132,6 @@
 			<a href="${pageContext.request.contextPath}/modifyLecture?lectureNo=${lectureOne.lectureNo}" 
 				class="btn btn-primary" style="width:100px; float:right; margin-right:10px;">강좌수정</a>
 		</sec:authorize>
-	</form>
 	</div>
 
 	<br>
@@ -255,38 +253,15 @@ $(document).ready(function(){ 
 	});
 }); 	
 		
-	
-	
-	
-$(document).on('click', '#removeReviewBtn', function (){
-	let delete_warning = confirm('댓글을 삭제하시겠습니까?');
-    let reviewNo = '${reviewList.reviewNo}';
-    let lectureNo = $('#lectureNo').val(); 
-    let url = '/finalproject/removeReview';
-    if (delete_warning == true) {
-        $.ajax({
-            type: "GET",
-            url: url,
-            dataType: "json",
-            data: {reviewNo :reviewNo},
-            success: function (data) { //성공시
-            	alert('삭제 성공!');               	
-                reviewList(data); 
-            },
-            error: function (e) { //실패시
-            	alert('삭제 실패!'); 
-                console.log(e);
-            }
-        });
-     }
-  }); 
 		  
 		
 	$("#removeBtn").click(function(){
 			alert("강좌 삭제 성공!");
 	});
 
-		
+	function btAn(){
+        alert('장바구니 추가완료!');
+    }
 
 </script>
 <%-- 
@@ -314,13 +289,7 @@ $(document).on('click', '#removeReviewBtn', function (){
 	<br>
 	<br>
 	
-	<!-- 
-	  <script type="text/javascript">
-		function btn(){
-	        alert('장바구니 추가완료!');
-	    }
-	</script>  -->
-
+	
 	<!-- footer -->
 	<div>
 		<c:import url="/WEB-INF/resource/inc/footer.jsp"></c:import>

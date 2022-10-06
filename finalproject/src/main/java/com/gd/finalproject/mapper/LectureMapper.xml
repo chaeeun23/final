@@ -3,7 +3,7 @@
 <mapper namespace="com.gd.finalproject.mapper.LectureMapper">
     <!-- 강좌 리스트(lectureList) -->
     <select id="selectLectureList" resultType="map"> <!-- map : java.util.Map 약식표현, list, string ,int(java.lang.Integer),... -->
-		SELECT
+ 		SELECT
 			l.lecture_no lectureNo,
 			l.instructor_id instructorId,
 			l.location_no locationNo,
@@ -14,7 +14,6 @@
 			l.lecture_startDate lectureStartDate,
 			l.lecture_endDate lectureEndDate,
 			m.member_name memberName,
-			r.review_no reviewNo,
 			GROUP_CONCAT(d.lecture_day 
 			ORDER BY CASE d.lecture_day
 		    WHEN '월' THEN 1
@@ -24,12 +23,14 @@
 		    WHEN '금' THEN 5
 		    END ASC
 				) lectureDay
-		FROM lecture l JOIN member m ON m.member_id = l.instructor_id
-        LEFT JOIN lectureday d ON l.lecture_no = d.lecture_no
-        LEFT JOIN review r ON l.lecture_no = r.lecture_no 
+		FROM lecture l LEFT OUTER JOIN member m 
+		ON m.member_id = l.instructor_id
+		JOIN lectureday d
+		ON l.lecture_no = d.lecture_no
+		WHERE lecture_deleteYn = 'N'
 		GROUP BY l.lecture_no
-        ORDER BY l.lecture_name ASC
-        LIMIT #{beginRow},#{rowPerPage} 
+		ORDER BY l.lecture_name
+		 LIMIT #{beginRow},#{rowPerPage} 
     </select>
 
 
@@ -90,6 +91,7 @@
 			m.member_name memberName 
 		FROM instructor i JOIN member m 
 		ON i.member_id = m.member_id
+		WHERE inspectYn = 'Y'
 	</select>
 	
 	<!-- 장소(addLecture-location) -->
@@ -105,19 +107,19 @@
 		WHERE lecture_no=#{lectureNo}
 	</update>
 	
-	<!-- 리뷰 삭제(deleteReview) -->
+<!-- 	 리뷰 삭제(deleteReview) 
 	<delete id="deleteReview" parameterType="string">
 		DELETE FROM review WHERE lecture_no=#{lectureNo}
-	</delete>
+	</delete> -->
 	
-	<!-- 강좌 요일 삭제(deleteDayLecture) -->
+ 	<!-- 강좌 요일 삭제(deleteDayLecture) -->
 	<delete id="deleteLectureDay" parameterType="string">
 		DELETE FROM lectureday WHERE lecture_no=#{lectureNo}
-	</delete>
+	</delete> 
 	
-	<!-- 강좌 삭제(deleteLecture) -->
-	<delete id="deleteLecture" parameterType="string">
-		DELETE FROM lecture WHERE lecture_no=#{lectureNo}
-	</delete>
+	<!-- 강좌 삭제(deleteLecture) - lecture_deleteYn => 'Y'로 변경 -->
+	<update id="updateLectureDeleteYn" parameterType="string">
+		UPDATE lecture SET lecture_deleteYn='Y' WHERE lecture_no=#{lectureNo}
+	</update>
 
 </mapper>

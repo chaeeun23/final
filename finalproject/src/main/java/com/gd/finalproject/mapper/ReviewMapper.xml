@@ -14,20 +14,6 @@
 		WHERE lecture_no=#{lectureNo}
 		ORDER BY create_date DESC
 	</select>
-	<!-- 
-	 리뷰 뽑기 
-	<select id="review" resultType="com.gd.finalproject.vo.Review" >
-		SELECT 
-			review_no reviewNo,
-			lecture_no lectureNo,
-			course_no courseNo,
-			review_writer reviewWriter,
-			review_content reviewContent,
-			DATE_FORMAT(create_date,'%Y-%m-%d %T') createDate
-		FROM review 
-		WHERE lecture_no=#{lectureNo}
-		ORDER BY create_date DESC
-	</select> -->
 	
 	<!-- 리뷰 추가(addReview) -->
 	<insert id="insertReview" parameterType="com.gd.finalproject.vo.Review">

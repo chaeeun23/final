@@ -73,7 +73,7 @@
 					<td>${r.busStop}</td>
 					<td>${r.busLimited}</td>
 			<!-- 관리자면 삭제버튼 보이게 -->
-			<sec:authorize access="hasAuthority('EMPLOYEE')">
+			<sec:authorize access="hasAnyAuthority('EMPLOYEE','ADMIN')">
 					<td><a href="${pageContext.request.contextPath}/removeRace?raceNo=${r.raceNo}" class="btn btn-primary">삭제</a></td>
 			</sec:authorize>
 				</tr>
