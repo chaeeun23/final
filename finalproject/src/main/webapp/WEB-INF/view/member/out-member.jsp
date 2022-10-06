@@ -29,12 +29,12 @@
                 <h4 class="mx-5 mt-5 fw-bold">탈퇴 안내 </h4>
                 <p class="mx-5 mt-3 small">회원탈퇴를 신청하기 전에 안내 사항을 꼭 확인해주세요</P>
 
-                <p class="mx-5 mt-2 small">사용하고 계신 아이디 <span class="fw-bold ">
+                <p class="mx-5 mt-2 small">사용하고 계신 아이디 <span class="fw-bold text-danger ">
                         <c:if test="${boardDetailDto.boardDto.memberId eq memberDto.memberId}">
-                            ${member.memberId}는 탈퇴할 경우 재사용 및 복구가 불가능합니다
-                        </c:if> </span>
-                <p class="mx-5 mt-2 small"> <span class="text-danger fw-bold ">탈퇴한 아이디는 본인과 타인 모두 재사용 및 복구가 불가</span>
+                            ${member.memberId}는 본인과 타인 모두 재사용 및 복구가 불가</span>
                     하오니 신중하게 선택하시기 바랍니다 </p>
+                        </c:if> </span>
+
 
                 <hr style="border: solid 1px black ;width: 1170px; margin-left: 50px">
                 <div class="p-5 w-60 mb-5 mx-5 bg-opacity-25 bg-light text-dark border border-1">
@@ -46,6 +46,9 @@
                         <br>
                         회원탈퇴 이후에는 게시물 편집, 삭제가 불가능하므로 , 게시물을 편집하거나 삭제하기 바라시는 경우 게시물 편집/삭제 후
                         회원 탈퇴를 해주시기 바랍니다
+                        <br>
+                        <br>
+                        SNS 계정으로 가입하신 회원님은 관리자에게 문의 바랍니다.
                     </p>
 
                 </div>
@@ -83,7 +86,7 @@
                         <button type="submit" id="outBtn" class="btn btn-sm btn-secondary mt-2 rounded-0">탈퇴하기
                         </button>
                         <a href="${pageContext.request.contextPath}"
-                           class="btn btn-sm btn-secondary mt-2 rounded-0">뒤로가기</a>
+                           class="btn btn-sm btn-secondary mt-2 rounded-0">홈으로</a>
                     </div>
                 </div>
             </form>

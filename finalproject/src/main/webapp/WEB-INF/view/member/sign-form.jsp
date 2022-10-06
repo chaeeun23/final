@@ -16,17 +16,18 @@
 <body>
 <div>
     <c:import url="/WEB-INF/resource/inc/header.jsp"></c:import>
+    <br>
 </div>
 <div class="d-flex justify-content-center container" style="margin-top: 20px">
     <form method="post" action="${pageContext.request.contextPath}/anonymous/sign-member" id="sign-form"
           class="w-75 border p-3 bg-white  rounded align-self-center">
-        <div class="text-center">
-            <h4 class="ms-2 fw-bold">회원가입</h4>
+        <div class="text-center mt-4">
+            <h3 class=" fw-bold">회원가입</h3>
         </div>
-        <div class="mb-3">
-            <p class="fw-lighter small">아이디<span style="color: red">*</span></p>
+        <div class="mb-3 mt-5">
+            <p class="fw-bolder small">아이디<span style="color: red">*</span></p>
             <input class="form-control" type="text" name="memberId" id="id" aria-describedby="invalid-id">
-            <div class="mx-1 opacity-50 " style="font-size: 12px">아이디는 4자리 이상 16자리 이하로 입력해주세요</div>
+            <div class=" fw-bolder small text-secondary" style="font-size: 12px">아이디는 4자리 이상 16자리 이하로 입력해주세요</div>
             <div class="valid-feedback">
                 중복체크완료!
             </div>
@@ -36,9 +37,9 @@
             <button id="idCheck" type="button" class="btn btn-sm btn-secondary mt-2 rounded-0">중복확인</button>
         </div>
         <div class="mb-3">
-            <p class="fw-lighter small">비밀번호 <span style="color: red">*</span></p>
+            <p class="fw-bolder small">비밀번호 <span style="color: red">*</span></p>
             <input class="form-control" type="password" name="memberPw" id="pw" aria-describedby="invalid-pw">
-            <div class="mx-1 opacity-50 " style="font-size: 12px">비밀번호는 10자이상 20자 이하 영문,특수문자,숫자 조합으로 입력해주세요.</div>
+            <div class=" fw-bolder small text-secondary" style="font-size: 12px">비밀번호는 10자이상 20자 이하 영문,특수문자,숫자 조합으로 입력해주세요.</div>
             <div class="valid-feedback">
                 사용 가능합니다.
             </div>
@@ -47,7 +48,7 @@
             </div>
         </div>
         <div class="mb-3">
-            <p class="fw-lighter small">비밀번호 재확인 <span style="color: red">*</span></p>
+            <p class="fw-bolder small">비밀번호 재확인 <span style="color: red">*</span></p>
             <input class="form-control" type="password" id="checkPw" aria-describedby="invalid-pwCheck">
             <div class="valid-feedback">
                 비밀번호가 일치합니다.
@@ -57,7 +58,7 @@
             </div>
         </div>
         <div class="mb-3">
-            <p class="fw-lighter small">이름<span style="color: red">*</span></p>
+            <p class="fw-bolder small">이름<span style="color: red">*</span></p>
             <td>
                 <input class="form-control valid-check" type="text" name="memberName" id="name"
                        aria-describedby="invalid-nameCheck">
@@ -67,7 +68,7 @@
             </td>
         </div>
         <div class="mb-3">
-            <p class="fw-lighter small">전화번호<span style="color: red">*</span></p>
+            <p class="fw-bolder small">전화번호<span style="color: red">*</span></p>
             <td>
                 <input class="form-control valid-check" type="tel" name="memberPhone" id="phone"
                        aria-describedby="invalid-phoneCheck">
@@ -77,7 +78,7 @@
             </td>
         </div>
         <div class="mb-3">
-            <p class="fw-lighter small">이메일<span style="color: red">*</span></p>
+            <p class="fw-bolder small">이메일<span style="color: red">*</span></p>
             <td>
                 <input class="form-control valid-check" type="tel" name="memberEmail" id="email"
                        aria-describedby="invalid-emailCheck" readonly>
@@ -133,7 +134,7 @@
         </div>
 
         <div class="mb-3">
-            <p class="fw-lighter small">주소<span style="color: red">*</span></p>
+            <p class="fw-bolder small">주소<span style="color: red">*</span></p>
             <input class="form-control" type="text" name="memberAddr" id="addr" readonly="readonly"
                    aria-describedby="invalid-addrCheck">
             <div id="invalid-addrCheck" class="invalid-feedback">
@@ -146,22 +147,22 @@
 
             <br>
             <br>
-            <p class="fw-lighter small">상세주소</p>
+            <p class="fw-bolder small">상세주소</p>
             <input class="form-control" type="text" name="memberDetailAddr" id="subAddr">
         </div>
         <div class="mb-3">
-            <p class="fw-lighter small">생년월일</p>
+            <p class="fw-bolder small">생년월일</p>
             <td><input class="form-control" type="tel" name="memberBirth" id="birth"></td>
         </div>
         <div style="margin: 0;">
-            <p class="fw-lighter small">성별체크</p>
+            <p class="fw-bolder small">성별체크</p>
             <div class="custom-control custom-radio custom-control-inline">
                 <input type="radio" class="custom-control-input" id="sex-1" name="memberGender" value="1" checked>
-                <label class="custom-control-label" for="sex-1">여자</label>
+                <label class="custom-control-label small" for="sex-1">여자</label>
                 <input type="radio" class="custom-control-input" id="sex-2" name="memberGender" value="2">
-                <label class="custom-control-label" for="sex-2">남자</label>
+                <label class="custom-control-label small" for="sex-2">남자</label>
             </div>
-            <div class="mt-2">
+            <div class="mt-3 mb-2">
                 <input class="btn btn-sm btn-secondary mt-2 rounded-0" id="joinBtn" type="button" value="가입하기">
                 <a class="btn btn-sm btn-secondary mt-2 rounded-0" href="${pageContext.request.contextPath}">뒤로가기</a>
             </div>
@@ -175,7 +176,6 @@
          alt="닫기 버튼">
 </div>
 <div>
-    <br>
     <br>
     <c:import url="/WEB-INF/resource/inc/footer.jsp"></c:import>
 </div>

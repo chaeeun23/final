@@ -22,14 +22,14 @@
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <a href="${pageContext.request.contextPath}/member/detail"
-                           class="nav-link active text-secondary">내 정보 조회/수정</a>
+                           class="nav-link active text-secondary fw-bolder">내 정보 조회/수정</a>
                     </li>
                     <li class="nav-item">
-                        <a href="${pageContext.request.contextPath}/member/update-pw" class="nav-link text-secondary">비밀번호
+                        <a href="${pageContext.request.contextPath}/member/update-pw" class="nav-link active text-secondary fw-bolder">비밀번호
                             변경</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-secondary"  href="${pageContext.request.contextPath}/member/out-member">회원탈톼</a>
+                        <a class="nav-link active text-secondary fw-bolder"  href="${pageContext.request.contextPath}/member/out-member">회원탈톼</a>
                     </li>
                 </ul>
             </div>
@@ -48,10 +48,10 @@
                             현재 비밀번호가 맞지않습니다 다시 확인해주세요
                         </div>
                         <div class="mb-3">
-                            <p class="fw-bold small">새로운 비밀번호 </p>
+                            <p class="fw-bold small mt-3">새로운 비밀번호 </p>
                             <input class="form-control" type="password" name="changePw" id="pw"
                                    aria-describedby="invalid-pw">
-                            <div class="mx-1 opacity-75 " style="font-size: 12px">비밀번호는 10자이상 20자 이하 영문,특수문자,숫자 조합으로
+                            <div class=" fw-bolder small text-secondary" style="font-size: 12px">비밀번호는 10자이상 20자 이하 영문,특수문자,숫자 조합으로
                                 입력해주세요.
                             </div>
                             <div class="valid-feedback">

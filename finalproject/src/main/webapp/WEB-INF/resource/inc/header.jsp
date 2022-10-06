@@ -28,7 +28,7 @@
 <body>
 <div class="container">
     <br>
-
+    <%--로그인 안하면 --%>
     <sec:authorize access="isAnonymous()">
         <div class="d-flex justify-content-end">
             <a href="${pageContext.request.contextPath}/anonymous/login-form"
@@ -37,18 +37,21 @@
                 class="btn btn-primary btn-sm">회원가입</a>
         </div>
     </sec:authorize>
+    <%--    로그인하면--%>
     <sec:authorize access="isAuthenticated()">
         <div class="d-flex justify-content-end">
+                <%--            관리자,최고관리자 권한이면--%>
             <sec:authorize access="hasAnyAuthority('EMPLOYEE','ADMIN')">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-primary btn-sm"
-                    ">관리자용</button>
-
+                    <button type="button" class="btn btn-primary btn-sm">
+                        관리자
+                    </button>
                     <button type="button"
                             class="btn btn-primary dropdown-toggle dropdown-toggle-split btn-sm"
                             data-toggle="dropdown">
                         <span class="caret"></span>
                     </button>
+
                     <div class="dropdown-menu">
                         <a class="dropdown-item"
                            href="${pageContext.request.contextPath}/lectureList">강좌관리</a> <a
@@ -64,8 +67,7 @@
                             href="${pageContext.request.contextPath}/salesList">매출리스트</a> <a
                             class="dropdown-item"
                             href="${pageContext.request.contextPath}/employeePaymentList">결제리스트</a>
-
-
+                            <%--                        최고관리자만 보임 (권한설정)--%>
                         <sec:authorize access="hasAuthority('ADMIN')">
                             <a class="dropdown-item"
                                href="${pageContext.request.contextPath}/admin/member-list">회원권한리스트</a> <a
@@ -81,6 +83,7 @@
                 class="btn btn-primary btn-sm">로그아웃</a>
         </div>
     </sec:authorize>
+
     <!-- 로고 -->
     <div class="d-flex justify-content-center">
         <a href="${pageContext.request.contextPath}/index"> <img
@@ -152,6 +155,7 @@
                                         class="nav-link dropdown-toggle" href="#" id="navbardrop"
                                         data-toggle="dropdown">이용신청</a>
                                     <div class="dropdown-menu">
+                                        <%--                                        로그인 안하면 로그인폼으로 보내버림--%>
                                         <sec:authorize access="isAnonymous()">
                                             <div>
                                                 <a class="dropdown-item"
@@ -162,12 +166,11 @@
                                                    href="${pageContext.request.contextPath}/member/login-form">수강신청내역</a>
                                             </div>
                                         </sec:authorize>
-
+<%--                                        로그인하면 장바구니,결제내역 보임--%>
                                         <div>
                                             <sec:authorize access="isAuthenticated()">
                                             <a class="dropdown-item"
-                                               href="${pageContext.request.contextPath}/userCartList"
-                                               onclick="cart_ok();">
+                                               href="${pageContext.request.contextPath}/userCartList">
                                                 장바구니</a>
                                             <a class="dropdown-item"
                                                href="${pageContext.request.contextPath}/userPaymentHistory">수강신청내역</a>
@@ -186,7 +189,7 @@
                                         <a class="dropdown-item"
                                            href="${pageContext.request.contextPath}/free-board/list">Q&A</a>
 
-
+                                        <%--                                           회원이면--%>
                                         <sec:authorize access="hasAuthority('USER')">
                                             <sec:authentication property="principal" var="member"/>
                                             <a class="dropdown-item"

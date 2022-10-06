@@ -4,58 +4,61 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="shortcut icon" href="${pageContext.request.contextPath}/mainImg/favicon.png">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
 </head>
 <body>
 <div>
     <c:import url="/WEB-INF/resource/inc/header.jsp"></c:import>
-    <br>
 </div>
-<div class="container">
-    <h4 class="text-center">회원 권한변경</h4>
-    <hr>
-    <div>
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th class="col-3">회원아이디</th>
-                <th class="col-3">회원이름</th>
-                <th class="col-3">생성날짜</th>
-                <th class="col-3">권한변경</th>
-
-
-            </tr>
-            </thead>
-            <tbody id="box">
-            <c:forEach items="${memberList}" var="member">
-                <tr>
-                    <th>
-                            ${member.memberId}
-                    </th>
-                    <th>
-                            ${member.memberName}
-                    </th>
-                    <th>
-                            ${member.createDate}
-                    </th>
-                    <th>
-                        <select class="emp-yn">
-                            <c:if test="${member.empYn}">
-                                <option value="Y" selected="selected">Y</option>
-                                <option value="N">N</option>
-                            </c:if>
-                            <c:if test="${!member.empYn}">
-                                <option value="N" selected="selected">N</option>
-                                <option value="Y">Y</option>
-                            </c:if>
-                        </select>
-                    </th>
-                    <td>
-                    </td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+<div class="d-flex justify-content-center container my-2">
+    <div class="container ">
+        <div class="row mt-4 justify-content-center">
+            <h4 class="fw-bolder">회원 리스트(권한설정)</h4>
+            <div class="mt-4">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th class="col-3">회원아이디</th>
+                        <th class="col-3">회원이름</th>
+                        <th class="col-3">생성날짜</th>
+                        <th class="col-3">권한변경</th>
+                    </tr>
+                    </thead>
+                    <tbody id="box" class="small">
+                    <c:forEach items="${memberList}" var="member">
+                        <tr>
+                            <th>
+                                    ${member.memberId}
+                            </th>
+                            <th>
+                                    ${member.memberName}
+                            </th>
+                            <th>
+                                    ${member.createDate}
+                            </th>
+                            <th>
+                                <select class="emp-yn">
+                                    <c:if test="${member.empYn}">
+                                        <option value="Y" selected="selected">Y</option>
+                                        <option value="N">N</option>
+                                    </c:if>
+                                    <c:if test="${!member.empYn}">
+                                        <option value="N" selected="selected">N</option>
+                                        <option value="Y">Y</option>
+                                    </c:if>
+                                </select>
+                            </th>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 <%-- 페이지네이션 --%>
@@ -119,7 +122,7 @@
                 })
             }).then(response => response.text())
                 .then(data => {
-                    if(data == 'ok'){
+                    if (data == 'ok') {
                         alert('관리자 권한 변경 성공')
                     }
                 })

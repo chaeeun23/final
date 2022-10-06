@@ -26,14 +26,16 @@
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <a href="${pageContext.request.contextPath}/member/detail"
-                           class="nav-link active text-secondary">내 정보 조회/수정</a>
+                           class="nav-link text-secondary fw-bolder">내 정보 조회/수정</a>
                     </li>
                     <li class="nav-item">
-                        <a href="${pageContext.request.contextPath}/member/update-pw" class="nav-link text-secondary">비밀번호
+                        <a href="${pageContext.request.contextPath}/member/update-pw"
+                           class="nav-link text-secondary fw-bolder">비밀번호
                             변경</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-secondary" href="${pageContext.request.contextPath}/member/out-member">회원탈톼</a>
+                        <a class="nav-link text-secondary fw-bolder"
+                           href="${pageContext.request.contextPath}/member/out-member">회원탈톼</a>
                     </li>
                 </ul>
             </div>
@@ -43,10 +45,10 @@
                       id="member-form"
                       class="w-100 p-3 border">
                     <h4 class="fw-bolder">기본정보</h4>
-                    <hr style="border: solid 2px black;">
+                    <hr style="border: solid 1px black;">
                     <input type="hidden" name="memberDto.memberNo" value="${member.memberNo}">
                     <div class="mb-4 mx-2">
-                        <p class="fw-lighter small"> 프로필 이미지</p>
+                        <p class="fw-bolder small"> 프로필 이미지</p>
                         <div class="d-flex">
                             <div class="upload">
                                 <c:if test="${member.memberImg eq null}">
@@ -61,10 +63,8 @@
                                          class="rounded-pill"
                                          id="profile">
                                 </c:if>
-                                <p class="fw-bolder small">
-                                    이미지를 클릭해서 회원님을 알릴 수 있는 사진을 등록해주세요.
-                                    </br>
-                                    등록된 사진은 회원님의 게시물이나 댓글들에 사용됩니다.
+                                <p class="fw-bolder small text-secondary">
+                                    이미지를 클릭해서 회원님의 이미지를 등록해주세요
                                 </p>
                             </div>
 
@@ -72,14 +72,14 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <p class="fw-lighter small">아이디</p>
+                        <p class="fw-bolder small">아이디</p>
                         <input class="form-control" type="text" id="memberDto.memberId" name="memberDto.memberId"
                                value="${member.memberId}"
                                readonly>
                     </div>
 
                     <div class="mb-3">
-                        <p class="fw-lighter small">이름 <span style="color: red">*</span></p>
+                        <p class="fw-bolder small">이름 <span style="color: red">*</span></p>
                         <input class="form-control valid-check" type="text" id="name" name="memberDto.memberName"
                                value="${member.memberName}" aria-describedby="invalid-nameCheck">
                         <div id="invalid-nameCheck" class="invalid-feedback">
@@ -87,32 +87,34 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <p class="fw-lighter small">이메일</p>
+                        <p class="fw-bolder small">이메일</p>
                         <input class="form-control" type="text" id="memberEmail"
                                value="${member.memberEmail}" readonly>
-                        <div class="text-muted" style="font-size: 12px">* 이메일 변경을 원하시면 관리자에게 메일을 보내주세요</div>
+                        <div class=" fw-bolder small text-secondary" style="font-size: 12px">* 이메일 변경을 원하시면 관리자에게 메일을
+                            보내주세요
+                        </div>
                     </div>
                     <div class="mb-3">
-                        <p class="fw-lighter small">주소</p>
+                        <p class="fw-bolder small">주소</p>
                         <input class="form-control" type="text" id="addr" readonly="readonly"
                                aria-describedby="invalid-addrCheck" value="${member.memberAddr}">
                     </div>
                     <div class="mt-5">
                         <p class="fw-bolder">추가정보<span style="color: darkgrey"> 선택</span></p>
-                        <hr style="border: solid 2px black;">
+                        <hr style="border: solid 1px black;">
                         <div class="mb-3">
-                            <p class="fw-lighter small">전화번호</p>
+                            <p class="fw-bolder small">전화번호</p>
                             <input class="form-control" type="tel" id="phone" name="memberDto.memberPhone"
                                    value="${member.memberPhone}">
                         </div>
                     </div>
                     <div class="mb-3">
-                        <p class="fw-lighter small">생년월일</p>
+                        <p class="fw-bolder small">생년월일</p>
                         <input class="form-control" type="text" id="birth" name="memberDto.memberBirth"
                                value="${member.memberBirth}">
                     </div>
                     <div class="mb-3">
-                        <p class="fw-lighter small">상세주소</p>
+                        <p class="fw-bolder small">상세주소</p>
                         <input class="form-control" type="text" name="memberDto.memberDetailAddr" id="subaddr"
                                value="${member.memberDetailAddr}">
                     </div>
