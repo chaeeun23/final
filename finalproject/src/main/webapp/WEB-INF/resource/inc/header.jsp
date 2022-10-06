@@ -41,10 +41,10 @@
 			<div class="d-flex justify-content-end">
 				<sec:authorize access="hasAnyAuthority('EMPLOYEE','ADMIN')">
 					<div class="btn-group">
-						<button type="button" class="btn btn-primary">관리자용</button>
+						<button type="button" class="btn btn-primary btn-sm"">관리자용</button>
 
 						<button type="button"
-							class="btn btn-primary dropdown-toggle dropdown-toggle-split"
+							class="btn btn-primary dropdown-toggle dropdown-toggle-split btn-sm"
 							data-toggle="dropdown">
 							<span class="caret"></span>
 						</button>
@@ -64,8 +64,14 @@
 								class="dropdown-item"
 								href="${pageContext.request.contextPath}/employeePaymentList">결제리스트</a>
 
-						</div>
 
+					<sec:authorize access="hasAuthority('ADMIN')">
+						<a class="dropdown-item"
+								href="${pageContext.request.contextPath}/admin/member-list">회원권한리스트</a> <a
+							class="dropdown-item"
+							href="${pageContext.request.contextPath}/admin/instructor-list">강사신청리스트</a>
+					</sec:authorize>
+						</div>
 					</div>
 				</sec:authorize>
 				<a href="${pageContext.request.contextPath}/member/detail"
