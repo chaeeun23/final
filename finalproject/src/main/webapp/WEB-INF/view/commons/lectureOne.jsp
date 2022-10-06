@@ -170,8 +170,8 @@
      --%>
     
     <%-- 리뷰리스트 --%>
-    <div id="reviewList">
- <%--    <c:forEach items="${reviewList}" var="r">
+ <%--    <div id="reviewList">
+    <c:forEach items="${reviewList}" var="r">
             <!-- 댓글 내용 -->
 			<table class="table">
 				<tr>
@@ -187,8 +187,7 @@
 					<td class="text-right" width="300px">
 					<div class="review_text">
 							<p>
-								<a class="btn btn-primary" style="float:right;" 
-									href="${pageContext.request.contextPath}/removeReview?reviewNo=${r.reviewNo}">삭제</a>
+								<button type="button" class="btn btn-primary" style="float:right;" id="removeReviewBtn" href="${pageContext.request.contextPath}/removeReview?reviewNo=">삭제</a>
 								<a class="btn btn-primary" style="float:right; margin-right:10px;"  
 									href="${pageContext.request.contextPath}/updateReview?reviewNo=${r.reviewNo}">수정</a>
 							</p>
@@ -196,9 +195,9 @@
 					</td>
 				<tr>
 			</table>
-		</c:forEach>  --%>
+		</c:forEach>  
 		
-	</div>
+	</div> --%>
 </div>
 	
 <script type="text/javascript">
@@ -220,7 +219,7 @@ $(document).ready(function(){ 
 		success : function(json) {
 			const x = $(json);
 			/* alert(x); */
-			// alert('ccc'); 
+			 alert('ccc'); 
 			a += '<table class="table">';
         $(json).each(function(i, item){			// 리스트에서 뽑기
            	a += '<tr>';
@@ -240,8 +239,8 @@ $(document).ready(function(){ 
        		a += 	'<td class="text-right" width="300px">';                
        		a += 		'<div class="review_text">';                
        		a += 		'<p>';             
-       		a += 		'<button type="button" class="btn btn-primary" style="float:right;" id="removeReviewBtn" href="${pageContext.request.contextPath}/removeReview?reviewNo='+ item.reviewNo+'">삭제</a>';             
-       		a += 		'<button type="button" class="btn btn-primary" style="float:right; id="updateReivewBtn" margin-right:50px;" href="${pageContext.request.contextPath}/updateReview?reviewNo='+ item.reviewNo+'">수정</a>';           
+       		a += 		'<a type="button" class="btn btn-primary" style="float:right;" id="removeReviewBtn" href="${pageContext.request.contextPath}/removeReview?reviewNo='+ item.reviewNo+'">삭제</a>';             
+       		a += 		'<a type="button" class="btn btn-primary" style="float:right;" id="updateReivewBtn" margin-right:50px;" href="${pageContext.request.contextPath}/updateReview?reviewNo='+ item.reviewNo+'">수정</a>';           
        		a += 		'</p>';             
        		a += 	'</div>';               
        		a += 	'</td>';              
@@ -253,6 +252,63 @@ $(document).ready(function(){ 
 	});
 }); 	
 		
+	$(document).on('click', '#removeReviewBtn', function (){
+		let delete_warning = confirm('댓글을 삭제하시겠습니까?');
+	    let reviewNo = '${reviewList.reviewNo}';
+	    let lectureNo = $('#lectureNo').val(); 
+	    alert(reviewNo);  
+	    let url = '/finalproject/removeReview';
+	    if (delete_warning == true) {
+	        $.ajax({
+	            type: "GET",
+	            url: url,
+	            dataType: "json",
+	            data: {reviewNo :reviewNo},
+	            success: function (data) { //성공시
+	            	alert('삭제 성공!');               	
+	                reviewList(data); 
+	            },
+	            error: function (e) { //실패시
+	            	alert('삭제 실패!'); 
+	                console.log(e);
+	            }
+	        });
+	     }
+	  }); 	  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  /* 
+		  
+		$('#removeReviewBtn').click(function() {
+			alert(reviewNo);
+			var reviewNo = $(this).val(); 
+			$.ajax({
+				url : '/finalproject/removeReview',
+				type : 'GET',
+				data : {reviewNo : reviewNo},
+				success : function(json) {
+					if(json == 'y') {
+						alert('삭제 성공!');
+					} else {
+						alert('삭제 실패!');					
+					}
+				}
+			});
+			
+			location.reload();
+			return false;
+		});
+		   */
+		  
+		  
 		  
 		
 	$("#removeBtn").click(function(){

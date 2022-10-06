@@ -1,6 +1,5 @@
 package com.gd.finalproject.service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,19 +31,7 @@ public class ReviewService {
         return review;
 		
 	}
-	
-	// 리뷰
-	public Map<String,Object> review(String lectureNo){
-		log.debug(TeamColor.MS + "ReviewService(lectureNo) : " + lectureNo);
-		
-		Review review = reviewMapper.review(lectureNo);
-		log.debug(TeamColor.MS + "ReviewService(review) : " + review);
-		
-		Map<String,Object> map = new HashMap<>();
-		map.put("review", review);
-		
-		return map;
-	} 
+
 	
 	/*
 	 * // 리뷰 추가 (addReview - Form) public int addReview()
