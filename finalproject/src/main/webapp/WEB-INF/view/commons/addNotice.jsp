@@ -83,7 +83,7 @@
 
 			<tr>
 				<td>내용</td>
-				<td><textarea rows="3" cols="100" id="noticeContent" name="noticeContent"></textarea></td>
+				<td><textarea rows="20" cols="130" id="noticeContent" name="noticeContent"></textarea></td>
 			</tr>
 		</table>
 		<a class="btn btn-primary" href="${pageContext.request.contextPath}/noticeList/" style="float:right; margin-left:10px">돌아가기</a>
@@ -91,7 +91,15 @@
 	</form>
 </div>
 <!-- 공지사항 추가폼 END -->
-
+	<br>
+	<br>
+	<br>	
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 <!-- footer -->
 <div>
 	<c:import url="/WEB-INF/resource/inc/footer.jsp"></c:import>

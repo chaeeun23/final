@@ -60,7 +60,7 @@
 <!-- 공지사항 등록폼 -->
 <div class="container">
 	<form enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath }/modifyNotice?noticeNo=${noticeOne.noticeNo}&fileName=${noticeOne.fileName}" id="addNoticeForm">
-		<h2 style="text-align:center;">공지사항 수정하기</h2>
+		<h2 style="text-align:center;">공지사항 수정</h2>
 	<br>
 		<table class="table table-bordered">
 			<tr>
@@ -82,12 +82,18 @@
 
 			<tr>
 				<td>내용</td>
-				<td><textarea rows="3" cols="100" id="noticeContent" name="noticeContent">${noticeOne.noticeContent}</textarea></td>
+				<td><textarea rows="20" cols="130" id="noticeContent" name="noticeContent">${noticeOne.noticeContent}</textarea></td>
 			</tr>
 		</table>
 		<a href="${pageContext.request.contextPath}/noticeOne?noticeNo=${noticeOne.noticeNo}" class="btn btn-primary" style="float:right; margin-left:10px" type="button" >돌아가기</a>
 		<button class="btn btn-primary" style="float:right; margin-left:10px" type="button" id="addBtn">수정하기</button>
 	</form>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 </div>
 <!-- 공지사항 추가폼 END -->
 
