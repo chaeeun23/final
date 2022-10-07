@@ -94,6 +94,7 @@ public class MemberService implements UserDetailsService {
 
     @Transactional
     public void updateMember(MemberForm memberForm) {
+        log.info("memberForm = {}", memberForm);
         MultipartFile mf = memberForm.getFile();
         memberMapper.memberUpdate(memberForm.getMemberDto());
         if (mf.getSize() > 0) {
@@ -103,15 +104,15 @@ public class MemberService implements UserDetailsService {
                     .fileType(mf.getContentType())
                     .fileSize(mf.getSize())
                     .build();
-
+            log.info("memberImg = {}", memberImg);
             String ext = mf.getOriginalFilename().substring(mf.getOriginalFilename().lastIndexOf("."));
             String fileName = UUID.randomUUID().toString().replace("-", "") + ext;
-
             // 리소스는 현재 프로젝트 경로 가져와주기
 
             Path path = null;
             try {
                 String realPath = servletContext.getRealPath("/memberUpload");
+                log.info("realPath = {}", realPath);
                 path = Paths.get(realPath);
                 if (!Files.exists(path)) {
                     Files.createDirectories(path);
@@ -124,7 +125,7 @@ public class MemberService implements UserDetailsService {
             String contextPath = servletContext.getContextPath();
 
             memberImg.setFileName(contextPath + "/memberUpload/" + fileName);
-
+            log.info(path + "/" + fileName);
             // 파일 객체 전달해서 파일정보 insert
             memberImgMapper.updateMemberImg(memberImg);
 
