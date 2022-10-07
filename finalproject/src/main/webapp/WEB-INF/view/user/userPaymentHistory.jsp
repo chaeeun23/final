@@ -49,7 +49,7 @@
 						<!-- refund값이 N일 경우 환불신청버튼 / Y일 경우 환불완료 -->
 						<c:if test="${l.refund eq 'N'}">
 								<a href="${pageContext.request.contextPath}/modifyRefundStatement?courseNo=${l.courseNo}&refund=${l.refund}">
-									<button class="btn btn-primary" style="height=100px">환불신청</button>
+									<button class="btn btn-primary" onclick="javascript:refundBtn()">환불신청</button>
 								</a>
 						</c:if>
 						<c:if test="${l.refund eq 'Y'}">
@@ -97,5 +97,9 @@
 		<c:import url="/WEB-INF/resource/inc/footer.jsp"></c:import>
 	</div>
 </body>
-
+<script>
+function refundBtn(){
+    alert('환불처리 되었습니다.');
+}
+</script>
 </html>

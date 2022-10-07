@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +27,7 @@ public class PaymentController {
 	@Autowired PaymentService paymentService;
 	
 	// 회원결제내역
+	@PreAuthorize("hasAuthority('USER')")
 	@GetMapping("/userPaymentHistory")
 	public String userPaymentHistory(@AuthenticationPrincipal MemberDto memberDto, @RequestParam(required = false, value = "current") String current,
 			@ModelAttribute("check") String check, Model model) {
