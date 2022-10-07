@@ -48,10 +48,10 @@
 		JOIN instructor i
 		ON
 		m.member_id = i.member_id
-		JOIN lecture l
+		LEFT JOIN lecture l
 		ON
 		i.member_id = l.instructor_id
-		JOIN memberImg mi
+		LEFT JOIN memberImg mi
 		ON
 		m.member_id = mi.member_id
 		WHERE m.member_id = #{memberId}

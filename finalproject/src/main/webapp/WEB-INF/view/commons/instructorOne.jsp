@@ -19,7 +19,7 @@
 	<div class="container">
 		<h1 style="text-align: center;">강사 상세정보</h1>
 		<br>
-		<table class="table table-bordered" style="text-align: center;">
+		<table class="table table-bordered" style="text-align: center; vertical-align: middle;">
 			<tr>
 				<td>강사이름</td>
 				<td>${map.memberName}</td>
@@ -27,8 +27,8 @@
 			<tr>
 				<td>강사사진</td>
 				<td><img
-					src="${pageContext.request.contextPath}/memberImg/${map.fileName}"
-					style="width: 100px; height: 100px;"></td>
+					src="${map.fileName}"
+					style="width: 200px; height: 200px;"></td>
 			<tr>
 				<td>강사아이디</td>
 				<td>${map.memberId}</td>
