@@ -121,8 +121,7 @@ public class MemberService implements UserDetailsService {
             }
 
             // 컨텍스트 path 가져오기
-            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-            String contextPath = attr.getRequest().getContextPath();
+            String contextPath = servletContext.getContextPath();
 
             memberImg.setFileName(contextPath + "/memberUpload/" + fileName);
 
