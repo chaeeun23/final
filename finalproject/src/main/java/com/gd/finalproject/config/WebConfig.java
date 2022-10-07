@@ -11,7 +11,8 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler(connectPath)
+        registry.addResourceHandler(connectPath,"/memberImg/**")
                 .addResourceLocations(resourcePath);
+
     }
 }
