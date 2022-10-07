@@ -111,9 +111,7 @@ public class MemberService implements UserDetailsService {
 
             Path path = null;
             try {
-                String realPath = servletContext.getRealPath("/");
-                log.info("realPath = {}", realPath);
-                path = Paths.get(realPath);
+                path = Paths.get("/home/ubuntu/final/finalproject/src/main/webapp/mainImg");
                 if (!Files.exists(path)) {
                     Files.createDirectories(path);
                 }
