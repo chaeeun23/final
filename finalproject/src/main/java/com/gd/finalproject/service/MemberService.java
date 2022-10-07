@@ -111,7 +111,7 @@ public class MemberService implements UserDetailsService {
 
             Path path = null;
             try {
-                String realPath = servletContext.getRealPath("/memberUpload");
+                String realPath = servletContext.getRealPath("/");
                 log.info("realPath = {}", realPath);
                 path = Paths.get(realPath);
                 if (!Files.exists(path)) {
