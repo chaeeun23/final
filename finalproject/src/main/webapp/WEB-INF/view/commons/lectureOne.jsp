@@ -46,7 +46,7 @@
   text-decoration: none;
   outline: none;
   color: #fff;
-  background-color: #4CAF50;
+  background-color: #2c3e50;
   border: none;
   border-radius: 13px;
 }
@@ -60,7 +60,7 @@
   text-decoration: none;
   outline: none;
   color: #fff;
-  background-color: #4CAF50;
+  background-color: #2c3e50;
   border: none;
   border-radius: 13px;
 }
@@ -151,7 +151,7 @@
 		</tr>
 	</table>
 	
-		<!-- 회원만 가능 -->
+		<!-- 로그인한 사람 모두 가능 -->
 		<sec:authorize access="hasAnyAuthority('USER','EMPLOYEE','ADMIN')">
 			<a href="${pageContext.request.contextPath}/insertUserCart?lectureNo=${lectureOne.lectureNo}&userId=${member.memberId}" 
 				onclick="javascript:btAn()" type="button" class="btn btn-primary" style="width:100px; float:right;" >장바구니</a>
@@ -180,8 +180,8 @@
 		<hr>
 	
   <!--  리뷰 입력 폼 -->
+  <form action="" method="POST" id="addReview">
     <div>
-    <form></form>
     	<input type="hidden" name="reviewWriter" id="reviewWriter" value="${member.memberId}">&nbsp;&nbsp;&nbsp;&nbsp;리뷰 작성자 : ${member.memberId}
     <br>
     <br>
@@ -199,7 +199,7 @@
         <button type="button" id="reviewInsertBtn" class="btn btn-primary" 
         		style="float:right; margin-right:10px;">등록</button>
     </c:if> 
-    
+    </form>
  	<br>
  	<br>
  	
@@ -209,6 +209,20 @@
     
     </div>	
     	
+	
+	<!--  수정 클릭시 -->
+	<form method="POST" id="updateReview">
+     <div class="updateForm" style="display: none" >
+           <textarea class="reviewUpdateContent form-control"
+                        style="height: 100px; resize: none;">${r.reviewContent}</textarea>
+          <div>
+              <button type="button" id="updateReviewBtn" class="btn btn-primary" 
+        		style="float:right; margin-right:10px;">수정</button>
+          </div>
+          <hr/>
+      </div> 
+      </form>
+	
 	
 </div>
 	
@@ -234,6 +248,7 @@ $(document).ready(function(){ 
 		if(json.length < 1){
 			a = "등록된 댓글이 없습니다.";
 		} else{
+           	a += '<div class="listForm">';
 			a += '<table class="table">';
         $(json).each(function(i, item){			// 리스트에서 뽑기
            	a += '<tr>';
@@ -260,7 +275,8 @@ $(document).ready(function(){ 
        		a += 	'</td>';              
        		a += '</tr>';    
        			});       
-       		a += '</table>';      
+       		a += '</table>'; 
+       		a += '</div>';    
        		      }     
 			  $("#reviewList").append(a);   
 		}
@@ -274,9 +290,9 @@ $(document).ready(function(){ 
 		const reviewContent = $('#reviewContent').val();
 		const lectureNo = $('#lectureNo').val(); 
 		const reviewWriter = $('#reviewWriter').val();
-	    alert(reviewWriter);
-	    alert(reviewContent);
-	    alert(lectureNo);
+	    // alert(reviewWriter);
+	    // alert(reviewContent);
+	    // alert(lectureNo);
 	   if(reviewWriter == ''){
 				alert('로그인 후 이용해주세요');
 				return;
@@ -287,36 +303,33 @@ $(document).ready(function(){ 
 	     $.ajax({
             type: "POST", 
             url: "/finalproject/addReview", 
-            headers: {'Content-Type': 'application/json'},
-            data: JSON.stringify({
+            dataType: "json",
+            data: {
             	reviewContent: reviewContent,
                 lectureNo: lectureNo,
                 reviewWriter: reviewWriter
-            }),
+            },
             success: function (data) { //성공시
-                reviewList(data);
-
+            	// alert('aaaaa');
+            	reviewList(data);
             },
             error: function (e) { //실패시
                 console.log(e);
             }
         });
+	     location.reload();
+	        return false;
 		}
 	}) 
 	
 	
-	/*	 
+		 
 	// 댓글 수정창 Form
-	$(document).on('click', '.cmUpdateBtnForm', function () {
+	$(document).on('click', '.updateReivewBtn', function () {
 	    $(this).parents('.listForm').css('display', 'none');
 	    $(this).parents('.listForm').next().css('display', '');
 	})
-	$(document).on('click', '.cmUpdateCancel', function () {
-	    $(this).parents('.updateForm').css('display', 'none');
-	    $(this).parents('.updateForm').prev().css('display', '');
-	})	
-		 */
-		
+
 	
 	// 리뷰 삭제	
 	$(document).on('click', '.removeReviewBtn', function (){
@@ -355,28 +368,7 @@ $(document).ready(function(){ 
 
 	</script>
 
-<%-- 
-			<!-- 수정 클릭시 --!>
-            <div class="updateForm" style="display: none">
-                <div class="form-floating flex-grow-1 px-2">
-                    <textarea class="reviewUpdateContent form-control"
-                              style="height: 100px; resize: none;">${r.reviewContent}</textarea>
-                    <div class="invalid-feedback">
-                        1자 이상 입력해주세요
-                    </div>
-                </div>
-                <div class="d-flex justify-content-end mt-2">
-                    <a lectureNo="${r.lectureNo}" reviewNo="${r.reviewNo}"
-                       class='reviewUpdateBtn btn btn-primary btn-sm mx-1'>등록</a>
-                    <a class='reviewUpdateCancel btn btn-primary btn-sm ms-1'>취소</a>
-                </div>
-                <hr/>
-            </div>
-            </div> --%>
-      
-    
-   </div> 
- 
+
 	<br>
 	<br>
 	

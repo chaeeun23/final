@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.gd.finalproject.commons.TeamColor;
 import com.gd.finalproject.mapper.ReviewMapper;
-import com.gd.finalproject.vo.Review;
 
 
 import lombok.extern.slf4j.Slf4j;
@@ -33,18 +32,15 @@ public class ReviewService {
 	}
 
 	// 리뷰 추가 (addReview - Action)
-	public List<Map<String, Object>> addReview(String reviewContent, String lectureNo, String reviewWriter) {
+	public int addReview(String reviewContent, String lectureNo, String reviewWriter) {
 		 // 넘겨온 값
 		 log.debug(TeamColor.MS + "ReviewService.addReview(reviewContent) : " + reviewContent);
 		 log.debug(TeamColor.MS + "ReviewService.addReview(lectureNo) : " + lectureNo);
 		 log.debug(TeamColor.MS + "ReviewService.addReview(reviewWriter) : " + reviewWriter);
-		 Map<String, Object> mapReivew = new HashMap<>();
-		 mapReivew.put("reviewContent", reviewContent);
-		 mapReivew.put("lectureNo", lectureNo);
-		 mapReivew.put("reviewWriter", reviewWriter);
+		
 		 
 		 // 리뷰 추가하기
-		 List<Map<String, Object>> add = reviewMapper.insertReview(mapReivew);
+		 int add = reviewMapper.insertReview(reviewContent, lectureNo, reviewWriter);
 		 log.debug(TeamColor.MS + "ReviewService.addReview(add) : " + add);
 		 
 		 return add;
@@ -58,15 +54,19 @@ public class ReviewService {
 	
 	
 	// 리뷰 삭제
-	public int deleteReivew(int reviewNo) {
+	public Map<String,Object> deleteReivew(int reviewNo) {
 		// 값 확인
 		 log.debug(TeamColor.MS + "ReviewService.removeReivew(reviewNo) : " + reviewNo);
 		 
 		 // 리뷰 삭제
-		 int remove = reviewMapper.deleteReview(reviewNo);
-		 log.debug(TeamColor.MS + "ReviewService.removeReivew(remove) : " + remove);
+		 int deleteReivew = reviewMapper.deleteReview(reviewNo);
+		 log.debug(TeamColor.MS + "ReviewService.removeReivew(remove) : " + deleteReivew);
 		
-		return remove;
+		 Map<String,Object> map = new HashMap<>();
+		 map.put("deleteReivew", deleteReivew);
+		 
+		 
+		return map;
 		}
 	
 	

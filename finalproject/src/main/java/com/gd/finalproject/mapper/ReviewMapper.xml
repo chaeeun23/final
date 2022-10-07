@@ -6,7 +6,6 @@
 		SELECT 
 			review_no reviewNo,
 			lecture_no lectureNo,
-			course_no courseNo,
 			review_writer reviewWriter,
 			review_content reviewContent,
 			DATE_FORMAT(create_date,'%Y-%m-%d %T') createDate
@@ -16,12 +15,10 @@
 	</select>
 	
 	<!-- 리뷰 추가(addReview) -->
-	<insert id="insertReview" parameterType="map" >
+	<insert id="insertReview" parameterType="com.gd.finalproject.vo.Review" >
 		INSERT INTO review 
-        	 (lecture_no, course_no, review_writer, review_content, create_date)
-     	 SELECT #{lectureNo}, #{courseNo}, #{reviewWriter}, #{reviewContent}, NOW()
-     	 FROM payment 
-     	 WHERE refund='N' AND course_no = #{courseNo} 
+        	 (lecture_no, review_writer, review_content, create_date)
+     	VALUES(#{lectureNo}, #{reviewWriter}, #{reviewContent}, NOW())
 	</insert>
 	
 	<!-- 리뷰 수정(updateReview) -->

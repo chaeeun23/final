@@ -37,8 +37,9 @@
 		<div class="col-sm-3">
 			<form class="form-inline" action="${pageContext.request.contextPath}/raceList" method="get">
 				<div class = "search-wrap" >
-					<input type="text" class="form-control search-input" name="keyword" style="text-align:center; margin-right:8px;" placeholder="경유지를 입력하세요.">
-					<button type="submit" class="btn btn-info search-btn" style="float:right;">검색</button>
+					<input type="text" class="form-control search-input" name="keyword" 
+						style="text-align:center; margin-left:30px; margin-right:8px;" placeholder="경유지를 입력하세요.">
+					<button type="submit" class="btn btn-primary search-btn" style="float:right;">검색</button>
 				</div>
 			</form>
 		</div>
