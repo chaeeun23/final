@@ -129,9 +129,10 @@ public class MemberService implements UserDetailsService {
             memberImgMapper.updateMemberImg(memberImg);
 
             try {
+                log.info(path + "/" + fileName);
                 mf.transferTo(new File(path + "/" + fileName));
             } catch (Exception e) {
-                e.printStackTrace();
+                log.error(path + "/" + fileName);
                 throw new RuntimeException();    // 트랜잭션 처리가 되도록 강제로 Runtime 예외(try 절을 강요하지 않는)발생
             }
         }
