@@ -111,7 +111,7 @@ public class MemberService implements UserDetailsService {
 
             Path path = null;
             try {
-                path = Paths.get("/home/ubuntu/final/finalproject/src/main/webapp/mainImg");
+                path = Paths.get("/home/ubuntu/final/finalproject/src/main/webapp/memberUpload");
                 if (!Files.exists(path)) {
                     Files.createDirectories(path);
                 }
