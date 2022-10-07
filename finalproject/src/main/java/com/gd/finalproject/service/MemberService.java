@@ -111,7 +111,7 @@ public class MemberService implements UserDetailsService {
 
             Path path = null;
             try {
-                path = Paths.get("/home/ubuntu/final/finalproject/src/main/webapp/memberUpload");
+                path = Paths.get("/home/ubuntu/image");
                 if (!Files.exists(path)) {
                     Files.createDirectories(path);
                 }
@@ -123,15 +123,12 @@ public class MemberService implements UserDetailsService {
             String contextPath = servletContext.getContextPath();
 
             memberImg.setFileName(contextPath + "/memberUpload/" + fileName);
-            log.info(path + "/" + fileName);
             // 파일 객체 전달해서 파일정보 insert
             memberImgMapper.updateMemberImg(memberImg);
 
             try {
-                log.info(path + "/" + fileName);
                 mf.transferTo(new File(path + "/" + fileName));
             } catch (Exception e) {
-                log.error(path + "/" + fileName);
                 throw new RuntimeException();    // 트랜잭션 처리가 되도록 강제로 Runtime 예외(try 절을 강요하지 않는)발생
             }
         }
