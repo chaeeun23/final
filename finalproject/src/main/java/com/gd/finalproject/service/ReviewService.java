@@ -47,12 +47,6 @@ public class ReviewService {
 	}
 
 	
-	// 리뷰 수정
-	
-	
-	
-	
-	
 	// 리뷰 삭제
 	public Map<String,Object> deleteReivew(int reviewNo) {
 		// 값 확인

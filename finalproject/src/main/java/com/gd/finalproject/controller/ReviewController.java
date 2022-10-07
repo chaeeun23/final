@@ -52,7 +52,7 @@ public class ReviewController {
 		int addReview = reviewService.addReview(reviewContent, lectureNo, reviewWriter);
 		
 		log.debug(TeamColor.MS + "ReviewController.addReview(insertReview) : " + addReview);
-		
+	
 		 
 		return addReview;
 	}
@@ -74,17 +74,6 @@ public class ReviewController {
 		list.add(removeReivew);
 		log.debug(TeamColor.MS + "ReviewService.removeReivew(list) : " + list);
 		
-		/*
-		// ajax Json에 보낼 메시지
-		String returnJson;
-		
-		// 리턴값이 false일 경우 가능
-		if(removeReivew != 0) {
-			returnJson = "y";
-		} else {
-			returnJson = "n";
-		}  
-		*/
 		return list;
 	}
 		

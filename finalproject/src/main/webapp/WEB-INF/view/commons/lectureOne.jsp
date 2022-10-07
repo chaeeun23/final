@@ -210,19 +210,6 @@
     </div>	
     	
 	
-	<!--  수정 클릭시 -->
-	<form method="POST" id="updateReview">
-     <div class="updateForm" style="display: none" >
-           <textarea class="reviewUpdateContent form-control"
-                        style="height: 100px; resize: none;">${r.reviewContent}</textarea>
-          <div>
-              <button type="button" id="updateReviewBtn" class="btn btn-primary" 
-        		style="float:right; margin-right:10px;">수정</button>
-          </div>
-          <hr/>
-      </div> 
-      </form>
-	
 	
 </div>
 	
@@ -268,8 +255,7 @@ $(document).ready(function(){ 
        		a += 	'<td class="text-right" width="300px">';                
        		a += 		'<div class="review_text">';                
        		a += 		'<p>';             
-       		a += 		'<button type="button" class="removeReviewBtn" id="removeReivew" style="float:right; margin-right:50px;"" value="'+ item.reviewNo+'">삭제</button>';             
-       		a += 		'<button type="button" class="updateReivewBtn" id="updateReivew" style="float:right; margin-right:10px;" value="'+ item.reviewNo+'">수정</button>';           
+       		a += 		'<button type="button" class="removeReviewBtn" id="removeReivew" style="float:right; margin-right:50px;"" value="'+ item.reviewNo+'">삭제</button>';                    
        		a += 		'</p>';             
        		a += 	'</div>';               
        		a += 	'</td>';              
@@ -310,7 +296,6 @@ $(document).ready(function(){ 
                 reviewWriter: reviewWriter
             },
             success: function (data) { //성공시
-            	// alert('aaaaa');
             	reviewList(data);
             },
             error: function (e) { //실패시
@@ -323,13 +308,6 @@ $(document).ready(function(){ 
 	}) 
 	
 	
-		 
-	// 댓글 수정창 Form
-	$(document).on('click', '.updateReivewBtn', function () {
-	    $(this).parents('.listForm').css('display', 'none');
-	    $(this).parents('.listForm').next().css('display', '');
-	})
-
 	
 	// 리뷰 삭제	
 	$(document).on('click', '.removeReviewBtn', function (){
@@ -343,8 +321,7 @@ $(document).ready(function(){ 
 	            dataType: "json",
 	            data: {reviewNo : reviewNo}, // 이름, 값
 	            success: function (data) {
-	            	// alert('7777');   
-	            	alert('삭제 성공!');  
+	            	alert('리뷰 삭제 성공!');  
 	            	reviewList(data);
 	            }
 	        });

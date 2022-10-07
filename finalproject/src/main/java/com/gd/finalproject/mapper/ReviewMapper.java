@@ -16,9 +16,6 @@ public interface ReviewMapper {
 	// 리뷰 추가
 	int insertReview(@Param("reviewContent") String reviewContent, @Param("lectureNo") String lectureNo, @Param("reviewWriter") String reviewWriter);
 	
-	// 리뷰 수정
-	int updateReview(@Param("reviewNo") int reviewNo);
-	
 	// 리뷰 삭제
 	int deleteReview(@Param("reviewNo") int reviewNo);
 }

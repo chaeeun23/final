@@ -21,14 +21,6 @@
      	VALUES(#{lectureNo}, #{reviewWriter}, #{reviewContent}, NOW())
 	</insert>
 	
-	<!-- 리뷰 수정(updateReview) -->
-	<update id="updateReview" parameterType="com.gd.finalproject.vo.Review">
-		UPDATE review 
-		SET review_content = #{reviewContent},
-			create_date = #{createDate}
-		WHERE review_no = #{reviewNo}
-	</update>
-	
 	<!-- 리뷰 삭제(deleteReview) -->
 	<delete id="deleteReview" parameterType="int">
 		DELETE FROM review WHERE review_no=#{reviewNo}
