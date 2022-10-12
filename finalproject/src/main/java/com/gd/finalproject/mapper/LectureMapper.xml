@@ -116,10 +116,6 @@
 		WHERE lecture_no=#{lectureNo}
 	</update>
 	
-<!-- 	 리뷰 삭제(deleteReview) 
-	<delete id="deleteReview" parameterType="string">
-		DELETE FROM review WHERE lecture_no=#{lectureNo}
-	</delete> -->
 	
  	<!-- 강좌 요일 삭제(deleteDayLecture) -->
 	<delete id="deleteLectureDay" parameterType="string">

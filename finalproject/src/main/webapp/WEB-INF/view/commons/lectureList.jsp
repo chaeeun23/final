@@ -36,12 +36,18 @@
 		<form name="search-form" autocomplete="off" style="float:right;  margin-right:50px;" >
 			<select name="type" id="option" onchange="chageSelect()" style="text-align:center;   width: 200px; font-family: inherit;  
 			border: 1px solid #999; border-radius: 5px;  -webkit-appearance: none; -moz-appearance: none; appearance: none;">
-				<option value="">전체</option>
-				<option value="swimming">수영</option>
-				<option value="aerobic">에어로빅</option>
-				<option value="ping-pong">탁구</option>
-				<option value="tennis">테니스</option>
-				<option value="pilates">필라테스</option>
+				<option value="" 
+					<c:if test="${lectureName eq ''}">selected</c:if>>전체</option>
+				<option value="수영"
+					<c:if test="${lectureName eq '수영'}">selected</c:if>>수영</option>
+				<option value="에어로빅"
+					<c:if test="${lectureName eq '에어로빅'}">selected</c:if>>에어로빅</option>
+				<option value="탁구"
+					<c:if test="${lectureName eq '탁구'}">selected</c:if>>탁구</option>
+				<option value="테니스"
+					<c:if test="${lectureName eq '테니스'}">selected</c:if>>테니스</option>
+				<option value="필라테스"
+					<c:if test="${lectureName eq '필라테스'}">selected</c:if>>필라테스</option>
 			</select>
 		</form>
 	</div>
@@ -127,9 +133,12 @@
 </div>
 
 	<script type="text/javascript">
-		$("#type").on("change", (e) => {
-		    location.href = createUrl('', '', e.target.value);
-		})
+
+	   $("#option").on("change", (e) => {
+		   var type = $("#option").val();
+		   var currentPage = "${pageNation.currentPage}";
+	       location.href = "${pageContext.request.contextPath}/lectureList?currentPage="+currentPage+"&type="+type;
+	   })
 	</script>
 	
 	

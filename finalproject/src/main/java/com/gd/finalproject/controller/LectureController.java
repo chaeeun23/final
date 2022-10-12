@@ -27,11 +27,12 @@ public class LectureController {
 	@GetMapping("/lectureList")		
 	public String lectureList(Model model,
 			@RequestParam(required = false, value = "current") String current,
-			@RequestParam(required = false, value = "type") String type,
+			@RequestParam(required = false, value = "type", defaultValue="") String type,
             @ModelAttribute("check") String check) {
 	Map<String,Object> lectureList = lectureService.getLectureList(current, type);
 		log.debug(TeamColor.MS + "LectureController.lectureList : " + lectureList);
 		lectureList.forEach((key, value) -> model.addAttribute(key, value));
+		model.addAttribute("lectureName", type);
 		return "/commons/lectureList";		// 경로
 	}
 	
