@@ -213,6 +213,7 @@
             return new Error();
         }).then(data => {
             code = data;
+            document.querySelector('#email').classList.remove('is-invalid');
             document.querySelector('#emailData').classList.remove('is-invalid');
             document.querySelector('#emailData').className += ' is-valid';
             document.querySelector('#emailCheckNum').removeAttribute('readonly');
