@@ -25,6 +25,7 @@
 	<table class="table table-bordered" style="text-align:center;" >
 		<tr> 
 			<td>강좌번호</td>
+			<c:if test="${lectureList.lectureNo} eq lectureNo"><input onclick="javascript:btAn()"></c:if>
 			<td><input type="text" id="lectureNo" name="lectureNo"></td>
 		</tr>
 		<tr> 
@@ -194,6 +195,11 @@
 			}
 		});
 
+		
+		
+		function btAn(){
+	        alert('이미 있는 강좌번호입니다.');
+	    }
 		
 		
 	</script>

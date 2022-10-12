@@ -14,10 +14,10 @@ import com.gd.finalproject.vo.Location;
 @Mapper
 public interface LectureMapper {
 	// 강좌 리스트(lectureList)
-	List<Lecture> selectLectureList(@Param("beginRow") int beginRow, @Param("rowPerPage") int rowPerPage);
+	List<Lecture> selectLectureList(@Param("beginRow") int beginRow, @Param("rowPerPage") int rowPerPage, @Param("type") String type);
 	
 	// 강좌 리스트(lectureList) 페이징-Total
-	int getLectureTotal();
+	int getLectureTotal(@Param("type") String type);
 
 	// 강좌 상세페이지(lectureListOne), 강좌 수정(updateLecture) - Form
 	Map<String,Object> selectLectureOne(@Param("lectureNo") String lectureNo);

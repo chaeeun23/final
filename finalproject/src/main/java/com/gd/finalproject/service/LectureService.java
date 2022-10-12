@@ -29,9 +29,9 @@ public class LectureService {
     @Autowired ReviewMapper reviewMapper;
 
     // 강좌 리스트(lectureList)
-    public Map<String, Object> getLectureList(String current) {
+    public Map<String, Object> getLectureList(String current, String type) {
         // 페이지네이션 총 갯수
-        int total = lectureMapper.getLectureTotal();
+        int total = lectureMapper.getLectureTotal(type);
         log.debug(TeamColor.MS + "LectureService(total) : " + total);
 
         // 만들어논 메서드
@@ -40,7 +40,7 @@ public class LectureService {
 
         // lectureList 가져오기
         List<Lecture> lectureList = lectureMapper.selectLectureList(pageNation.getBeginRow(),
-                pageNation.getRowPerPage());
+                pageNation.getRowPerPage(),type);
         log.debug(TeamColor.MS + "LectureService(lectureList) : " + lectureList);
 
         // 객체 생성후 넣기
@@ -69,6 +69,7 @@ public class LectureService {
 		// 강사
 		List<Instructor> instructor = lectureMapper.selectInstructor();
 		log.debug(TeamColor.MS + "LectureService.addLectureForm(instructor) : " + instructor);
+		
 		
 		// 객체 생성 후 객체에 값 넣기
 		Map<String, Object> map = new HashMap<>();

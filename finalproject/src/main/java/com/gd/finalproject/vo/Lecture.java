@@ -18,4 +18,5 @@ public class Lecture {
 	private String lectureStartDate; //개강일
 	private String lectureEndDate; //종강일
 	
+	
 }

@@ -29,40 +29,64 @@
 	<sec:authorize access="hasAnyAuthority('EMPLOYEE','ADMIN')">
 		<a href="${pageContext.request.contextPath }/addLecture" class="btn btn-primary"  style="width:100px; float:right; ">강좌 추가</a>
 	</sec:authorize>
+	
 	</div>
+	
+	<div>
+		<form name="search-form" autocomplete="off" style="float:right;  margin-right:50px;" >
+			<select name="type" id="option" onchange="chageSelect()" style="text-align:center;   width: 200px; font-family: inherit;  
+			border: 1px solid #999; border-radius: 5px;  -webkit-appearance: none; -moz-appearance: none; appearance: none;">
+				<option value="">전체</option>
+				<option value="swimming">수영</option>
+				<option value="aerobic">에어로빅</option>
+				<option value="ping-pong">탁구</option>
+				<option value="tennis">테니스</option>
+				<option value="pilates">필라테스</option>
+			</select>
+		</form>
+	</div>
+	
+	
+	
 	
 	<br>
 	<br>
 	
 	<div>
-	<table class="table table-bordered" style="text-align:center; vertical-align:middle;">
-		<tr>
-			<th>강좌번호</th>
-			<th>강사이름</th>
-			<th>강좌명</th>
-			<th>수강요일</th>
-			<th>수강인원</th>
-			<th>수업시간</th>
-			<th>개강일</th>
-			<th>종강일</th>
-		</tr>
+	<table class="table table-bordered" style="text-align:center; vertical-align:middle;" id="lectureList">
+			<thead>
+				<tr>
+					<th>강좌번호</th>
+					<th>강사이름</th>
+					<th>강좌명</th>
+					<th>수강요일</th>
+					<th>수강인원</th>
+					<th>수업시간</th>
+					<th>개강일</th>
+					<th>종강일</th>
+				</tr>
+			</thead>
 		<c:forEach var="l" items="${lectureList}">
-			<tr>
-				<td>${l.lectureNo}</td>
-				<td>${l.memberName}</td>
-				<td>
-				<a href="${pageContext.request.contextPath}/lectureOne?lectureNo=${l.lectureNo}" class="btn btn-primary"  style="width:100px;">
-				${l.lectureName}</a></td>
-				<td>${l.lectureDay}</td>
-				<td>${l.lectureLimited}</td>
-				<td>${l.lectureTime}</td>
-				<td>${l.lectureStartDate}</td>
-				<td>${l.lectureEndDate}</td>
-			</tr>
+			<tbody>
+				<tr>
+					<td>${l.lectureNo}</td>
+					<td>${l.memberName}</td>
+					<td>
+					<a href="${pageContext.request.contextPath}/lectureOne?lectureNo=${l.lectureNo}" class="btn btn-primary"  style="width:100px;">
+					${l.lectureName}</a></td>
+					<td>${l.lectureDay}</td>
+					<td>${l.lectureLimited}</td>
+					<td>${l.lectureTime}</td>
+					<td>${l.lectureStartDate}</td>
+					<td>${l.lectureEndDate}</td>
+				</tr>
+			</tbody>
 		</c:forEach>
 	</table>
 	</div>
 	
+	<br>
+	<br>
 	
 	<div>
 	<%-- 페이지네이션 --%>
@@ -101,6 +125,16 @@
 	
 	
 </div>
+
+	<script type="text/javascript">
+		$("#type").on("change", (e) => {
+		    location.href = createUrl('', '', e.target.value);
+		})
+	</script>
+	
+	
+	<br>
+
 
 	<!-- footer -->
 	<div>
