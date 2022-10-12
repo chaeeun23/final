@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,9 +58,10 @@ th {
 		</table>
 		<a class="btn btn-primary" href="${pageContext.request.contextPath}/noticeList/" style="float:right; margin-left:10px">목록</a>
 		<!-- 관리자만 수정,삭제 가능버튼 보임 -->
+		<sec:authorize access="hasAnyAuthority('ADMIN', 'EMPLOYEE')">
 		<a class="btn btn-primary" href="${pageContext.request.contextPath}/removeNotice?noticeNo=${noticeOne.noticeNo}&fileName=${noticeOne.fileName}" style="float:right; margin-left:10px">삭제하기</a>
 		<a class="btn btn-primary" href="${pageContext.request.contextPath}/modifyNotice?noticeNo=${noticeOne.noticeNo}&fileName=${noticeOne.fileName}" style="float:right; margin-left:10px" >수정하기</a>
-		
+		</sec:authorize>
 		<br>
 		<br>
 	</div><!-- 공지사항 상세보기 END -->
