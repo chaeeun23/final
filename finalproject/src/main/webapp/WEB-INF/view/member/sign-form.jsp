@@ -197,7 +197,13 @@
 
     document.querySelector('#emailCheckBtn').addEventListener('click', function (ev) {
         let email = document.querySelector('#emailData').value.trim();
+        let regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
         if (email == '') {
+            document.querySelector('#emailData').className += ' is-invalid';
+            document.querySelector('#emailData').removeAttribute('readonly');
+            return
+        }
+        if(!email.match(regExp)){
             document.querySelector('#emailData').className += ' is-invalid';
             document.querySelector('#emailData').removeAttribute('readonly');
             return

@@ -15,6 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 import static com.gd.finalproject.valid.ValidationGroups.*;
 
@@ -49,7 +50,9 @@ public class AnonymousController {
     //이메일체크
     @ResponseBody
     @GetMapping("/email-check")
-    public ResponseEntity<String> emailCheck(@RequestParam("memberEmail") @NotBlank String email) throws Exception {
+    public ResponseEntity<String> emailCheck(@RequestParam("memberEmail")
+                                             @Pattern(regexp = "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$")
+                                             @NotBlank String email) throws Exception {
         String code = mailService.mailCheck(email);
         return ResponseEntity.ok(code);
     }

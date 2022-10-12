@@ -50,10 +50,10 @@ public class SecurityConfig {
                 // 로그인 관련
                 .formLogin(form -> form
                         .loginPage("/anonymous/login-form") // 로그인페이지 주소
-                        .loginProcessingUrl("/user/login") // 로그인 검증할 url
+                        .loginProcessingUrl("/anonymous/login") // 로그인 검증할 url
                         .successHandler(loginSucHandler)
                         .failureHandler(loginFailHandler) // 실패시 이동할 url
-                        .permitAll())
+                      )
                 // 카카오 로그인 관련
                 .oauth2Login(oauth -> oauth.loginPage("/anonymous/login-form")
                         .successHandler(kakaoLoginSucHandler)
@@ -70,7 +70,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session
                         .maximumSessions(5) // 최대 허용 세션 수
                         .maxSessionsPreventsLogin(false)
-                        .expiredUrl("/user/login-form")
+                        .expiredUrl("/anonymous/login-form")
                 )
                 .cors().and()
                 // csrf란

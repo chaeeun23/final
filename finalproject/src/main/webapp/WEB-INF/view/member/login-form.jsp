@@ -18,7 +18,7 @@
     <c:import url="/WEB-INF/resource/inc/header.jsp"></c:import>
 </div>
 <div class="d-flex justify-content-center container " style="height: 600px">
-    <form method="post" action="${pageContext.request.contextPath}/user/login"
+    <form method="post" action="${pageContext.request.contextPath}/anonymous/login"
           class=" w-75 border p-5 mt-5  bg-white shadow rounded align-self-center">
         <div class=" text-center">
             <h3 class="ms-20 fw-bold mb-5 ">Log In</h3>
