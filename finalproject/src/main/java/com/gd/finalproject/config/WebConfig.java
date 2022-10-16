@@ -6,12 +6,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
-    private String connectPath = "/memberUpload/**";
     private String resourcePath = "file:/home/ubuntu/image/";
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler(connectPath,"/memberImg/**")
+        registry.addResourceHandler("/memberUpload/**", "/memberImg/**", "/noticeFileUpload/**")
                 .addResourceLocations(resourcePath);
 
     }
