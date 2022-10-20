@@ -32,21 +32,10 @@ public class SecurityConfig {
                 .authenticationProvider(loginAuthProvider)
                 // 요청 url 권한관련
                 .authorizeRequests(auth -> auth
-                                .antMatchers("/mainImg/**").permitAll()
-                                .antMatchers("/memberImg/**").permitAll()
-                                .antMatchers("/resources/**").permitAll()
-                                .antMatchers("/resource/**").permitAll()
                                 .antMatchers("/anonymous/**").anonymous()
                                 .antMatchers("/admin/**").hasAuthority("ADMIN")
                                 .antMatchers("/member/**").hasAuthority("USER")
-                     .antMatchers("/**").permitAll()
-//                                .anyRequest().authenticated()
-//                                .antMatchers("/home").permitAll()// 그외 모든 요청 인증 되어야 한다
-                        //        .antMatchers("/**").permitAll() // 임시로 모든 권한 오픈
-                        /*.antMatchers("/resources/**").permitAll() // 리소스 허용
-                        .antMatchers("/resource/**").permitAll() // 리소스 허용
-                        .antMatchers("/home").permitAll()
-                        .antMatchers("/강사/**").hasAnyAuthority("TEACHER", "ADMIN")*/)
+                     .antMatchers("/**").permitAll())
                 // 로그인 관련
                 .formLogin(form -> form
                         .loginPage("/anonymous/login-form") // 로그인페이지 주소

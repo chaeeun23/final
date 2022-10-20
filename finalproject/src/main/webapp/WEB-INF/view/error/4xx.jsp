@@ -27,11 +27,7 @@
             입력하신 주소가 정확한지 다시 한번 확인해 주시기 바랍니다.
         </p>
 
-        status : ${status}
-        <br/>
-        error : ${error}
-        <br/>
-        stacktrace : ${trace}
+
     </div>
 </div>
 

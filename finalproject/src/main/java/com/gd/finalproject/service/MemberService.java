@@ -143,7 +143,7 @@ public class MemberService implements UserDetailsService {
         return row;
     }
 
-
+    //3개월 비밀번호 변경 요청
     public boolean pwChangeDateCheck(LocalDateTime pwChangeDate) {
         LocalDateTime minusDays = LocalDateTime.now().minusMonths(3).minusDays(1);
         return minusDays.isAfter(pwChangeDate);

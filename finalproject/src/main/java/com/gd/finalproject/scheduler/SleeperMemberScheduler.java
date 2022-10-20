@@ -25,7 +25,4 @@ public class SleeperMemberScheduler {
         memberMapper.sleepMemberUpdate(date);
         log.info("휴면 계정 업데이트 완료");
     }
-
-    // 매일 오전7시
-    //
 }

@@ -15,23 +15,14 @@
     </div>
     <div style="padding: 50px 50px 0 100px">
 
-        <h4 class="test-center">죄송합니다</h4>
-        <h4 class="test-center">요청하신 페이지를 찾을 수 없습니다</h4>
-
+        <h3 class="test-center">죄송합니다.</h3>
+        <h4 class="test-center">서버스 이용에 불편을 드려 죄송합니다.</h4>
         <p>
-            방문하시려는 페이지의 주소가 잘못 입력되었거나,
+            시스템 에러가 발생하여 페이지를 표시할 수 없습니다.
             <br>
-            페이지의 주소가 변경 혹은 삭제되어 요청하신 페이지를 찾을 수 없습니다.
-            <br>
-            <br>
-            입력하신 주소가 정확한지 다시 한번 확인해 주시기 바랍니다.
+            관리자에게 문의하시거나 잠시 후 다시 시도해주세요.
         </p>
 
-    status : 500
-    <br/>
-    error : ${error}
-    <br/>
-    stacktrace : ${exception}
 </div>
 </div>
 </body>
